@@ -13,6 +13,10 @@
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 "PingFang SC", "Microsoft YaHei", sans-serif; }
   main { max-width: 760px; margin: 0 auto; padding: 20px 16px 60px; }
+  .brand { display: flex; align-items: center; gap: 18px; padding: 18px; margin-bottom: 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; }
+  .brand img { width: 128px; height: 128px; flex: none; object-fit: contain; background: var(--bg); border-radius: 14px; }
+  .brand .eyebrow { color: var(--gold); font-size: 12px; margin-bottom: 4px; }
+  .brand .hint { margin-top: 8px; }
   h1 { font-size: 20px; margin: 0 0 4px; } h2 { font-size: 16px; margin: 28px 0 8px; }
   .hint { color: var(--dim); font-size: 12px; }
   .bar { position: sticky; top: 0; background: var(--bg); padding: 10px 0; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; z-index: 2; border-bottom: 1px solid var(--line); }
@@ -47,6 +51,7 @@
   #manual-mods { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 10px 0; }
   #manual-mods label { display: flex; gap: 6px; align-items: center; }
   @media (max-width: 560px) {
+    .brand { gap: 12px; padding: 12px; } .brand img { width: 88px; height: 88px; }
     .slot { grid-template-columns: 30px 1fr 1fr; }
     .slot > :last-child { grid-column: 1 / -1; }
   }
@@ -54,8 +59,13 @@
 </head>
 <body>
 <main>
-  <h1>NABO 工具箱 · 配置</h1>
-  <div class="hint">编辑快捷键和名片。保存到浏览器可同步原型；安装支持配置功能的固件后，用 USB 数据线连接工牌，通过 Chrome 或 Edge 写入和读回，不需要联网。选择串口可能让工牌重启。</div>
+  <header class="brand">
+    <img src="../sprites/master/base/00.png" width="128" height="128" alt="戴白帽和圆框眼镜的 NABO，穿白大褂陪你配置工具箱">
+    <div><div class="eyebrow">离线蓝牙遥控 · 随身工具箱</div>
+      <h1>NABO 工具箱 · 配置</h1>
+      <div class="hint">编辑快捷键和名片。用 USB 数据线连接工牌，通过电脑 Chrome 或 Edge 写入和读回。配置保存在工牌，断电保留；选择串口可能让工牌重启。</div>
+    </div>
+  </header>
   <nav class="row" aria-label="配置导航">
     <a href="#groups-section">快捷键</a><a href="#cards-section">名片 / Wi-Fi 二维码</a>
     <a href="#help">使用说明</a><a href="https://github.com/Liutupi/nabo-toolkit/releases">下载固件</a>

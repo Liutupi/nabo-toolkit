@@ -351,3 +351,5 @@ Windows用户确认重新配对、粘贴和音量正常：**dev2 Windows配对/�
 用户明确授权更新GitHub、将同一仓库改为公开、发布新固件及配置页。沿用main及全部既有成果。版本标为 `v0.3.0-f3-dev3` 公开测试版，发布精确已验收app，不用新编译产物替代，也不提供可能覆盖旧表的合并镜像。发布包包含受保护的app-only升级脚本、manifest、SHA256、验收说明、许可和离线配置页；不包含设备读取产物、NVS、原始日志或个人配置。
 
 配置网页使用白名单构建到build/pages，由GitHub Pages部署。首页直接显示编辑器，顶部可直达快捷键、名片/Wi-Fi及说明。用户以Chrome/Edge+USB连接，先读回、编辑，再“写入工牌并核对”；无需开发环境。Wi-Fi仅编码二维码，工牌不联网；密码不上传配置服务器，但包含在工牌/导出文件里。计划入口：https://liutupi.github.io/nabo-toolkit/ 。部署及下载验证结果另记 `validation/publication-v0.3.0-f3-dev3.json`，在成功前不声称已公开可用。
+
+用户追加要求配置页显示NABO形象：页头直接复用原 `sprites/master/base/00.png` RGBA母版，帽标/方向不变，无重生成。网页与离线包使用同一白名单复制，nabo.png逐字节等于原母版。固件tag/已验收app保持不变；配置页后续提交单独记入发布manifest。

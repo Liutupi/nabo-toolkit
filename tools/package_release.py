@@ -20,6 +20,7 @@ def main():
     ap.add_argument('--archive', type=Path, required=True)
     ap.add_argument('--version', required=True)
     ap.add_argument('--commit', required=True)
+    ap.add_argument('--configuration-commit', help='Separate configuration-page commit; firmware tag remains unchanged')
     args = ap.parse_args()
     accepted = json.loads((ROOT / 'docs/validation/f3.json').read_text(encoding='utf-8'))
     if args.version != 'v' + accepted['version']:
@@ -54,7 +55,8 @@ def main():
             files['configuration/' + path.name] = path.read_bytes()
     members = {name: {'bytes': len(data), 'sha256': digest(data)} for name, data in sorted(files.items())}
     manifest = {'schema': 1, 'version': args.version, 'firmware_version': accepted['version'],
-                'source_commit': args.commit, 'sdk': 'v6.0.2', 'target': 'esp32c3',
+                'source_commit': args.commit, 'configuration_source_commit': args.configuration_commit or args.commit,
+                'sdk': 'v6.0.2', 'target': 'esp32c3',
                 'board': 'ai-passport-nabo', 'flash_bytes': 8388608, 'psram': False,
                 'release_type': 'public test; app-only upgrade',
                 'app': {'filename': 'nabo-toolkit-app.bin', **expected, 'offset': '0x10000'},
@@ -79,7 +81,7 @@ def main():
     (output / 'manifest.json').write_bytes(manifest_data)
     (output / 'nabo-toolkit-config-offline.zip').write_bytes((ROOT / 'build/config/nabo-toolkit-config-offline.zip').read_bytes())
     downloads = ('nabo-toolkit-app.bin', package_name, 'nabo-toolkit-config-offline.zip', 'manifest.json')
-    (output / 'SHA256SUMS.txt').write_text(''.join(f'{digest((output / name).read_bytes())}  {name}\n' for name in downloads), encoding='utf-8')
+    (output / 'SHA256SUMS.txt').write_text(''.join(f'{digest((output / name).read_bytes())}  {name}\n' for name in downloads), encoding='utf-8', newline='\n')
     with zipfile.ZipFile(output / package_name) as package:
         if set(package.namelist()) != set(files):
             raise ValueError('ZIP membership mismatch')

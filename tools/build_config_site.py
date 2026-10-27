@@ -23,6 +23,12 @@ def main():
     target.mkdir(parents=True, exist_ok=True)
     source = ROOT / 'game-art/toolkit/prototype'
     files = {name: (source / name).read_bytes() for name in ('config.html',) + SCRIPTS}
+    portrait = ROOT / 'game-art/toolkit/sprites/master/base/00.png'
+    html = files['config.html'].decode('utf-8')
+    if html.count('../sprites/master/base/00.png') != 1:
+        raise ValueError('Expected the approved original NABO portrait exactly once')
+    files['config.html'] = html.replace('../sprites/master/base/00.png', 'nabo.png').encode('utf-8')
+    files['nabo.png'] = portrait.read_bytes()
     files['index.html'] = files['config.html']
     files['.nojekyll'] = b''
     files['LICENSE'] = (ROOT / 'LICENSE').read_bytes()
@@ -51,8 +57,9 @@ def main():
     for name, data in sorted(files.items()):
         (target / name).write_bytes(data)
         entries[name] = {'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
-    manifest = {'schema': 1, 'entry': 'index.html', 'offline_entry': 'config.html', 'files': entries}
-    (target / 'site-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
+    manifest = {'schema': 1, 'entry': 'index.html', 'offline_entry': 'config.html',
+                'portrait_source': portrait.relative_to(ROOT).as_posix(), 'files': entries}
+    (target / 'site-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8', newline='\n')
     args.zip.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(args.zip, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
         for path in sorted(target.iterdir()):
