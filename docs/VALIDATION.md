@@ -2,10 +2,10 @@
 
 # Validation checkpoint — 2026-10-27
 
-Build: PASS  
-Host tests: PASS (40)  
-Device tests: PASS (flash/startup, Mac pairing/paste/volume, Mac connected memory); full F0 acceptance remains incomplete  
-Unverified: Windows/iPhone/Android pairing, repeated full boot-to-ready timing, other-system HID, full display/button acceptance, sleep and F1.
+- Build: PASS
+- Host tests: PASS (40)
+- Device tests: PASS (flash/startup, Mac pairing/paste/volume, Mac connected memory); full F0 acceptance remains incomplete
+- Unverified: Windows/iPhone/Android pairing, repeated full boot-to-ready timing, other-system HID, full display/button acceptance, sleep and F1.
 
 The complete gate `./tools/validate.sh` passed using **ESP-IDF 6.0.2** and an isolated configuration generated from tracked defaults. It includes 18 Node tests, 7 C probe/input tests, 8 sprite-codec tests, 7 flash-guard tests, JS golden determinism, diff whitespace checks, firmware build/merge/layout verification and immutable archive hash verification. SDK version follows this project's FIRMWARE_PLAN rather than the reusable skill's generic 5.5.3 default.
 

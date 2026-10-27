@@ -130,7 +130,7 @@ python3 -m http.server 8770 --directory game-art/toolkit/prototype
 
 用户已要求将**源码和全部素材**提交推送到私有 `Liutupi/nabo-toolkit` 的 `main`。具体提交看 `git log -1`，Windows 接续步骤与可复制开场白在 `docs/WINDOWS_CONTINUE.zh_CN.md`（英文配对文件同名无 zh_CN）。
 
-- **不用重生成素材**：七条 Grok 原片、七张确认起始图、历史尝试/原始输出/提示词/组装脚本、审片接触表、256 RGBA 母版、索引帧、八个二进制精灵和浏览器 atlas 都在仓库。`python tools/verify_assets.py` 检查 `docs/validation/assets.json` 的 364 份素材文件/90,980,641 字节，逐项 SHA256 与长度对照。`.gitattributes` 固定 LF 和二进制媒体，避免 Windows 换行破坏轨迹与素材校验。
+- **不用重生成素材**：七条 Grok 原片、七张确认起始图、历史尝试/原始输出/提示词/组装脚本、审片接触表、256 RGBA 母版、索引帧、八个二进制精灵和浏览器 atlas 都在仓库。`python tools/verify_assets.py` 检查 `docs/validation/assets.json` 的 364 份素材文件/90,980,640 字节，逐项 SHA256 与长度对照。`.gitattributes` 固定 LF 和二进制媒体，避免 Windows 换行破坏轨迹与素材校验。
 - **功能**：A1/A2 完成；F0 已运行工牌。用户确认 Mac 配对、粘贴、音量都正常；串口 5 次成功/0 失败。连接中堆至少 195,604 字节、最大块 114,688 字节，内存门槛通过。一次串口打开引起真实 USB 重启并自动回连，广播起算 701 ms；多轮“开机到就绪”精确计时仍待做，不能写成三轮都过。
 - **下次先测**：用户有 iPhone，今天下班未做；回 Windows 后先测 Windows/iPhone 配对与 HID、连接中内存、重复三秒重启回连，安卓仍需补。当前不开始 F1，除非用户明确修改 F0 验收范围。B2 语音、B6 风格板、第二批 Grok 动作、F3 固件美术仍待后续。
 - **设备注意**：factory 为 `0x10000/0x1f0000`，FAT assets 为 `0x200000/0x600000`，与构建计划表不同。当前只刷 app，保留旧表；原 bootloader 日志为 IDF 5.5.3，app 为 IDF 6.0.2。不要直接运行默认 `idf.py flash` 覆盖分区表；Windows 重新识别 COM 与芯片，不沿用 Mac 串口/私有 MAC 收据。串口打开会造成 USB_UART_CHIP_RESET，要计入测试副作用。

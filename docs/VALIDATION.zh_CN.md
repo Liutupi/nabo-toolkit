@@ -2,10 +2,10 @@
 
 # 验证记录 — 2026-10-27
 
-Build: PASS  
-Host tests: PASS（40 项）  
-Device tests: PASS（刷写/启动、Mac 配对/粘贴/音量、Mac 连接中内存）；完整 F0 验收未完成  
-Unverified: Windows/iPhone/安卓配对、重复开机到就绪三秒计时、其他系统 HID、完整屏幕/按键验收、休眠及 F1。
+- Build: PASS
+- Host tests: PASS（40 项）
+- Device tests: PASS（刷写/启动、Mac 配对/粘贴/音量、Mac 连接中内存）；完整 F0 验收未完成
+- Unverified: Windows/iPhone/安卓配对、重复开机到就绪三秒计时、其他系统 HID、完整屏幕/按键验收、休眠及 F1。
 
 已使用项目 FIRMWARE_PLAN 指定的 **ESP-IDF 6.0.2**，从受版本管理默认配置生成隔离配置，运行完整 `./tools/validate.sh` 通过。含 18 项 Node、7 项 C 探路/按键、8 项精灵、7 项刷写保护测试、JS 重录一致性、差异空白检查、构建/合并/分区验证及精确归档校验。未套用通用 skill 的 5.5.3 默认版本。
 
