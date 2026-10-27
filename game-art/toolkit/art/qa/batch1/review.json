@@ -1,0 +1,54 @@
+{
+  "status": "PASS_WITH_NOTES",
+  "method": "Human visual inspection of every 0.25-second contact-sheet sample plus full-size first/last and approved/first/last head panels. Automatic full decode and bounds analysis covers every frame. This is not human inspection of every decoded frame.",
+  "decoded_frames": 535,
+  "clips": [
+    {
+      "id": "00",
+      "source_sha256": "de3e382817dc99281e3b63ddbbbb3b5e50f3b938beeece5b80ca2d29dc2937c2",
+      "status": "PASS_WITH_NOTES",
+      "note": "Remote foreshortens toward the lens around 0.75–1.25 s and briefly approaches the lower face; eyes and cap remain visible. Retain original canvas."
+    },
+    {
+      "id": "01",
+      "source_sha256": "1bf6af1f9b181d7e425c31bbe3f84214ea395fe567b1783099a0e1daf9ad99ce",
+      "status": "PASS_WITH_NOTES",
+      "note": "Base nod returns close to the initial pose; accepted for the menu avatar."
+    },
+    {
+      "id": "02",
+      "source_sha256": "4a913ad9bc0fc5a0f29c5d55fec0078e9bdf09a98db6b27fd662608e98016dcb",
+      "status": "PASS_WITH_NOTES",
+      "note": "Brief open smile mid-clip; no persistent talking mouth; pointer stays attached."
+    },
+    {
+      "id": "03",
+      "source_sha256": "2ed2b659e561ec70e2bb14b1ccc0f9e9c7e8ac12dc10387d858c5eb5c393e1af",
+      "status": "PASS_WITH_NOTES",
+      "note": "Nod is deeper than the subtle brief, but glasses, cap and headset stay recognizable. No frame-by-frame recentering."
+    },
+    {
+      "id": "04",
+      "source_sha256": "024c54f3319a90327ecd2ab5efa5d9fb09308bf78d2f7f06c18000a35d8c8c0d",
+      "status": "PASS_WITH_NOTES",
+      "note": "Nod and gentle side sway with a cheerful squint; headset retained."
+    },
+    {
+      "id": "05",
+      "source_sha256": "c02747cd79be73a24db23156f14356af11430e2b2673f21dcc3add0f7c9341d3",
+      "status": "PASS_WITH_NOTES",
+      "note": "Camera and hands remain stable; no observed mirrored cap or lost prop."
+    },
+    {
+      "id": "06",
+      "source_sha256": "a09ef1516c5fe17b2e4c2759d4c77e03d4266c2748aa3abaf5f307b3c1b8fbf8",
+      "status": "PASS_WITH_NOTES",
+      "note": "Screwdriver retained; hands stay in frame; no observed mirrored cap."
+    }
+  ],
+  "unverified": [
+    "Physical LCD color/animation readability and frame rate",
+    "No generated boot voice supplied yet",
+    "Second action batch not generated"
+  ]
+}

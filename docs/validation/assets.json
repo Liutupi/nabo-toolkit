@@ -1,0 +1,1461 @@
+{
+  "version": 1,
+  "files": {
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1.sha256": {
+      "bytes": 95,
+      "sha256": "1d904187bbf80872c50acef36626ad367195f0d462cd6a3aac5c372f14e44c83"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1.zip": {
+      "bytes": 4219958,
+      "sha256": "35ce47007426412f60cdfa07338038b3080dfa223f871aa5f9d0e7e6791e214b"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/GROK_BATCH1.md": {
+      "bytes": 8880,
+      "sha256": "8ae0be6e3f75392c76d9d5cb58ed016648083c5b075fad7cc95bc51be05d8dd7"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/README.md": {
+      "bytes": 1637,
+      "sha256": "81540c8f3c77ad2758b1fa41a5f6767a6509f0260425be7da4c1b004734a717c"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/frames/S0R_remote.png": {
+      "bytes": 572286,
+      "sha256": "871335e37e1c11e28eaf040084fa48737a21175eef086cc5cde4cb6c33b42b5d"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/frames/S0_base.png": {
+      "bytes": 569236,
+      "sha256": "c586e7fea68f52d549aed5f70d0163c7bb8df1ea7b37c82decdefddaaab8d574"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/frames/S1_ppt.png": {
+      "bytes": 525479,
+      "sha256": "05b6ba1fcf1e9be1f909bb748e1a6ce9b5d6049a275877f8d2a8fb6b3efcfb50"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/frames/S2_meet.png": {
+      "bytes": 597147,
+      "sha256": "80a228dfd7717428ad24e193f6ccaff3af040fc364d6fcf8b57aad35fefce5a4"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/frames/S3_media.png": {
+      "bytes": 542210,
+      "sha256": "ede7c7fc137f6d67029997e4cb0dcd4bb0d7de9a2eef71acf964dd697ca2e17d"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/frames/S4_cam.png": {
+      "bytes": 578658,
+      "sha256": "78b4d020239741b40da9046b6120f0b571d63347343ebf4e0d3821af991bafd1"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/frames/S5_macro.png": {
+      "bytes": 547827,
+      "sha256": "b3bb4a52d9713050c7c8a683df04b5fa15f262e8074b3b7d35efcc918a6e47bd"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/manifest.json": {
+      "bytes": 2826,
+      "sha256": "cf00defab72a5fadb18d58d6416a589b51f0c7b7296895fb57c1889f71841358"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/preview.png": {
+      "bytes": 293770,
+      "sha256": "9ca25cea1b3f542cab7545d981b5b1da23ca8e42a9c05e6c0ee53b52e0cb5f02"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/prompts/00_welcome.txt": {
+      "bytes": 1102,
+      "sha256": "47527f871a7df0ffabd2496c6557bf92e115720fea235dc20fda34a178f5f9a7"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/prompts/01_idle_base.txt": {
+      "bytes": 820,
+      "sha256": "e77842cb77a4816e5792d1a9c7c4e81c62e71fb614ce6dc1331d1c615135ad9e"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/prompts/02_idle_ppt.txt": {
+      "bytes": 886,
+      "sha256": "2449bb1c2842d11e8b6c3d445db3a4c4d5c83f8c12136c97a4d6f92b9ea9f297"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/prompts/03_idle_meet.txt": {
+      "bytes": 862,
+      "sha256": "bd29152363bc08ac58b8a7ba73824cc919a2451dcf7dce7e90117ee4219529da"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/prompts/04_idle_media.txt": {
+      "bytes": 931,
+      "sha256": "08ac1b462ce3adc7d5fa4bb82bd808c666daa61255026c8e3671c157f9d82706"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/prompts/05_idle_cam.txt": {
+      "bytes": 886,
+      "sha256": "b2a74dde302152510a72d055845fd1f6ee5b0964c9fb614146ba616d3d533e2e"
+    },
+    "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1/prompts/06_idle_macro.txt": {
+      "bytes": 850,
+      "sha256": "c755e458e5d19ed8474f341b61fc9bf893711ecadc7c1da097f2899a6194cbbe"
+    },
+    "game-art/toolkit/art/design/r1/README.md": {
+      "bytes": 4148,
+      "sha256": "5a129fc61c28c501d5d7f1de3f54a73202e8602d98e64037a936def79e6241a0"
+    },
+    "game-art/toolkit/art/design/r1/README_attempts.md": {
+      "bytes": 1359,
+      "sha256": "e1e10ba4c615bf95e0afdc0698bbfc18dc1d54ae6694bb5e0815b5e18b42e3a9"
+    },
+    "game-art/toolkit/art/design/r1/S0R_remote.png": {
+      "bytes": 657538,
+      "sha256": "27d71d2f6078b816d5aa5df7fe16b9c3c0ccf2031139249916de2ed9398262e6"
+    },
+    "game-art/toolkit/art/design/r1/S0R_remote_cutout.png": {
+      "bytes": 793099,
+      "sha256": "9b92b0954249c5ab1b2cffad21942c86e83186d2e02e01b67962a329da85d20f"
+    },
+    "game-art/toolkit/art/design/r1/S0R_remote_prop.png": {
+      "bytes": 98934,
+      "sha256": "f41d719806e5da493cefd7b76e9f1853b3d7e244ae66e6316c9d787304a91e35"
+    },
+    "game-art/toolkit/art/design/r1/S0_attempt_1_rejected.png": {
+      "bytes": 1632767,
+      "sha256": "0d4a23e6a856ab1d38fc1342093a7a8df965f9b447ecd81b9b148d22b55c77f6"
+    },
+    "game-art/toolkit/art/design/r1/S0_attempt_2_rejected.png": {
+      "bytes": 1566819,
+      "sha256": "4568fdf9c77b482b513bddd5d42c6309ca34b20c859cba6914310740ee7d7701"
+    },
+    "game-art/toolkit/art/design/r1/S0_base.png": {
+      "bytes": 602977,
+      "sha256": "6aae3edb9fdced17b4b77d38b95e2ed3c86dd8bad63b3da0b5ab9914024c6d80"
+    },
+    "game-art/toolkit/art/design/r1/S0_base_cutout.png": {
+      "bytes": 731939,
+      "sha256": "29bd29055af72541a171aeadb26345f5a33b49f3e6f1fc1a070a9f17b6e5e815"
+    },
+    "game-art/toolkit/art/design/r1/S1_ppt_A.png": {
+      "bytes": 638172,
+      "sha256": "ac9aafe9189b5c5992e4263b0424d047f5f97c30243680320e553e1fe20b5d2d"
+    },
+    "game-art/toolkit/art/design/r1/S1_ppt_A_cutout.png": {
+      "bytes": 765297,
+      "sha256": "6b785b8e7e9dd8519afb6af914c9ba46ce359112b1bf1c4b052ede953ed684a6"
+    },
+    "game-art/toolkit/art/design/r1/S1_ppt_B.png": {
+      "bytes": 634244,
+      "sha256": "ae17ed01087f1076ae876b1f2a8ed166b0d199dcdbf9456c6af28ef949fdcb04"
+    },
+    "game-art/toolkit/art/design/r1/S1_ppt_B_cutout.png": {
+      "bytes": 759992,
+      "sha256": "b842f17b2219ea3068b6389dbf8872402934f3970b793d1afa26b564a270e8a3"
+    },
+    "game-art/toolkit/art/design/r1/assemble_r1.py": {
+      "bytes": 7596,
+      "sha256": "8f2f80a63adf2086d4a24754dc96a9bf49bf9c70554617ea3528fd7c6999ffdb"
+    },
+    "game-art/toolkit/art/design/r1/compare.png": {
+      "bytes": 461462,
+      "sha256": "fdc1a51a1227261460b506b2b44c25d358978d520a049fc26498e21bebc962f6"
+    },
+    "game-art/toolkit/art/design/r1/compare_v2.png": {
+      "bytes": 330121,
+      "sha256": "98e081f1e73ed05e4e45afa16d2fa006218cb09616e11e48b9a8bba6b2962210"
+    },
+    "game-art/toolkit/art/design/r1/comparison_attempts.png": {
+      "bytes": 599036,
+      "sha256": "6b51de0ea26426bebcd6bf7868318d034f58536d87cd8a6b5e6555de57edb30d"
+    },
+    "game-art/toolkit/art/design/r1/generated/S0R_remote_raw.png": {
+      "bytes": 1663883,
+      "sha256": "189b774d4665b1f2923b4d2147d62ff13eea4aa92fd8fdab9296dd585ba2fecf"
+    },
+    "game-art/toolkit/art/design/r1/generated/S1_ppt_A_raw.png": {
+      "bytes": 1609927,
+      "sha256": "bbb6b7a815cdcc649bd89508dc82524d97df76d5fee85cfb9b90723daad8f33a"
+    },
+    "game-art/toolkit/art/design/r1/generated/S1_ppt_B_raw.png": {
+      "bytes": 1648727,
+      "sha256": "e373e81729e7a4740b8966438f4ecf593d5ecc09980f5fdce785f8df133c60eb"
+    },
+    "game-art/toolkit/art/design/r1/generated/prompts.md": {
+      "bytes": 3664,
+      "sha256": "2dfd39dcf6c2788fbb610f47d91fc770f13a5895a84934a251678b4f49f6fff0"
+    },
+    "game-art/toolkit/art/design/r1/qa.json": {
+      "bytes": 1871,
+      "sha256": "b76b025f1c36de799eae206e3e8c8a0d9138e2e4d91dee39fad96a4746bc3daa"
+    },
+    "game-art/toolkit/art/design/r1/reference_left.png": {
+      "bytes": 34405,
+      "sha256": "bfb84d8acdf10362b79b27caeb84cda26499480a2bc53241d083d47d1dce0ba2"
+    },
+    "game-art/toolkit/art/design/r1/reference_left_cutout.png": {
+      "bytes": 36674,
+      "sha256": "21de5035073e778ef26c2358ad6acaf7dbc0c4301ff5c67cdc370aa9145a5292"
+    },
+    "game-art/toolkit/art/design/r1/small_check.png": {
+      "bytes": 130608,
+      "sha256": "6123d7837a994649441b2f287dd336590e1f0457d32c667131d3397164b1f1aa"
+    },
+    "game-art/toolkit/art/design/r1/small_check_1x.png": {
+      "bytes": 75252,
+      "sha256": "39aaf19e513b0a18d7afbce5f29148e6984360c5616a5cc7d9e65ffc3db25f74"
+    },
+    "game-art/toolkit/art/design/r1/small_check_v2.png": {
+      "bytes": 145816,
+      "sha256": "321ba91e140718410a2031194e185232f775da675a4b5b81274815c7949653c5"
+    },
+    "game-art/toolkit/art/design/r1/small_check_v2_1x.png": {
+      "bytes": 81073,
+      "sha256": "1b5be8f169ffe3c378e2774c793b990d1f5d2973085a8d2b5ceb8b522cad9257"
+    },
+    "game-art/toolkit/art/design/r1b/README.md": {
+      "bytes": 3948,
+      "sha256": "e76bc44d5186661bdfd2c23b75a0bdf7662144f4feac540ab59f3bf6e70c7c45"
+    },
+    "game-art/toolkit/art/design/r1b/S0R_remote.png": {
+      "bytes": 572286,
+      "sha256": "871335e37e1c11e28eaf040084fa48737a21175eef086cc5cde4cb6c33b42b5d"
+    },
+    "game-art/toolkit/art/design/r1b/S0R_remote_cutout.png": {
+      "bytes": 674168,
+      "sha256": "a3feffc0af966f928f38d245ac0e18bf8feb4cbc156d57b4e2f85a2262fdd7e3"
+    },
+    "game-art/toolkit/art/design/r1b/S0_base.png": {
+      "bytes": 569236,
+      "sha256": "c586e7fea68f52d549aed5f70d0163c7bb8df1ea7b37c82decdefddaaab8d574"
+    },
+    "game-art/toolkit/art/design/r1b/S0_base_cutout.png": {
+      "bytes": 673866,
+      "sha256": "80a218c58421b2168d40bf3d3cf38f16a2cc052ad941967fc815ad91c2ddf6fa"
+    },
+    "game-art/toolkit/art/design/r1b/S0_edit_input.png": {
+      "bytes": 335348,
+      "sha256": "af8c86713aa23462ba2d815fc842f9b83efa622c4ac8314e115945a1a68c38e9"
+    },
+    "game-art/toolkit/art/design/r1b/S1_ppt.png": {
+      "bytes": 525479,
+      "sha256": "05b6ba1fcf1e9be1f909bb748e1a6ce9b5d6049a275877f8d2a8fb6b3efcfb50"
+    },
+    "game-art/toolkit/art/design/r1b/S1_ppt_cutout.png": {
+      "bytes": 622864,
+      "sha256": "610179cf4f28b58c9e5f24ae597eb25715a476323c50714f0ccb9a0a9815910a"
+    },
+    "game-art/toolkit/art/design/r1b/acceptance.json": {
+      "bytes": 429,
+      "sha256": "a75076a57024431da6181bdbee0cfe48db9e964cdfd4b9d2b691570e714daea4"
+    },
+    "game-art/toolkit/art/design/r1b/assemble_r1b.py": {
+      "bytes": 8138,
+      "sha256": "710dcd7cb72f1f1d2c18c897448b23b2dc92a10f5a356fe8d313e07d7f2c887c"
+    },
+    "game-art/toolkit/art/design/r1b/compare.png": {
+      "bytes": 469999,
+      "sha256": "15c3141b8131fc7bc63e7c09cd8e896c41940029a7f72e5658c768abc1251cbb"
+    },
+    "game-art/toolkit/art/design/r1b/edge_check.png": {
+      "bytes": 71583,
+      "sha256": "2f7fc0d7361dbbdfb42bdc155727dd148a449de842b90b9a95fd24dd0fe93a07"
+    },
+    "game-art/toolkit/art/design/r1b/generated/S0R_remote_raw.png": {
+      "bytes": 1551779,
+      "sha256": "db2335f039c55d9845f57207368d80b27aedc373af679bba1c21da6783957598"
+    },
+    "game-art/toolkit/art/design/r1b/generated/S0_base_raw.png": {
+      "bytes": 1559492,
+      "sha256": "5bdb0463eba17613ea4287631984a9799300e81a7a6aaa7e622ea178af66283a"
+    },
+    "game-art/toolkit/art/design/r1b/generated/S1_ppt_raw.png": {
+      "bytes": 1511973,
+      "sha256": "e77ee75390ef8fc8c1f6d6d425c2b9109462c2f457ca4c88effa4be0986bb133"
+    },
+    "game-art/toolkit/art/design/r1b/generated/prompts.md": {
+      "bytes": 4383,
+      "sha256": "b615f41f1b0b12dbd173fa30a497d961b57c5073f3006297e052ce6da37fe3cf"
+    },
+    "game-art/toolkit/art/design/r1b/head_locked.png": {
+      "bytes": 304687,
+      "sha256": "cbdfa394a84c27e6c2b4ca56dd25e8e715dbfb5753ac8b95cbf386a40bfc1f53"
+    },
+    "game-art/toolkit/art/design/r1b/qa.json": {
+      "bytes": 1692,
+      "sha256": "06b7e432c47d3fecc24d2bdbdcb39ea15b069eb2c1f0f27ab13a27144585028f"
+    },
+    "game-art/toolkit/art/design/r1b/reference_edge_clean.png": {
+      "bytes": 39337,
+      "sha256": "f05176b49981516187e7fa378aa714dadc00acebad43cbcc34c556f7b8553ef7"
+    },
+    "game-art/toolkit/art/design/r1b/reference_interior_mask.png": {
+      "bytes": 906,
+      "sha256": "7c49f3638f6ba50bb5274a01cd18dbbe867bc848fa27eef7d4ba30d902c5c014"
+    },
+    "game-art/toolkit/art/design/r1b/small_check.png": {
+      "bytes": 134964,
+      "sha256": "8aff4700d48892e0c330b114296ca1006860028b3e37fc9f00203a5c89d66287"
+    },
+    "game-art/toolkit/art/design/r1b/small_check_1x.png": {
+      "bytes": 79677,
+      "sha256": "efeb63295063ca064df1c22cb914179abd6e10ada96c0d7014bea061fc71f970"
+    },
+    "game-art/toolkit/art/design/r2/GROK_BATCH1.md": {
+      "bytes": 8821,
+      "sha256": "24f3bc362ded97e68fba964a1f09efd1ea9f62ff2362fba2235c98de4e5ccc00"
+    },
+    "game-art/toolkit/art/design/r2/README.md": {
+      "bytes": 3817,
+      "sha256": "2c2e44bb65d03359aea7f3e1d349b7de11d4a696698f504198b1384873f8bda8"
+    },
+    "game-art/toolkit/art/design/r2/S2_meet.png": {
+      "bytes": 625081,
+      "sha256": "7511e672ee8ffeaeccecded365a7c7fd490a8fe999e89e6bc5db403ff9cd4da8"
+    },
+    "game-art/toolkit/art/design/r2/S2_meet_accessory.png": {
+      "bytes": 29021,
+      "sha256": "7c82eb9129f73a19aa40cc3f0c27a61822512d3e323c3ce0cd558bbeee118625"
+    },
+    "game-art/toolkit/art/design/r2/S2_meet_cutout.png": {
+      "bytes": 750055,
+      "sha256": "f5653e9343b3c7464da28f0e195a38655481521f1011fe09b33a9de014aec4b3"
+    },
+    "game-art/toolkit/art/design/r2/S3_media.png": {
+      "bytes": 636808,
+      "sha256": "61d7454fa8a64c71a9f1b10c1ddd3c7c20b2f943bbeb3976a27e8ce51a6de2d9"
+    },
+    "game-art/toolkit/art/design/r2/S3_media_accessory.png": {
+      "bytes": 112977,
+      "sha256": "eec12b775c601c67ca98d6882a50e45d29e0dd6cdb64c06e1d583e5cc0eaaf3f"
+    },
+    "game-art/toolkit/art/design/r2/S3_media_cutout.png": {
+      "bytes": 754773,
+      "sha256": "a929ecdbcbeca4153884163b7f66df9d12b15f7eccf9e94ddaccbaf00e32bc5c"
+    },
+    "game-art/toolkit/art/design/r2/S4_cam.png": {
+      "bytes": 654580,
+      "sha256": "13f7d1a01422d29c04c54617490ebe8e8a9d208651a9396dcc6de84f21ea891a"
+    },
+    "game-art/toolkit/art/design/r2/S4_cam_accessory.png": {
+      "bytes": 4144,
+      "sha256": "265149d454822c2c808720c61f5a4317c0bfda56fc96598ea7b19b6ea52c5dd1"
+    },
+    "game-art/toolkit/art/design/r2/S4_cam_cutout.png": {
+      "bytes": 783144,
+      "sha256": "6263b697c0f6d8e593562eae4b95a49eb9ed37f467d3aa266c1d34274a5a512d"
+    },
+    "game-art/toolkit/art/design/r2/S5_macro.png": {
+      "bytes": 630010,
+      "sha256": "d182472990f8ddc70bca7ffa7ec5235d9f3c173f6dfe254ca9533f0673724dea"
+    },
+    "game-art/toolkit/art/design/r2/S5_macro_accessory.png": {
+      "bytes": 4144,
+      "sha256": "265149d454822c2c808720c61f5a4317c0bfda56fc96598ea7b19b6ea52c5dd1"
+    },
+    "game-art/toolkit/art/design/r2/S5_macro_cutout.png": {
+      "bytes": 757139,
+      "sha256": "6d2f8adce9107453f783a01e0c3267d661c731e6eeff24bc730147b8525dcd64"
+    },
+    "game-art/toolkit/art/design/r2/assemble_r2.py": {
+      "bytes": 9122,
+      "sha256": "be06cb9231630071fc342476008e19fd9ad5ea493e1544c9f4c503964f8b3d75"
+    },
+    "game-art/toolkit/art/design/r2/compare.png": {
+      "bytes": 410795,
+      "sha256": "869f9e6eb05097c5cbefd6028174596e38611f0495f8372528990f61b03d0853"
+    },
+    "game-art/toolkit/art/design/r2/generated/S2_meet_raw.png": {
+      "bytes": 1639533,
+      "sha256": "e3837b131c5922f33e40ecd2338ece923e3294d15d0c26da4ef2053af0b46336"
+    },
+    "game-art/toolkit/art/design/r2/generated/S3_media_raw.png": {
+      "bytes": 1629525,
+      "sha256": "9cc4f3579d2ed7c67dd7caed4f0a7d9ed0a146746e883e6135ea68c123602346"
+    },
+    "game-art/toolkit/art/design/r2/generated/S4_cam_raw.png": {
+      "bytes": 1668849,
+      "sha256": "6931c96dfb93b81c03cb1c1afb3a4ed2475f13d1485dfac7119354b4694f4e93"
+    },
+    "game-art/toolkit/art/design/r2/generated/S5_macro_raw.png": {
+      "bytes": 1641122,
+      "sha256": "81d96caacfeb0c812c8e4d464c8d34ecc781171b12b425522aa8630d87d0e523"
+    },
+    "game-art/toolkit/art/design/r2/generated/prompts.md": {
+      "bytes": 5040,
+      "sha256": "3726762cdb64f2b9394c2070b9d13e449a3c5c5e45f0d33e3735f99853953a67"
+    },
+    "game-art/toolkit/art/design/r2/qa.json": {
+      "bytes": 2410,
+      "sha256": "2d275a8e646cf48cda3fe5bb4d373804fab74a7d53e38cce215148d2cb64ca32"
+    },
+    "game-art/toolkit/art/design/r2/small_check.png": {
+      "bytes": 166587,
+      "sha256": "364d2e244f5230252764259efd3de8ad87347fd606e706e731746ad858bb8ad7"
+    },
+    "game-art/toolkit/art/design/r2/small_check_1x.png": {
+      "bytes": 96360,
+      "sha256": "cfd9053918c388724089e79de36e73f1af256a651d9eae726b72f6423f8cee98"
+    },
+    "game-art/toolkit/art/design/r2b/GROK_BATCH1.md": {
+      "bytes": 8907,
+      "sha256": "47d608725c181937dd424fb8689f72b7b510e33fbdae266c3698853918cb3778"
+    },
+    "game-art/toolkit/art/design/r2b/README.md": {
+      "bytes": 3486,
+      "sha256": "a58f486287c2fc09174a9cac54785075ac6f2af535cb00505add141d34f7b84e"
+    },
+    "game-art/toolkit/art/design/r2b/S2_meet.png": {
+      "bytes": 597147,
+      "sha256": "80a228dfd7717428ad24e193f6ccaff3af040fc364d6fcf8b57aad35fefce5a4"
+    },
+    "game-art/toolkit/art/design/r2b/S2_meet_accessory.png": {
+      "bytes": 16596,
+      "sha256": "ab5884b859adf77222e2ee59b0b2d7b8d181ea2ac17bd2741320b934feee1ed1"
+    },
+    "game-art/toolkit/art/design/r2b/S2_meet_cutout.png": {
+      "bytes": 701184,
+      "sha256": "ffc78cce08b3fdcd48291bcab0990ef5a093c7286c413cb5936ae4910f8ad007"
+    },
+    "game-art/toolkit/art/design/r2b/S3_media.png": {
+      "bytes": 542210,
+      "sha256": "ede7c7fc137f6d67029997e4cb0dcd4bb0d7de9a2eef71acf964dd697ca2e17d"
+    },
+    "game-art/toolkit/art/design/r2b/S3_media_accessory.png": {
+      "bytes": 61783,
+      "sha256": "098da91b647b461cd8959d731604469d13d48da28ec3f9cd6254c9b59c688c4a"
+    },
+    "game-art/toolkit/art/design/r2b/S3_media_cutout.png": {
+      "bytes": 639369,
+      "sha256": "10e386f63bfbbddad9aabb7529c33f14a8b44e72ef5f1da12121fff14c480a54"
+    },
+    "game-art/toolkit/art/design/r2b/S4_cam.png": {
+      "bytes": 578658,
+      "sha256": "78b4d020239741b40da9046b6120f0b571d63347343ebf4e0d3821af991bafd1"
+    },
+    "game-art/toolkit/art/design/r2b/S4_cam_cutout.png": {
+      "bytes": 685041,
+      "sha256": "90be1140d197a362e1ab97535f6179eb8bfec8acd0adc8ed1e05adb56b7b7ad2"
+    },
+    "game-art/toolkit/art/design/r2b/S5_macro.png": {
+      "bytes": 547827,
+      "sha256": "b3bb4a52d9713050c7c8a683df04b5fa15f262e8074b3b7d35efcc918a6e47bd"
+    },
+    "game-art/toolkit/art/design/r2b/S5_macro_cutout.png": {
+      "bytes": 650546,
+      "sha256": "4312b038c0d814153d671e26604526eceece37cceee6ce828ad4bd3967dc7458"
+    },
+    "game-art/toolkit/art/design/r2b/acceptance.json": {
+      "bytes": 509,
+      "sha256": "598bc9727f5ea84c89fcec9b6c16d89695e07ee5e960ddb5c6e468e5c75b7b71"
+    },
+    "game-art/toolkit/art/design/r2b/all_seven.png": {
+      "bytes": 293770,
+      "sha256": "9ca25cea1b3f542cab7545d981b5b1da23ca8e42a9c05e6c0ee53b52e0cb5f02"
+    },
+    "game-art/toolkit/art/design/r2b/assemble_r2b.py": {
+      "bytes": 6746,
+      "sha256": "828af62ab8361e02950d2be99c2a275689c0b69f6511edba17d30d1b172a0209"
+    },
+    "game-art/toolkit/art/design/r2b/compare.png": {
+      "bytes": 433876,
+      "sha256": "22561c127db29434e50841672c8d18e7bf38fd0780e07ef9841d2f5a99beb3fe"
+    },
+    "game-art/toolkit/art/design/r2b/generated/S2_meet_raw.png": {
+      "bytes": 1637862,
+      "sha256": "7376eb504942a0d94ded890306bc0a5025cd9226ba2a5a7fdb892a9765929e9a"
+    },
+    "game-art/toolkit/art/design/r2b/generated/S3_media_raw.png": {
+      "bytes": 1546191,
+      "sha256": "ecbecde981186b909cdc99369629dec0a0eeaad3e7a4ee10c64cedb2b54cf83a"
+    },
+    "game-art/toolkit/art/design/r2b/generated/S4_cam_raw.png": {
+      "bytes": 1574526,
+      "sha256": "66c1022e581deb64790ab9af3a36991a334bf932ca9a8dff440c8b1282dd3bdb"
+    },
+    "game-art/toolkit/art/design/r2b/generated/S5_macro_raw.png": {
+      "bytes": 1544498,
+      "sha256": "cbd1fc8c5122d74360e8e8ee4dbde16f4419d679a13c25187eb5eace73f64d64"
+    },
+    "game-art/toolkit/art/design/r2b/generated/prompts.md": {
+      "bytes": 5706,
+      "sha256": "1de83dd467dd3ce014fc0299a20f45038cca173580e0b472b8846be0f18b81b7"
+    },
+    "game-art/toolkit/art/design/r2b/qa.json": {
+      "bytes": 2246,
+      "sha256": "9f0502b6c67ce188f75a8e6a4cd4dd3511da0febc916b25a616e6b34904c4b0c"
+    },
+    "game-art/toolkit/art/design/r2b/small_check.png": {
+      "bytes": 171517,
+      "sha256": "4b58bf0a1f9ded95531612cb96186a452a8c134f6e1c4197e291c5a414210a17"
+    },
+    "game-art/toolkit/art/design/r2b/small_check_1x.png": {
+      "bytes": 101011,
+      "sha256": "fe578de347577f039893f488fd8d89fa55a93e579ef41f5c163410b3f8cd60a8"
+    },
+    "game-art/toolkit/art/qa/batch1/endpoint_heads.png": {
+      "bytes": 2332458,
+      "sha256": "e879b7f68fd6d0b1c1b240c9a71377140b67150c978a7a865958993447dcf1a6"
+    },
+    "game-art/toolkit/art/qa/batch1/metadata.json": {
+      "bytes": 48651,
+      "sha256": "cf41b988118d32555c8a37578bed51d1fa19f06fd2176442043f060d142bac47"
+    },
+    "game-art/toolkit/art/qa/batch1/review.json": {
+      "bytes": 2342,
+      "sha256": "80b334c769ff09828f227fae072ba85f670f6254ee9972eae76c262b33c509e8"
+    },
+    "game-art/toolkit/art/qa/batch1/tk00_welcome_source_contact.png": {
+      "bytes": 1091776,
+      "sha256": "a50a763cf2689eb78e96f1463fd19ae442228a7ff47991b0da1507c4f250149c"
+    },
+    "game-art/toolkit/art/qa/batch1/tk00_welcome_source_endpoints.png": {
+      "bytes": 596371,
+      "sha256": "bf503cd6d917c86d2daa55bf0e1238ba387ecec5a1819c778ea2cd8d42b986c8"
+    },
+    "game-art/toolkit/art/qa/batch1/tk00_welcome_source_first.png": {
+      "bytes": 283851,
+      "sha256": "6af70ecf2170309858ea9e34098e9c75010e6f9f153b7d757932880f3f2e7fb2"
+    },
+    "game-art/toolkit/art/qa/batch1/tk00_welcome_source_last.png": {
+      "bytes": 317238,
+      "sha256": "d5f60f122a4bb3eb75b5f2aaf1bbbcd4a85e9c3a6b011c85eb2cd3aa6837c89a"
+    },
+    "game-art/toolkit/art/qa/batch1/tk01_idle_base_source_contact.png": {
+      "bytes": 832095,
+      "sha256": "6bd1b26239846f8d955b96bd7bba231c3ca875ad88d495e75fa07d442a6426b2"
+    },
+    "game-art/toolkit/art/qa/batch1/tk01_idle_base_source_endpoints.png": {
+      "bytes": 585093,
+      "sha256": "10782aa61f8c1cc365267f8b94b2dd0fb6f788e50f7d8b5dbe87ebcb32d3be96"
+    },
+    "game-art/toolkit/art/qa/batch1/tk01_idle_base_source_first.png": {
+      "bytes": 281222,
+      "sha256": "09d3949442b569168b2ff0b95f0771b5c99db635b4597d927e4e14cffb8b9323"
+    },
+    "game-art/toolkit/art/qa/batch1/tk01_idle_base_source_last.png": {
+      "bytes": 312379,
+      "sha256": "9a545074cea52da187bd5acc4378f9be9cd4cf12f786fe1bcddd2b67c57d5317"
+    },
+    "game-art/toolkit/art/qa/batch1/tk02_idle_ppt_source_contact.png": {
+      "bytes": 765875,
+      "sha256": "5ee11d0bc208e32bc1b5dceff821fe8525ff55b55cf2c2bea017a4af1e084d30"
+    },
+    "game-art/toolkit/art/qa/batch1/tk02_idle_ppt_source_endpoints.png": {
+      "bytes": 569191,
+      "sha256": "dba65813ea4f02bd5af5313e32d90d84a007cbff06a38c07e9f6bbe31be4ca5d"
+    },
+    "game-art/toolkit/art/qa/batch1/tk02_idle_ppt_source_first.png": {
+      "bytes": 254972,
+      "sha256": "7f4ed28dc5d0c74473b4a532ba9121cdfce0732c7b8736708308e2fdf8f78390"
+    },
+    "game-art/toolkit/art/qa/batch1/tk02_idle_ppt_source_last.png": {
+      "bytes": 286829,
+      "sha256": "b49bdbdc107c940302410abe84c1b42f367a22bb355d4ab266df8301cec8d5b9"
+    },
+    "game-art/toolkit/art/qa/batch1/tk03_idle_meet_source_contact.png": {
+      "bytes": 741937,
+      "sha256": "7722dbca20b9d6f7ea1f800272584adb37e493f03b3623c1508c5851b462d9d4"
+    },
+    "game-art/toolkit/art/qa/batch1/tk03_idle_meet_source_endpoints.png": {
+      "bytes": 577058,
+      "sha256": "7b9810367df4ce8a59e3ef809fc8d2758712f28f84e6d076eb488f3ac2cb6f96"
+    },
+    "game-art/toolkit/art/qa/batch1/tk03_idle_meet_source_first.png": {
+      "bytes": 277548,
+      "sha256": "cb888e6f621333864da0919254c8b137be9c7db3762303acf27bbd65b83b2684"
+    },
+    "game-art/toolkit/art/qa/batch1/tk03_idle_meet_source_last.png": {
+      "bytes": 304260,
+      "sha256": "857147bad6e3925e59a77b31227473cfe53f4cd98b66d558012af25bc6d705d0"
+    },
+    "game-art/toolkit/art/qa/batch1/tk04_idle_media_source_contact.png": {
+      "bytes": 726077,
+      "sha256": "3d19292aa83d9ebd7cb3ebf1c6674fb66d419908c909f13bc09954a30d12900d"
+    },
+    "game-art/toolkit/art/qa/batch1/tk04_idle_media_source_endpoints.png": {
+      "bytes": 580976,
+      "sha256": "6085ddb0ee50b190a814fd6f6b7618a7d3f82d80d7bd06cf6752a0b129094384"
+    },
+    "game-art/toolkit/art/qa/batch1/tk04_idle_media_source_first.png": {
+      "bytes": 256055,
+      "sha256": "20d4c7d3816bf02e295b933ab7030813352d47b46ad693cdf39c4729dfb034c6"
+    },
+    "game-art/toolkit/art/qa/batch1/tk04_idle_media_source_last.png": {
+      "bytes": 286092,
+      "sha256": "2f002f1b953e9c205872f33f5c375a9eb541eeb331b930fe7ed48b5d9ab4ca03"
+    },
+    "game-art/toolkit/art/qa/batch1/tk05_idle_cam_source_contact.png": {
+      "bytes": 847532,
+      "sha256": "637425ee9012c0c4174d7cda05d6e9cf4333e805811f96cd702b8784f4dbea39"
+    },
+    "game-art/toolkit/art/qa/batch1/tk05_idle_cam_source_endpoints.png": {
+      "bytes": 587514,
+      "sha256": "d9f9191232506b9ea48e98b9e8d6f058f1cdf8d941add1752854e8e7f21ba6f5"
+    },
+    "game-art/toolkit/art/qa/batch1/tk05_idle_cam_source_first.png": {
+      "bytes": 279100,
+      "sha256": "1f37f93766823c04a7b0adf1da61827a02f9eab15a326831e439153ad0181d95"
+    },
+    "game-art/toolkit/art/qa/batch1/tk05_idle_cam_source_last.png": {
+      "bytes": 314487,
+      "sha256": "8873b15ecaa9728f2617f9c4763d98e3cfb83f867d12507925bc422deaa7e2c2"
+    },
+    "game-art/toolkit/art/qa/batch1/tk06_idle_macro_source_contact.png": {
+      "bytes": 759149,
+      "sha256": "9f05920321e59ff7be5ae44e49e9b12a12a4d69fc868ff663f36b79402037bc5"
+    },
+    "game-art/toolkit/art/qa/batch1/tk06_idle_macro_source_endpoints.png": {
+      "bytes": 570048,
+      "sha256": "94d688ea1ca8077a390f5e1a392ddf285987f00be4c515c8ff68dcedf2a79c6b"
+    },
+    "game-art/toolkit/art/qa/batch1/tk06_idle_macro_source_first.png": {
+      "bytes": 272307,
+      "sha256": "bcbcc00c21bd35087fcadd0293f8f79d6400bd0dcde2144d66912e822d9440a5"
+    },
+    "game-art/toolkit/art/qa/batch1/tk06_idle_macro_source_last.png": {
+      "bytes": 292727,
+      "sha256": "64840b5c68cd27a7cc925975bd115ddca03a772384f783e96475abbefcea1d39"
+    },
+    "game-art/toolkit/art/reference/nabo-idle.png": {
+      "bytes": 32117,
+      "sha256": "c63575691d15220e8d6fafdab911a10767a5fc1c13925992dbd10e3a5e93d3fa"
+    },
+    "game-art/toolkit/art/start/S0R_remote.png": {
+      "bytes": 572286,
+      "sha256": "871335e37e1c11e28eaf040084fa48737a21175eef086cc5cde4cb6c33b42b5d"
+    },
+    "game-art/toolkit/art/start/S0_base.png": {
+      "bytes": 569236,
+      "sha256": "c586e7fea68f52d549aed5f70d0163c7bb8df1ea7b37c82decdefddaaab8d574"
+    },
+    "game-art/toolkit/art/start/S1_ppt.png": {
+      "bytes": 525479,
+      "sha256": "05b6ba1fcf1e9be1f909bb748e1a6ce9b5d6049a275877f8d2a8fb6b3efcfb50"
+    },
+    "game-art/toolkit/art/start/S2_meet.png": {
+      "bytes": 597147,
+      "sha256": "80a228dfd7717428ad24e193f6ccaff3af040fc364d6fcf8b57aad35fefce5a4"
+    },
+    "game-art/toolkit/art/start/S3_media.png": {
+      "bytes": 542210,
+      "sha256": "ede7c7fc137f6d67029997e4cb0dcd4bb0d7de9a2eef71acf964dd697ca2e17d"
+    },
+    "game-art/toolkit/art/start/S4_cam.png": {
+      "bytes": 578658,
+      "sha256": "78b4d020239741b40da9046b6120f0b571d63347343ebf4e0d3821af991bafd1"
+    },
+    "game-art/toolkit/art/start/S5_macro.png": {
+      "bytes": 547827,
+      "sha256": "b3bb4a52d9713050c7c8a683df04b5fa15f262e8074b3b7d35efcc918a6e47bd"
+    },
+    "game-art/toolkit/art/start/selection.json": {
+      "bytes": 1432,
+      "sha256": "0390ff02ef68a742019418c5524a5da0b3e04ebde63bca319cf11daa4b151895"
+    },
+    "game-art/toolkit/art/video/batch1/README.md": {
+      "bytes": 306,
+      "sha256": "aad36c136eaadee79a4154ed8838d7328f5d3e1193b9f011e6217c5d41e7bf5b"
+    },
+    "game-art/toolkit/art/video/batch1/contact.png": {
+      "bytes": 890720,
+      "sha256": "72f4688c6a9c0fd2f36d1b6dd1fa8f68fc18e010fef5b15250373803ab36196b"
+    },
+    "game-art/toolkit/art/video/batch1/tk00_welcome_source.mp4": {
+      "bytes": 1004824,
+      "sha256": "de3e382817dc99281e3b63ddbbbb3b5e50f3b938beeece5b80ca2d29dc2937c2"
+    },
+    "game-art/toolkit/art/video/batch1/tk01_idle_base_source.mp4": {
+      "bytes": 522284,
+      "sha256": "1bf6af1f9b181d7e425c31bbe3f84214ea395fe567b1783099a0e1daf9ad99ce"
+    },
+    "game-art/toolkit/art/video/batch1/tk02_idle_ppt_source.mp4": {
+      "bytes": 493129,
+      "sha256": "4a913ad9bc0fc5a0f29c5d55fec0078e9bdf09a98db6b27fd662608e98016dcb"
+    },
+    "game-art/toolkit/art/video/batch1/tk03_idle_meet_source.mp4": {
+      "bytes": 627974,
+      "sha256": "2ed2b659e561ec70e2bb14b1ccc0f9e9c7e8ac12dc10387d858c5eb5c393e1af"
+    },
+    "game-art/toolkit/art/video/batch1/tk04_idle_media_source.mp4": {
+      "bytes": 754966,
+      "sha256": "024c54f3319a90327ecd2ab5efa5d9fb09308bf78d2f7f06c18000a35d8c8c0d"
+    },
+    "game-art/toolkit/art/video/batch1/tk05_idle_cam_source.mp4": {
+      "bytes": 586024,
+      "sha256": "c02747cd79be73a24db23156f14356af11430e2b2673f21dcc3add0f7c9341d3"
+    },
+    "game-art/toolkit/art/video/batch1/tk06_idle_macro_source.mp4": {
+      "bytes": 521399,
+      "sha256": "a09ef1516c5fe17b2e4c2759d4c77e03d4266c2748aa3abaf5f307b3c1b8fbf8"
+    },
+    "game-art/toolkit/audio/VOICE.md": {
+      "bytes": 1465,
+      "sha256": "06d4f016cc9b0d3e0510732dbdbc0cc05dc25a44cafadeb3bb8c976d590ee737"
+    },
+    "game-art/toolkit/prototype/assets/nabo_idle.js": {
+      "bytes": 99226,
+      "sha256": "262b8fc7b0ffc70113736c26232cb11a4bdaa47301e4c9436f5f25440f37f092"
+    },
+    "game-art/toolkit/prototype/assets/nabo_idle_closed.png": {
+      "bytes": 33692,
+      "sha256": "d2d0eafeca514582f30b62cf1089c33acf4c771356f82aa58ee716f266ca3a83"
+    },
+    "game-art/toolkit/prototype/assets/nabo_idle_half.png": {
+      "bytes": 33935,
+      "sha256": "42484c08d2e1c7a488ff053a41d572fecd37c3a50e3384550fbab7495fa4d907"
+    },
+    "game-art/toolkit/prototype/assets/nabo_idle_open.png": {
+      "bytes": 34405,
+      "sha256": "bfb84d8acdf10362b79b27caeb84cda26499480a2bc53241d083d47d1dce0ba2"
+    },
+    "game-art/toolkit/prototype/assets/sprites/base_avatar.png": {
+      "bytes": 13067,
+      "sha256": "c78cca7866adc58cc9ee10b10bddf4dd8f47c77d48469360f82d83c887246c02"
+    },
+    "game-art/toolkit/prototype/assets/sprites/base_bust.png": {
+      "bytes": 25322,
+      "sha256": "709a55bee9972c0825d8af464cfcc1ce7610682ec34b5aab105f019791226b11"
+    },
+    "game-art/toolkit/prototype/assets/sprites/cam_bust.png": {
+      "bytes": 24165,
+      "sha256": "3eff08505864a3ac7ee40eeb1cc006aac973c540d3e828ca98ee13d3af8df85b"
+    },
+    "game-art/toolkit/prototype/assets/sprites/macro_bust.png": {
+      "bytes": 27841,
+      "sha256": "a9bf8df0eaf525885fa2035a75923c897bf233f0246248fc131ae671f92c5b54"
+    },
+    "game-art/toolkit/prototype/assets/sprites/media_bust.png": {
+      "bytes": 32009,
+      "sha256": "c75f7f4ca5b222afce10f9c45ae614370c310dcf1d3598fdb9fb7313435cfe8a"
+    },
+    "game-art/toolkit/prototype/assets/sprites/meet_bust.png": {
+      "bytes": 25456,
+      "sha256": "31f97c6eb85f78f16317e7036eeb4906e3d0b7fd91b45a362be99fbbcd22e871"
+    },
+    "game-art/toolkit/prototype/assets/sprites/ppt_bust.png": {
+      "bytes": 23695,
+      "sha256": "a4041b480b069f77024d3ab0d14cdc90d8ddc486091b1d08c120a7d9531a466f"
+    },
+    "game-art/toolkit/prototype/assets/sprites/welcome_large.png": {
+      "bytes": 43601,
+      "sha256": "8852e417016177666646bbfffd1bc8571c08d077db62e38a072e08fe08f41a6a"
+    },
+    "game-art/toolkit/prototype/assets/toolkit_sprites.json": {
+      "bytes": 2566,
+      "sha256": "1bb4f725d677a00aa9a80c98d056c2a5d8fb34b52ee26477dd30b7012c278c1c"
+    },
+    "game-art/toolkit/sprites/README.md": {
+      "bytes": 2842,
+      "sha256": "558d05f263caa0e6e38977bbb11c93057f26a70dbe7c4a7e828d251082bd86c5"
+    },
+    "game-art/toolkit/sprites/README.zh_CN.md": {
+      "bytes": 2436,
+      "sha256": "25e7f7ba726ed813f5834c2d1338d96ed4b5c27b84718d5be8c82d6ad329b8c3"
+    },
+    "game-art/toolkit/sprites/bin/base_avatar.tks": {
+      "bytes": 23431,
+      "sha256": "232ab09be9037c61a6900e2220f7521162943ec1d4b076d39976ac189952b1ae"
+    },
+    "game-art/toolkit/sprites/bin/base_bust.tks": {
+      "bytes": 44487,
+      "sha256": "2774de2435014e2f72d65acef77bf1e8caf42e0e53d35e1bfb3d824819dd74ee"
+    },
+    "game-art/toolkit/sprites/bin/cam_bust.tks": {
+      "bytes": 47402,
+      "sha256": "63ddf8c1c108f9539d910fa679e346e38de02b9afac4e7045986d168d462b228"
+    },
+    "game-art/toolkit/sprites/bin/macro_bust.tks": {
+      "bytes": 52716,
+      "sha256": "b5e1a944220f8c99417aa999995ca6df4be232585c39955fb9938b447f506381"
+    },
+    "game-art/toolkit/sprites/bin/media_bust.tks": {
+      "bytes": 65220,
+      "sha256": "13d5878b3ff953c6e5f85c049ab5eefde369e7fd96076a1628f83b379304da5f"
+    },
+    "game-art/toolkit/sprites/bin/meet_bust.tks": {
+      "bytes": 50299,
+      "sha256": "7764019255fbe2d20abcfccee74a93d8030dfcade1ddca7232dd8fc79423d4aa"
+    },
+    "game-art/toolkit/sprites/bin/ppt_bust.tks": {
+      "bytes": 42235,
+      "sha256": "07f670ba42ad5a0a9853ba13de80f6dd8f8c152ab231e33c18381cbe528f0a52"
+    },
+    "game-art/toolkit/sprites/bin/welcome_large.tks": {
+      "bytes": 79572,
+      "sha256": "f3fe13e7c944017aa4ee8b86b6cf6c760fcbe02ac3839928a39eebfd79c553a7"
+    },
+    "game-art/toolkit/sprites/indexed/base_avatar/00.png": {
+      "bytes": 2419,
+      "sha256": "3adffa144ad1493b4f159585bca0ed082df562ffa2bfb570c642113fccc05636"
+    },
+    "game-art/toolkit/sprites/indexed/base_avatar/01.png": {
+      "bytes": 2427,
+      "sha256": "0ee0d841e52473e14304fb6237799dadf9451cf093f2afef9c8276af446ae917"
+    },
+    "game-art/toolkit/sprites/indexed/base_avatar/02.png": {
+      "bytes": 2409,
+      "sha256": "68416a671f2b64ca6db684057d02c9031959cbc3eaa1450d2f6d00d2c467ea17"
+    },
+    "game-art/toolkit/sprites/indexed/base_avatar/03.png": {
+      "bytes": 2423,
+      "sha256": "2631d86001c638cc273e0c837117def49a64919182813d8d3c40ca1d8dda54db"
+    },
+    "game-art/toolkit/sprites/indexed/base_avatar/04.png": {
+      "bytes": 2413,
+      "sha256": "4908016187bae781101e2da4648c0dfcf89b446e8602820271837417352cd366"
+    },
+    "game-art/toolkit/sprites/indexed/base_avatar/05.png": {
+      "bytes": 2419,
+      "sha256": "734a34f8ce008cc049a3f79d5add37dc2e890e0906f5ddc793622e2196ee9b19"
+    },
+    "game-art/toolkit/sprites/indexed/base_avatar/06.png": {
+      "bytes": 2411,
+      "sha256": "923518a1257aff4cf2f4d68cb1192cef815ac028b0c87df59b54adb2786f3fe9"
+    },
+    "game-art/toolkit/sprites/indexed/base_avatar/07.png": {
+      "bytes": 2435,
+      "sha256": "7f6111c73b4588e446106455fbe86afe087a75a38ddc45697fae31e51e6e6ae1"
+    },
+    "game-art/toolkit/sprites/indexed/base_avatar/08.png": {
+      "bytes": 2427,
+      "sha256": "4158d9799182e4f91c15f3bbecf4eb19b7837aa1794440cd4ec8bdc8d0a4cce3"
+    },
+    "game-art/toolkit/sprites/indexed/base_avatar/09.png": {
+      "bytes": 2421,
+      "sha256": "3df654e7dab131b4cd7e03faad7dc99e00f11686fa00434d0ad3345e69c181d8"
+    },
+    "game-art/toolkit/sprites/indexed/base_avatar/10.png": {
+      "bytes": 2436,
+      "sha256": "17f3444d0b0a2bc74d34b1d71beb0f60d0c136bd3bc68776e2f8a4bd15b38d3d"
+    },
+    "game-art/toolkit/sprites/indexed/base_avatar/11.png": {
+      "bytes": 2422,
+      "sha256": "6dfe6bcacb90a99c926b6cc99716cdeb12918c708c21315b913aac9fa9801f7b"
+    },
+    "game-art/toolkit/sprites/indexed/base_bust/00.png": {
+      "bytes": 4204,
+      "sha256": "98eac5c909febd4c90c8f4881870d1150e6a1980dbe62a66fb768012c935f2a1"
+    },
+    "game-art/toolkit/sprites/indexed/base_bust/01.png": {
+      "bytes": 4222,
+      "sha256": "fa1c556800c8e0e190274205dc3e1b3f0dce2d333f31fc06a005a0f0dce51482"
+    },
+    "game-art/toolkit/sprites/indexed/base_bust/02.png": {
+      "bytes": 4185,
+      "sha256": "2170b5aff11e87a00662932ba7e68f003f5bbe8abf04223c0887673162d4030c"
+    },
+    "game-art/toolkit/sprites/indexed/base_bust/03.png": {
+      "bytes": 4208,
+      "sha256": "de90498c6a7443fce42670c270f0e641dc64662248e54b93428859b63a8907bd"
+    },
+    "game-art/toolkit/sprites/indexed/base_bust/04.png": {
+      "bytes": 4211,
+      "sha256": "53e11b8c157225be5c5e66166e44d7db3a2c5915110104a14253f745986ca0e1"
+    },
+    "game-art/toolkit/sprites/indexed/base_bust/05.png": {
+      "bytes": 4208,
+      "sha256": "a7fa6a8b8dd991c6b8a0df23ce494d7523c8105bb2c7742b06b67a3edc44711f"
+    },
+    "game-art/toolkit/sprites/indexed/base_bust/06.png": {
+      "bytes": 4214,
+      "sha256": "269b46ee382e1a3c2a5ddeec51f5b2a3b1760d7726aaa9c26c702857066e225c"
+    },
+    "game-art/toolkit/sprites/indexed/base_bust/07.png": {
+      "bytes": 4239,
+      "sha256": "43b4979cd4c62de88de29aa9b5d6ec1bedf5a5d707eaee5a33d7e45b1db2fde6"
+    },
+    "game-art/toolkit/sprites/indexed/base_bust/08.png": {
+      "bytes": 4243,
+      "sha256": "c4e6d2668f92db8d8a49699bb49cafcd5eb74a4b939f834c3660af4e101c0318"
+    },
+    "game-art/toolkit/sprites/indexed/base_bust/09.png": {
+      "bytes": 4229,
+      "sha256": "0bb1c5b4aa88a3374d539d2753b4a40a4f94056743be661c9df2d8d79ccaaa6b"
+    },
+    "game-art/toolkit/sprites/indexed/base_bust/10.png": {
+      "bytes": 4205,
+      "sha256": "638ba7207c2d5153547a7091ccfc5d7c9ca628da49601786f062ebfe121f0fd0"
+    },
+    "game-art/toolkit/sprites/indexed/base_bust/11.png": {
+      "bytes": 4216,
+      "sha256": "3d5f1f32466256f2a87935a09231f17593870af3b19f37d7ca26778acb229239"
+    },
+    "game-art/toolkit/sprites/indexed/cam_bust/00.png": {
+      "bytes": 4226,
+      "sha256": "3412000a28e06f839fb2f781f20fef0424c7fd50619406c26fa6e934ac2f7c61"
+    },
+    "game-art/toolkit/sprites/indexed/cam_bust/01.png": {
+      "bytes": 4192,
+      "sha256": "3f038468c3ca036917bcdbb0e1b374178e7ae122d4061e376688272fcf7040da"
+    },
+    "game-art/toolkit/sprites/indexed/cam_bust/02.png": {
+      "bytes": 4203,
+      "sha256": "15c8a4339d7d77ec304912e9e3b268caf0634c63469e1a19417e2c8556d24447"
+    },
+    "game-art/toolkit/sprites/indexed/cam_bust/03.png": {
+      "bytes": 4163,
+      "sha256": "386a037289643890cf57b83594d9e3b46f92365be2b2a3cd4cc14f697b7a2d12"
+    },
+    "game-art/toolkit/sprites/indexed/cam_bust/04.png": {
+      "bytes": 4200,
+      "sha256": "6e9885df0a0846ed4b7ee461935f9e593e2283b81b9213d314ec65e552f4f783"
+    },
+    "game-art/toolkit/sprites/indexed/cam_bust/05.png": {
+      "bytes": 4169,
+      "sha256": "69fd3e13b33fcf8cd4139d6173446db773ad567767b892381e1b5aa587790810"
+    },
+    "game-art/toolkit/sprites/indexed/cam_bust/06.png": {
+      "bytes": 4177,
+      "sha256": "c2dcf2120810cdb2be92e094c631d0c7990aa15cbbeb79a92f640687a0acf33f"
+    },
+    "game-art/toolkit/sprites/indexed/cam_bust/07.png": {
+      "bytes": 4174,
+      "sha256": "bc5d008ce3adce78a039e4b7b9cdfafcc8b0ef76ee481468b6c687109aff2214"
+    },
+    "game-art/toolkit/sprites/indexed/cam_bust/08.png": {
+      "bytes": 4216,
+      "sha256": "78cff4f7104e1d7089ac17b1827af84afbd9cfbf8d919d9f5628a2120ebfda7f"
+    },
+    "game-art/toolkit/sprites/indexed/cam_bust/09.png": {
+      "bytes": 4160,
+      "sha256": "4db30073458850276653c3bc1e7664fb4d3a8aa62a25f28a8a1d7952f147e5e2"
+    },
+    "game-art/toolkit/sprites/indexed/cam_bust/10.png": {
+      "bytes": 4178,
+      "sha256": "96da14dbcddcbb15311942b0e130858221a8fdbf3fae457a35be2a6da1863203"
+    },
+    "game-art/toolkit/sprites/indexed/cam_bust/11.png": {
+      "bytes": 4189,
+      "sha256": "7b3fb8e5e63dec3203aaf585cd1f3d5fe4743f08229ca324e8ebd67d23e84455"
+    },
+    "game-art/toolkit/sprites/indexed/macro_bust/00.png": {
+      "bytes": 4046,
+      "sha256": "ec0693a287cc93fa0a3c69bb87095236b090359c1e2da95c0d0865331d33696b"
+    },
+    "game-art/toolkit/sprites/indexed/macro_bust/01.png": {
+      "bytes": 4052,
+      "sha256": "05391408ec071af572c2e10fbffedd251766aa2e00dd1cb9b34cde611c0fce28"
+    },
+    "game-art/toolkit/sprites/indexed/macro_bust/02.png": {
+      "bytes": 4089,
+      "sha256": "c70eec1a08f891dea016b924aa7a24a01fe5e6362a46887aecfa170b67d48ff4"
+    },
+    "game-art/toolkit/sprites/indexed/macro_bust/03.png": {
+      "bytes": 4089,
+      "sha256": "c4f031d683872edc51d72629ecf90f102580e88e3a28532b652111b86750d997"
+    },
+    "game-art/toolkit/sprites/indexed/macro_bust/04.png": {
+      "bytes": 4119,
+      "sha256": "bfdf89215600a4f081ea1c5c7c67f9a7efbbeff1574c35c06be1636fa8fc6246"
+    },
+    "game-art/toolkit/sprites/indexed/macro_bust/05.png": {
+      "bytes": 4058,
+      "sha256": "de120306c8438500c951e2d8f2169cc446851ef732a19fc77301429e962c29b1"
+    },
+    "game-art/toolkit/sprites/indexed/macro_bust/06.png": {
+      "bytes": 4070,
+      "sha256": "8ac30646b2b640b7a7a3002abefc776a4bb43a4e4fd00c4e81da0da012a92d5d"
+    },
+    "game-art/toolkit/sprites/indexed/macro_bust/07.png": {
+      "bytes": 4094,
+      "sha256": "9740aa50bd70f2ead80ca6f36a62ec4035da1e575cfcdbb97518c4727fdb722c"
+    },
+    "game-art/toolkit/sprites/indexed/macro_bust/08.png": {
+      "bytes": 4041,
+      "sha256": "83e933dc000419c22e78cad2a94b3d5b3e4a9bbb22e433d1a9a4b316c14c346d"
+    },
+    "game-art/toolkit/sprites/indexed/macro_bust/09.png": {
+      "bytes": 4055,
+      "sha256": "02eb538504e91e0306a77df02d92abed192bfb523fc1c6b2929833901faed146"
+    },
+    "game-art/toolkit/sprites/indexed/macro_bust/10.png": {
+      "bytes": 4039,
+      "sha256": "4b56e8c3bdba82910a774c3113a4a7615c655a66a1db18271e4127684b7d638c"
+    },
+    "game-art/toolkit/sprites/indexed/macro_bust/11.png": {
+      "bytes": 4067,
+      "sha256": "facee37537283cade9b24a3e81134a81bdb688274ed505e040d2ee9bb5a841a2"
+    },
+    "game-art/toolkit/sprites/indexed/media_bust/00.png": {
+      "bytes": 4018,
+      "sha256": "c3b8bbe9e1caaacd67d6d3da53c6641c0609a7f78e709eca353706fe7d203f29"
+    },
+    "game-art/toolkit/sprites/indexed/media_bust/01.png": {
+      "bytes": 4020,
+      "sha256": "ffaf2bf9a05a22112ef2869805913fbe2d3231cad7060660c0e2b7b6c95a4d9f"
+    },
+    "game-art/toolkit/sprites/indexed/media_bust/02.png": {
+      "bytes": 4069,
+      "sha256": "7e03cd2f5607f58d3ae6c0f7102b9e064217e1f40dbc9caef665a75d554a203d"
+    },
+    "game-art/toolkit/sprites/indexed/media_bust/03.png": {
+      "bytes": 4032,
+      "sha256": "61c12ff61917629697e55c5f55fb2da7522bf9c835b8c582de6511ccf405642d"
+    },
+    "game-art/toolkit/sprites/indexed/media_bust/04.png": {
+      "bytes": 4074,
+      "sha256": "5e2a0fc83e7e8a9b41009b39b11b8d2e7b890a4fa30ee3708c895b6461b36449"
+    },
+    "game-art/toolkit/sprites/indexed/media_bust/05.png": {
+      "bytes": 4076,
+      "sha256": "94fb20c37d53ac1df1f273ffc981e434f3b7899d20d617516178fca606e2042a"
+    },
+    "game-art/toolkit/sprites/indexed/media_bust/06.png": {
+      "bytes": 4050,
+      "sha256": "72be407f9acb4589c2b5a21c84d9934b52aca45c44285affc5598025d520eb37"
+    },
+    "game-art/toolkit/sprites/indexed/media_bust/07.png": {
+      "bytes": 4082,
+      "sha256": "8b8ed2c7c316c82133c9b9d36abb40a84afb3a0f6c918f154518a8af37605790"
+    },
+    "game-art/toolkit/sprites/indexed/media_bust/08.png": {
+      "bytes": 4073,
+      "sha256": "968885b02856e5a69a0bb8df9ed92fc3e8a820d3d02c51ca30539e1ae92795fe"
+    },
+    "game-art/toolkit/sprites/indexed/media_bust/09.png": {
+      "bytes": 4060,
+      "sha256": "2912d8f95a4f3b10e9fbfcf75cd0582212447d45ae2a2f252519be1e7b74fb5f"
+    },
+    "game-art/toolkit/sprites/indexed/media_bust/10.png": {
+      "bytes": 4072,
+      "sha256": "c9ff3bd829051245c281d7f70f1248ca7aa8d0c513a21a57cac6ae67f78dde52"
+    },
+    "game-art/toolkit/sprites/indexed/media_bust/11.png": {
+      "bytes": 4032,
+      "sha256": "da74072f04edc453f5b6320fd9a3b5d80354941dc282cab3ffeb41e812ef92b6"
+    },
+    "game-art/toolkit/sprites/indexed/meet_bust/00.png": {
+      "bytes": 3920,
+      "sha256": "78b4f58b7a7d10f7a626619939561d50b5e1c94c6f66010ff8a5956d5fb61bf4"
+    },
+    "game-art/toolkit/sprites/indexed/meet_bust/01.png": {
+      "bytes": 3925,
+      "sha256": "d7b2d559900c32a6a3f44e32944e7f4b6b24ad9eed763d42d96d8178b1df0ae9"
+    },
+    "game-art/toolkit/sprites/indexed/meet_bust/02.png": {
+      "bytes": 3938,
+      "sha256": "e5ef58d8dd318d7d4f4a1de725f0747388aa65103cb260005256fcb48973a261"
+    },
+    "game-art/toolkit/sprites/indexed/meet_bust/03.png": {
+      "bytes": 3901,
+      "sha256": "0968f811fb4c3b056615dbddd89bd61c412d480c149b90a7ebcc5484d9f87de6"
+    },
+    "game-art/toolkit/sprites/indexed/meet_bust/04.png": {
+      "bytes": 3797,
+      "sha256": "12caec901bb37b83d661d0c42e19588dd16eda6fc92f149ddfa0f149189a6287"
+    },
+    "game-art/toolkit/sprites/indexed/meet_bust/05.png": {
+      "bytes": 3733,
+      "sha256": "d0afad1aa494b2eb9a964f2e6a92eb1b66c095e082ecf7d5051b374006debfa3"
+    },
+    "game-art/toolkit/sprites/indexed/meet_bust/06.png": {
+      "bytes": 3691,
+      "sha256": "251c1ff6a50a737502eb25160da4b82324926e3f18cdc4c7efdb76575188a59a"
+    },
+    "game-art/toolkit/sprites/indexed/meet_bust/07.png": {
+      "bytes": 3813,
+      "sha256": "a2a36b6c501d25ccf6d5328203fe888ccd4597e82f46c5a520e9c87333956c35"
+    },
+    "game-art/toolkit/sprites/indexed/meet_bust/08.png": {
+      "bytes": 3867,
+      "sha256": "587ff7b207c8700505dbb165be0db39ada625969652df53ffda7318fdf12df5d"
+    },
+    "game-art/toolkit/sprites/indexed/meet_bust/09.png": {
+      "bytes": 3917,
+      "sha256": "f82eba25fe53bf30f74bba54a831f06a480c10b5423ba0039624046b1d37be97"
+    },
+    "game-art/toolkit/sprites/indexed/meet_bust/10.png": {
+      "bytes": 3900,
+      "sha256": "f3b2f341339f8609fa1a6e6292301f7f73c957729fd4a2d31c1162802f6512e7"
+    },
+    "game-art/toolkit/sprites/indexed/meet_bust/11.png": {
+      "bytes": 3914,
+      "sha256": "a7084bebf72556ef407162844fe71b1c98e8dd51d987dd2ad483a87ccb2219ab"
+    },
+    "game-art/toolkit/sprites/indexed/ppt_bust/00.png": {
+      "bytes": 4089,
+      "sha256": "8c7535b4f671159d02c02561874e1207a4e16484bf28152c5dc769df13a3dcdd"
+    },
+    "game-art/toolkit/sprites/indexed/ppt_bust/01.png": {
+      "bytes": 4116,
+      "sha256": "64867b3e022334153d39be87863be3232fe190848927401a0cccb85fe93bc83f"
+    },
+    "game-art/toolkit/sprites/indexed/ppt_bust/02.png": {
+      "bytes": 4125,
+      "sha256": "c6df0c59efac8b47c7c9834516656e4aaebf145c638fed2f960c2a7b78c542ce"
+    },
+    "game-art/toolkit/sprites/indexed/ppt_bust/03.png": {
+      "bytes": 4079,
+      "sha256": "f71da7d7fea329d1386a11ca3d87b469d3c0f25ce585a318da5430129daecb2c"
+    },
+    "game-art/toolkit/sprites/indexed/ppt_bust/04.png": {
+      "bytes": 4095,
+      "sha256": "0136105c3e952ebfbedf9b5c8dfb3a8845218eb939f074c72d02314a6633128c"
+    },
+    "game-art/toolkit/sprites/indexed/ppt_bust/05.png": {
+      "bytes": 4105,
+      "sha256": "f962951d7855790ed28d89ec30a77e79f46834e364b03bbc955a76c649f77a63"
+    },
+    "game-art/toolkit/sprites/indexed/ppt_bust/06.png": {
+      "bytes": 4096,
+      "sha256": "7540c2411f925fb62d04f8023456c9a4419d1f1a131e5c61764a0ffde10efdae"
+    },
+    "game-art/toolkit/sprites/indexed/ppt_bust/07.png": {
+      "bytes": 4103,
+      "sha256": "87c6f80c8bc35e7d0b796ef0dc2f8edb5f4cfdb6374ebb6893aa2eece4d7009a"
+    },
+    "game-art/toolkit/sprites/indexed/ppt_bust/08.png": {
+      "bytes": 4114,
+      "sha256": "101d36a16253acd3abb086e411acadad13a5b96b9ab488cd6c520576a0f1864d"
+    },
+    "game-art/toolkit/sprites/indexed/ppt_bust/09.png": {
+      "bytes": 4108,
+      "sha256": "093768a18147013e7d768a4aa7bd3f49282259ded89d005c6f0b7babc9363f0f"
+    },
+    "game-art/toolkit/sprites/indexed/ppt_bust/10.png": {
+      "bytes": 4092,
+      "sha256": "c75b5a5934102f9805e91b2caf442d281c4bbd97237cfdac382bb1c2c48d5f8e"
+    },
+    "game-art/toolkit/sprites/indexed/ppt_bust/11.png": {
+      "bytes": 4084,
+      "sha256": "54ad1aa924386421d648e36ad09493f4848474536a98eb96fa9ed499619b0d83"
+    },
+    "game-art/toolkit/sprites/indexed/welcome_large/00.png": {
+      "bytes": 6841,
+      "sha256": "a3db8d00b569f68fb4a3453434835ee29b1ae395f99aa831d429f8da2de7fc4b"
+    },
+    "game-art/toolkit/sprites/indexed/welcome_large/01.png": {
+      "bytes": 6641,
+      "sha256": "7e39cc10b3b5c77f51d7511b1be60df4a509e8304a6a07c708e49cea77a99a9b"
+    },
+    "game-art/toolkit/sprites/indexed/welcome_large/02.png": {
+      "bytes": 6272,
+      "sha256": "4e9f7f987543a6742bfdc3306666e0c4e874b2060a278f5666bcdf7994ff957b"
+    },
+    "game-art/toolkit/sprites/indexed/welcome_large/03.png": {
+      "bytes": 6629,
+      "sha256": "c956bf8f41958f59327504a012fbae98808ed13bf8916ab0cbcb685f8697a8b1"
+    },
+    "game-art/toolkit/sprites/indexed/welcome_large/04.png": {
+      "bytes": 7344,
+      "sha256": "841d0544c07d2c6e59a87d9a34b63aa98920c1281b72c7cbcaaf8fbb945bd05a"
+    },
+    "game-art/toolkit/sprites/indexed/welcome_large/05.png": {
+      "bytes": 7296,
+      "sha256": "cb7283ddffe4979d54c305377fef3a87b338f798766e3217bdeacd0979db102b"
+    },
+    "game-art/toolkit/sprites/indexed/welcome_large/06.png": {
+      "bytes": 6867,
+      "sha256": "24448e33ee99fd81c4eaea213507a0ca3e83cd2056e1b1c9599036eedfc509d1"
+    },
+    "game-art/toolkit/sprites/indexed/welcome_large/07.png": {
+      "bytes": 6871,
+      "sha256": "947653c411402e9d67d974d8f5836d6aaf312a1c55ca350f2737254ec36b619a"
+    },
+    "game-art/toolkit/sprites/manifest.json": {
+      "bytes": 25802,
+      "sha256": "cc60b2b66e279a7bb2c21b4126d67a8b5fde6f3c07e2884e0e9c513bbe052419"
+    },
+    "game-art/toolkit/sprites/master/base/00.png": {
+      "bytes": 61860,
+      "sha256": "c6a65614e8af7eb6318eaa55aae50688aac4aa69998ce4681226df608e719b0b"
+    },
+    "game-art/toolkit/sprites/master/base/01.png": {
+      "bytes": 62511,
+      "sha256": "752b22206c73c8527e265c060f682f9bd6bc6687c1d277346f7e3da35bc29942"
+    },
+    "game-art/toolkit/sprites/master/base/02.png": {
+      "bytes": 62456,
+      "sha256": "52efdeb3ab71a780a65d710bc941288acb45f0e5734952c5f814b40b56118d81"
+    },
+    "game-art/toolkit/sprites/master/base/03.png": {
+      "bytes": 62366,
+      "sha256": "496e8d3b2460dc93228b218dc17a81b5cc428c28f7ab203fcb402436743ff246"
+    },
+    "game-art/toolkit/sprites/master/base/04.png": {
+      "bytes": 62346,
+      "sha256": "143d2482548c8295147f246b227ae665e1d5a547a637703ac1c2ec8cd9e802dd"
+    },
+    "game-art/toolkit/sprites/master/base/05.png": {
+      "bytes": 61980,
+      "sha256": "e81294bf5bbd6128a85ecf2935aae63325716d682e614f1a5acf1722b35ef54d"
+    },
+    "game-art/toolkit/sprites/master/base/06.png": {
+      "bytes": 62346,
+      "sha256": "b110dcb7d626807ec8ec5acb820e9e2b3c8f6156df499791aa4bf5c4ed737b8b"
+    },
+    "game-art/toolkit/sprites/master/base/07.png": {
+      "bytes": 62992,
+      "sha256": "7f14a576fc6adf3e0e76371d208f268dda76b7dffc7adf6ccf1faf3a1101f7e8"
+    },
+    "game-art/toolkit/sprites/master/base/08.png": {
+      "bytes": 62746,
+      "sha256": "b68257795cf4e9d11dd41e341792a35153b6a537f5b9913689680c65c559f7a1"
+    },
+    "game-art/toolkit/sprites/master/base/09.png": {
+      "bytes": 62424,
+      "sha256": "71bd17cd1cfff2ed037f12d3e0175e5a98115b0b2c8ecc1e5baac3abee1ab320"
+    },
+    "game-art/toolkit/sprites/master/base/10.png": {
+      "bytes": 62450,
+      "sha256": "456df89937f848f65426e525e302822145c44cc13a0e3cee04875c0578c3fd32"
+    },
+    "game-art/toolkit/sprites/master/base/11.png": {
+      "bytes": 62404,
+      "sha256": "d76943bf2f164bebf7a9378de58799aef0a92e5fd45a06b153bf5b6c2a579a99"
+    },
+    "game-art/toolkit/sprites/master/cam/00.png": {
+      "bytes": 62521,
+      "sha256": "11cedcea1aed74f355c88f1c43b349fba5864413f39205ea1b08cbe79a9241f2"
+    },
+    "game-art/toolkit/sprites/master/cam/01.png": {
+      "bytes": 63187,
+      "sha256": "fed5fe0c38f90badce79be0b3de15c963c5feb63fb5d601d5c473a6cd7a4085e"
+    },
+    "game-art/toolkit/sprites/master/cam/02.png": {
+      "bytes": 63116,
+      "sha256": "48bbe12ca27ad968db61f9be5caf2353344a19b38e158043ebfff058da6319c5"
+    },
+    "game-art/toolkit/sprites/master/cam/03.png": {
+      "bytes": 63133,
+      "sha256": "955a3c4f873adbeb143a79a060708b0a371fcc4c878897a32738f3385e790e0b"
+    },
+    "game-art/toolkit/sprites/master/cam/04.png": {
+      "bytes": 63270,
+      "sha256": "bcb167ca6992580750353cd5bb0759b4d4123bdd8d5344afd588ce97af23376e"
+    },
+    "game-art/toolkit/sprites/master/cam/05.png": {
+      "bytes": 63393,
+      "sha256": "7f9c7669938e366cc38a780954b10846a79a3a6443a4d185f2ab7ca3ffc61264"
+    },
+    "game-art/toolkit/sprites/master/cam/06.png": {
+      "bytes": 63176,
+      "sha256": "a905d3ab015227b22740df2c777fff2c77ffc089185b7be2acf3a7863c4534b8"
+    },
+    "game-art/toolkit/sprites/master/cam/07.png": {
+      "bytes": 63431,
+      "sha256": "86bec5f22f57ca2fbdd7fdd4a34dd9e7622f907aea2b0655bc7edc3cc4b5ead1"
+    },
+    "game-art/toolkit/sprites/master/cam/08.png": {
+      "bytes": 63631,
+      "sha256": "a2581cb3cd3338353e2a26f1e5b6a599f5bca9447bd231963013430a2e4f471e"
+    },
+    "game-art/toolkit/sprites/master/cam/09.png": {
+      "bytes": 63110,
+      "sha256": "60c92bfd7de108dca3d0fa83907dd3a38ee3c08e37d5af7f38b0501098328f68"
+    },
+    "game-art/toolkit/sprites/master/cam/10.png": {
+      "bytes": 63252,
+      "sha256": "0941a7f38e9743d7f01ecdd5130f356dca3e4752814a2f24589d33e4e9d21cb8"
+    },
+    "game-art/toolkit/sprites/master/cam/11.png": {
+      "bytes": 63440,
+      "sha256": "5fb3e21fe735850f0624de6576ba256d839a8c69ff5eecbc305d6b4b13be4e84"
+    },
+    "game-art/toolkit/sprites/master/macro/00.png": {
+      "bytes": 60647,
+      "sha256": "414fa8d0ddaaf8cc9d343f82485b3552f4ba3353175e86f447511a85dcea4a61"
+    },
+    "game-art/toolkit/sprites/master/macro/01.png": {
+      "bytes": 61330,
+      "sha256": "5f728a3c51760f1aa675b9e7777c91bb5421b186f0ecd64e4a34fc940179b865"
+    },
+    "game-art/toolkit/sprites/master/macro/02.png": {
+      "bytes": 61893,
+      "sha256": "f467b999e3028f2466222cc15529ac33ea0a645b3f42d0c0d6fae4d8c4c92553"
+    },
+    "game-art/toolkit/sprites/master/macro/03.png": {
+      "bytes": 61828,
+      "sha256": "e658d1f59f15e81a795f9d893a45fed44f879776dc36c47fd3d241db6e3ffb51"
+    },
+    "game-art/toolkit/sprites/master/macro/04.png": {
+      "bytes": 62050,
+      "sha256": "30d0143518bb8dd9765698d10c28af77e99c0a96209cb565bcedba40ffbb20f2"
+    },
+    "game-art/toolkit/sprites/master/macro/05.png": {
+      "bytes": 61700,
+      "sha256": "24f11a0640fef8a186d778700488d3554c6a210e160ab7ff9a57251d70ad5e1f"
+    },
+    "game-art/toolkit/sprites/master/macro/06.png": {
+      "bytes": 62057,
+      "sha256": "2d9632222167b1b6a6194b3f20f1f0a672230e028a0e23954ecff2bf90351879"
+    },
+    "game-art/toolkit/sprites/master/macro/07.png": {
+      "bytes": 61854,
+      "sha256": "6a7bde8cc3a3e268fc105adb4567fc4aac638188949fd2cae8d2e747c0c703eb"
+    },
+    "game-art/toolkit/sprites/master/macro/08.png": {
+      "bytes": 61951,
+      "sha256": "fb758f23db89abb4c99819a8677f26e9479d220d228c77821d66eaf5e9d3a88e"
+    },
+    "game-art/toolkit/sprites/master/macro/09.png": {
+      "bytes": 61574,
+      "sha256": "9dfb0937a8aade4dd168e74b3326daf511929889aeb703c33a20cef556b10b49"
+    },
+    "game-art/toolkit/sprites/master/macro/10.png": {
+      "bytes": 61916,
+      "sha256": "a86e8d7d0feba5fe31dc16ab34bb7e6b4560ab931aa787841c4ace4ebaf93a2c"
+    },
+    "game-art/toolkit/sprites/master/macro/11.png": {
+      "bytes": 61922,
+      "sha256": "1d34bbe415179d5407ac046bffb93fb2ba2eea1a3ea5f2cd24fb5624c6a76879"
+    },
+    "game-art/toolkit/sprites/master/media/00.png": {
+      "bytes": 58232,
+      "sha256": "de24b706aa14763f7c3842d8ca29ae6bad12f5eff1806e4d2f848d6e720bb48c"
+    },
+    "game-art/toolkit/sprites/master/media/01.png": {
+      "bytes": 58944,
+      "sha256": "07c14b142de5bd0b2cb7a0e708e62426d2c8adb5823e775cbfeae0895417c487"
+    },
+    "game-art/toolkit/sprites/master/media/02.png": {
+      "bytes": 59680,
+      "sha256": "6fb63317ff2864a281129bf92156dd3066c095b4685286360df7f24641d2d02b"
+    },
+    "game-art/toolkit/sprites/master/media/03.png": {
+      "bytes": 59815,
+      "sha256": "4fbe8ad5ee0bf39623f267173289d465c132aa1e0e3f21b71734a948a5c71e78"
+    },
+    "game-art/toolkit/sprites/master/media/04.png": {
+      "bytes": 60339,
+      "sha256": "dcce511056cdabcfe0cf8e22bbd1d027f5ee4bb9565381db6584257d187efebf"
+    },
+    "game-art/toolkit/sprites/master/media/05.png": {
+      "bytes": 60074,
+      "sha256": "1fcbad36ccc05d2bc1ad577129f5336582a96d8b8c4f7c37458cc958c4d8051e"
+    },
+    "game-art/toolkit/sprites/master/media/06.png": {
+      "bytes": 59973,
+      "sha256": "c4231aec689f0234778ca6995083f638a4d609b9745eeb9f87ccdb4f6989c0bf"
+    },
+    "game-art/toolkit/sprites/master/media/07.png": {
+      "bytes": 59934,
+      "sha256": "877d508ba2db651d4dcc25a21a25ebc43b833939c106dbca59bfd3e7ba46d133"
+    },
+    "game-art/toolkit/sprites/master/media/08.png": {
+      "bytes": 59650,
+      "sha256": "de197cc3e6cb664ef1f5902d334fbb72e71c0fbdb4224af37ac6790131a49efd"
+    },
+    "game-art/toolkit/sprites/master/media/09.png": {
+      "bytes": 60066,
+      "sha256": "4a012345e470874bbe269838918385206a2f65333fc140ec38c204562dd4ab07"
+    },
+    "game-art/toolkit/sprites/master/media/10.png": {
+      "bytes": 60247,
+      "sha256": "f973768c2d71e4b89268d769eff5c919add7792d4efe1fc155c44d3ba0047a2a"
+    },
+    "game-art/toolkit/sprites/master/media/11.png": {
+      "bytes": 60397,
+      "sha256": "2844c47d6246301803e501178ecf6bcb1627df254a3a2ba527d4c9c91f361d8f"
+    },
+    "game-art/toolkit/sprites/master/meet/00.png": {
+      "bytes": 57829,
+      "sha256": "afe42fba44c761eef2bf6ab6000581afde0dedc7983833a66d787f8173ac187a"
+    },
+    "game-art/toolkit/sprites/master/meet/01.png": {
+      "bytes": 58141,
+      "sha256": "c9e426be373246e3f693777cfee796fab33d39ec5f9c8543ac7d8285730e6ae2"
+    },
+    "game-art/toolkit/sprites/master/meet/02.png": {
+      "bytes": 58122,
+      "sha256": "0e02d082bc41102179139a9c5cc3d695eeba61f4a913834ad51763e750b7c37f"
+    },
+    "game-art/toolkit/sprites/master/meet/03.png": {
+      "bytes": 57739,
+      "sha256": "2b3b7ad4eb7a922338b1723e9aff8895e68bfee840a0de1aebc4a2559988ba99"
+    },
+    "game-art/toolkit/sprites/master/meet/04.png": {
+      "bytes": 56490,
+      "sha256": "0e35261f0c763f0ec0e383db37ff308378d75b1a5b14e6770c38cd891dd0bcd9"
+    },
+    "game-art/toolkit/sprites/master/meet/05.png": {
+      "bytes": 55755,
+      "sha256": "9921f12d88bad098118b3ae2fe35090603078c232d69d408f7b1b16c9926069d"
+    },
+    "game-art/toolkit/sprites/master/meet/06.png": {
+      "bytes": 55612,
+      "sha256": "2f098f25575c592e1662d1d5f8f07fd9ae3937d8c746383aba63c3af5d5d8944"
+    },
+    "game-art/toolkit/sprites/master/meet/07.png": {
+      "bytes": 56708,
+      "sha256": "e84c1de7b3d8d533148ce4968a121bb4079a361423ac3ec431124b108251f655"
+    },
+    "game-art/toolkit/sprites/master/meet/08.png": {
+      "bytes": 57721,
+      "sha256": "b7e3c25fe12efdd6066e2f7cf0da29b0fa25f0786a96095b3cabe49ce6217c86"
+    },
+    "game-art/toolkit/sprites/master/meet/09.png": {
+      "bytes": 58138,
+      "sha256": "81c5d7583db222acf44269849b365b3a923ec0d990a4bf0247a3b8a4c6c9f592"
+    },
+    "game-art/toolkit/sprites/master/meet/10.png": {
+      "bytes": 58365,
+      "sha256": "5c9624fcdb4e1d3a0b2700674e0910466481454c9b5907487b08845550711fe7"
+    },
+    "game-art/toolkit/sprites/master/meet/11.png": {
+      "bytes": 58595,
+      "sha256": "1c26d2a4e5166ca1f7c177a4d48a0254c97dbd4749f6a909519c0e8f11da5f21"
+    },
+    "game-art/toolkit/sprites/master/ppt/00.png": {
+      "bytes": 57292,
+      "sha256": "7c449fee38f146c73ee7cb31bcff9bda849183e19a8ecc5a2ebebb6ba1c24949"
+    },
+    "game-art/toolkit/sprites/master/ppt/01.png": {
+      "bytes": 57980,
+      "sha256": "76eecf00e291ea5c60ca7628034cc9580d03cce846a45e2007c4ab7c35af1839"
+    },
+    "game-art/toolkit/sprites/master/ppt/02.png": {
+      "bytes": 58299,
+      "sha256": "2cf23464adee05439ee8c82ccc357d0c490009ec0bf4b11a7f6efc9915a0060e"
+    },
+    "game-art/toolkit/sprites/master/ppt/03.png": {
+      "bytes": 58639,
+      "sha256": "f7fab1257d16741d8b27c3774001c30d75c968d5ff262bd8ab337ad358ac69ca"
+    },
+    "game-art/toolkit/sprites/master/ppt/04.png": {
+      "bytes": 58545,
+      "sha256": "b92b72f9b1ecd34051ab4375f854a0c9714e0e640563dcfe388832a2e816f982"
+    },
+    "game-art/toolkit/sprites/master/ppt/05.png": {
+      "bytes": 58817,
+      "sha256": "27abd1f882b049ffc097bb26477b276ae07b2f737bfaf686f67f70e6dc77ebd7"
+    },
+    "game-art/toolkit/sprites/master/ppt/06.png": {
+      "bytes": 58625,
+      "sha256": "e8f8c2e58fb238cbccdaab64ede1e68ae21e4c3ecc8685660011c3ff9a7eeff9"
+    },
+    "game-art/toolkit/sprites/master/ppt/07.png": {
+      "bytes": 59033,
+      "sha256": "89c7a0af989666f3bb090cc9aff4c2ef52c5887a19b37dbf9fc2a6dd6ba3328e"
+    },
+    "game-art/toolkit/sprites/master/ppt/08.png": {
+      "bytes": 59137,
+      "sha256": "bd71a935747adff064c4bc5566abea7aa5f44c569cf505ed6b253908ad3d45fb"
+    },
+    "game-art/toolkit/sprites/master/ppt/09.png": {
+      "bytes": 58735,
+      "sha256": "002bde8b8c33bc1a8af90e546de52da7f710fbbdb0983c66bdfef2659677fb77"
+    },
+    "game-art/toolkit/sprites/master/ppt/10.png": {
+      "bytes": 58719,
+      "sha256": "3d1b19858f87519300579a94501644eee5c7399d7b0e8cf452d14630c8802eb2"
+    },
+    "game-art/toolkit/sprites/master/ppt/11.png": {
+      "bytes": 58728,
+      "sha256": "953ddce96c902ad1bf95339b1b6bfb3d19b7848d32448eb68c73c8a7dfcb1d5c"
+    },
+    "game-art/toolkit/sprites/master/welcome/00.png": {
+      "bytes": 63120,
+      "sha256": "2ec5fa155868a46099dd10a460fd57db22bcd5ce1a07e9f4aa61247605662803"
+    },
+    "game-art/toolkit/sprites/master/welcome/01.png": {
+      "bytes": 61493,
+      "sha256": "8624fe08f3ccef3f608ea2b7ed0fd0b382c2db38d14eaefb690bed1fd5efcea6"
+    },
+    "game-art/toolkit/sprites/master/welcome/02.png": {
+      "bytes": 59163,
+      "sha256": "4c6ca67e61b90ebc4b2beb501555ebfa724b552091663347901725b1c2d3a23c"
+    },
+    "game-art/toolkit/sprites/master/welcome/03.png": {
+      "bytes": 62124,
+      "sha256": "4d8cf33a1c6a2bf64b4e0ac367f6c8e9bd42b79e53484b287e186ca405dc0e25"
+    },
+    "game-art/toolkit/sprites/master/welcome/04.png": {
+      "bytes": 69101,
+      "sha256": "61494f7e589e5494987fab7050636a009f8a605547f85b9024b659046b44e480"
+    },
+    "game-art/toolkit/sprites/master/welcome/05.png": {
+      "bytes": 68755,
+      "sha256": "2501db25724dfe70931ff979390fc195699858311cd252738ecb8b69f7c84844"
+    },
+    "game-art/toolkit/sprites/master/welcome/06.png": {
+      "bytes": 64276,
+      "sha256": "3926b3d4f766f7d3681951f6173f2fd069560a9ccbe1f14f4a26d15fd06021ff"
+    },
+    "game-art/toolkit/sprites/master/welcome/07.png": {
+      "bytes": 64414,
+      "sha256": "43da923f74359ac948d592e5d0dec4162a1d49abcd435d7be39f68cd881cf98b"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-27",
+  "S1_variant": "B",
+  "palette_approved": true,
+  "source_round": "r1b+r2b",
+  "handoff_commit": "9004d56",
+  "rework_visual_status": "approved by user in chat",
+  "S0": "../design/r1b/S0_base.png",
+  "S0R": "../design/r1b/S0R_remote.png",
+  "S1": "../design/r1b/S1_ppt.png",
+  "next": "User generates tk00-tk06; original videos go to art/video/batch1/",
+  "r1b_approved": true,
+  "r2b_approved": true,
+  "S2": "../design/r2b/S2_meet.png",
+  "S3": "../design/r2b/S3_media.png",
+  "S4": "../design/r2b/S4_cam.png",
+  "S5": "../design/r2b/S5_macro.png",
+  "status": "All seven frames approved; Grok batch 1 ready",
+  "frame_sha256": {
+    "S0R_remote.png": "871335e37e1c11e28eaf040084fa48737a21175eef086cc5cde4cb6c33b42b5d",
+    "S0_base.png": "c586e7fea68f52d549aed5f70d0163c7bb8df1ea7b37c82decdefddaaab8d574",
+    "S1_ppt.png": "05b6ba1fcf1e9be1f909bb748e1a6ce9b5d6049a275877f8d2a8fb6b3efcfb50",
+    "S2_meet.png": "80a228dfd7717428ad24e193f6ccaff3af040fc364d6fcf8b57aad35fefce5a4",
+    "S3_media.png": "ede7c7fc137f6d67029997e4cb0dcd4bb0d7de9a2eef71acf964dd697ca2e17d",
+    "S4_cam.png": "78b4d020239741b40da9046b6120f0b571d63347343ebf4e0d3821af991bafd1",
+    "S5_macro.png": "b3bb4a52d9713050c7c8a683df04b5fa15f262e8074b3b7d35efcc918a6e47bd"
+  },
+  "delivery_package": "../delivery/NABO_Toolkit_Grok_Batch1.zip",
+  "delivery_sha256": "35ce47007426412f60cdfa07338038b3080dfa223f871aa5f9d0e7e6791e214b"
+}

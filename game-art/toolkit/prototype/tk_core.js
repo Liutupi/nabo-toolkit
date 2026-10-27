@@ -11,7 +11,7 @@
   const SLEEP = [5, 15, 30, 0];              // minutes; 0 = 连接时不休眠
   const CAM_DELAYS = [0, 3, 10];
   const BURST = { count: 5, gapMs: 600 };
-  const BOOT_MS = 3500, VOICE_AT_MS = 1400;    // DESIGN 5.0
+  const BOOT_MS = 5500, VOICE_AT_MS = 1400;    // Full welcome clip; any key skips.
   const PAIR_MS = 60000, TOAST_MS = 1200, ERR_MS = 1500, REACT_MS = 500;
   const MAX_SLOTS = 3, MAX_CARDS = 3;
 
@@ -149,7 +149,7 @@
   function connRows(st) { return MAX_SLOTS + 1; }   // 3 slots + 配对新设备
   function startPairing(st, now) {
     if (st.slots.every(Boolean)) { toast(st, now, '3 台设备满了，先长按↓删一台', 'err'); return; }
-    st.connected = false; st.pairing = { until: now + PAIR_MS };
+    st.connected = false; st.pairing = { until: now + PAIR_MS, passkey: null };
   }
   function onConn(st, k, now, out) {
     if (st.confirmDel >= 0) {
@@ -173,7 +173,8 @@
   function onOsPick(st, k, now, out) {
     const p = st.osPick, n = H.OS_LIST.length;
     if (k === 'up' || k === 'down') p.sel = (p.sel + (k === 'up' ? n - 1 : 1)) % n;
-    else if (k === 'ok' || k === 'long_up') {
+    else if (k === 'long_up') st.osPick = null;
+    else if (k === 'ok') {
       st.slots[p.slot].os = H.OS_LIST[p.sel]; st.osPick = null;
       toast(st, now, '设备类型：' + H.OS_NAME[H.OS_LIST[p.sel]]);
     }
@@ -208,7 +209,8 @@
       return out;
     }
     if (key === 'long_up') {
-      if (st.page === 'card' && st.card.zoom) st.card.zoom = false;
+      if (st.pairing) { st.pairing = null; toast(st, now, '已停止配对'); }
+      else if (st.page === 'card' && st.card.zoom) st.card.zoom = false;
       else { st.cam.endMs = 0; st.cam.burstLeft = 0; st.confirmDel = -1; st.page = 'menu'; st.toast = null; }
       beep(out, st, 523); return out;
     }
@@ -247,12 +249,20 @@
   function sim(st, ev, now, arg) {
     if (ev === 'paired' && st.pairing) {
       const i = st.slots.indexOf(null);
+      if (i < 0) return;
       st.slots[i] = { name: arg || '新设备 ' + (i + 1), os: 'win' };
       st.pairing = null; st.active = i; st.connected = true; st.connSel = i;
       st.osPick = { slot: i, sel: 1 };
+    } else if (ev === 'passkey' && st.pairing) {
+      const valid = (Number.isInteger(arg) && arg >= 0 && arg <= 999999) ||
+        (typeof arg === 'string' && /^\d{6}$/.test(arg));
+      if (valid) st.pairing.passkey = String(arg).padStart(6, '0');
     } else if (ev === 'disconnect') st.connected = false;
     else if (ev === 'reconnect' && st.slots[st.active]) st.connected = true;
-    else if (ev === 'wake') { st.page = 'boot'; st.boot = { start: now, voiced: false }; st.osPick = null; }
+    else if (ev === 'wake') {
+      st.page = 'boot'; st.boot = { start: now, voiced: false }; st.osPick = null;
+      st.lastInput = now; st.connected = false; st.pairing = null;
+    }
   }
 
   function sleepDue(st, now) {

@@ -1,0 +1,167 @@
+{
+  "version": 1,
+  "clips": {
+    "welcome": {
+      "durationMs": 4042,
+      "loop": false,
+      "times": [
+        0,
+        750,
+        1250,
+        1750,
+        2250,
+        2750,
+        3250,
+        4000
+      ],
+      "large": {
+        "file": "sprites/welcome_large.png",
+        "w": 115,
+        "h": 150
+      }
+    },
+    "base": {
+      "durationMs": 3000,
+      "loop": true,
+      "times": [
+        0,
+        250,
+        500,
+        750,
+        1000,
+        1250,
+        1500,
+        1750,
+        2000,
+        2250,
+        2500,
+        2750
+      ],
+      "bust": {
+        "file": "sprites/base_bust.png",
+        "w": 84,
+        "h": 110
+      },
+      "avatar": {
+        "file": "sprites/base_avatar.png",
+        "w": 64,
+        "h": 64
+      }
+    },
+    "ppt": {
+      "durationMs": 3000,
+      "loop": true,
+      "times": [
+        0,
+        250,
+        500,
+        750,
+        1000,
+        1250,
+        1500,
+        1750,
+        2000,
+        2250,
+        2500,
+        2750
+      ],
+      "bust": {
+        "file": "sprites/ppt_bust.png",
+        "w": 84,
+        "h": 110
+      }
+    },
+    "meet": {
+      "durationMs": 3000,
+      "loop": true,
+      "times": [
+        0,
+        250,
+        500,
+        750,
+        1000,
+        1250,
+        1500,
+        1750,
+        2000,
+        2250,
+        2500,
+        2750
+      ],
+      "bust": {
+        "file": "sprites/meet_bust.png",
+        "w": 84,
+        "h": 110
+      }
+    },
+    "media": {
+      "durationMs": 3000,
+      "loop": true,
+      "times": [
+        0,
+        250,
+        500,
+        750,
+        1000,
+        1250,
+        1500,
+        1750,
+        2000,
+        2250,
+        2500,
+        2750
+      ],
+      "bust": {
+        "file": "sprites/media_bust.png",
+        "w": 84,
+        "h": 110
+      }
+    },
+    "cam": {
+      "durationMs": 3000,
+      "loop": true,
+      "times": [
+        0,
+        250,
+        500,
+        750,
+        1000,
+        1250,
+        1500,
+        1750,
+        2000,
+        2250,
+        2500,
+        2750
+      ],
+      "bust": {
+        "file": "sprites/cam_bust.png",
+        "w": 84,
+        "h": 110
+      }
+    },
+    "macro": {
+      "durationMs": 3000,
+      "loop": true,
+      "times": [
+        0,
+        250,
+        500,
+        750,
+        1000,
+        1250,
+        1500,
+        1750,
+        2000,
+        2250,
+        2500,
+        2750
+      ],
+      "bust": {
+        "file": "sprites/macro_bust.png",
+        "w": 84,
+        "h": 110
+      }
+    }
+  }
+}

@@ -39,6 +39,16 @@
     if (fill) { g.fillStyle = fill; g.fill(); }
     if (stroke) { g.lineWidth = lw || 2; g.strokeStyle = stroke; g.stroke(); }
   }
+  function chordLabel(spec, os) {
+    const packet = H.resolve(spec, os);
+    if (!packet || packet.kind !== 'key' || !H.isApple(os)) return H.chordLabel(packet, os);
+    const parts = [];
+    for (const [mask, name] of [[1,'⌃'],[16,'R⌃'],[4,'⌥'],[64,'R⌥'],[2,'⇧'],[32,'R⇧'],[8,'⌘'],[128,'R⌘']]) {
+      if (packet.mod & mask) parts.push(name);
+    }
+    if (packet.usage) parts.push(H.keyName(packet.usage));
+    return parts.join('+');
+  }
 
   function statusText(st, now) {
     if (st.pairing) return { s: '配对中 ' + Math.ceil((st.pairing.until - now) / 1000) + 's', c: C.GOLD };
@@ -48,8 +58,12 @@
   }
   function topBar(g, st, now, page) {
     g.fillStyle = C.INK; g.fillRect(0, 0, 240, 32);
-    g.fillStyle = ACCENT[page]; g.fillRect(0, 30, 240, 2);
-    txt(g, NAME[page], 10, 22, 16, C.PAPER);
+    g.fillStyle = ACCENT[page]; g.fillRect(0, 32, 240, 4);
+    g.save(); g.beginPath(); g.rect(0, 32, 240, 4); g.clip();
+    g.strokeStyle = C.INK; g.globalAlpha = .4; g.lineWidth = 3;
+    for (let x = -4; x < 248; x += 6) { g.beginPath(); g.moveTo(x, 36); g.lineTo(x + 4, 32); g.stroke(); }
+    g.restore();
+    txt(g, fit(g, NAME[page], 116, 16), 10, 22, 16, C.PAPER);
     const t = statusText(st, now), s = fit(g, t.s, 84, 12);
     g.font = '500 12px ' + FONT;
     const w = g.measureText(s).width;
@@ -63,6 +77,10 @@
 
   /* NABO placeholder: unchanged frames from nabo-idle.png in a round frame. */
   function nabo(g, imgs, x, y, size, accent, now, react) {
+    if (imgs.clips && sprite(g, imgs, 'base', 'avatar', x, y, size, now)) {
+      g.beginPath(); g.arc(x + size/2, y + size/2, size/2, 0, 7);
+      g.strokeStyle = accent; g.lineWidth = 3; g.stroke(); return;
+    }
     const ph = now % 3600;
     const frame = ph > 3460 && ph < 3540 ? imgs.closed : (ph > 3400 && ph < 3600 ? imgs.half : imgs.open);
     const dy = react ? -Math.round(5 * Math.sin(Math.PI * Math.min(1, (react.until - now) / 500))) : 0;
@@ -74,24 +92,45 @@
     g.restore();
   }
 
+  function sprite(g, imgs, id, variant, x, y, height, elapsed) {
+    const clip = imgs.clips && imgs.clips[id], asset = clip && clip[variant];
+    if (!asset || !asset.image.complete || !asset.image.naturalWidth) return false;
+    const t = clip.loop ? Math.max(0, elapsed) % clip.durationMs : Math.max(0, elapsed);
+    let i = 0;
+    while (i + 1 < clip.times.length && t >= clip.times[i + 1]) i++;
+    const width = height * asset.w / asset.h;
+    g.drawImage(asset.image, i * asset.w, 0, asset.w, asset.h, x, y, width, height);
+    return true;
+  }
+  function naboBust(g, imgs, id, cx, bottom, height, elapsed) {
+    const variant = height === 150 ? 'large' : 'bust';
+    const asset = imgs.clips && imgs.clips[id] && imgs.clips[id][variant];
+    const width = asset ? height * asset.w / asset.h : height * 84/110;
+    if (sprite(g, imgs, id, variant, cx-width/2, bottom-height, height, elapsed)) return;
+    const frame = imgs.open;
+    if (frame && frame.complete) g.drawImage(frame, cx-height/2, bottom-height, height, height);
+  }
+
   function toast(g, st) {
     const t = st.toast;
     if (!t) return;
     const err = t.kind === 'err';
-    rr(g, 8, 256, 224, 26, 8, err ? C.RED : C.PANEL);
+    const tool = root.TK.TOOLS.has(st.page) && st.page !== 'card', w = tool ? 138 : 224;
+    rr(g, 8, 256, w, 26, 8, err ? C.RED : C.PANEL);
     if (!err) { g.fillStyle = ACCENT[st.page] || C.GOLD; g.fillRect(8, 262, 3, 14); }
-    txt(g, fit(g, t.text, 206, 12), err ? 120 : 18, 274, 12, C.WHITE, err ? 'center' : 'left');
+    txt(g, fit(g, t.text, w - 18, 12), err ? 8 + w/2 : 18, 274, 12, C.WHITE, err ? 'center' : 'left');
   }
 
   /* Three-row key legend; rows: {k, label, sub?, dim?}. */
   function legend(g, rows, hitKey, accent, x, y, w) {
-    const h = rows.some((r) => r.sub) ? 34 : 30;
-    x = x || 8; y = y || (h === 34 ? 140 : 150); w = w || 146;
+    const h = 34;
+    x = x || 8; y = y || 142; w = w || 138;
     rows.forEach((r, i) => {
-      const ry = y + i * (h + 4), hit = hitKey && r.id === hitKey;
+      const hit = hitKey && r.id === hitKey, ry = y + i * (h + 4) + (hit ? 2 : 0);
+      if (!hit) rr(g, x, ry + 2, w, h, 8, C.INK);
       rr(g, x, ry, w, h, 8, hit ? accent : C.PANEL);
       rr(g, x + 4, ry + (h - 22) / 2, 30, 22, 6, hit ? C.INK : C.BG);
-      txt(g, r.k, x + 19, ry + h / 2 + 5, r.k === 'OK' ? 12 : 14, hit ? accent : C.PAPER, 'center', r.k === 'OK' ? NUM : FONT);
+      txt(g, r.k, x + 19, ry + h / 2 + 5, r.k === 'OK' ? 12 : 16, hit ? accent : C.PAPER, 'center', r.k === 'OK' ? NUM : FONT);
       const col = hit ? C.INK : (r.dim ? C.DIM : C.PAPER);
       if (r.sub) {
         txt(g, fit(g, r.label, w - 46, 16), x + 42, ry + 16, 16, col);
@@ -103,8 +142,8 @@
   /* ---- 菜单 ---- */
   function drawMenu(g, st, now, imgs) {
     topBar(g, st, now, 'menu');
-    g.fillStyle = C.PANEL; g.fillRect(0, 32, 240, 72);
-    nabo(g, imgs, 10, 37, 62, C.GOLD, now, null);
+    g.fillStyle = C.PANEL; g.fillRect(0, 36, 240, 68);
+    nabo(g, imgs, 10, 38, 64, C.GOLD, now, null);
     rr(g, 84, 44, 148, 50, 10, C.PAPER);
     g.beginPath(); g.moveTo(84, 62); g.lineTo(76, 68); g.lineTo(84, 72); g.fillStyle = C.PAPER; g.fill();
     txt(g, '今天遥控什么？', 94, 65, 16, C.INK);
@@ -113,10 +152,11 @@
     txt(g, fit(g, line, 130, 12), 94, 84, 12, st.connected ? C.DIM : C.RED);
     root.TK.MENU.forEach((id, i) => {
       const x = i % 2 ? 124 : 8, y = 110 + Math.floor(i / 2) * 44, sel = i === st.menu;
-      rr(g, x, y, 108, 40, 9, sel ? C.GOLD : C.PAPER, sel ? C.INK : null, 2);
-      g.fillStyle = ACCENT[id]; g.fillRect(x + 6, y + 8, 4, 24);
-      txt(g, fit(g, NAME[id], 88, 16), x + 16, y + 19, 16, C.INK);
-      txt(g, fit(g, SUB[id], 88, 12), x + 16, y + 34, 12, sel ? C.INK : C.DIM);
+      rr(g, x, y, 108, 40, 10, sel ? C.GOLD : C.PAPER, sel ? C.INK : null, 2);
+      g.fillStyle = ACCENT[id]; g.fillRect(x + 3, y + 8, 4, 24);
+      g.beginPath(); g.arc(x + 20, y + 20, 12, 0, 7); g.fill();
+      txt(g, fit(g, id === 'ppt' ? 'PPT翻页' : NAME[id], 64, 16), x + 38, y + 19, 16, C.INK);
+      txt(g, fit(g, SUB[id], 64, 12), x + 38, y + 34, 12, sel ? C.INK : C.DIM);
     });
     bottomBar(g, '↑↓ 选择 · OK 进入');
   }
@@ -128,6 +168,7 @@
     for (let i = 0; i <= 3; i++) {
       const y = 62 + i * 50, sel = i === st.connSel, slot = st.slots[i];
       rr(g, 10, y, 220, 44, 10, sel ? C.GOLD : C.PANEL, sel ? C.INK : null, 2);
+      g.fillStyle = ACCENT.conn; g.fillRect(13, y + 8, 4, 28);
       const fg = sel ? C.INK : C.PAPER, dim = sel ? C.INK : C.DIM;
       if (i === 3) { txt(g, '+  配对新设备', 24, y + 28, 16, sel ? C.INK : ACCENT.conn); continue; }
       g.beginPath(); g.arc(30, y + 22, 11, 0, 7); g.fillStyle = sel ? C.INK : C.BG; g.fill();
@@ -141,11 +182,22 @@
     bottomBar(g, '长按 OK 改类型 · 长按↓ 删除 · 长按↑ 返回');
     if (st.pairing) {
       popup(g, 156);
-      txt(g, '配对中', 120, 108, 18, C.INK, 'center');
-      txt(g, String(Math.ceil((st.pairing.until - now) / 1000)), 120, 162, 48, ACCENT.conn, 'center', NUM);
-      txt(g, '在电脑或手机的蓝牙里选择', 120, 190, 12, C.INK, 'center');
-      txt(g, '「NABO 工具箱」', 120, 208, 16, C.INK, 'center');
-      txt(g, 'OK 停止配对', 120, 228, 12, C.DIM, 'center');
+      if (st.pairing.passkey !== null) {
+        txt(g, '配对码', 120, 108, 18, C.INK, 'center');
+        const code = st.pairing.passkey;
+        g.font = '48px ' + NUM;
+        const scale = Math.min(1, 172/g.measureText(code.slice(0,3) + ' ' + code.slice(3)).width);
+        g.save(); g.translate(120, 0); g.scale(scale, 1);
+        txt(g, code.slice(0,3) + ' ' + code.slice(3), 0, 166, 48, ACCENT.conn, 'center', NUM); g.restore();
+        txt(g, '在电脑上输入这 6 位数字', 120, 194, 12, C.INK, 'center');
+        txt(g, 'OK 取消 · 长按↑ 返回', 120, 224, 12, C.DIM, 'center');
+      } else {
+        txt(g, '配对中', 120, 108, 18, C.INK, 'center');
+        txt(g, String(Math.ceil((st.pairing.until - now) / 1000)), 120, 162, 48, ACCENT.conn, 'center', NUM);
+        txt(g, '在电脑或手机的蓝牙里选择', 120, 190, 12, C.INK, 'center');
+        txt(g, '「NABO 工具箱」', 120, 208, 16, C.INK, 'center');
+        txt(g, 'OK 停止配对', 120, 228, 12, C.DIM, 'center');
+      }
     }
     if (st.confirmDel >= 0) {
       popup(g, 100);
@@ -190,6 +242,6 @@
     bottomBar(g, '↑↓ 选择 · OK 修改 · 长按↑ 返回');
   }
 
-  root.TKDraw = { C, ACCENT, NAME, FONT, NUM, txt, fit, rr, topBar, bottomBar, nabo, toast, legend,
+  root.TKDraw = { C, ACCENT, NAME, FONT, NUM, txt, fit, rr, chordLabel, topBar, bottomBar, nabo, naboBust, sprite, toast, legend,
                   drawMenu, drawConn, drawOsPick, drawSet };
 })(window);

@@ -1,0 +1,79 @@
+{
+  "scale": 3,
+  "offset": [
+    176,
+    30
+  ],
+  "protected_rows": [
+    0,
+    493
+  ],
+  "neck_join_rows": [
+    499,
+    509
+  ],
+  "reference_sha256": "c63575691d15220e8d6fafdab911a10767a5fc1c13925992dbd10e3a5e93d3fa",
+  "edge_treatment": "Nearest-interior black-matte alpha estimate and unpremultiplication only in 2px contour band; all native interior RGB pixels unchanged",
+  "status": "R1b prepared per rework handoff; visual review pending",
+  "body_transforms": {
+    "S0_base": {
+      "uniform_scale": 1.099585062240664,
+      "neck_anchor": [
+        512,
+        494
+      ],
+      "raw_bottom": 976
+    },
+    "S0R_remote": {
+      "uniform_scale": 1.0,
+      "neck_anchor": [
+        512,
+        494
+      ],
+      "raw_bottom": 1024
+    },
+    "S1_ppt": {
+      "uniform_scale": 1.0,
+      "neck_anchor": [
+        512,
+        494
+      ],
+      "raw_bottom": 1024
+    }
+  },
+  "outputs": {
+    "S0_base": {
+      "head_difference_vs_S0": 0,
+      "background_errors": 0,
+      "subject_bounds": [
+        248,
+        60,
+        789,
+        1024
+      ],
+      "sha256": "c586e7fea68f52d549aed5f70d0163c7bb8df1ea7b37c82decdefddaaab8d574"
+    },
+    "S0R_remote": {
+      "head_difference_vs_S0": 0,
+      "background_errors": 0,
+      "subject_bounds": [
+        241,
+        60,
+        790,
+        1024
+      ],
+      "sha256": "871335e37e1c11e28eaf040084fa48737a21175eef086cc5cde4cb6c33b42b5d"
+    },
+    "S1_ppt": {
+      "head_difference_vs_S0": 0,
+      "background_errors": 0,
+      "subject_bounds": [
+        238,
+        60,
+        790,
+        1024
+      ],
+      "sha256": "05b6ba1fcf1e9be1f909bb748e1a6ce9b5d6049a275877f8d2a8fb6b3efcfb50"
+    }
+  }
+}

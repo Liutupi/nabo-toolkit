@@ -1,0 +1,97 @@
+{
+  "status": "S0/S1 B approved; S0R and S2-S5 candidates awaiting user review",
+  "reference_sha256": "c63575691d15220e8d6fafdab911a10767a5fc1c13925992dbd10e3a5e93d3fa",
+  "head_source": "../r1/S0_base_cutout.png",
+  "canvas": [
+    1024,
+    1024
+  ],
+  "background": "#00B140",
+  "outputs": {
+    "S2_meet": {
+      "sha256": "7511e672ee8ffeaeccecded365a7c7fd490a8fe999e89e6bc5db403ff9cd4da8",
+      "size": [
+        1024,
+        1024
+      ],
+      "subject_bounds": [
+        148,
+        69,
+        876,
+        1024
+      ],
+      "head_difference_outside_authorized_accessories": 0,
+      "cap_emblem_unchanged": true,
+      "mouth_unchanged": true,
+      "nonuniform_exterior_background_pixels": 0
+    },
+    "S3_media": {
+      "sha256": "61d7454fa8a64c71a9f1b10c1ddd3c7c20b2f943bbeb3976a27e8ce51a6de2d9",
+      "size": [
+        1024,
+        1024
+      ],
+      "subject_bounds": [
+        148,
+        69,
+        876,
+        1024
+      ],
+      "head_difference_outside_authorized_accessories": 0,
+      "cap_emblem_unchanged": true,
+      "mouth_unchanged": true,
+      "nonuniform_exterior_background_pixels": 0
+    },
+    "S4_cam": {
+      "sha256": "13f7d1a01422d29c04c54617490ebe8e8a9d208651a9396dcc6de84f21ea891a",
+      "size": [
+        1024,
+        1024
+      ],
+      "subject_bounds": [
+        148,
+        69,
+        876,
+        1024
+      ],
+      "head_difference_outside_authorized_accessories": 0,
+      "cap_emblem_unchanged": true,
+      "mouth_unchanged": true,
+      "nonuniform_exterior_background_pixels": 0
+    },
+    "S5_macro": {
+      "sha256": "d182472990f8ddc70bca7ffa7ec5235d9f3c173f6dfe254ca9533f0673724dea",
+      "size": [
+        1024,
+        1024
+      ],
+      "subject_bounds": [
+        148,
+        69,
+        876,
+        1024
+      ],
+      "head_difference_outside_authorized_accessories": 0,
+      "cap_emblem_unchanged": true,
+      "mouth_unchanged": true,
+      "nonuniform_exterior_background_pixels": 0
+    },
+    "S0R_remote": {
+      "sha256": "27d71d2f6078b816d5aa5df7fe16b9c3c0ccf2031139249916de2ed9398262e6",
+      "size": [
+        1024,
+        1024
+      ],
+      "subject_bounds": [
+        148,
+        69,
+        876,
+        1024
+      ],
+      "head_difference_outside_authorized_accessories": 0,
+      "cap_emblem_unchanged": true,
+      "mouth_unchanged": true,
+      "nonuniform_exterior_background_pixels": 0
+    }
+  }
+}

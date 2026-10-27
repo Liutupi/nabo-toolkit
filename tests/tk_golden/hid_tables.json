@@ -1,0 +1,1446 @@
+{
+  "source_sha256": "d5d6fe076c885c38b8f9d37a874dd374ef62de4aef2b8f4dcdffdf13e1c1e887",
+  "MOD": {
+    "ctrl": 1,
+    "shift": 2,
+    "alt": 4,
+    "gui": 8,
+    "rctrl": 16,
+    "rshift": 32,
+    "ralt": 64,
+    "rgui": 128
+  },
+  "KEY": {
+    "ENTER": 40,
+    "ESC": 41,
+    "TAB": 43,
+    "SPACE": 44,
+    "LBRACKET": 47,
+    "RBRACKET": 48,
+    "F5": 62,
+    "PGUP": 75,
+    "PGDN": 78,
+    "F13": 104,
+    "F14": 105,
+    "F15": 106,
+    "F16": 107,
+    "F17": 108,
+    "F18": 109
+  },
+  "MEDIA": {
+    "PLAY": 205,
+    "NEXT": 181,
+    "PREV": 182,
+    "VOLUP": 233,
+    "VOLDN": 234
+  },
+  "OS_LIST": [
+    "mac",
+    "win",
+    "ios",
+    "android"
+  ],
+  "OS_NAME": {
+    "mac": "Mac",
+    "win": "Windows",
+    "ios": "iPhone·iPad",
+    "android": "安卓"
+  },
+  "PPT": {
+    "prev": {
+      "mods": [],
+      "key": 75
+    },
+    "next": {
+      "mods": [],
+      "key": 78
+    },
+    "black": {
+      "mods": [],
+      "key": 5
+    },
+    "end": {
+      "mods": [],
+      "key": 41
+    },
+    "start": {
+      "win": {
+        "mods": [],
+        "key": 62
+      },
+      "mac": {
+        "mods": [
+          "gui",
+          "shift"
+        ],
+        "key": 40
+      }
+    }
+  },
+  "MEET_APPS": [
+    {
+      "name": "腾讯会议",
+      "mute": {
+        "win": {
+          "mods": [
+            "alt"
+          ],
+          "key": 16
+        },
+        "mac": {
+          "mods": [
+            "gui",
+            "shift"
+          ],
+          "key": 16
+        }
+      },
+      "cam": {
+        "win": {
+          "mods": [
+            "alt"
+          ],
+          "key": 25
+        },
+        "mac": {
+          "mods": [
+            "gui",
+            "shift"
+          ],
+          "key": 25
+        }
+      },
+      "hand": null
+    },
+    {
+      "name": "飞书",
+      "mute": {
+        "win": {
+          "mods": [
+            "ctrl",
+            "shift"
+          ],
+          "key": 7
+        },
+        "mac": {
+          "mods": [
+            "gui",
+            "shift"
+          ],
+          "key": 7
+        }
+      },
+      "cam": {
+        "win": {
+          "mods": [
+            "ctrl",
+            "shift"
+          ],
+          "key": 25
+        },
+        "mac": {
+          "mods": [
+            "gui",
+            "shift"
+          ],
+          "key": 25
+        }
+      },
+      "hand": null
+    },
+    {
+      "name": "Zoom",
+      "mute": {
+        "win": {
+          "mods": [
+            "alt"
+          ],
+          "key": 4
+        },
+        "mac": {
+          "mods": [
+            "gui",
+            "shift"
+          ],
+          "key": 4
+        }
+      },
+      "cam": {
+        "win": {
+          "mods": [
+            "alt"
+          ],
+          "key": 25
+        },
+        "mac": {
+          "mods": [
+            "gui",
+            "shift"
+          ],
+          "key": 25
+        }
+      },
+      "hand": {
+        "win": {
+          "mods": [
+            "alt"
+          ],
+          "key": 28
+        },
+        "mac": {
+          "mods": [
+            "alt"
+          ],
+          "key": 28
+        }
+      }
+    },
+    {
+      "name": "Teams",
+      "mute": {
+        "mods": [
+          "main",
+          "shift"
+        ],
+        "key": 16
+      },
+      "cam": {
+        "mods": [
+          "main",
+          "shift"
+        ],
+        "key": 18
+      },
+      "hand": {
+        "mods": [
+          "main",
+          "shift"
+        ],
+        "key": 14
+      }
+    }
+  ],
+  "MEDIA_KEYS": {
+    "up": {
+      "label": "音量 +",
+      "media": 233
+    },
+    "down": {
+      "label": "音量 −",
+      "media": 234
+    },
+    "ok": {
+      "label": "播放 / 暂停",
+      "media": 205
+    },
+    "long_ok": {
+      "label": "下一曲",
+      "media": 181
+    },
+    "long_down": {
+      "label": "上一曲",
+      "media": 182
+    }
+  },
+  "SHUTTER": {
+    "media": 233
+  },
+  "MACRO_GROUPS": [
+    {
+      "name": "常用",
+      "up": {
+        "label": "截屏",
+        "mac": {
+          "mods": [
+            "ctrl",
+            "gui",
+            "shift"
+          ],
+          "key": 33
+        },
+        "win": {
+          "mods": [
+            "gui",
+            "shift"
+          ],
+          "key": 22
+        }
+      },
+      "ok": {
+        "label": "粘贴",
+        "mods": [
+          "main"
+        ],
+        "key": 25
+      },
+      "down": {
+        "label": "复制",
+        "mods": [
+          "main"
+        ],
+        "key": 6
+      }
+    },
+    {
+      "name": "Typeless",
+      "up": {
+        "label": "翻译",
+        "mods": [
+          "ralt",
+          "rshift"
+        ],
+        "key": 0
+      },
+      "ok": {
+        "label": "语音输入",
+        "mac": {
+          "mods": [
+            "ralt"
+          ],
+          "key": 16
+        },
+        "win": {
+          "mods": [
+            "ralt"
+          ],
+          "key": 0
+        }
+      },
+      "down": {
+        "label": "随便问",
+        "mods": [
+          "ralt"
+        ],
+        "key": 44
+      }
+    },
+    {
+      "name": "窗口",
+      "up": {
+        "label": "切换应用",
+        "mac": {
+          "mods": [
+            "gui"
+          ],
+          "key": 43
+        },
+        "win": {
+          "mods": [
+            "alt"
+          ],
+          "key": 43
+        }
+      },
+      "ok": {
+        "label": "显示桌面",
+        "mac": {
+          "mods": [
+            "gui"
+          ],
+          "key": 60
+        },
+        "win": {
+          "mods": [
+            "gui"
+          ],
+          "key": 7
+        }
+      },
+      "down": {
+        "label": "锁定电脑",
+        "mac": {
+          "mods": [
+            "ctrl",
+            "gui"
+          ],
+          "key": 20
+        },
+        "win": {
+          "mods": [
+            "gui"
+          ],
+          "key": 15
+        }
+      }
+    },
+    {
+      "name": "剪映",
+      "up": {
+        "label": "分割",
+        "mods": [
+          "main"
+        ],
+        "key": 5
+      },
+      "ok": {
+        "label": "播放 / 暂停",
+        "mods": [],
+        "key": 44
+      },
+      "down": {
+        "label": "撤销",
+        "mods": [
+          "main"
+        ],
+        "key": 29
+      }
+    },
+    {
+      "name": "PS",
+      "up": {
+        "label": "笔刷放大",
+        "mods": [],
+        "key": 48
+      },
+      "ok": {
+        "label": "撤销",
+        "mods": [
+          "main"
+        ],
+        "key": 29
+      },
+      "down": {
+        "label": "笔刷缩小",
+        "mods": [],
+        "key": 47
+      }
+    },
+    {
+      "name": "浏览器",
+      "up": {
+        "label": "上一标签",
+        "mods": [
+          "ctrl",
+          "shift"
+        ],
+        "key": 43
+      },
+      "ok": {
+        "label": "刷新",
+        "mods": [
+          "main"
+        ],
+        "key": 21
+      },
+      "down": {
+        "label": "下一标签",
+        "mods": [
+          "ctrl"
+        ],
+        "key": 43
+      }
+    }
+  ],
+  "CODE_USAGE": {
+    "KeyA": 4,
+    "KeyB": 5,
+    "KeyC": 6,
+    "KeyD": 7,
+    "KeyE": 8,
+    "KeyF": 9,
+    "KeyG": 10,
+    "KeyH": 11,
+    "KeyI": 12,
+    "KeyJ": 13,
+    "KeyK": 14,
+    "KeyL": 15,
+    "KeyM": 16,
+    "KeyN": 17,
+    "KeyO": 18,
+    "KeyP": 19,
+    "KeyQ": 20,
+    "KeyR": 21,
+    "KeyS": 22,
+    "KeyT": 23,
+    "KeyU": 24,
+    "KeyV": 25,
+    "KeyW": 26,
+    "KeyX": 27,
+    "KeyY": 28,
+    "KeyZ": 29,
+    "Digit1": 30,
+    "Digit2": 31,
+    "Digit3": 32,
+    "Digit4": 33,
+    "Digit5": 34,
+    "Digit6": 35,
+    "Digit7": 36,
+    "Digit8": 37,
+    "Digit9": 38,
+    "Digit0": 39,
+    "F1": 58,
+    "F2": 59,
+    "F3": 60,
+    "F4": 61,
+    "F5": 62,
+    "F6": 63,
+    "F7": 64,
+    "F8": 65,
+    "F9": 66,
+    "F10": 67,
+    "F11": 68,
+    "F12": 69,
+    "F13": 104,
+    "F14": 105,
+    "F15": 106,
+    "F16": 107,
+    "F17": 108,
+    "F18": 109,
+    "F19": 110,
+    "F20": 111,
+    "F21": 112,
+    "F22": 113,
+    "F23": 114,
+    "F24": 115,
+    "Enter": 40,
+    "Escape": 41,
+    "Backspace": 42,
+    "Tab": 43,
+    "Space": 44,
+    "Minus": 45,
+    "Equal": 46,
+    "BracketLeft": 47,
+    "BracketRight": 48,
+    "Backslash": 49,
+    "Semicolon": 51,
+    "Quote": 52,
+    "Backquote": 53,
+    "Comma": 54,
+    "Period": 55,
+    "Slash": 56,
+    "CapsLock": 57,
+    "PrintScreen": 70,
+    "ScrollLock": 71,
+    "Pause": 72,
+    "Insert": 73,
+    "Home": 74,
+    "PageUp": 75,
+    "Delete": 76,
+    "End": 77,
+    "PageDown": 78,
+    "ArrowRight": 79,
+    "ArrowLeft": 80,
+    "ArrowDown": 81,
+    "ArrowUp": 82
+  },
+  "CODE_MOD": {
+    "ControlLeft": 1,
+    "ShiftLeft": 2,
+    "AltLeft": 4,
+    "MetaLeft": 8,
+    "ControlRight": 16,
+    "ShiftRight": 32,
+    "AltRight": 64,
+    "MetaRight": 128
+  },
+  "resolved": {
+    "mac": {
+      "ppt": {
+        "prev": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 75
+        },
+        "next": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 78
+        },
+        "black": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 5
+        },
+        "end": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 41
+        },
+        "start": {
+          "kind": "key",
+          "mod": 10,
+          "usage": 40
+        }
+      },
+      "media": {
+        "up": {
+          "kind": "media",
+          "usage": 233
+        },
+        "down": {
+          "kind": "media",
+          "usage": 234
+        },
+        "ok": {
+          "kind": "media",
+          "usage": 205
+        },
+        "long_ok": {
+          "kind": "media",
+          "usage": 181
+        },
+        "long_down": {
+          "kind": "media",
+          "usage": 182
+        }
+      },
+      "meetings": [
+        {
+          "name": "腾讯会议",
+          "mute": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 16
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 25
+          },
+          "hand": null
+        },
+        {
+          "name": "飞书",
+          "mute": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 7
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 25
+          },
+          "hand": null
+        },
+        {
+          "name": "Zoom",
+          "mute": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 4
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 25
+          },
+          "hand": {
+            "kind": "key",
+            "mod": 4,
+            "usage": 28
+          }
+        },
+        {
+          "name": "Teams",
+          "mute": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 16
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 18
+          },
+          "hand": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 14
+          }
+        }
+      ],
+      "macros": [
+        {
+          "name": "常用",
+          "up": {
+            "kind": "key",
+            "mod": 11,
+            "usage": 33
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 25
+          },
+          "down": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 6
+          }
+        },
+        {
+          "name": "Typeless",
+          "up": {
+            "kind": "key",
+            "mod": 96,
+            "usage": 0
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 64,
+            "usage": 16
+          },
+          "down": {
+            "kind": "key",
+            "mod": 64,
+            "usage": 44
+          }
+        },
+        {
+          "name": "窗口",
+          "up": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 43
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 60
+          },
+          "down": {
+            "kind": "key",
+            "mod": 9,
+            "usage": 20
+          }
+        },
+        {
+          "name": "剪映",
+          "up": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 5
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 44
+          },
+          "down": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 29
+          }
+        },
+        {
+          "name": "PS",
+          "up": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 48
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 29
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 47
+          }
+        },
+        {
+          "name": "浏览器",
+          "up": {
+            "kind": "key",
+            "mod": 3,
+            "usage": 43
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 21
+          },
+          "down": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 43
+          }
+        }
+      ]
+    },
+    "win": {
+      "ppt": {
+        "prev": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 75
+        },
+        "next": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 78
+        },
+        "black": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 5
+        },
+        "end": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 41
+        },
+        "start": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 62
+        }
+      },
+      "media": {
+        "up": {
+          "kind": "media",
+          "usage": 233
+        },
+        "down": {
+          "kind": "media",
+          "usage": 234
+        },
+        "ok": {
+          "kind": "media",
+          "usage": 205
+        },
+        "long_ok": {
+          "kind": "media",
+          "usage": 181
+        },
+        "long_down": {
+          "kind": "media",
+          "usage": 182
+        }
+      },
+      "meetings": [
+        {
+          "name": "腾讯会议",
+          "mute": {
+            "kind": "key",
+            "mod": 4,
+            "usage": 16
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 4,
+            "usage": 25
+          },
+          "hand": null
+        },
+        {
+          "name": "飞书",
+          "mute": {
+            "kind": "key",
+            "mod": 3,
+            "usage": 7
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 3,
+            "usage": 25
+          },
+          "hand": null
+        },
+        {
+          "name": "Zoom",
+          "mute": {
+            "kind": "key",
+            "mod": 4,
+            "usage": 4
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 4,
+            "usage": 25
+          },
+          "hand": {
+            "kind": "key",
+            "mod": 4,
+            "usage": 28
+          }
+        },
+        {
+          "name": "Teams",
+          "mute": {
+            "kind": "key",
+            "mod": 3,
+            "usage": 16
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 3,
+            "usage": 18
+          },
+          "hand": {
+            "kind": "key",
+            "mod": 3,
+            "usage": 14
+          }
+        }
+      ],
+      "macros": [
+        {
+          "name": "常用",
+          "up": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 22
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 25
+          },
+          "down": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 6
+          }
+        },
+        {
+          "name": "Typeless",
+          "up": {
+            "kind": "key",
+            "mod": 96,
+            "usage": 0
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 64,
+            "usage": 0
+          },
+          "down": {
+            "kind": "key",
+            "mod": 64,
+            "usage": 44
+          }
+        },
+        {
+          "name": "窗口",
+          "up": {
+            "kind": "key",
+            "mod": 4,
+            "usage": 43
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 7
+          },
+          "down": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 15
+          }
+        },
+        {
+          "name": "剪映",
+          "up": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 5
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 44
+          },
+          "down": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 29
+          }
+        },
+        {
+          "name": "PS",
+          "up": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 48
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 29
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 47
+          }
+        },
+        {
+          "name": "浏览器",
+          "up": {
+            "kind": "key",
+            "mod": 3,
+            "usage": 43
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 21
+          },
+          "down": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 43
+          }
+        }
+      ]
+    },
+    "ios": {
+      "ppt": {
+        "prev": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 75
+        },
+        "next": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 78
+        },
+        "black": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 5
+        },
+        "end": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 41
+        },
+        "start": {
+          "kind": "key",
+          "mod": 10,
+          "usage": 40
+        }
+      },
+      "media": {
+        "up": {
+          "kind": "media",
+          "usage": 233
+        },
+        "down": {
+          "kind": "media",
+          "usage": 234
+        },
+        "ok": {
+          "kind": "media",
+          "usage": 205
+        },
+        "long_ok": {
+          "kind": "media",
+          "usage": 181
+        },
+        "long_down": {
+          "kind": "media",
+          "usage": 182
+        }
+      },
+      "meetings": [
+        {
+          "name": "腾讯会议",
+          "mute": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 16
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 25
+          },
+          "hand": null
+        },
+        {
+          "name": "飞书",
+          "mute": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 7
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 25
+          },
+          "hand": null
+        },
+        {
+          "name": "Zoom",
+          "mute": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 4
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 25
+          },
+          "hand": {
+            "kind": "key",
+            "mod": 4,
+            "usage": 28
+          }
+        },
+        {
+          "name": "Teams",
+          "mute": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 16
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 18
+          },
+          "hand": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 14
+          }
+        }
+      ],
+      "macros": [
+        {
+          "name": "常用",
+          "up": {
+            "kind": "key",
+            "mod": 11,
+            "usage": 33
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 25
+          },
+          "down": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 6
+          }
+        },
+        {
+          "name": "Typeless",
+          "up": {
+            "kind": "key",
+            "mod": 96,
+            "usage": 0
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 64,
+            "usage": 16
+          },
+          "down": {
+            "kind": "key",
+            "mod": 64,
+            "usage": 44
+          }
+        },
+        {
+          "name": "窗口",
+          "up": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 43
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 60
+          },
+          "down": {
+            "kind": "key",
+            "mod": 9,
+            "usage": 20
+          }
+        },
+        {
+          "name": "剪映",
+          "up": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 5
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 44
+          },
+          "down": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 29
+          }
+        },
+        {
+          "name": "PS",
+          "up": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 48
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 29
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 47
+          }
+        },
+        {
+          "name": "浏览器",
+          "up": {
+            "kind": "key",
+            "mod": 3,
+            "usage": 43
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 21
+          },
+          "down": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 43
+          }
+        }
+      ]
+    },
+    "android": {
+      "ppt": {
+        "prev": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 75
+        },
+        "next": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 78
+        },
+        "black": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 5
+        },
+        "end": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 41
+        },
+        "start": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 62
+        }
+      },
+      "media": {
+        "up": {
+          "kind": "media",
+          "usage": 233
+        },
+        "down": {
+          "kind": "media",
+          "usage": 234
+        },
+        "ok": {
+          "kind": "media",
+          "usage": 205
+        },
+        "long_ok": {
+          "kind": "media",
+          "usage": 181
+        },
+        "long_down": {
+          "kind": "media",
+          "usage": 182
+        }
+      },
+      "meetings": [
+        {
+          "name": "腾讯会议",
+          "mute": {
+            "kind": "key",
+            "mod": 4,
+            "usage": 16
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 4,
+            "usage": 25
+          },
+          "hand": null
+        },
+        {
+          "name": "飞书",
+          "mute": {
+            "kind": "key",
+            "mod": 3,
+            "usage": 7
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 3,
+            "usage": 25
+          },
+          "hand": null
+        },
+        {
+          "name": "Zoom",
+          "mute": {
+            "kind": "key",
+            "mod": 4,
+            "usage": 4
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 4,
+            "usage": 25
+          },
+          "hand": {
+            "kind": "key",
+            "mod": 4,
+            "usage": 28
+          }
+        },
+        {
+          "name": "Teams",
+          "mute": {
+            "kind": "key",
+            "mod": 3,
+            "usage": 16
+          },
+          "cam": {
+            "kind": "key",
+            "mod": 3,
+            "usage": 18
+          },
+          "hand": {
+            "kind": "key",
+            "mod": 3,
+            "usage": 14
+          }
+        }
+      ],
+      "macros": [
+        {
+          "name": "常用",
+          "up": {
+            "kind": "key",
+            "mod": 10,
+            "usage": 22
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 25
+          },
+          "down": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 6
+          }
+        },
+        {
+          "name": "Typeless",
+          "up": {
+            "kind": "key",
+            "mod": 96,
+            "usage": 0
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 64,
+            "usage": 0
+          },
+          "down": {
+            "kind": "key",
+            "mod": 64,
+            "usage": 44
+          }
+        },
+        {
+          "name": "窗口",
+          "up": {
+            "kind": "key",
+            "mod": 4,
+            "usage": 43
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 7
+          },
+          "down": {
+            "kind": "key",
+            "mod": 8,
+            "usage": 15
+          }
+        },
+        {
+          "name": "剪映",
+          "up": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 5
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 44
+          },
+          "down": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 29
+          }
+        },
+        {
+          "name": "PS",
+          "up": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 48
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 29
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 47
+          }
+        },
+        {
+          "name": "浏览器",
+          "up": {
+            "kind": "key",
+            "mod": 3,
+            "usage": 43
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 21
+          },
+          "down": {
+            "kind": "key",
+            "mod": 1,
+            "usage": 43
+          }
+        }
+      ]
+    }
+  }
+}

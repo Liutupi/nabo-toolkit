@@ -53,8 +53,8 @@
 
   <section class="side">
     <div>
-      <h1>NABO 工具箱 · 原型 M0</h1>
-      <div class="hint">离线蓝牙遥控工牌。规则见 DESIGN.md；画面是固件版式（240×320）。NABO 是参考图原样裁出的占位帧。</div>
+      <h1>NABO 工具箱 · 交互原型</h1>
+      <div class="hint">240×320 离线遥控工牌原型。使用 ↑、↓、OK 体验工具流程；本页的蓝牙和 HID 为模拟，不会向真实设备发送按键。</div>
       <div class="hint"><a href="config.html" target="_blank" style="color:var(--gold)">打开配置页 →</a> 在那里改键位和名片，保存后这里马上生效。</div>
     </div>
     <div class="card">
@@ -63,6 +63,7 @@
         <button id="disc">设备断开</button>
         <button id="reconn">重新连上</button>
         <button id="wake">模拟休眠唤醒</button>
+        <button id="passkey">显示配对码</button>
         <label><input type="checkbox" id="autopair" checked> 配对 3 秒后自动成功</label>
       </div>
     </div>
@@ -85,16 +86,30 @@
 <script src="assets/nabo_idle.js"></script>
 <script src="tk_hid.js"></script>
 <script src="tk_core.js"></script>
+<script src="tk_buttons.js"></script>
 <script src="tk_draw.js"></script>
 <script src="tk_draw_tools.js"></script>
 <script src="tk_draw_boot.js"></script>
 <script>
 (function () {
   'use strict';
-  const LONG_MS = 500;
   const canvas = document.getElementById('lcd'), g = canvas.getContext('2d', { willReadFrequently: true });
-  const imgs = {};
+  const imgs = { clips: {} }; let voiceUrl = null;
   for (const k of ['open', 'half', 'closed']) { imgs[k] = new Image(); imgs[k].src = window.NABO_IDLE[k]; }
+  fetch('assets/toolkit_sprites.json').then((r) => {
+    if (!r.ok) throw new Error('Sprite manifest missing'); return r.json();
+  }).then((manifest) => {
+    voiceUrl = manifest.audio ? 'assets/' + manifest.audio : null;
+    for (const [id, spec] of Object.entries(manifest.clips)) {
+      const clip = { ...spec };
+      for (const variant of ['bust', 'large', 'avatar']) {
+        if (!spec[variant]) continue;
+        const image = new Image(); image.src = 'assets/' + spec[variant].file;
+        clip[variant] = { ...spec[variant], image };
+      }
+      imgs.clips[id] = clip;
+    }
+  }).catch(() => { /* Reference placeholders remain usable until sprites exist. */ });
 
   let simNow = 0, last = performance.now(), pairStart = -1;
   const st = TK.create(0);
@@ -119,12 +134,14 @@
   /* Boot voice: the processed clip once it exists (audio/VOICE.md), else browser TTS as a stand-in. */
   function voice(o) {
     if (!$('sound').checked) return;
-    const a = new Audio('assets/' + o.id + '.wav');
-    a.play().catch(() => {
+    const speak = () => {
       if (!window.speechSynthesis) return;
+      if (navigator.userActivation && !navigator.userActivation.hasBeenActive) return;
       const u = new SpeechSynthesisUtterance(o.text); u.lang = 'zh-CN'; u.rate = 1.05;
       speechSynthesis.speak(u);
-    });
+    };
+    if (!voiceUrl) { speak(); return; }
+    new Audio(voiceUrl).play().catch(speak);
   }
   function handle(out) {
     for (const o of out) {
@@ -144,17 +161,14 @@
   function press(k) { handle(TK.press(st, k, simNow)); }
 
   /* ---- keys: short = released before 500 ms, long = fires at 500 ms ---- */
-  const held = {};
+  const buttons = TKButtons.create();
   function down(k) {
-    if (held[k]) return;
-    held[k] = { at: performance.now(), long: false };
-    document.querySelector('[data-k="' + k + '"]').classList.add('down');
+    TKButtons.down(buttons, k, performance.now());
+    if (buttons.active === k) document.querySelector('[data-k="' + k + '"]').classList.add('down');
   }
   function up(k) {
-    const h = held[k]; if (!h) return;
-    delete held[k];
+    for (const action of TKButtons.up(buttons, k, performance.now())) press(action);
     document.querySelector('[data-k="' + k + '"]').classList.remove('down');
-    if (!h.long) press(k);
   }
   const KEYMAP = { ArrowUp: 'up', ArrowDown: 'down', Enter: 'ok', ' ': 'ok' };
   addEventListener('keydown', (e) => { const k = KEYMAP[e.key]; if (k) { e.preventDefault(); if (!e.repeat) down(k); } });
@@ -163,12 +177,23 @@
     const k = b.dataset.k;
     b.addEventListener('pointerdown', (e) => { b.setPointerCapture(e.pointerId); down(k); });
     b.addEventListener('pointerup', () => up(k));
-    b.addEventListener('pointercancel', () => up(k));
+    b.addEventListener('pointercancel', () => {
+      if (buttons.active === k) TKButtons.cancel(buttons);
+      b.classList.remove('down');
+    });
   });
 
   $('disc').onclick = () => TK.sim(st, 'disconnect', simNow);
   $('reconn').onclick = () => TK.sim(st, 'reconnect', simNow);
   $('wake').onclick = () => TK.sim(st, 'wake', simNow);
+  $('passkey').onclick = () => {
+    if (!st.pairing) { st.page = 'conn'; st.connSel = 3; handle(TK.press(st, 'ok', simNow)); }
+    TK.sim(st, 'passkey', simNow, '123456');
+  };
+  addEventListener('blur', () => {
+    TKButtons.cancel(buttons);
+    document.querySelectorAll('.keys button').forEach((b) => b.classList.remove('down'));
+  });
 
   function rgb565() {
     const im = g.getImageData(0, 0, 240, 320), d = im.data;
@@ -179,9 +204,7 @@
   function frame(t) {
     const dt = Math.min(100, t - last); last = t;
     simNow += dt * Number($('speed').value);
-    for (const k in held) {
-      if (!held[k].long && t - held[k].at >= LONG_MS) { held[k].long = true; press('long_' + k); }
-    }
+    for (const action of TKButtons.tick(buttons, t)) press(action);
     if (st.pairing) {
       if (pairStart < 0) pairStart = simNow;
       if ($('autopair').checked && simNow - pairStart > 3000) TK.sim(st, 'paired', simNow);
@@ -196,7 +219,9 @@
   requestAnimationFrame(frame);
 
   /* Debug hook for scripted checks and golden-trace recording. */
-  window.TOOLKIT = { press, state: () => st, now: () => simNow, advance: (ms) => { simNow += ms; handle(TK.tick(st, simNow)); } };
+  window.TOOLKIT = { press, state: () => st, now: () => simNow,
+    sim: (event, arg) => TK.sim(st, event, simNow, arg),
+    advance: (ms) => { simNow += ms; handle(TK.tick(st, simNow)); } };
 })();
 </script>
 </body>

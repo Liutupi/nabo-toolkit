@@ -1,0 +1,124 @@
+{
+  "reference_sha256": "c63575691d15220e8d6fafdab911a10767a5fc1c13925992dbd10e3a5e93d3fa",
+  "reference_frame": [
+    0,
+    0,
+    224,
+    224
+  ],
+  "transform": {
+    "scale": 4.5,
+    "offset": [
+      8,
+      24
+    ]
+  },
+  "protected_rows": [
+    0,
+    719
+  ],
+  "neck_join_rows": [
+    728,
+    743
+  ],
+  "canvas": [
+    1024,
+    1024
+  ],
+  "background": "#00B140",
+  "head_pixel_differences_vs_S0": {
+    "S0_base": 0,
+    "S1_ppt_A": 0,
+    "S1_ppt_B": 0
+  },
+  "outputs": {
+    "S0_base": {
+      "size": [
+        1024,
+        1024
+      ],
+      "sha256": "6aae3edb9fdced17b4b77d38b95e2ed3c86dd8bad63b3da0b5ab9914024c6d80",
+      "corners": [
+        [
+          0,
+          177,
+          64
+        ],
+        [
+          0,
+          177,
+          64
+        ],
+        [
+          0,
+          177,
+          64
+        ],
+        [
+          0,
+          177,
+          64
+        ]
+      ]
+    },
+    "S1_ppt_A": {
+      "size": [
+        1024,
+        1024
+      ],
+      "sha256": "ac9aafe9189b5c5992e4263b0424d047f5f97c30243680320e553e1fe20b5d2d",
+      "corners": [
+        [
+          0,
+          177,
+          64
+        ],
+        [
+          0,
+          177,
+          64
+        ],
+        [
+          0,
+          177,
+          64
+        ],
+        [
+          0,
+          177,
+          64
+        ]
+      ]
+    },
+    "S1_ppt_B": {
+      "size": [
+        1024,
+        1024
+      ],
+      "sha256": "ae17ed01087f1076ae876b1f2a8ed166b0d199dcdbf9456c6af28ef949fdcb04",
+      "corners": [
+        [
+          0,
+          177,
+          64
+        ],
+        [
+          0,
+          177,
+          64
+        ],
+        [
+          0,
+          177,
+          64
+        ],
+        [
+          0,
+          177,
+          64
+        ]
+      ]
+    }
+  },
+  "status": "R1 candidates, awaiting user identity/outfit approval"
+}

@@ -52,13 +52,11 @@
     const sub = clamp((t - 1050) / 350);
     if (sub > 0) { g.globalAlpha = sub; txt(g, '陪你遥控万物', 120, 74, 16, C.PAPER, 'center'); g.globalAlpha = 1; }
 
-    /* 1.4 s: NABO rises from the bottom, then the welcome clip (placeholder bounce). */
+    /* 1.4 s: 150px waist-up welcome, fixed bottom-center anchor. */
     const rise = easeOut(clamp((t - RISE_AT) / RISE_MS));
     if (rise > 0) {
-      const y = 320 - rise * 126;
-      const react = (t >= FLASH_AT && t < FLASH_AT + 500) || (t >= 2700 && t < 3200)
-        ? { until: now + 500 - ((t - (t >= 2700 ? 2700 : FLASH_AT)) % 500) } : null;
-      D.nabo(g, imgs, CX - 52, y, 104, C.GOLD, now, react);
+      const bottom = 470 - rise * 150;
+      D.naboBust(g, imgs, 'welcome', CX, bottom, 150, t - RISE_AT);
     }
     txt(g, '按任意键跳过', 120, 314, 12, C.DIM, 'center');
   }

@@ -1,0 +1,36 @@
+{
+  "stage": "F0",
+  "app_sha256": "ea6789e39fddc8a7063a94d45c6687cf71d61a11eb56c55cb9aa4bcce305074c",
+  "merged_sha256": "42b610327eb726941ef93bc4cf9a6caeecdf937b4a91bcebe1d656b8d7f0263b",
+  "build": "PASS",
+  "host_tests": {
+    "status": "PASS",
+    "count": 40
+  },
+  "device": {
+    "chip": "ESP32-C3",
+    "flash_bytes": 8388608,
+    "installed_prior_app": "nabo-adventure 0.1.0 / IDF v6.0.2",
+    "partition_table_preserved": true,
+    "app_capacity": 2031616,
+    "app_bytes": 643392,
+    "flash_verify": "PASS",
+    "startup_observation_seconds": 20,
+    "startup_crash_markers": 0,
+    "unconnected_heap": 196668,
+    "unconnected_largest": 114688,
+    "unconnected_min_heap": 189908,
+    "mac_pairing": "PASS (user confirmed)",
+    "windows_pairing": "NOT RUN (next Windows session)",
+    "ios_pairing": "NOT RUN (user has iPhone; deferred at handoff)",
+    "android_pairing": "NOT RUN",
+    "restart_reconnect": "Observed one USB-induced reset, automatic secure/subscribed reconnect; 701 ms from advertising. Repeated boot-to-ready timing pending.",
+    "connected_heap": "PASS (Mac)",
+    "physical_hid": "PASS (Mac paste and volume; 5 successful reports, 0 failed)",
+    "connected_heap_min_observed": 195604,
+    "connected_largest": 114688,
+    "restart_advertising_to_ready_ms": 701,
+    "serial_open_resets_device": true,
+    "preserved_bootloader_idf": "v5.5.3"
+  }
+}

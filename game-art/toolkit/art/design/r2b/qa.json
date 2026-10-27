@@ -1,0 +1,106 @@
+{
+  "status": "R1b and R2b approved by user; Grok batch 1 ready",
+  "head_source": "../r1b/head_locked.png",
+  "scale": 3,
+  "offset": [
+    176,
+    30
+  ],
+  "head_sha256": "cbdfa394a84c27e6c2b4ca56dd25e8e715dbfb5753ac8b95cbf386a40bfc1f53",
+  "gear_inverse_affine": [
+    1.5,
+    0,
+    -256,
+    0,
+    1.5,
+    -21
+  ],
+  "body_transforms": {
+    "S2_meet": {
+      "uniform_body_scale": 1.0,
+      "raw_bottom": 1024
+    },
+    "S3_media": {
+      "uniform_body_scale": 1.0,
+      "raw_bottom": 1024
+    },
+    "S4_cam": {
+      "uniform_body_scale": 1.0,
+      "raw_bottom": 1024
+    },
+    "S5_macro": {
+      "uniform_body_scale": 1.0,
+      "raw_bottom": 1024
+    }
+  },
+  "outputs": {
+    "S2_meet": {
+      "size": [
+        1024,
+        1024
+      ],
+      "subject_bounds": [
+        250,
+        60,
+        789,
+        1024
+      ],
+      "head_difference_outside_accessory": 0,
+      "cap_mark_unchanged": true,
+      "mouth_unchanged": true,
+      "background_errors": 0,
+      "sha256": "80a228dfd7717428ad24e193f6ccaff3af040fc364d6fcf8b57aad35fefce5a4"
+    },
+    "S3_media": {
+      "size": [
+        1024,
+        1024
+      ],
+      "subject_bounds": [
+        247,
+        60,
+        790,
+        1024
+      ],
+      "head_difference_outside_accessory": 0,
+      "cap_mark_unchanged": true,
+      "mouth_unchanged": true,
+      "background_errors": 0,
+      "sha256": "ede7c7fc137f6d67029997e4cb0dcd4bb0d7de9a2eef71acf964dd697ca2e17d"
+    },
+    "S4_cam": {
+      "size": [
+        1024,
+        1024
+      ],
+      "subject_bounds": [
+        233,
+        60,
+        805,
+        1024
+      ],
+      "head_difference_outside_accessory": 0,
+      "cap_mark_unchanged": true,
+      "mouth_unchanged": true,
+      "background_errors": 0,
+      "sha256": "78b4d020239741b40da9046b6120f0b571d63347343ebf4e0d3821af991bafd1"
+    },
+    "S5_macro": {
+      "size": [
+        1024,
+        1024
+      ],
+      "subject_bounds": [
+        249,
+        60,
+        790,
+        1024
+      ],
+      "head_difference_outside_accessory": 0,
+      "cap_mark_unchanged": true,
+      "mouth_unchanged": true,
+      "background_errors": 0,
+      "sha256": "b3bb4a52d9713050c7c8a683df04b5fa15f262e8074b3b7d35efcc918a6e47bd"
+    }
+  }
+}

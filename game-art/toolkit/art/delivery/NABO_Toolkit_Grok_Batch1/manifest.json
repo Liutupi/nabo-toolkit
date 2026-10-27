@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-27",
+  "status": "All seven start frames approved by human user",
+  "batch": 1,
+  "S1_variant": "B",
+  "target_video": {
+    "width": 720,
+    "height": 720,
+    "fps": 24
+  },
+  "clips": [
+    {
+      "id": "00",
+      "title": "开机欢迎",
+      "start_frame": "frames/S0R_remote.png",
+      "frame_sha256": "871335e37e1c11e28eaf040084fa48737a21175eef086cc5cde4cb6c33b42b5d",
+      "prompt": "prompts/00_welcome.txt",
+      "output_video": "tk00_welcome_source.mp4",
+      "target_seconds": 3.5,
+      "loop": false,
+      "same_start_end_frame": false
+    },
+    {
+      "id": "01",
+      "title": "基础待机",
+      "start_frame": "frames/S0_base.png",
+      "frame_sha256": "c586e7fea68f52d549aed5f70d0163c7bb8df1ea7b37c82decdefddaaab8d574",
+      "prompt": "prompts/01_idle_base.txt",
+      "output_video": "tk01_idle_base_source.mp4",
+      "target_seconds": 3,
+      "loop": true,
+      "same_start_end_frame": true
+    },
+    {
+      "id": "02",
+      "title": "讲师待机",
+      "start_frame": "frames/S1_ppt.png",
+      "frame_sha256": "05b6ba1fcf1e9be1f909bb748e1a6ce9b5d6049a275877f8d2a8fb6b3efcfb50",
+      "prompt": "prompts/02_idle_ppt.txt",
+      "output_video": "tk02_idle_ppt_source.mp4",
+      "target_seconds": 3,
+      "loop": true,
+      "same_start_end_frame": true
+    },
+    {
+      "id": "03",
+      "title": "会议待机",
+      "start_frame": "frames/S2_meet.png",
+      "frame_sha256": "80a228dfd7717428ad24e193f6ccaff3af040fc364d6fcf8b57aad35fefce5a4",
+      "prompt": "prompts/03_idle_meet.txt",
+      "output_video": "tk03_idle_meet_source.mp4",
+      "target_seconds": 3,
+      "loop": true,
+      "same_start_end_frame": true
+    },
+    {
+      "id": "04",
+      "title": "媒体待机",
+      "start_frame": "frames/S3_media.png",
+      "frame_sha256": "ede7c7fc137f6d67029997e4cb0dcd4bb0d7de9a2eef71acf964dd697ca2e17d",
+      "prompt": "prompts/04_idle_media.txt",
+      "output_video": "tk04_idle_media_source.mp4",
+      "target_seconds": 3,
+      "loop": true,
+      "same_start_end_frame": true
+    },
+    {
+      "id": "05",
+      "title": "摄影待机",
+      "start_frame": "frames/S4_cam.png",
+      "frame_sha256": "78b4d020239741b40da9046b6120f0b571d63347343ebf4e0d3821af991bafd1",
+      "prompt": "prompts/05_idle_cam.txt",
+      "output_video": "tk05_idle_cam_source.mp4",
+      "target_seconds": 3,
+      "loop": true,
+      "same_start_end_frame": true
+    },
+    {
+      "id": "06",
+      "title": "快捷键待机",
+      "start_frame": "frames/S5_macro.png",
+      "frame_sha256": "b3bb4a52d9713050c7c8a683df04b5fa15f262e8074b3b7d35efcc918a6e47bd",
+      "prompt": "prompts/06_idle_macro.txt",
+      "output_video": "tk06_idle_macro_source.mp4",
+      "target_seconds": 3,
+      "loop": true,
+      "same_start_end_frame": true
+    }
+  ]
+}

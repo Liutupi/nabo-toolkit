@@ -1,16 +1,22 @@
-# NABO 工具箱
+<p align="right"><a href="README.zh_CN.md">简体中文</a> · <strong>English</strong></p>
 
-离线的蓝牙遥控工牌（FoloToy AI Passport，ESP32-C3）：PPT 翻页笔、会议键、媒体遥控、拍照快门、快捷键（截屏、复制、粘贴、Typeless）、名片二维码。不联网。
+# NABO Toolkit
 
-当前阶段：**M0**（设计 + 浏览器原型）。交接见 `docs/HANDOFF.md`，维护约定见 `AGENTS.md`。
+An offline Bluetooth HID remote for the FoloToy AI Passport (ESP32-C3): presentation controls, meeting shortcuts, media, camera shutter, configurable shortcuts/Typeless and QR contact cards.
 
-| 文件 | 内容 |
-|---|---|
-| `game-art/toolkit/DESIGN.md` | 规则、按键、界面、底座、预算 |
-| `game-art/toolkit/prototype/` | 浏览器原型（规则的标准答案）。`python3 -m http.server -d game-art/toolkit/prototype` 后打开 |
-| `game-art/toolkit/FIRMWARE_PLAN.md` | 固件框架、运行逻辑、“能用”的验收标准 |
-| `game-art/toolkit/UI_DESIGN.md` | 界面风格（工牌挂绳）和每个画面的版式 |
-| `game-art/toolkit/ART_BRIEF.md` | 美术规格与分工 |
-| `game-art/toolkit/CODEX_PROMPTS.md` / `GROK_PROMPTS.md` | 起始图 / 图生视频提示词 |
+Current checkpoint: browser layout/passkey simulation and the first Grok sprite batch are integrated. **F0 Bluetooth probe firmware builds and passes 40 host tests; physical acceptance is pending.** The full F1 application remains gated on pairing, reconnect and heap measurements. Welcome animation now plays completely, entering the menu at about 5.5 seconds, with any-key skip.
 
-本项目与 FoloToy 官方无关联。NABO 形象和美术素材不随源码许可授权。
+Read [handoff](docs/HANDOFF.md), [firmware plan](game-art/toolkit/FIRMWARE_PLAN.md), [UI design](game-art/toolkit/UI_DESIGN.md) and [validation](docs/VALIDATION.md). Maintenance rules: `AGENTS.md`.
+
+```sh
+python3 -m http.server 8770 --directory game-art/toolkit/prototype
+./tools/validate.sh --static
+# Activate ESP-IDF 6.0.2 before the complete build gate:
+./tools/validate.sh
+```
+
+The browser prototype simulates Bluetooth/HID. F0 firmware usage and controls are in [firmware/README.md](firmware/README.md); host contracts in [tests/README.md](tests/README.md); video provenance and binary format in [sprites/README.md](game-art/toolkit/sprites/README.md). Original Grok sources remain unmodified, with manual review notes and automatic all-frame decoding records.
+
+No flashing, Git commit/push or publishing occurs during validation. This project is not affiliated with FoloToy. NABO imagery and art assets are not licensed with the source code; reused BSP licensing is retained separately.
+
+[Windows continuation](docs/WINDOWS_CONTINUE.md) · `python tools/verify_assets.py` checks all 364 source/intermediate/runtime asset files.

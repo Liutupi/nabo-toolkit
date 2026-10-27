@@ -11,7 +11,7 @@
   function toolFrame(g, st, now, imgs, page, rows, hint) {
     topBar(g, st, now, page);
     legend(g, rows, st.hit && st.hit.key, A[page]);
-    nabo(g, imgs, 160, 176, 72, A[page], now, st.react);
+    D.naboBust(g, imgs, page, 194, 286, 110, now);
     bottomBar(g, hint);
   }
 
@@ -21,14 +21,14 @@
     const col = left < 0 ? C.RED : (left <= 120000 && el > 0 ? A.ppt : C.WHITE);
     txt(g, '演讲计时', 12, 52, 12, C.DIM);
     txt(g, '已翻 ' + p.pages + ' 页', 228, 52, 12, C.PAPER, 'right');
-    txt(g, (left < 0 ? '+' : '') + mmss(left < 0 ? -left : el), 120, 104, 44, col, 'center', NUM);
+    txt(g, (left < 0 ? '+' : '') + mmss(left < 0 ? -left : el), 120, 104, 48, col, 'center', NUM);
     rr(g, 16, 114, 208, 8, 4, C.PANEL);
     const fr = Math.min(1, el / target);
     if (fr > 0) rr(g, 16, 114, Math.max(8, 208 * fr), 8, 4, left < 0 ? C.RED : A.ppt);
     let line = '长按 OK 开始放映，或直接翻页';
     if (el > 0) line = left < 0 ? '超时 +' + mmss(-left) : (left <= 120000 ? '还剩 ' + mmss(left) + '，准备收尾' : '目标 ' + mmss(target) + ' · 还剩 ' + mmss(left));
     if (el > 0 && !p.running) line = '已结束 · 用时 ' + mmss(el);
-    txt(g, line, 120, 140, 12, left < 0 ? C.RED : C.PAPER, 'center');
+    txt(g, fit(g, line, 224, 12), 120, 136, 12, left < 0 ? C.RED : C.PAPER, 'center');
     toolFrame(g, st, now, imgs, 'ppt', [
       { id: 'up', k: '↑', label: '上一页' },
       { id: 'ok', k: 'OK', label: p.black ? '恢复画面' : '黑屏' },
@@ -44,7 +44,7 @@
     txt(g, '‹', 26, 90, 18, A.meet, 'center'); txt(g, '›', 214, 90, 18, A.meet, 'center');
     txt(g, app.name, 120, 91, 18, C.WHITE, 'center');
     txt(g, desk ? H.OS_NAME[os] + ' · 会议窗口要在最前面' : '会议快捷键只支持电脑', 120, 128, 12, desk ? C.PAPER : C.RED, 'center');
-    const chord = (spec) => (spec ? H.chordLabel(H.resolve(spec, os), os) : '没有快捷键');
+    const chord = (spec) => (spec ? D.chordLabel(spec, os) : '没有快捷键');
     toolFrame(g, st, now, imgs, 'meet', [
       { id: 'up', k: '↑', label: '摄像头', sub: chord(app.cam) },
       { id: 'ok', k: 'OK', label: '静音', sub: chord(app.mute) },
@@ -63,7 +63,7 @@
       g.beginPath(); g.arc(x, cy, 18, 0, 7); g.fillStyle = hit === id ? A.media : C.PANEL; g.fill();
       txt(g, s, x, cy + 8, 22, hit === id ? C.INK : C.WHITE, 'center', NUM);
     });
-    txt(g, '音量', 120, 144, 12, C.DIM, 'center');
+    txt(g, '音量', 120, 132, 12, C.DIM, 'center');
     toolFrame(g, st, now, imgs, 'media', [
       { id: 'up', k: '↑', label: '音量 +' },
       { id: 'ok', k: 'OK', label: '播放 / 暂停' },
@@ -100,7 +100,7 @@
   }
   function toolFrameNoLegend(g, st, now, imgs) {
     topBar(g, st, now, 'cam');
-    nabo(g, imgs, 160, 176, 72, A.cam, now, st.react);
+    D.naboBust(g, imgs, 'cam', 194, 286, 110, now);
     bottomBar(g, 'OK 取消 · 长按↑ 返回');
   }
 
@@ -113,8 +113,8 @@
     }
     rr(g, 12, 62, 216, 44, 10, C.PANEL, A.macro, 2);
     txt(g, grp.name, 120, 91, 18, C.WHITE, 'center');
-    txt(g, H.OS_NAME[os] + ' 键位 · 配置页里可以改', 120, 128, 12, C.PAPER, 'center');
-    const sub = (b) => H.chordLabel(H.resolve(b, os), os) || '未设置';
+    txt(g, gi === 1 ? 'R = 右侧修饰键 · 配置页里可以改' : H.OS_NAME[os] + ' 键位 · 配置页里可以改', 120, 128, 12, C.PAPER, 'center');
+    const sub = (b) => D.chordLabel(b, os) || '未设置';
     toolFrame(g, st, now, imgs, 'macro', [
       { id: 'up', k: '↑', label: grp.up.label, sub: sub(grp.up) },
       { id: 'ok', k: 'OK', label: grp.ok.label, sub: sub(grp.ok) },
@@ -155,6 +155,7 @@
     }
     topBar(g, st, now, 'card');
     rr(g, 10, 40, 220, 244, 12, C.PAPER);
+    g.fillStyle = A.card; g.fillRect(13, 50, 4, 224);
     nabo(g, imgs, 20, 50, 64, A.card, now, null);
     g.font = '500 12px ' + D.FONT;
     rr(g, 96, 54, g.measureText(card.title).width + 16, 20, 10, A.card);
