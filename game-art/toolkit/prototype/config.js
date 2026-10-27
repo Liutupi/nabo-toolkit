@@ -6,7 +6,7 @@
   'use strict';
   const H = window.TKHID;
   const STORE = 'nabo_tk_config_v1';
-  const LIMIT = { groups: 6, name: 8, label: 6, text: 64, qr: 160, bytes: 4000 };
+  const C = window.TKConfig, LIMIT = C.LIMIT;
   const SLOTS = [['up', '↑'], ['ok', 'OK'], ['down', '↓']];
   const MODS = [['ctrl', 'Ctrl'], ['shift', 'Shift'], ['alt', 'Alt / Option'], ['gui', 'Win / Cmd'],
                 ['rctrl', '右 Ctrl'], ['rshift', '右 Shift'], ['ralt', '右 Alt / Option'], ['rgui', '右 Win / Cmd']];
@@ -26,19 +26,10 @@
 
   /* Built-in groups → raw per-family bindings. */
   function defaults() {
-    const slot = (b) => {
-      if (b.media || b.text != null) return Object.assign({}, b);
-      const pick = (os) => { const p = H.resolve(b, os); return p && p.kind === 'key' ? { mod: p.mod, key: p.usage } : null; };
-      return { label: b.label, mac: pick('mac'), win: pick('win') };
-    };
-    return {
-      v: 1,
-      groups: H.MACRO_GROUPS.map((g) => ({ name: g.name, up: slot(g.up), ok: slot(g.ok), down: slot(g.down) })),
-      cards: window.TK.create(0).cards,
-    };
+    return C.defaults();
   }
   function load() {
-    try { const c = JSON.parse(localStorage.getItem(STORE)); if (c && c.v === 1) return c; } catch (e) { /* fall through */ }
+    try { return C.parse(localStorage.getItem(STORE)); } catch (e) { /* fall through */ }
     return defaults();
   }
   let cfg = load(), family = 'mac', recording = null;
@@ -100,17 +91,18 @@
       body = h('select', { onchange: (e) => { s.media = Number(e.target.value); } },
         ...MEDIA.map(([v, t]) => h('option', Object.assign({ value: v }, v === s.media ? { selected: '' } : {}), t)));
     } else if (kind === 'text') {
-      body = h('input', { value: s.text, maxlength: LIMIT.text, class: 'text', placeholder: '只能英文、数字和符号',
+      body = h('textarea', { maxlength: LIMIT.text, rows: 2, class: 'text', placeholder: '英文、数字、符号和换行',
         oninput: (e) => {
           const bad = [...e.target.value].filter((c) => !H.textPackets(c).length && c !== '\n');
           s.text = e.target.value;
           e.target.classList.toggle('bad', bad.length > 0);
-          if (bad.length) status('工牌只能打英文和符号，这些字会被跳过：' + bad.join(''), true);
-        } });
+          if (bad.length) status('文字宏只能使用英文、数字、符号和换行；请删除不支持的字符后保存。', true);
+        } }, s.text);
     } else {
       const btn = h('button', { class: 'rec-btn', onclick: () => startRecord(s, btn) }, chord(s[family]));
       body = h('span', { class: 'combo' }, btn,
-        h('button', { class: 'small', title: '手动设置', onclick: () => manual(s) }, '手动'));
+        h('button', { class: 'small', title: '手动设置', onclick: () => manual(s) }, '手动'),
+        h('button', { class: 'small', title: '清除此平台的绑定', onclick: () => { s[family] = null; render(); } }, '清除'));
     }
     return h('div', { class: 'slot' }, h('span', { class: 'key' }, arrow), label, type, body);
   }
@@ -140,7 +132,7 @@
         h('span', { class: 'num' }, String(i + 1)),
         h('input', { value: g.name, maxlength: LIMIT.name, class: 'gname', oninput: (e) => { g.name = e.target.value; } }),
         h('button', { class: 'small', disabled: i === 0 ? '' : null, onclick: () => { move(i, -1); } }, '上移'),
-        h('button', { class: 'small', onclick: () => { cfg.groups.splice(i, 1); render(); } }, '删除')),
+        h('button', { class: 'small', disabled: n <= 1 ? '' : null, onclick: () => { cfg.groups.splice(i, 1); render(); } }, '删除')),
       ...SLOTS.map(([id, arrow]) => slotEditor(g, id, arrow)));
   }
   function move(i, d) {
@@ -153,8 +145,9 @@
       oninput: (e) => { c[key] = e.target.value; } });
     const ssid = h('input', { placeholder: 'Wi-Fi 名称' }), pass = h('input', { placeholder: 'Wi-Fi 密码', type: 'password' });
     return h('div', { class: 'group' },
-      h('div', { class: 'ghead' }, h('span', { class: 'num' }, String(i + 1)), f('title', '标题，如 微信', 6)),
-      h('div', { class: 'grid2' }, f('name', '名字', 16), f('line', '一行说明', 20)),
+      h('div', { class: 'ghead' }, h('span', { class: 'num' }, String(i + 1)), f('title', '标题，如 微信', LIMIT.title),
+        h('button', { class: 'small', disabled: cfg.cards.length <= 1 ? '' : null, onclick: () => { cfg.cards.splice(i, 1); render(); } }, '删除')),
+      h('div', { class: 'grid2' }, f('name', '名字', LIMIT.cardName), f('line', '一行说明', LIMIT.line)),
       h('div', { class: 'qr' }, f('qr', '二维码内容：网址或文字', LIMIT.qr)),
       h('details', {}, h('summary', {}, '生成 Wi-Fi 二维码'),
         h('div', { class: 'row' }, ssid, pass,
@@ -170,36 +163,76 @@
     document.querySelectorAll('[data-family]').forEach((b) => b.classList.toggle('on', b.dataset.family === family));
     $('#groups').replaceChildren(...cfg.groups.map(groupCard));
     $('#add').disabled = cfg.groups.length >= LIMIT.groups;
+    $('#add-card').disabled = cfg.cards.length >= LIMIT.cards;
     $('#cards').replaceChildren(...cfg.cards.map(cardEditor));
+    updateSize();
+  }
+  function updateSize() {
     const bytes = new TextEncoder().encode(JSON.stringify(cfg)).length;
     $('#size').textContent = bytes + ' / ' + LIMIT.bytes + ' 字节';
     $('#size').classList.toggle('bad', bytes > LIMIT.bytes);
   }
   function status(t, bad) { const s = $('#status'); s.textContent = t; s.classList.toggle('bad', !!bad); }
+  document.addEventListener('input', updateSize);
 
   document.querySelectorAll('[data-family]').forEach((b) => b.addEventListener('click', () => { family = b.dataset.family; render(); }));
   $('#add').onclick = () => {
     cfg.groups.push({ name: '新分组', up: { label: '' }, ok: { label: '' }, down: { label: '' } }); render();
   };
+  $('#add-card').onclick = () => { cfg.cards.push({ title: '名片', name: '', line: '', qr: 'https://example.org' }); render(); };
   $('#reset').onclick = () => { cfg = defaults(); render(); status('已恢复默认（还没保存）'); };
   $('#save').onclick = () => {
     try {
-      localStorage.setItem(STORE, JSON.stringify(cfg));
+      cfg = C.validate(cfg); localStorage.setItem(STORE, C.encode(cfg)); render();
       status('已保存。打开着的工牌原型会马上换成新键位。');
-    } catch (e) { status('保存失败：浏览器不让写本地存储', true); }
+    } catch (e) { status('保存失败：请检查组数、名称长度、ASCII 文字、二维码字节数及浏览器存储权限。', true); }
   };
   $('#export').onclick = () => {
-    const a = h('a', { href: URL.createObjectURL(new Blob([JSON.stringify(cfg, null, 2)], { type: 'application/json' })),
+    try { cfg = C.validate(cfg); } catch (_) { status('配置有误，修正后才能导出。', true); return; }
+    const a = h('a', { href: URL.createObjectURL(new Blob([C.encode(cfg)], { type: 'application/json' })),
       download: 'nabo-toolkit-config.json' });
     a.click(); URL.revokeObjectURL(a.href);
   };
   $('#import').onchange = async (e) => {
     try {
-      const c = JSON.parse(await e.target.files[0].text());
-      if (c.v !== 1 || !Array.isArray(c.groups)) throw new Error('格式不对');
+      const file = e.target.files[0]; if (!file || file.size > LIMIT.bytes) throw new Error('size');
+      const c = C.parse(await file.text());
       cfg = c; render(); status('已导入（还没保存）');
     } catch (err) { status('导入失败：' + err.message, true); }
     e.target.value = '';
   };
+  let link = null, busy = false;
+  function connection() {
+    const connected = link && !link.client.closed;
+    $('#connect').disabled = !!link || busy;
+    $('#disconnect').disabled = !link;
+    $('#read-device').disabled = !connected || busy;
+    $('#write-device').disabled = !connected || busy;
+    $('#editor').disabled = busy; $('#save').disabled = busy;
+    $('#connection').textContent = connected ? 'USB 已连接。写入后会自动读回核对；编辑不会自动写入。' : '未连接工牌；当前编辑不会自动写入。';
+  }
+  $('#connect').onclick = async () => {
+    busy = true; connection();
+    try { link = await window.TKConfigSerial.connect(navigator.serial, () => { connection(); status('USB 连接已断开；若刚在写入，结果未确认，请重新连接并读回。', true); }); status('已连接，可先从工牌读回当前配置。'); }
+    catch (_) { status('未能连接。请在电脑 Chrome/Edge 打开 HTTPS 配置页或完整离线包，选择正确串口，并关闭占用该串口的程序。', true); }
+    finally { busy = false; connection(); }
+  };
+  $('#disconnect').onclick = async () => { const old = link; link = null; connection(); if (old) { try { await old.close(); } catch (_) { /* Already disconnected. */ } } status('已断开 USB。'); };
+  async function device(write) {
+    if (!link || busy) return;
+    let valid;
+    try { if (write) valid = C.validate(cfg); } catch (_) { status('配置有误，未写入。请检查长度、ASCII 文字和二维码字节数。', true); return; }
+    const session = link; busy = true; connection(); stopRecord();
+    try {
+      const readback = await (write ? session.client.write(valid) : session.client.read());
+      if (link !== session) return;
+      cfg = readback; render(); status(write ? '已保存到工牌，读回核对一致，快捷键和名片已生效。' : '已读回工牌配置；页面编辑尚未写入。');
+    } catch (e) {
+      status(e.message === 'storage' ? '工牌保存失败，当前生效配置未切换。' : '操作未完成，写入结果未确认；请重新连接并读回核对。', true);
+    } finally { busy = false; connection(); }
+  }
+  $('#read-device').onclick = () => device(false);
+  $('#write-device').onclick = () => device(true);
+  connection();
   render();
 })();

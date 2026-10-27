@@ -1,0 +1,4 @@
+dependencies:
+  espressif/cjson: "1.7.19~2"
+  # Keep the pre-F2 transitive version; adding JSON must not upgrade unrelated tools.
+  espressif/cmake_utilities: "1.1.1"

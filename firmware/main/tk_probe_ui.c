@@ -43,7 +43,7 @@ static void card(int y, const char *key, const char *label)
     ag_rect(s_gfx, 10, y, 220, 34, 8, ag_rgb(34, 49, 76), 255, 0, 0);
     text(key, 18, y + 22, GOLD); text(label, 75, y + 22, PAPER);
 }
-void tk_probe_ui_draw(const tk_probe_t *m, const char *status, unsigned heap, unsigned largest, unsigned sent, unsigned failed)
+void tk_probe_ui_draw(const tk_probe_t *m, const char *status, unsigned heap, unsigned largest, unsigned sent, unsigned failed, int comparison)
 {
     ag_t *g = s_gfx;
     char line[64];
@@ -68,10 +68,11 @@ void tk_probe_ui_draw(const tk_probe_t *m, const char *status, unsigned heap, un
     text(m->test ? "Hold UP: back  DN: pair" : "F0 diagnostic firmware", 12, 309, PAPER);
     if (m->passkey_valid) {
         ag_rect(g, 10, 91, 220, 140, 14, INK, 255, GOLD, 2);
-        text("ENTER ON YOUR DEVICE", 23, 119, PAPER);
+        text(comparison ? "COMPARE WITH PHONE" : "ENTER ON YOUR DEVICE", 23, 119, PAPER);
         snprintf(line, sizeof(line), "%06lu", (unsigned long)m->passkey);
         ag_text(g, &lv_font_montserrat_28, line, 120, 167, NT_ALIGN_CENTER, GOLD);
-        text("Hold UP to cancel", 49, 203, DIM);
+        text(comparison == 1 ? "OK match / hold UP reject" : comparison == 2 ? "Waiting for phone..." : "Hold UP to cancel",
+             comparison == 1 ? 18 : 49, 203, DIM);
     }
     ag_flush(g);
 }

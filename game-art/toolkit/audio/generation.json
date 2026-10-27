@@ -1,0 +1,20 @@
+{
+  "generator": "Dreamina Canvas TTS",
+  "cli_version": "1.0.2",
+  "text": "那波，陪你遥控万物！",
+  "voice": "阳光小男孩",
+  "canvas": "https://jimeng.jianying.com/ai-tool/ai-canvas/981d91a0-7cb3-4f6b-9f40-cac2069c55aa",
+  "node_id": "node_kcce8dvk37",
+  "resource_id": "5421f4ea-be7c-481e-8705-f43e755a1783",
+  "source": "game-art/toolkit/audio/originals/boot-welcome-dreamina.mp3",
+  "source_sha256": "9080e0c83ae09c12580805eb9f3751bce8805c32710fd5d2f776f715e43c9d0e",
+  "trim_start_seconds": 0.34,
+  "duration_seconds": 2.65,
+  "filter": "atrim=start=0.34:end=2.99,asetpts=PTS-STARTPTS,highpass=f=90,lowpass=f=6500,loudnorm=I=-16:TP=-3:LRA=7,afade=t=in:d=0.01,afade=t=out:st=2.62:d=0.03",
+  "runtime": "PCM s16le mono16000Hz; start at1400ms; duck other tones to1/4; any-key skip cancels voice",
+  "peak_pcm": 17007,
+  "clipped_samples": 0,
+  "wav_sha256": "1ee9ac761e69e1d46e33bc4dce8168e9fe297920bc1760bd71fa8e136044b292",
+  "pcm_sha256": "2149a3760fbd87b91a5051a3b25fb6c4bbe050f7ef52822662fd2c6a4f3e5dec",
+  "audible_acceptance": "PASS: user confirmed pronunciation and listening quality on2026-10-28"
+}

@@ -1,0 +1,5 @@
+CONFIG_NABO_TOOLKIT_F1=y
+CONFIG_APP_PROJECT_VER="0.1.0-f1-dev"
+# One extra internal record stages a new pairing before committing a three-slot FIFO replacement.
+# Only three device slots are retained after a successful application commit.
+CONFIG_BT_NIMBLE_MAX_BONDS=4

@@ -1,11 +1,16 @@
 {
   "stage": "F0",
+  "current_installed_app_sha256": "cb5eeda654b3e22110dc0119ac17df0773c4c8a56a4ac12fbfaf999c7abf830d",
+  "historical_accepted_app_sha256": "ea6789e39fddc8a7063a94d45c6687cf71d61a11eb56c55cb9aa4bcce305074c",
   "app_sha256": "ea6789e39fddc8a7063a94d45c6687cf71d61a11eb56c55cb9aa4bcce305074c",
   "merged_sha256": "42b610327eb726941ef93bc4cf9a6caeecdf937b4a91bcebe1d656b8d7f0263b",
   "build": "PASS",
   "host_tests": {
     "status": "PASS",
-    "count": 40
+    "count": 71,
+    "node": 20,
+    "python": 51,
+    "scope": "Latest source includes F1; fixed installed diag3 originally passed47/1559. See f1.json for full replay/build evidence."
   },
   "device": {
     "chip": "ESP32-C3",
@@ -21,16 +26,1047 @@
     "unconnected_largest": 114688,
     "unconnected_min_heap": 189908,
     "mac_pairing": "PASS (user confirmed)",
-    "windows_pairing": "NOT RUN (next Windows session)",
-    "ios_pairing": "NOT RUN (user has iPhone; deferred at handoff)",
-    "android_pairing": "NOT RUN",
-    "restart_reconnect": "Observed one USB-induced reset, automatic secure/subscribed reconnect; 701 ms from advertising. Repeated boot-to-ready timing pending.",
-    "connected_heap": "PASS (Mac)",
-    "physical_hid": "PASS (Mac paste and volume; 5 successful reports, 0 failed)",
+    "windows_pairing": "PASS (user confirms pairing/paste/volume; original F0 serial ready=true)",
+    "ios_pairing": "PASS (user reports connected; original F0 serial ready=true, authentication and both HID subscriptions complete)",
+    "android_pairing": "PASS only for diag2 optional SC numeric comparison; default DisplayOnly FAIL 0x404",
+    "restart_reconnect": "Windows USB hardware resets: 3/3 automatic secure/subscribed reconnects; host reset-request-to-ready upper bounds 2219/3125/2812 ms. Strict 3-second gate unverified; cold power/sleep wake not tested.",
+    "connected_heap": "PASS (Mac, Windows, iPhone)",
+    "physical_hid": "Original F0: Mac/Windows paste+volume, iPhone volume PASS. Diag2: Harmony optional comparison pairing+volume PASS (user confirmed).",
     "connected_heap_min_observed": 195604,
     "connected_largest": 114688,
     "restart_advertising_to_ready_ms": 701,
     "serial_open_resets_device": true,
-    "preserved_bootloader_idf": "v5.5.3"
+    "preserved_bootloader_idf": "v5.5.3",
+    "current_app_bytes": 646272,
+    "historical_measurements_scope": "Other fields describe original F0 unless explicitly marked current; refer to firmware-bound per-platform checkpoints.",
+    "current_hardware_gate": "F0 NOT PASSED; see diag3 firmware-bound results"
+  },
+  "windows_continuation": {
+    "date": "2026-10-27",
+    "baseline_commit": "5fb23a0",
+    "assets": {
+      "status": "PASS",
+      "files": 364,
+      "bytes": 90980640
+    },
+    "host_tests": {
+      "status": "PASS",
+      "count": 44,
+      "node": 18,
+      "python": 26,
+      "gate": "tools/validate.sh --static (Git Bash, native Windows Python/cc)",
+      "golden_rows": 1559,
+      "golden_byte_identical": true,
+      "full_js_c_application_replay": "NOT IMPLEMENTED"
+    },
+    "build": {
+      "status": "PASS",
+      "sdk": "v6.0.2",
+      "target": "esp32c3",
+      "flash_bytes": 8388608,
+      "psram": false,
+      "dependency_lock_changed": false,
+      "firmware_source_changed": false,
+      "merge_layout_verify": "PASS",
+      "wifi_init_symbols": "ABSENT",
+      "archive_verify": "PASS",
+      "archive": "build/firmware/dec04d19d09f5ac57a86433d30572a6841a96922cd50640f595e67c8e4f05df9",
+      "artifacts": {
+        "app": {
+          "bytes": 643392,
+          "sha256": "dbefb160c7cae4b9eb5513e28034395b94d419035c18ee4357bb4781b96eb1b4"
+        },
+        "merged": {
+          "bytes": 708928,
+          "sha256": "dec04d19d09f5ac57a86433d30572a6841a96922cd50640f595e67c8e4f05df9"
+        },
+        "elf": {
+          "bytes": 8537344,
+          "sha256": "352874748b796795215eb1e49d250ad9323b10e2912cd8bb9160c5d74fa25af6"
+        },
+        "map": {
+          "bytes": 5810140,
+          "sha256": "8592ded5becbe110aa75f4a605332fe1426c06f2659f8d4f2e61c554c42ea924"
+        }
+      },
+      "flashed": false,
+      "device_acceptance": "NOT RUN for this new binary"
+    },
+    "device_observation": {
+      "status": "PARTIAL (runtime status only)",
+      "port_at_observation": "COM12",
+      "runtime_marker": "NABO Toolkit F0 / board ai-passport-nabo / no Wi-Fi",
+      "seconds": 300,
+      "status_samples": 142,
+      "live_connected_samples": 0,
+      "page": "menu",
+      "os_preference": "windows",
+      "test_mode": false,
+      "unconnected_heap": 196516,
+      "unconnected_largest": 114688,
+      "min_heap": 189756,
+      "sent": 0,
+      "failed": 0,
+      "connected_heap_min": null,
+      "connected_largest_min": null,
+      "full_boot_to_ready_ms": null,
+      "installed_app_sha256_rechecked": false,
+      "serial_port_released": true,
+      "flash_writes": false,
+      "physical_hid": "NOT VERIFIED (awaiting user)",
+      "scope": "Uses the previously installed Mac-accepted F0; new Windows build not installed. Advertising timer is not full boot time."
+    },
+    "unverified": [
+      "Harmony current-binary physical volume/fresh pairing (phone unavailable)",
+      "Remaining pre-link reconnect delay; three-second gate FAIL",
+      "Default DisplayOnly Harmony interoperability",
+      "Current-image Mac/Windows/iPhone regression",
+      "Cold power/sleep and full JS-C application replay"
+    ],
+    "f1_started": true,
+    "committed": false,
+    "pushed": false,
+    "published": false,
+    "next": "User stopped device tests and authorized F1 source/host development; no new flash/publication"
+  },
+  "windows_pairing_diagnosis": {
+    "date": "2026-10-27",
+    "user_report": "Target is visible in Windows, but pairing reports an error.",
+    "independent_ble_scan": {
+      "status": "PASS (discovery only)",
+      "target_count": 1,
+      "advertised_name": "NABO 工具箱",
+      "hid_service_1812_present": true,
+      "rssi_dbm": -29
+    },
+    "serial_observation_seconds": 150,
+    "pairing_window_requested": true,
+    "secured_result_captured": false,
+    "handshake_failure_code": null,
+    "windows_error_text": "请尝试重新连接设备",
+    "badge_showed_passkey": false,
+    "settings_window_capture": "Unavailable: Windows Settings exposed no targetable window.",
+    "cause": "UNDETERMINED. Initial failure later resolved on the unchanged original F0; no specific firmware/driver repair was proved.",
+    "serial_port_released": true,
+    "firmware_changed_or_flashed": false,
+    "bond_store_cleared": false,
+    "windows_system_pair_api": {
+      "fresh_advertisement_target_count": 1,
+      "address_matched_endpoint_count": 1,
+      "is_paired_before": false,
+      "can_pair_before": true,
+      "result": "FAILED",
+      "result_code": 19,
+      "meaning": "Generic failure only; does not identify an SMP, driver or firmware cause.",
+      "firmware_secured_observed": false
+    },
+    "existing_old_windows_pairing_same_as_fresh_target": false,
+    "old_windows_pairing_deleted": false,
+    "later_settings_observation": "Main Bluetooth Settings became readable. Owned ShellExperienceHost add-device dialog was not targetable through the Settings window; no authentication dialog was automated.",
+    "next": "Windows/iPhone pairing, physical effects and connected memory passed on original F0; finish strict reconnect timing and Android coverage."
+  },
+  "windows_readonly_device_verification": {
+    "chip": "ESP32-C3",
+    "flash_bytes": 8388608,
+    "factory_offset": 65536,
+    "factory_size": 2031616,
+    "partition_table_sha256": "7428911f9c364578c3d57ff0cc315b25442333cad48b1609577e7840124373c2",
+    "installed_app_bytes_read": 643392,
+    "installed_app_sha256": "ea6789e39fddc8a7063a94d45c6687cf71d61a11eb56c55cb9aa4bcce305074c",
+    "matches_handoff": true,
+    "accepted_app_preserved_privately": true,
+    "nvs_read": false,
+    "flash_writes": false
+  },
+  "f0_diagnostic_candidate": {
+    "name": "F0 diag1",
+    "scope": "Numeric lifecycle/security/subscription logs and diagnostic boot marker only; no key-map, security-policy or NVS-layout change.",
+    "build": "PASS",
+    "sdk": "v6.0.2",
+    "host_tests": 44,
+    "golden_rows": 1559,
+    "golden_byte_identical": true,
+    "app_bytes": 644672,
+    "app_sha256": "b0c39fb71ca8eb2de0ad0b1f26fd0b7e164f1d4c54cfee92c8738e47c69f7d30",
+    "merged_bytes": 710208,
+    "merged_sha256": "d021c36cb54504b91311b16350d5d00464bd85392f1041fb25bc97fcfed6f295",
+    "elf_sha256": "d9b733904952a95c1ea5146998c50846fad704e95b4bad189c03c544c9a91e7f",
+    "map_sha256": "ea85fa167068a89464894cb370efe819ba061c354089259a1dc07d273d614e58",
+    "archive": "build/firmware/d021c36cb54504b91311b16350d5d00464bd85392f1041fb25bc97fcfed6f295",
+    "archive_verify": "PASS",
+    "candidate_inspect": "PASS",
+    "proposed_app_offset": 65536,
+    "proposed_app_end": 710208,
+    "proposed_erase_end": 712704,
+    "flashed": true,
+    "flash_consent": "Explicit user approval for this exact app-only image received",
+    "flash_verify": "PASS (same connection rechecked chip/device identity/security/8 MiB/legacy layout)",
+    "boot_marker_confirmed": "NABO Toolkit F0 diag1 / board ai-passport-nabo / no Wi-Fi",
+    "device_tests": "Flash/boot PASS; Android pairing FAIL 0x404; Mac/Windows/iPhone historical passes belong to the original image, not this new binary."
+  },
+  "iphone_acceptance": {
+    "firmware_app_sha256": "ea6789e39fddc8a7063a94d45c6687cf71d61a11eb56c55cb9aa4bcce305074c",
+    "initial_user_report": "Target not visible",
+    "later_user_report": "iPhone connected",
+    "pairing_connection": "PASS (user confirmation plus firmware readiness)",
+    "ready": true,
+    "test_mode": false,
+    "connected_heap_min_observed": 196244,
+    "connected_largest": 114688,
+    "connected_memory": "PASS",
+    "physical_volume": "PASS (user confirms SECURED / ready and volume increases)",
+    "observation_seconds": 90,
+    "status_samples": 45,
+    "live_connected_samples": 36,
+    "volume_send_count_captured": false,
+    "fresh_passkey_ui": "Not independently observed",
+    "first_observed_ready_ms": 41128,
+    "timing_scope": "Uncontrolled user pairing interval from advertising; not a full boot or automatic reconnect measurement.",
+    "repeated_boot_to_ready": "NOT RUN"
+  },
+  "windows_acceptance": {
+    "firmware_app_sha256": "ea6789e39fddc8a7063a94d45c6687cf71d61a11eb56c55cb9aa4bcce305074c",
+    "user_report": "Windows pairing, paste and volume all normal after disconnecting the iPhone link while retaining its bond.",
+    "pairing": "PASS",
+    "physical_ctrl_v": "PASS (user confirmed)",
+    "physical_volume": "PASS (user confirmed)",
+    "ready": true,
+    "test_mode": false,
+    "final_os_preference": "windows",
+    "observation_seconds": 150,
+    "status_samples": 73,
+    "live_connected_samples": 30,
+    "connected_heap_min_observed": 195848,
+    "connected_largest_min_observed": 114688,
+    "connected_memory": "PASS",
+    "sent_before": 7,
+    "sent_after": 20,
+    "sent_delta": 13,
+    "failed": 0,
+    "initial_pairing_interval_from_advertising_ms": 21452,
+    "initial_pairing_interval_is_boot_test": false,
+    "diagnostic_candidate_installed": false
+  },
+  "windows_restart_timing": {
+    "firmware_app_sha256": "ea6789e39fddc8a7063a94d45c6687cf71d61a11eb56c55cb9aa4bcce305074c",
+    "method": "Host monotonic time before USB reset assertion through receipt of fresh ready status; includes reset hold/USB/serial overhead. Fresh boot banner and sent=0 confirm each actual reset.",
+    "automatic_reconnect_successes": 3,
+    "rounds": 3,
+    "results": [
+      {
+        "round": 1,
+        "reset_confirmed": true,
+        "reset_request_to_ready_upper_bound_ms": 2219.0,
+        "advertising_to_ready_ms": 1690,
+        "heap": 196016,
+        "largest": 114688,
+        "upper_bound_within_3_seconds": true
+      },
+      {
+        "round": 2,
+        "reset_confirmed": true,
+        "reset_request_to_ready_upper_bound_ms": 3125.0,
+        "advertising_to_ready_ms": 2608,
+        "heap": 196016,
+        "largest": 114688,
+        "upper_bound_within_3_seconds": false
+      },
+      {
+        "round": 3,
+        "reset_confirmed": true,
+        "reset_request_to_ready_upper_bound_ms": 2812.0,
+        "advertising_to_ready_ms": 2269,
+        "heap": 196016,
+        "largest": 114688,
+        "upper_bound_within_3_seconds": true
+      }
+    ],
+    "strict_three_round_3_second_gate": "NOT VERIFIED (one host upper bound exceeds 3 seconds; not proof of exact device latency)",
+    "power_removal_or_sleep_wake_tested": false,
+    "flash_writes": false,
+    "serial_port_released": true,
+    "android_availability": "Available now; user explicitly accepts possible oldest-bond eviction for this Android test",
+    "f1_started": false
+  },
+  "android_preflight": {
+    "device_available": true,
+    "pairing": "FAIL (user reports immediate Android pairing failure with badge code flashing briefly)",
+    "max_bonds": 3,
+    "overflow_callback": "ble_store_util_status_rr",
+    "source_verified_behavior": "On security-record overflow, unpair the oldest peer; joining a fourth platform can remove an older bond.",
+    "existing_bond_count_read": false,
+    "user_informed": true,
+    "eviction_consent": "GRANTED: user explicitly chose to continue and accepts an older device potentially requiring re-pairing",
+    "new_pairing_window_opened": "User instructed to hold DOWN; six-digit code appearance confirms pairing interaction began",
+    "nvs_read_or_manual_clear": false,
+    "firmware_changed_or_flashed_this_step": false,
+    "user_report": "Android immediately reports pairing failure; badge's six-digit code flashes briefly and disappears",
+    "observation_seconds": 240,
+    "status_samples": 136,
+    "live_connected_samples": 0,
+    "physical_volume": "NOT RUN",
+    "connected_memory": "NOT VERIFIED",
+    "old_bond_eviction_actually_observed": false,
+    "serial_port_released": true,
+    "next": "Current diag2 experimental numeric-comparison pairing and volume passed; collect repeated full-reset reconnect measurements without re-pairing.",
+    "diagnostic_app_flash_consent": "GRANTED for the fixed diag1 app; flashed and verified",
+    "android_model_os": "User-reported 荣耀9s pro / 鸿蒙OS 3.0.0; hardware model not independently verified",
+    "underlying_handshake_error_code": 1028
+  },
+  "android_diag1_result": {
+    "app_sha256": "b0c39fb71ca8eb2de0ad0b1f26fd0b7e164f1d4c54cfee92c8738e47c69f7d30",
+    "pairing": "FAIL (user confirmation plus captured security failure)",
+    "device_uptime_ms": {
+      "pair_window_begin": 55025,
+      "advertising_start": 55128,
+      "connected": 56666,
+      "passkey_display_action": 57015,
+      "encryption_failure": 57266,
+      "disconnected": 57316
+    },
+    "connect_status": 0,
+    "security_request_rc": 0,
+    "passkey_action": 3,
+    "encryption_status": 1028,
+    "encryption_status_hex": "0x404",
+    "error_name": "BLE_HS_SM_US_ERR(BLE_SM_ERR_CONFIRM_MISMATCH)",
+    "encrypted": false,
+    "authenticated": false,
+    "bonded": false,
+    "disconnect_reason": 517,
+    "disconnect_reason_hex": "0x205",
+    "disconnect_reason_name": "HCI authentication failure (after the SMP mismatch)",
+    "passkey_action_to_failure_ms": 251,
+    "pair_window_begin_to_failure_ms": 2241,
+    "sixty_second_pairing_window_expired": false,
+    "new_bond_persistence_reached": false,
+    "root_cause": "SMP confirm mismatch located; device/phone implementation cause not yet determined",
+    "security_policy_changed": false,
+    "nvs_erased": false,
+    "next_controlled_check": "Phone Bluetooth off ~10s/on did not solve the failure; subsequent action 3 again produced 0x404 ~300ms later.",
+    "phone_bluetooth_restart_result": "FAIL (same immediate pairing failure, code flashes briefly)"
+  },
+  "f0_diag2": {
+    "name": "F0 diag2",
+    "sdk": "v6.0.2",
+    "chip": "ESP32-C3",
+    "flash_bytes": 8388608,
+    "psram": false,
+    "scope": "Explicit optional F0 SC-only numeric-comparison diagnostic; normal long-DOWN DisplayOnly and canonical JS/key map unchanged.",
+    "build": "PASS",
+    "host_tests": {
+      "status": "PASS",
+      "count": 46,
+      "node": 18,
+      "python": 28
+    },
+    "golden_rows": 1559,
+    "golden_byte_identical": true,
+    "full_js_c_application_replay": "NOT IMPLEMENTED",
+    "app_bytes": 646048,
+    "app_sha256": "00517903fa87f3f3fd9bb820aa6b7882b3356cfc3a343e0694989b06fdc38982",
+    "merged_bytes": 711584,
+    "merged_sha256": "116944dcbb1ced392e1d16757fc010f7df2de7b3d22458d4f6ead517c9ed5298",
+    "elf_bytes": 8553072,
+    "elf_sha256": "916dbdece9b9772eccf0c30e2cbda9742608ef3ec2a413ddae66ce2fe1a622fd",
+    "map_bytes": 5812944,
+    "map_sha256": "9f535b7cde029acb8a48debbedb5e709dccfd078edbbee429619fa0280e82282",
+    "archive": "build/firmware/116944dcbb1ced392e1d16757fc010f7df2de7b3d22458d4f6ead517c9ed5298",
+    "archive_verify": "PASS",
+    "layout_verify": "PASS",
+    "wifi_init_symbols": "ABSENT",
+    "flash_consent": "Explicit user approval for this exact fixed app and numeric-comparison experiment",
+    "flashed": true,
+    "flash_verify": "PASS",
+    "boot_marker_confirmed": "NABO Toolkit F0 diag2 / board ai-passport-nabo / no Wi-Fi",
+    "app_offset": 65536,
+    "app_end_exclusive": 711584,
+    "sector_erase_end_exclusive": 712704,
+    "legacy_partition_table_preserved": true,
+    "nvs_or_asset_flash_writes": false,
+    "security": {
+      "mitm": true,
+      "secure_connections": true,
+      "experimental_sc_only": true,
+      "numeric_action_required": 4,
+      "physical_short_ok_required": true,
+      "serial_approval": false,
+      "stale_zero_cancelled_tokens_rejected": true
+    },
+    "prior_attempts": [
+      {
+        "result": "NOT a comparison attempt: initial experiment expired, user long-DOWN selected normal flow; action3/0x404"
+      },
+      {
+        "result": "Incomplete comparison: user confirmed phone only, no badge approval; advertising deadline interrupted pending handshake",
+        "action": 4,
+        "connect_ms": 300453,
+        "prompt_ms": 300806,
+        "window_begin_ms": 247665,
+        "deadline_restart_ms": 307712,
+        "encryption_status": 7,
+        "disconnect_reason": 534,
+        "physical_accept_event_seen": false
+      }
+    ],
+    "harmony_acceptance": {
+      "phone_model_os": "User-reported 荣耀9s pro / 鸿蒙OS 3.0.0; model not independently verified",
+      "user_report": "Both sides confirmed, SECURED / ready; physical UP increases phone volume and stays ready",
+      "pairing": "PASS (experimental numeric-comparison path only)",
+      "physical_volume": "PASS (user confirmed)",
+      "connect_ms": 575912,
+      "prompt_action4_ms": 576263,
+      "physical_accept_ms": 609692,
+      "physical_accept_rc": 0,
+      "encryption_ms": 610021,
+      "encryption_status": 0,
+      "encrypted": true,
+      "authenticated": true,
+      "bonded": true,
+      "both_subscriptions_ms": 612712,
+      "ready_ms_device_uptime": 612713,
+      "connected_heap_min_observed": 195232,
+      "connected_largest_min_observed": 114688,
+      "connected_memory": "PASS (live test=false only)",
+      "sent_after_user_volume": 5,
+      "failed": 0,
+      "note": "Completed sends are aggregate. Do not infer that the user pressed UP exactly once or that handshake time is boot time.",
+      "capture": "COMPLETE; serial released before reset testing",
+      "observation_seconds": 300,
+      "status_samples": 148,
+      "live_connected_samples": 116,
+      "sent_final": 5,
+      "failed_final": 0
+    },
+    "default_displayonly_compatibility": "NOT FIXED (0x404); experiment not promoted into canonical product rules",
+    "other_platforms_current_image": "NOT RETESTED",
+    "full_f0_gate": "NOT PASSED",
+    "f1_started": false,
+    "harmony_restart_initial_10s_window": {
+      "fresh_diag2_boot_confirmed": true,
+      "ready_within_10s_observation": false,
+      "later_automatically_ready": true,
+      "later_ready_ms_field": 12275,
+      "later_ready_ms_field_scope": "Advertising-attempt timer only; not a precise full-boot timestamp",
+      "post_reset_connected_heap": 196116,
+      "largest": 114688,
+      "full_3_second_gate": "NOT PASSED",
+      "next": "Three rounds use a 35-second observation window; no manual pairing or firmware writes"
+    },
+    "harmony_restart_timing": {
+      "firmware_app_sha256": "00517903fa87f3f3fd9bb820aa6b7882b3356cfc3a343e0694989b06fdc38982",
+      "method": "Host monotonic time before USB reset assertion through receipt of fresh firmware ready status; includes reset hold/USB overhead. Fresh boot banner and sent=0 required.",
+      "observation_window_per_round_seconds": 35,
+      "automatic_reconnect_successes": 3,
+      "results": [
+        {
+          "cycle": 1,
+          "reset_confirmed_by_fresh_boot_banner": true,
+          "boot_banner_device_uptime_ms": 497,
+          "reset_request_to_ready_observed_upper_bound_ms": 11640.0,
+          "advertising_to_ready_ms": 11104,
+          "heap": 196116,
+          "largest": 114688,
+          "ready": true,
+          "events": [
+            {
+              "uptime_ms": 492,
+              "message": "begin mode=2"
+            },
+            {
+              "uptime_ms": 495,
+              "message": "adv mode=2 filter=0 rc=0"
+            },
+            {
+              "uptime_ms": 496,
+              "message": "state=2"
+            },
+            {
+              "uptime_ms": 10496,
+              "message": "adv_complete reason=13"
+            },
+            {
+              "uptime_ms": 10496,
+              "message": "state=0"
+            },
+            {
+              "uptime_ms": 10504,
+              "message": "adv mode=0 filter=2 rc=0"
+            },
+            {
+              "uptime_ms": 11295,
+              "message": "connect status=0"
+            },
+            {
+              "uptime_ms": 11296,
+              "message": "security_request rc=0"
+            },
+            {
+              "uptime_ms": 11296,
+              "message": "state=3"
+            },
+            {
+              "uptime_ms": 11594,
+              "message": "encryption status=0 encrypted=1 authenticated=1 bonded=1"
+            },
+            {
+              "uptime_ms": 11596,
+              "message": "subscription mask=0"
+            },
+            {
+              "uptime_ms": 11596,
+              "message": "subscription mask=1"
+            },
+            {
+              "uptime_ms": 11596,
+              "message": "subscription mask=3"
+            },
+            {
+              "uptime_ms": 11596,
+              "message": "state=4"
+            },
+            {
+              "uptime_ms": 11596,
+              "message": "subscription mask=7"
+            }
+          ],
+          "under_3_seconds_verified": false
+        },
+        {
+          "cycle": 2,
+          "reset_confirmed_by_fresh_boot_banner": true,
+          "boot_banner_device_uptime_ms": 499,
+          "reset_request_to_ready_observed_upper_bound_ms": 11250.0,
+          "advertising_to_ready_ms": 10711,
+          "heap": 196116,
+          "largest": 114688,
+          "ready": true,
+          "events": [
+            {
+              "uptime_ms": 494,
+              "message": "begin mode=2"
+            },
+            {
+              "uptime_ms": 498,
+              "message": "adv mode=2 filter=0 rc=0"
+            },
+            {
+              "uptime_ms": 498,
+              "message": "state=2"
+            },
+            {
+              "uptime_ms": 10498,
+              "message": "adv_complete reason=13"
+            },
+            {
+              "uptime_ms": 10498,
+              "message": "state=0"
+            },
+            {
+              "uptime_ms": 10507,
+              "message": "adv mode=0 filter=2 rc=0"
+            },
+            {
+              "uptime_ms": 10904,
+              "message": "connect status=0"
+            },
+            {
+              "uptime_ms": 10905,
+              "message": "security_request rc=0"
+            },
+            {
+              "uptime_ms": 10905,
+              "message": "state=3"
+            },
+            {
+              "uptime_ms": 11204,
+              "message": "encryption status=0 encrypted=1 authenticated=1 bonded=1"
+            },
+            {
+              "uptime_ms": 11205,
+              "message": "subscription mask=0"
+            },
+            {
+              "uptime_ms": 11205,
+              "message": "subscription mask=1"
+            },
+            {
+              "uptime_ms": 11205,
+              "message": "subscription mask=3"
+            },
+            {
+              "uptime_ms": 11205,
+              "message": "state=4"
+            },
+            {
+              "uptime_ms": 11206,
+              "message": "subscription mask=7"
+            }
+          ],
+          "under_3_seconds_verified": false
+        },
+        {
+          "cycle": 3,
+          "reset_confirmed_by_fresh_boot_banner": true,
+          "boot_banner_device_uptime_ms": 501,
+          "reset_request_to_ready_observed_upper_bound_ms": 11547.0,
+          "advertising_to_ready_ms": 11013,
+          "heap": 196116,
+          "largest": 114688,
+          "ready": true,
+          "events": [
+            {
+              "uptime_ms": 496,
+              "message": "begin mode=2"
+            },
+            {
+              "uptime_ms": 499,
+              "message": "adv mode=2 filter=0 rc=0"
+            },
+            {
+              "uptime_ms": 499,
+              "message": "state=2"
+            },
+            {
+              "uptime_ms": 10499,
+              "message": "adv_complete reason=13"
+            },
+            {
+              "uptime_ms": 10499,
+              "message": "state=0"
+            },
+            {
+              "uptime_ms": 10508,
+              "message": "adv mode=0 filter=2 rc=0"
+            },
+            {
+              "uptime_ms": 11208,
+              "message": "connect status=0"
+            },
+            {
+              "uptime_ms": 11208,
+              "message": "security_request rc=0"
+            },
+            {
+              "uptime_ms": 11209,
+              "message": "state=3"
+            },
+            {
+              "uptime_ms": 11508,
+              "message": "encryption status=0 encrypted=1 authenticated=1 bonded=1"
+            },
+            {
+              "uptime_ms": 11509,
+              "message": "subscription mask=0"
+            },
+            {
+              "uptime_ms": 11509,
+              "message": "subscription mask=1"
+            },
+            {
+              "uptime_ms": 11509,
+              "message": "subscription mask=3"
+            },
+            {
+              "uptime_ms": 11509,
+              "message": "state=4"
+            },
+            {
+              "uptime_ms": 11509,
+              "message": "subscription mask=7"
+            }
+          ],
+          "under_3_seconds_verified": false
+        }
+      ],
+      "strict_three_second_gate": "FAIL (all three device ready uptime values >11 seconds)",
+      "common_trace": "No link in 10-second directed phase; directed adv timeout, then filter=2 last-peer whitelist advertising, then link/authentication/subscriptions.",
+      "root_cause_scope": "Transport-phase delay located; why this phone ignores directed advertising is not established.",
+      "power_removal_or_sleep_wake_tested": false,
+      "flash_writes": false,
+      "serial_port_released": true
+    }
+  },
+  "f0_diag3_candidate": {
+    "name": "F0 diag3",
+    "scope": "Shorten directed reconnect phase to 500ms, then last-peer-only whitelist. Keep ten-second UI window/original attempt timestamp and do not abort a live security handshake at UI expiry. Default DisplayOnly and optional numeric comparison unchanged.",
+    "build": "PASS",
+    "sdk": "v6.0.2",
+    "chip": "ESP32-C3",
+    "flash_bytes": 8388608,
+    "psram": false,
+    "host_tests": {
+      "status": "PASS",
+      "count": 47,
+      "node": 18,
+      "python": 29
+    },
+    "golden_rows": 1559,
+    "golden_byte_identical": true,
+    "full_js_c_application_replay": "NOT IMPLEMENTED",
+    "artifacts": {
+      "nabo-toolkit-merged.bin": {
+        "sha256": "2192d4137e1a12e1d44e798c2c11646e8fd501245004fd8b9b9549160224c532",
+        "bytes": 711808
+      },
+      "nabo-toolkit.bin": {
+        "sha256": "cb5eeda654b3e22110dc0119ac17df0773c4c8a56a4ac12fbfaf999c7abf830d",
+        "bytes": 646272
+      },
+      "nabo-toolkit.elf": {
+        "sha256": "913e31042009802f6ecf0bcb09fbb850e492e8bc83fd5b8157a5ca41ac26acbd",
+        "bytes": 8554448
+      },
+      "nabo-toolkit.map": {
+        "sha256": "5de5fc7c4922cfe1a129a2d6904826b0eeaf213a40b313f3f88d5573c3295899",
+        "bytes": 5813301
+      },
+      "bootloader/bootloader.bin": {
+        "sha256": "71b83edd4137e96bf749a4ce3ab69ac1aaffab76ee12749df48224d519425043",
+        "bytes": 21168
+      },
+      "partition_table/partition-table.bin": {
+        "sha256": "feb7ea496adb63179bf197f87431e6c8ddade47ce0228c1e671ef01421effc0c",
+        "bytes": 3072
+      },
+      "flash_args": {
+        "sha256": "dc9c8940074a9d363138c28930e33d165b4c4a51927e68980873cf1cfd5a651d",
+        "bytes": 153
+      },
+      "sdkconfig": {
+        "sha256": "8d1552604afcc9df9606438f129aea02bd048cd12b4aee2917ba87a6bc26e321",
+        "bytes": 103623
+      },
+      "project_description.json": {
+        "sha256": "51c184776b523082732375c0a5013e2691516b31fe0f31c2d919cc8dee8ff08c",
+        "bytes": 305721
+      },
+      "flasher_args.json": {
+        "sha256": "23681140571fd58a39c63eec4197f8b74a1ac0d8aad21adad310bb75f87602b3",
+        "bytes": 939
+      }
+    },
+    "archive": "build/firmware/2192d4137e1a12e1d44e798c2c11646e8fd501245004fd8b9b9549160224c532",
+    "archive_verify": "PASS",
+    "layout_verify": "PASS",
+    "wifi_init_symbols": "ABSENT",
+    "candidate_inspect": "PASS",
+    "app_offset": 65536,
+    "app_end_exclusive": 711808,
+    "erase_end_exclusive": 712704,
+    "readonly_device_preflight": {
+      "status": "PASS (READ ONLY)",
+      "port": "COM12",
+      "same_private_device_identity": true,
+      "chip": "ESP32-C3",
+      "flash_bytes": 8388608,
+      "factory_offset": 65536,
+      "factory_bytes": 2031616,
+      "partition_table_sha256": "7428911f9c364578c3d57ff0cc315b25442333cad48b1609577e7840124373c2",
+      "installed_app_sha256": "00517903fa87f3f3fd9bb820aa6b7882b3356cfc3a343e0694989b06fdc38982",
+      "candidate_sha256": "cb5eeda654b3e22110dc0119ac17df0773c4c8a56a4ac12fbfaf999c7abf830d",
+      "candidate_bytes": 646272,
+      "candidate_end": "0xadc80",
+      "erase_end": "0xae000",
+      "flash_writes": false,
+      "nvs_read": false,
+      "serial_port_released": true
+    },
+    "flashed": true,
+    "flash_consent": "GRANTED: user explicitly approved this fixed app-only image and three reconnect tests",
+    "device_tests": "Flash/boot/three automatic existing-bond reconnects/connected memory PASS; strict three-second timing FAIL; current-binary physical HID NOT RUN (phone unavailable)",
+    "remaining_limitations": [
+      "Harmony full restart-to-ready <=3 seconds FAIL",
+      "Default DisplayOnly interoperability unresolved",
+      "Current-binary fresh pairing/physical volume not verified",
+      "Other-platform current-image acceptance not completed",
+      "No cold power/sleep acceptance"
+    ],
+    "f1_started": false,
+    "flash_verify": "PASS: app verified on same connection after chip/identity/8MiB/security/legacy-layout checks",
+    "boot_marker_confirmed": "NABO Toolkit F0 diag3 / board ai-passport-nabo / no Wi-Fi (three fresh boots)",
+    "harmony_restart_timing": {
+      "method": "Host monotonic time before USB reset assertion through receipt of fresh firmware ready status; includes reset hold/USB overhead. Fresh boot banner and sent=0 required.",
+      "observation_window_per_round_seconds": 35,
+      "automatic_reconnect_successes": 3,
+      "results": [
+        {
+          "cycle": 1,
+          "reset_confirmed_by_fresh_boot_banner": true,
+          "boot_banner_device_uptime_ms": 523,
+          "reset_request_to_ready_observed_upper_bound_ms": 6922.0,
+          "advertising_to_ready_ms": 6366,
+          "heap": 196108,
+          "largest": 114688,
+          "ready": true,
+          "events": [
+            {
+              "uptime_ms": 519,
+              "message": "begin mode=2"
+            },
+            {
+              "uptime_ms": 522,
+              "message": "adv mode=2 filter=0 rc=0"
+            },
+            {
+              "uptime_ms": 522,
+              "message": "state=2"
+            },
+            {
+              "uptime_ms": 1020,
+              "message": "adv_complete reason=13"
+            },
+            {
+              "uptime_ms": 1024,
+              "message": "adv mode=2 filter=2 rc=0"
+            },
+            {
+              "uptime_ms": 6334,
+              "message": "connect status=0"
+            },
+            {
+              "uptime_ms": 6335,
+              "message": "security_request rc=0"
+            },
+            {
+              "uptime_ms": 6335,
+              "message": "state=3"
+            },
+            {
+              "uptime_ms": 6884,
+              "message": "encryption status=0 encrypted=1 authenticated=1 bonded=1"
+            },
+            {
+              "uptime_ms": 6885,
+              "message": "subscription mask=0"
+            },
+            {
+              "uptime_ms": 6885,
+              "message": "subscription mask=1"
+            },
+            {
+              "uptime_ms": 6885,
+              "message": "subscription mask=3"
+            },
+            {
+              "uptime_ms": 6885,
+              "message": "state=4"
+            },
+            {
+              "uptime_ms": 6885,
+              "message": "subscription mask=7"
+            }
+          ],
+          "under_3_seconds_verified": false
+        },
+        {
+          "cycle": 2,
+          "reset_confirmed_by_fresh_boot_banner": true,
+          "boot_banner_device_uptime_ms": 502,
+          "reset_request_to_ready_observed_upper_bound_ms": 5344.0,
+          "advertising_to_ready_ms": 4819,
+          "heap": 196116,
+          "largest": 114688,
+          "ready": true,
+          "events": [
+            {
+              "uptime_ms": 497,
+              "message": "begin mode=2"
+            },
+            {
+              "uptime_ms": 500,
+              "message": "adv mode=2 filter=0 rc=0"
+            },
+            {
+              "uptime_ms": 501,
+              "message": "state=2"
+            },
+            {
+              "uptime_ms": 999,
+              "message": "adv_complete reason=13"
+            },
+            {
+              "uptime_ms": 1003,
+              "message": "adv mode=2 filter=2 rc=0"
+            },
+            {
+              "uptime_ms": 5015,
+              "message": "connect status=0"
+            },
+            {
+              "uptime_ms": 5016,
+              "message": "security_request rc=0"
+            },
+            {
+              "uptime_ms": 5016,
+              "message": "state=3"
+            },
+            {
+              "uptime_ms": 5315,
+              "message": "encryption status=0 encrypted=1 authenticated=1 bonded=1"
+            },
+            {
+              "uptime_ms": 5316,
+              "message": "subscription mask=0"
+            },
+            {
+              "uptime_ms": 5316,
+              "message": "subscription mask=1"
+            },
+            {
+              "uptime_ms": 5316,
+              "message": "subscription mask=3"
+            },
+            {
+              "uptime_ms": 5316,
+              "message": "state=4"
+            },
+            {
+              "uptime_ms": 5316,
+              "message": "subscription mask=7"
+            }
+          ],
+          "under_3_seconds_verified": false
+        },
+        {
+          "cycle": 3,
+          "reset_confirmed_by_fresh_boot_banner": true,
+          "boot_banner_device_uptime_ms": 497,
+          "reset_request_to_ready_observed_upper_bound_ms": 11234.0,
+          "advertising_to_ready_ms": 10723,
+          "heap": 196116,
+          "largest": 114688,
+          "ready": true,
+          "events": [
+            {
+              "uptime_ms": 492,
+              "message": "begin mode=2"
+            },
+            {
+              "uptime_ms": 495,
+              "message": "adv mode=2 filter=0 rc=0"
+            },
+            {
+              "uptime_ms": 495,
+              "message": "state=2"
+            },
+            {
+              "uptime_ms": 993,
+              "message": "adv_complete reason=13"
+            },
+            {
+              "uptime_ms": 997,
+              "message": "adv mode=2 filter=2 rc=0"
+            },
+            {
+              "uptime_ms": 10504,
+              "message": "state=0"
+            },
+            {
+              "uptime_ms": 10813,
+              "message": "connect status=0"
+            },
+            {
+              "uptime_ms": 10813,
+              "message": "security_request rc=0"
+            },
+            {
+              "uptime_ms": 10814,
+              "message": "state=3"
+            },
+            {
+              "uptime_ms": 11212,
+              "message": "encryption status=0 encrypted=1 authenticated=1 bonded=1"
+            },
+            {
+              "uptime_ms": 11213,
+              "message": "subscription mask=0"
+            },
+            {
+              "uptime_ms": 11214,
+              "message": "subscription mask=1"
+            },
+            {
+              "uptime_ms": 11214,
+              "message": "subscription mask=3"
+            },
+            {
+              "uptime_ms": 11214,
+              "message": "state=4"
+            },
+            {
+              "uptime_ms": 11214,
+              "message": "subscription mask=7"
+            }
+          ],
+          "under_3_seconds_verified": false
+        }
+      ],
+      "strict_three_second_gate": "FAIL",
+      "advertising_fallback_verified": "Each boot switches from directed to last-peer-only filter=2 at ~1s uptime",
+      "remaining_delay": "Connection arrives at 5.015/6.334/10.813s uptime, after whitelist advertising already started. Central-side initiation/RF/phone-state cause unestablished.",
+      "handset_screen_state_and_distance": "NOT VERIFIED: user reports phone not currently nearby; cannot check screen state or retest volume",
+      "power_removal_or_sleep_wake_tested": false,
+      "flash_writes_during_timing": false,
+      "serial_port_released": true
+    },
+    "harmony_current_binary": {
+      "existing_bond_automatic_reconnect": "PASS 3/3",
+      "fresh_pairing": "NOT RUN (existing diag2-created phone bond retained)",
+      "connected_heap_min_observed": 196108,
+      "connected_largest_min_observed": 114688,
+      "connected_memory": "PASS",
+      "physical_volume": "NOT RUN on diag3 (phone unavailable to user)",
+      "other_platforms": "NOT RETESTED"
+    }
+  },
+  "ireader_tango2s_preflight": {
+    "model": "User-reported iReader Tango 2S",
+    "system_version": "NOT PROVIDED",
+    "hid_keyboard_compatibility": "NOT VERIFIED; model name/Bluetooth version alone do not prove HID-host support",
+    "purpose": "Supplementary pairing/reconnect/HID check; reader-specific findings not relabelled as phone-volume acceptance",
+    "pairing": "DEFERRED by user; no reader pairing completed",
+    "new_bond_risk": "F0 max3 bonds can evict oldest; earlier Android consent does not document this additional reader test",
+    "reader_specific_consent": "Normal FIFO replacement authorized by user latest policy clarification; no repeat eviction question needed",
+    "f0_gate_waived": false,
+    "blocked_condition": "Opening pair window produced existing-bond encryption/ready in639ms without numeric-comparison action; prior phone reconnected",
+    "next": "Deferred by user; no further serial/device interaction during F1 development",
+    "phone_bluetooth_off": "User explicitly confirmed previous phone Bluetooth OFF",
+    "isolation_followup": {
+      "status_query_still_ready": true,
+      "fresh_pair_window_old_bond_reconnect_ms": 629,
+      "new_numeric_comparison_action_seen": false,
+      "windows_bluetooth_radio_readonly_state": "ON (WinRT Radio API)",
+      "current_peer_identity": "NOT DETERMINED; do not identify it as the phone solely from readiness",
+      "next": "User stopped device tests instead of changing Windows radio; reader and TV remain deferred"
+    }
+  },
+  "prototype_fifo_policy": {
+    "user_direction": "Keep three newest pairings; normal new pairing replaces oldest without repeated eviction consent",
+    "status": "Reference and F1 C model/storage implemented and host-tested; new F1 not installed",
+    "ordinary_reconnect_reorders": false,
+    "cancel_or_timeout_deletes_old_slot": false,
+    "golden_rows": 1582,
+    "golden_determinism": "PASS",
+    "historical_golden_rows_at_5fb23a0": 1559,
+    "core_sha256": "d8d3c4b8a929d86bc04a93fc2e4992409cda3d53aedc3dd42cbaeddc7d217300",
+    "author_hid_table_unchanged": true,
+    "new_firmware_flash_for_this_rule": false,
+    "f1_c_application_started": true
+  },
+  "future_xiaomi_tv": {
+    "scope": "User plans possible office Xiaomi TV binding later",
+    "model": "NOT PROVIDED",
+    "validation": "NOT RUN",
+    "official_hid_reference": "https://www.mi.com/uk/support/faq/details/KA-543998/",
+    "note": "Generic HID support does not prove this badge BLE security/report compatibility or every TV remote function"
+  },
+  "f1_development_authorization": {
+    "date": "2026-10-27",
+    "user_instruction": "先不测试了，现在我们已经可以连接win mac了，电视以后测，你可以继续往下走了",
+    "scope": "Proceed with F1 source and host validation despite incomplete F0 device coverage",
+    "remaining_device_results_relabelled_pass": false,
+    "new_flash_authorized": false,
+    "publication_authorized": false
   }
 }

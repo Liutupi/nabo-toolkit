@@ -1,0 +1,13 @@
+menu "NABO Toolkit"
+config NABO_TOOLKIT_F1
+    bool "Build the F1 application instead of the preserved F0 probe"
+    default n
+config NABO_TOOLKIT_F2
+    bool "Enable F2 shortcut/card configuration and USB serial protocol"
+    depends on NABO_TOOLKIT_F1
+    default n
+config NABO_TOOLKIT_F3
+    bool "Enable original toolkit animations and startup audio"
+    depends on NABO_TOOLKIT_F2
+    default n
+endmenu

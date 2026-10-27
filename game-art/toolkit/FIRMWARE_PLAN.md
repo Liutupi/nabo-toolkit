@@ -1,8 +1,14 @@
 # 《NABO 工具箱》固件框架
 
-版本 0.1 · 2026-10-27。规则以 `prototype/tk_core.js`、键位以 `prototype/tk_hid.js` 为准；本文定固件的结构、运行逻辑和“能用”的验收标准。
+版本 0.3 · 2026-10-28。规则以 `prototype/tk_core.js`、键位以 `prototype/tk_hid.js` 为准；本文定固件的结构、运行逻辑和“能用”的验收标准。
 
 **原则：先能用，再好看。** 关键路径是 F0 → F1 → F2：蓝牙键盘在真机上跑通，然后所有工具都能用（占位画面），然后配置页能写入。美术（ART_BRIEF）同时进行，素材到了在 F3 替换，**美术不挡功能发布**。
+
+2026-10-27 用户最新指示：先停止本轮设备测试，电视以后测，允许基于已取得的 Mac/Windows 连接结果继续往下开发。因此本轮可先做 F1 源码和宿主验证，不再因剩余 F0 补测阻止开发；既有三秒 FAIL、当前镜像/手机/阅读器等未测项继续保留，不代表 F0 或 F1 真机验收通过，也不授权新的刷写或发布。
+
+用户先要求F2宿主/构建，随后明确“做好就刷机验证”，已恢复F2实机验收。dev2固定app已授权app-only安装，87项宿主/1,710步对拍/构建通过，实际USB保存/读回/异常拒绝/两轮重启保留/20次连续读回通过；Windows重新配对/粘贴/音量、自定义文字/名片/扫码、连接内存和成功保存后断电保留已验收，原配置已恢复；浏览器真实权限/传输中拔线及剩余F1门槛仍待测。原F0三秒FAIL保留，完整动画/UI素材/开机音仍待F3；见HANDOFF21与validation/f2.json。
+
+最新补充（2026-10-28）：用户授权公开仓库、固件和配置页。F3 dev3精确已验收app为公开测试版，100项宿主/构建通过；原动画、完整欢迎、开机语音及无爆破按键音已由用户验收。通过无损动画包与字库描述压紧装入旧factory，不读写旧FAT；旧三秒FAIL等未测项继续保留。见HANDOFF22–23与validation/f3.json；前述未开始/未授权为历史时点。
 
 ---
 
@@ -28,18 +34,18 @@ F1 用占位画面（和原型一样的形状、文字和参考图头像）就�
 - **外壳**：从 `nabo-adventure/firmware` 分出（独立离线，ESP-IDF 6.0.2，esp32c3）。保留：直绘渲染器 `adv_gfx`（显示列表 + 脏矩形 + 8 行条带）、`adv_text`、字库生成工具、`adv_sound` 的提示音合成、按键队列和 60 Hz 主循环的写法、`flash_candidate.py`、`verify_firmware.py`、宿主测试框架。删掉：地图、站点、跳一跳、深潜、占位游戏和它们的素材。改名为 `tk_` 前缀。
 - **开机语音和休眠唤醒**：参考 `Liutupi/nabo-fortune`（真机验证过）：`fc_sound.c` 的开机语音延时播放和压低其他提示音，以及 5 分钟休眠、上键唤醒。
 - **蓝牙 HID**：从小智电台版 `ai-passport-nabo-xiaozhi/.../ai-passport-nabo/nabo_keys.c` 移植 GATT 服务（HID 报告描述符：报告 1 = 8 字节键盘，报告 2 = 16 位多媒体键；设备信息、电池服务）和发送节奏；配对参数参考同目录 `nabo_pc.c`。这里工具箱是 NimBLE 唯一的使用者，不需要电台版的 Link 协调。
-- **sdkconfig 改动**：`CONFIG_BT_ENABLED=y`、`CONFIG_BT_NIMBLE_ENABLED=y`、只开 PERIPHERAL 和 BROADCASTER、`MAX_CONNECTIONS=1`、`MAX_BONDS=3`、`NVS_PERSIST=y`、`MEMPOOL_RUNTIME_ALLOC=y`（参考电台版 `config.json`）；Wi-Fi 保持关闭。
+- **sdkconfig 改动**：`CONFIG_BT_ENABLED=y`、`CONFIG_BT_NIMBLE_ENABLED=y`、只开 PERIPHERAL 和 BROADCASTER、`MAX_CONNECTIONS=1`、F0 `MAX_BONDS=3`、`NVS_PERSIST=y`、`MEMPOOL_RUNTIME_ALLOC=y`（参考电台版 `config.json`）；Wi-Fi 保持关闭。F1 另加 `sdkconfig.f1.defaults`：产品仍三槽，但 SDK 密钥容量为 4，第 4 份只供新配对暂存；新槽持久化成功才淘汰 FIFO 旧密钥，保存失败/取消/重启清理未提交的暂存记录。不是四个可选设备槽。
 - 分区表、板型身份不变；NVS 命名空间 `nabo_tk`。
 
 ## 3. 模块
 
 | 文件 | 职责 | 依赖 |
 |---|---|---|
-| `tk_main.c` | `app_main`：初始化顺序、建任务、事件队列 | 全部 |
+| `tk_f1_main.c` / `tk_main.c` | F1 / F0 的 `app_main`：初始化顺序、任务、事件队列；Kconfig 默认保留 F0 | 全部 |
 | `tk_model.c/h` | **纯状态机**，逐行对应 `tk_core.js`：`tk_press(st, key, now, out)`、`tk_tick(st, now, out)`、`tk_sim(st, ev, now)`。不依赖屏幕、声音、蓝牙、RTOS | `tk_hid_map` |
 | `tk_hid_map.c/h` | 对应 `tk_hid.js`：键码表、会议表、默认 6 组、`resolve`、文字转按键、组合键显示名 | 无 |
 | `tk_ble.c/h` | NimBLE：GATT HID 服务、配对、绑定、3 个设备槽、定向广播回连、发送队列 | NimBLE、NVS |
-| `tk_config.c/h` | 配置（6 组快捷键 + 3 张名片）的解析、校验、存取；设置和设备槽存取 | cJSON（IDF 自带 `json` 组件）、NVS |
+| `tk_persist.c/h`、`tk_slots.c/h`、`tk_ble_slots.c/h` | F1 设置、槽编码、NimBLE 密钥与三槽事务；F2 再加 `tk_config` 自定义配置读写 | NVS、NimBLE；F2 cJSON |
 | `tk_qr.c/h` | 二维码（nayuki QR Code generator，MIT，原样放 `components/qrcodegen/` 保留许可） | 无 |
 | `tk_sound.c/h` | 提示音合成、开机语音 PCM 播放（`EMBED_FILES boot-welcome.pcm`）、压低 | I2S |
 | `tk_serial.c/h` | 串口诊断命令和配置写入协议 | 事件队列 |
@@ -80,13 +86,15 @@ F1 用占位画面（和原型一样的形状、文字和参考图头像）就�
 ```
             ┌──────────── 断开 / 切换设备 ────────────┐
             ▼                                          │
- IDLE ──► RECONNECT(槽 n)：定向广播 10 s ──► 白名单广播（只许已绑定设备）──► CONNECTED ──► SECURED
+ IDLE ──► RECONNECT(槽 n)：定向广播 0.5 s ──► 白名单广播（只许上次设备）──► CONNECTED ──► SECURED
             ▲                                                                  （加密完成且两个报告都已订阅才算“已连接”）
  PAIRING：开放广播 60 s，设备名“NABO 工具箱”，外观 = 键盘 ──► 配对成功 ──► 写槽 ──► 让用户选设备类型
 ```
 
-- 配对：IO 能力 DisplayOnly、绑定、MITM、安全连接（同电台版 `nabo_pc.c`）。电脑要求输入配对码时，屏幕弹出 6 位数（这个画面原型里还没有，见 UI_DESIGN 4.9，先补进原型）。
-- 3 个槽存在 NVS `slots`：对端地址、地址类型、名字、设备类型。删除槽时同时 `ble_gap_unpair`。
+- 配对：IO 能力 DisplayOnly、绑定、MITM、安全连接（同电台版 `nabo_pc.c`）。电脑要求输入配对码时，屏幕弹出 6 位数（原型已在 A1 补齐，见 UI_DESIGN 4.9）。
+- F0 鸿蒙实测：旧策略的三轮连接都发生在 10 秒定向广播超时、转白名单广播后。diag3 已按固定产物授权安装，将定向阶段预算缩短为 500 ms，随后仅白名单内上次设备可连接；整体 RECONNECT 界面期限仍为 10 秒，`tk_core.js` 页面/规则不变。保留最初回连计时起点，10 秒界面超时不截断已建立链路上的安全握手；MITM/加密/认证及双报告订阅门槛不变。实测白名单在约 1 秒 app uptime 开启，但三轮完整回连仍为 6.922/5.344/11.234 秒，三秒门槛 FAIL；链路建立前的剩余等待及手机当时状态/距离未确认，不能预先放行 F0。
+- 3 个槽存在 NVS `slots_v1`：对端身份、地址类型、名字、设备类型、FIFO 顺序/选中项及 CRC。删除先提交槽记录，再 `ble_gap_unpair`；启动清理未引用的暂存密钥。首次 F0 迁移保留现有 SDK 密钥，导入 `f0_peer/f0_mac`；已有设备名字以通用编号显示，不自动获取远端友好名称。
+- 用户最新明确采用“新增顶掉最旧”：最多保留最近新增的三份绑定，满额配对新设备时自动替换最早绑定（FIFO，普通回连不重排）；不要求用户每次先删或重复授权。原型已按此规则更新；F1 要使槽记录与 NimBLE 密钥一致，不能只替换显示名字。取消/超时不主动删除旧槽。F0 仍用现有 `ble_store_util_status_rr` 淘汰最早绑定，未读取密钥或实现完整三槽应用。
 - 切设备：断开当前连接 → 对新槽进 RECONNECT。
 - 只有 SECURED 才能发送；模型里的 `connected` 只在 SECURED 时为真。
 - 休眠前：停止广播、断开连接；唤醒后从 RECONNECT 开始。
@@ -104,6 +112,8 @@ F1 用占位画面（和原型一样的形状、文字和参考图头像）就�
 - 配置页（`prototype/config.html` 改成 Web Serial 版）通过 USB 串口发：`>tk.cfg.begin <字节数>`，多行 `>tk.cfg.data <base64>`，`>tk.cfg.end <crc32>`。
 - 固件收齐后校验 CRC，用 cJSON 解析，按 DESIGN 5.5 / 5.6 的上限校验，通过才写 NVS `cfg_v1`（二进制结构）并立即生效，回 `tk.cfg.ok`；任何一步失败回 `tk.cfg.err <原因>`，旧配置不动。
 - `>tk.cfg.read` 把当前配置以同样格式发回，配置页可以读回编辑。
+
+F2实际协议/字段上限见 `docs/CONFIGURATION.zh_CN.md`：每段48原始字节，逐段确认；网页提交后自动读回比对。NVS `cfg_v1` 为TKCF/版本/长度/CRC+规范JSON的二进制封装。错误和超时不切换当前模型；成功提交后真实断电保留已验收，写入过程中断电/真实Flash故障语义待验收。IDF6已移除内置json组件，按[官方迁移说明](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c61/migration-guides/release-6.x/6.0/protocols.html)新增锁定的espressif/cjson1.7.19~2；原cmake_utilities仍固定1.1.1，其余依赖版本不升级。
 
 ### 4.7 休眠
 
@@ -131,3 +141,5 @@ F1 用占位画面（和原型一样的形状、文字和参考图头像）就�
 | F2 配置页 | Web Serial 写入和读回 | 写入后立即生效、断电保留；坏数据不破坏旧配置 |
 | F3 美术 | 开机语音、NABO 精灵、界面素材按 UI_DESIGN 换上 | 渲染测试更新截图；帧率和内存复测 |
 | F4 发布 | 打包、校验、发布、社区投稿（封面用开机画面） | 按 skill 第 5 节 |
+
+F3接续约束（用户再次确认）：沿用现有七条原片/405,362字节精灵包，接齐各工具动画、约5.5秒完整欢迎/任意键跳过和开机音，不能将静态首帧或短提示音当作交付。dev2旧factory余量171,920字节，不足将全部精灵直接嵌app；先核对保留FAT资源访问/空闲空间，不能改旧表或覆盖已有文件。工具箱专用开机音来源须核对，当前索引音频目录仅VOICE.md；不套用其他项目欢迎语，不重复生成。

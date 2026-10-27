@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-27",
+  "stage": "F1 development candidate; physical acceptance incomplete",
+  "build": "PASS",
+  "sdk": "ESP-IDF v6.0.2",
+  "chip": "ESP32-C3",
+  "flash_bytes": 8388608,
+  "psram": false,
+  "archive": "build/firmware/93ddf1bad638082fa9881dc54cbb44f866064b9a410fcb659c097e6b2e139e7e",
+  "artifacts": {
+    "nabo-toolkit.bin": {
+      "sha256": "2bd07a8b48ebde05ad97ed8d2e9cfcfb22377df94eb66a594e1ec536e17c7d79",
+      "bytes": 909696
+    },
+    "nabo-toolkit-merged.bin": {
+      "sha256": "93ddf1bad638082fa9881dc54cbb44f866064b9a410fcb659c097e6b2e139e7e",
+      "bytes": 975232
+    },
+    "nabo-toolkit.elf": {
+      "sha256": "feff759bec8a7cb279bc7cf63d461df27aebc6645f9239639717e72b946ca73e",
+      "bytes": 9874224
+    },
+    "nabo-toolkit.map": {
+      "sha256": "6a4c59b459f844ce9d27e064b2c1ee0e1ced1a4279722acc5c2e9ac0efd9200d",
+      "bytes": 6152385
+    }
+  },
+  "legacy_factory_capacity": 2031616,
+  "app_fits_legacy_factory": true,
+  "archive_independent_verify": "PASS",
+  "wifi_init_symbols": "ABSENT",
+  "dependencies_lock_changed": false,
+  "build_commands": [
+    "./tools/validate.ps1 -Stage F1",
+    "./tools/validate.ps1 -Stage F0 -FirmwareOnly"
+  ],
+  "host_tests": {
+    "status": "PASS",
+    "node": 20,
+    "python": 51,
+    "total": 71,
+    "skipped": 0,
+    "application_replay": {
+      "status": "PASS",
+      "steps": 1582,
+      "pages": 10,
+      "os": 4,
+      "comparison": "Complete projected state, all effects and sleepDue on every step; default configuration",
+      "deliberate_c_mutations_caught": 3,
+      "production_boot": "Empty slots and disconnected; demo peers exist only in host adapter"
+    },
+    "renderer": "PASS: >80 representative frames, all ten pages/overlays, dirty==full every pixel; six-digit squeeze and QR same-size payload refresh",
+    "storage": "PASS using synthetic RAM providers: CRC/semantic corruption, F0 selected-identity/OS migration, commit-before-FIFO-eviction, failure preservation and orphan staging cleanup",
+    "limits": "No proof of real Flash power-loss, RTOS concurrency, LCD readability, audio or HID effects"
+  },
+  "source_sha256": {
+    "game-art/toolkit/prototype/tk_core.js": "d8d3c4b8a929d86bc04a93fc2e4992409cda3d53aedc3dd42cbaeddc7d217300",
+    "game-art/toolkit/prototype/tk_hid.js": "d5d6fe076c885c38b8f9d37a874dd374ef62de4aef2b8f4dcdffdf13e1c1e887",
+    "tests/tk_golden/traces.jsonl": "9915d119932f0eacc487e63a4e3c5ba0c5c3b417022489b1337f5282f397b16f",
+    "tests/test_tk_model.py": "7e9fadc82db09684ab245d3d473af47d648a7363260796c9e90330063212708f",
+    "tests/tk_native.py": "1fce16c399fc79ffffccc8502a5826a77916ac95b2f3ff18732dbe4638fcbfc4",
+    "tests/test_tk_renderer.py": "6c9f0d1ddb9bf1c473fae53b9b7617a1310e382237f43246c78aa78170f7048c",
+    "tests/test_tk_ble_slots.py": "f7197500f86450c5fd62aaa368b285dd509b0e456a9373798c954ddb3db29de5",
+    "tests/test_tk_persist.py": "9cc408391d0441da4672e35edc04aa48b335d87468663e328f358d34036e67d7",
+    "tests/test_tk_build_inputs.py": "f52b900c1027e1af3cb1b5041446dbd9cf00d8fad9f10c002cf1ec354595f8ae",
+    "firmware/main/tk_f1_main.c": "028783a7d8234a1bbafafdc94f8a766699f8a5b07338d67e855911ce9d8af465"
+  },
+  "assets": {
+    "status": "PASS",
+    "original_files": 364,
+    "original_bytes": 90980640,
+    "new_generated_art": false,
+    "firmware_placeholders": "Frame zero of existing atlas, RGB565 conversion and original alpha; no resize/mirror",
+    "fonts": "12/16/18 Source Han Sans Medium and 28/48 Archivo Black subsets; converter 1.5.3; hashes/OFL checked in",
+    "preview": "docs/images/f1/overview.png",
+    "preview_sha256": "3e47f15cc101c475822c6c51c9708ec9a0a37c3037dda3e81305493ae61ea8ca",
+    "preview_evidence": "Host C renderer using synthetic demo peers; not a device photograph"
+  },
+  "three_slot_policy": {
+    "visible_slots": 3,
+    "sdk_key_capacity": 4,
+    "fourth_record": "Temporary new-pair staging only; commit new slot before deleting oldest key",
+    "eviction": "FIFO by new pairing; ordinary reconnect/selection does not reorder",
+    "cancel_or_timeout": "Does not deliberately evict a committed old slot",
+    "names": "Generic numbered names; remote friendly-name lookup not implemented",
+    "known_peer_during_new_pair": "Rejected; explicit slot deletion needed before repairing an existing identity"
+  },
+  "f0_regression": {
+    "status": "PASS",
+    "archive": "build/firmware/d4d5b2d7c3856abae70696ac3424c8de1fbc6592a82ec1fb4acd7ba09eeea17b",
+    "app": {
+      "sha256": "b385b0122bc474806f1938629254587ebedf66df25eff1fb9a89b84beb95fb90",
+      "bytes": 647232
+    },
+    "device_tests": "NOT RUN; new regression build not installed"
+  },
+  "device_tests": "NOT RUN; user deferred all device testing before F1 work",
+  "installed_device_unchanged": {
+    "stage": "F0 diag3",
+    "app_sha256": "cb5eeda654b3e22110dc0119ac17df0773c4c8a56a4ac12fbfaf999c7abf830d",
+    "new_flash": false,
+    "partition_nvs_assets_untouched": true
+  },
+  "unverified": [
+    "Mac/Windows/iPhone/Android pairing",
+    "Restart reconnect under 3 s",
+    "Connected heap >= 60 KiB and largest block >= 30 KiB",
+    "Keyboard/volume effects and stuck-key recovery",
+    "Ten switches across three real devices within 5 s each",
+    "PPT/Keynote/camera physical effects",
+    "One hour stability and 50 rapid keys",
+    "Sleep/wake and cold-power persistence",
+    "Physical LCD/input/audio acceptance",
+    "Custom shortcuts/cards require F2; animation/voice integration require later art milestone",
+    "Original default DisplayOnly Harmony mismatch 0x404 remains unresolved",
+    "Tango 2S and office Xiaomi TV deferred",
+    "Shared ADC GPIO can electrically wake from any key; exclusive UP-only wake is not claimed",
+    "Real NimBLE unpair failures, RTOS races and physical power-loss recovery are not validated by RAM-provider tests"
+  ],
+  "not_implemented": [
+    "F2 custom shortcuts/cards and Web Serial configuration",
+    "F3 full animation/voice playback; F1 uses unchanged reference stills and a short startup tone"
+  ],
+  "published": false,
+  "committed_or_pushed_this_increment": false,
+  "archive_source_inventory_verified_against_worktree": "PASS",
+  "final_incremental_validation": "Final test-mode snapshot restore and fail-closed sleep preparation: IDF build/merge/archive PASS; all71 host tests rerun PASS; documentation EOF whitespace repaired and git diff --check PASS",
+  "test_mode": "Simulated actions do not emit HID or persist model changes; exit restores previous model and actual profiles. Live NimBLE lifecycle remains independent, not NVS read-only."
+}

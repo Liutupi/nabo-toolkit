@@ -33,7 +33,7 @@
       { id: 'up', k: '↑', label: '上一页' },
       { id: 'ok', k: 'OK', label: p.black ? '恢复画面' : '黑屏' },
       { id: 'down', k: '↓', label: '下一页' },
-    ], '长按 OK 放映 · ↓ 结束 · ↑ 返回');
+    ], '长 OK 开始 · 长↓ 结束 · 长↑ 返回');
     if (p.black) { rr(g, 160, 154, 72, 18, 9, C.INK, A.ppt, 1); txt(g, '黑屏中', 196, 167, 12, A.ppt, 'center'); }
   }
 
@@ -68,7 +68,7 @@
       { id: 'up', k: '↑', label: '音量 +' },
       { id: 'ok', k: 'OK', label: '播放 / 暂停' },
       { id: 'down', k: '↓', label: '音量 −' },
-    ], '长按 OK 下一曲 · ↓ 上一曲 · ↑ 返回');
+    ], '长 OK 下一曲 · 长↓ 上一曲 · 长↑ 返回');
   }
 
   function drawCam(g, st, now, imgs) {
@@ -119,7 +119,7 @@
       { id: 'up', k: '↑', label: grp.up.label, sub: sub(grp.up) },
       { id: 'ok', k: 'OK', label: grp.ok.label, sub: sub(grp.ok) },
       { id: 'down', k: '↓', label: grp.down.label, sub: sub(grp.down) },
-    ], '长按 OK 下一组 · ↓ 上一组 · ↑ 返回');
+    ], '长 OK 下一组 · 长↓ 上一组 · 长↑ 返回');
   }
 
   /* QR via qrcode-generator (prototype only; firmware uses nayuki qrcodegen). */

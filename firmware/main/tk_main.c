@@ -24,6 +24,8 @@ static tk_probe_t s_model = {.mac = true};
 static tk_buttons_t s_buttons;
 static unsigned s_sent, s_failed;
 static bool s_test;
+static int s_compare; // 0 normal passkey, 1 physical decision pending, 2 waiting for phone.
+static uint32_t s_compare_token;
 static char s_status[40] = "Starting Bluetooth";
 static uint32_t now_ms(void) { return (uint32_t)(esp_timer_get_time() / 1000); }
 static void enqueue(input_t input) { if (xQueueSend(s_inputs, &input, 0) != pdTRUE) atomic_store(&s_overflow, true); }
@@ -45,9 +47,20 @@ static void os_preference(bool save)
     nvs_close(h);
     if (err) snprintf(s_status, sizeof(s_status), "OS save failed");
 }
-static void key(int key)
+static void key(int key, bool physical)
 {
     if (key < TK_UP || key > TK_LONG_OK) return;
+    if (s_compare) {
+        int choice = tk_pairing_choice(s_compare == 1, physical, key);
+        if (choice) {
+            tk_ble_compare_reply(choice == 1, s_compare_token);
+            s_compare = choice == 1 ? 2 : 0;
+            if (choice == 2) s_model.passkey_valid = false;
+        } else if (s_compare == 2 && physical && key == TK_LONG_UP) {
+            s_compare = 0; s_model.passkey_valid = false; tk_ble_reconnect();
+        }
+        return; // Serial-injected keys can neither approve nor send HID during comparison.
+    }
     tk_fx_t effect = tk_probe_press(&s_model, (tk_key_t)key);
     if (effect == TK_FX_PAIR) { s_model.ready = false; s_model.pairing = true; tk_ble_pair(); }
     else if (effect == TK_FX_RECONNECT) { s_model.ready = false; s_model.passkey_valid = false; tk_ble_reconnect(); }
@@ -71,10 +84,11 @@ static void command(const char *s)
     else if (!strcmp(s, ">tk.test=1")) { s_test = true; puts("@tk test=1"); }
     else if (!strcmp(s, ">tk.test=0")) { s_test = false; puts("@tk test=0"); }
     else if (!strcmp(s, ">tk.pair")) tk_ble_pair();
+    else if (!strcmp(s, ">tk.pair.compare")) tk_ble_pair_compare();
     else if (!strcmp(s, ">tk.reconnect")) tk_ble_reconnect();
     else if (!strncmp(s, ">tk.key=", 8)) {
         static const char *names[] = {"up", "down", "ok", "long_up", "long_down", "long_ok"};
-        for (int i = 0; i < 6; ++i) if (!strcmp(s + 8, names[i])) { key(i); return; }
+        for (int i = 0; i < 6; ++i) if (!strcmp(s + 8, names[i])) { key(i, false); return; }
         puts("@tk invalid key");
     } else puts("@tk unknown command");
 }
@@ -88,8 +102,13 @@ static void ble_event(tk_ble_event_t event)
         snprintf(s_status, sizeof(s_status), "%s", states[event.value]);
         status();
     } else if (event.kind == TK_BLE_PASSKEY) {
+        s_compare = 0;
         s_model.passkey_valid = event.value <= 999999;
         s_model.passkey = event.value;
+    } else if (event.kind == TK_BLE_COMPARE && event.value <= 999999) {
+        s_compare = 1; s_compare_token = event.ms;
+        s_model.ready = false; s_model.pairing = true;
+        s_model.passkey_valid = true; s_model.passkey = event.value;
     } else if (event.kind == TK_BLE_RESULT) {
         if (event.value) s_sent++; else s_failed++;
     } else if (event.kind == TK_BLE_ERROR) {
@@ -124,17 +143,17 @@ static void ui_task(void *arg)
         }
         input_t e;
         while (xQueueReceive(s_inputs, &e, 0) == pdTRUE) {
-            if (e.kind == 0) key(tk_button_edge(&s_buttons, e.key, e.down, e.ms));
+            if (e.kind == 0) key(tk_button_edge(&s_buttons, e.key, e.down, e.ms), true);
             else if (e.kind == 1) ble_event(e.ble);
             else command(e.line);
         }
         uint32_t ms = now_ms();
-        key(tk_button_tick(&s_buttons, ms));
+        key(tk_button_tick(&s_buttons, ms), true);
         if (ms - metric_at >= 1000) {
             heap = esp_get_free_heap_size(); largest = heap_caps_get_largest_free_block(MALLOC_CAP_8BIT); metric_at = ms;
         }
         if (ms - battery_at >= 5000) { tk_ble_hid_battery(bsp_battery_soc()); battery_at = ms; }
-        tk_probe_ui_draw(&s_model, s_status, heap, largest, s_sent, s_failed);
+        tk_probe_ui_draw(&s_model, s_status, heap, largest, s_sent, s_failed, s_compare);
         vTaskDelay(pdMS_TO_TICKS(16));
     }
 }
@@ -155,5 +174,5 @@ void app_main(void)
     if (xTaskCreate(ui_task, "tk_ui", 6144, NULL, 5, NULL) != pdPASS) { ESP_LOGE("tk", "UI task allocation failed"); return; }
     if (xTaskCreate(serial_task, "tk_serial", 3072, NULL, 2, NULL) != pdPASS) ESP_LOGE("tk", "serial task unavailable");
     bsp_display_backlight(80);
-    ESP_LOGI("tk", "NABO Toolkit F0 / board ai-passport-nabo / no Wi-Fi");
+    ESP_LOGI("tk", "NABO Toolkit F0 diag3 / board ai-passport-nabo / no Wi-Fi");
 }

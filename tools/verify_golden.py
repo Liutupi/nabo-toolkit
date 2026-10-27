@@ -15,4 +15,4 @@ with tempfile.TemporaryDirectory() as folder:
         assert actual == (GOLD/name).read_bytes(), f'{name}: stale golden reference'
         assert hashlib.sha256(actual).hexdigest() == expected['sha256'], f'{name}: wrong recorded hash'
         assert len(actual) == expected['bytes'], f'{name}: wrong recorded length'
-print('JS golden determinism: PASS (not a full JS–C model replay)')
+print('JS golden determinism: PASS (full C replay runs separately in test_tk_model.py)')

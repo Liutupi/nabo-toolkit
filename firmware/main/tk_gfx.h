@@ -27,6 +27,8 @@ typedef enum {
     AG_TRI,       // small up / down arrow
     AG_GLOW,      // soft round highlight
     AG_BITMAP,    // immutable native RGB565 image in flash
+    AG_QR,        // packed QR modules, painted by row; no full-screen pixel buffer
+    AG_INDEXED,   // exact 6-bit animation indices; palette entry zero is transparent
     // AG_SPRITE is reserved for the indexed RLE NABO sprites (see game-art/adventure/ART_BRIEF.md).
 } ag_kind_t;
 
@@ -40,7 +42,9 @@ typedef struct {
         struct { nt_text_t t; uint16_t color; } text;
         struct { int16_t cx, cy; uint16_t color; uint8_t up, size; } tri;
         struct { int16_t cx, cy, r; uint16_t color; } glow;
-        struct { const uint16_t *pixels; int16_t w; } bitmap;
+        struct { const uint16_t *pixels; const uint8_t *alpha; int16_t w; } bitmap;
+        struct { const uint8_t *modules; int16_t scale, border; } qr;
+        struct { const uint8_t *pixels,*palette; int16_t w; } indexed;
     } u;
 } ag_op_t;
 
@@ -69,9 +73,13 @@ bool ag_band(ag_t *g, int y, int h, uint16_t top, uint16_t bottom);
 bool ag_rect(ag_t *g, int x, int y, int w, int h, int r, uint16_t fill, uint8_t alpha, uint16_t line, int line_w);
 bool ag_circle(ag_t *g, int cx, int cy, int r, uint16_t fill, uint8_t alpha, uint16_t line, int line_w);
 bool ag_text(ag_t *g, const lv_font_t *font, const char *utf8, int x, int baseline, nt_align_t align, uint16_t color);
+bool ag_text_squeezed(ag_t *g,const lv_font_t *font,const char *utf8,int x,int baseline,nt_align_t align,uint16_t color,int max_width);
 bool ag_tri(ag_t *g, int cx, int cy, int size, bool up, uint16_t color);
 bool ag_glow(ag_t *g, int cx, int cy, int r, uint16_t color);
 bool ag_bitmap(ag_t *g, const uint16_t *pixels, int x, int y, int w, int h);
+bool ag_bitmap_alpha(ag_t *g, const uint16_t *pixels, const uint8_t *alpha, int x, int y, int w, int h);
+bool ag_qr(ag_t *g, const uint8_t *modules, int x, int y, int scale, int border, uint32_t revision);
+bool ag_indexed(ag_t *g,const uint8_t *pixels,const uint8_t *palette,int x,int y,int w,int h,uint32_t revision);
 int ag_text_width(const lv_font_t *font, const char *utf8);
 
 // Per-op row painters (tk_shapes.c).

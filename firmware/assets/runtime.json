@@ -1,0 +1,70 @@
+{
+  "format": "TKAB1/TKANI1, key or XOR, bounded LZ4096",
+  "clips": {
+    "welcome_large": {
+      "source": "game-art/toolkit/sprites/bin/welcome_large.tks",
+      "source_sha256": "f3fe13e7c944017aa4ee8b86b6cf6c760fcbe02ac3839928a39eebfd79c553a7",
+      "frames": 8,
+      "bytes": 58596,
+      "decoded_pixel_differences": 0
+    },
+    "base_avatar": {
+      "source": "game-art/toolkit/sprites/bin/base_avatar.tks",
+      "source_sha256": "232ab09be9037c61a6900e2220f7521162943ec1d4b076d39976ac189952b1ae",
+      "frames": 12,
+      "bytes": 16655,
+      "decoded_pixel_differences": 0
+    },
+    "base_bust": {
+      "source": "game-art/toolkit/sprites/bin/base_bust.tks",
+      "source_sha256": "2774de2435014e2f72d65acef77bf1e8caf42e0e53d35e1bfb3d824819dd74ee",
+      "frames": 12,
+      "bytes": 31446,
+      "decoded_pixel_differences": 0
+    },
+    "macro_bust": {
+      "source": "game-art/toolkit/sprites/bin/macro_bust.tks",
+      "source_sha256": "b5e1a944220f8c99417aa999995ca6df4be232585c39955fb9938b447f506381",
+      "frames": 12,
+      "bytes": 37410,
+      "decoded_pixel_differences": 0
+    },
+    "ppt_bust": {
+      "source": "game-art/toolkit/sprites/bin/ppt_bust.tks",
+      "source_sha256": "07f670ba42ad5a0a9853ba13de80f6dd8f8c152ab231e33c18381cbe528f0a52",
+      "frames": 12,
+      "bytes": 29826,
+      "decoded_pixel_differences": 0
+    },
+    "meet_bust": {
+      "source": "game-art/toolkit/sprites/bin/meet_bust.tks",
+      "source_sha256": "7764019255fbe2d20abcfccee74a93d8030dfcade1ddca7232dd8fc79423d4aa",
+      "frames": 12,
+      "bytes": 35211,
+      "decoded_pixel_differences": 0
+    },
+    "media_bust": {
+      "source": "game-art/toolkit/sprites/bin/media_bust.tks",
+      "source_sha256": "13d5878b3ff953c6e5f85c049ab5eefde369e7fd96076a1628f83b379304da5f",
+      "frames": 12,
+      "bytes": 47298,
+      "decoded_pixel_differences": 0
+    },
+    "cam_bust": {
+      "source": "game-art/toolkit/sprites/bin/cam_bust.tks",
+      "source_sha256": "63ddf8c1c108f9539d910fa679e346e38de02b9afac4e7045986d168d462b228",
+      "frames": 12,
+      "bytes": 33051,
+      "decoded_pixel_differences": 0
+    }
+  },
+  "bytes": 289573,
+  "sha256": "8113ac11a0892df71226bf432ba1b9ecdca7265dc2568cedaaca649ccf276d69",
+  "font": {
+    "source_sha256": "c43d089d944fe43119b3c8d045b207ef1ef1d04d1f864a18cff03a061f5a2d62",
+    "glyphs": 21281,
+    "original_descriptor_bytes": 340512,
+    "compact_descriptor_bytes": 191538,
+    "sha256": "46465c1f2a087c81a51a8aae1537ceb86c02ce425a88398057225b762aa285d6"
+  }
+}

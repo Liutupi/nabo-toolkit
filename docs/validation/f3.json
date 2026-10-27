@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-28",
+  "stage": "F3 partial device acceptance",
+  "version": "0.3.0-f3-dev3",
+  "build": "PASS",
+  "sdk": "v6.0.2",
+  "target": "esp32c3",
+  "flash_bytes": 8388608,
+  "psram": false,
+  "archive": "build/firmware/9fa968de2a4837d130188bb9541ec55a67a3f1bd936b01eeeb4b81ea5047ad1c",
+  "artifacts": {
+    "nabo-toolkit.bin": {
+      "sha256": "d2032e7b95d6e45aa0cc7e8fb6a9acdfb1628e3ea09578b7eafb061f866b4711",
+      "bytes": 1999600
+    },
+    "nabo-toolkit.elf": {
+      "sha256": "6dc986b96addff311b469d0793a1de107c8e07d712a0465cb743cfa65d820009",
+      "bytes": 11163200
+    },
+    "nabo-toolkit.map": {
+      "sha256": "6b5bc1cba1479361f55323ec0a2325d241c2aed203d9c96163e9e13ed94b0373",
+      "bytes": 6309065
+    }
+  },
+  "actual_legacy_factory_capacity": 2031616,
+  "remaining_bytes": 32016,
+  "app_write": {
+    "offset": "0x10000",
+    "end_exclusive": "0x1f82f0",
+    "erase_end_exclusive": "0x1f9000"
+  },
+  "planned_partition_table_installed": false,
+  "wifi_init_symbols": "ABSENT",
+  "independent_archive_verify": "PASS",
+  "host_tests": {
+    "status": "PASS",
+    "node": 27,
+    "python": 73,
+    "total": 100,
+    "skipped": 0,
+    "full_model_steps": 1710,
+    "deliberate_model_mutations_caught": 3,
+    "coverage": [
+      "All 92 animation frames/indices/timestamps/seeks/loops/CRC/bounds compared with original assets",
+      "All 21281 compact font descriptors and bitmap bytes match source font",
+      "Production C full/dirty renderer equality and boot/tool animation phases",
+      "PCM exact playback/cancel/replay, voice ducking and short-tone envelope",
+      "Configuration/USB protocol/storage failure simulation, full JS-C state/effect replay"
+    ]
+  },
+  "assets": {
+    "files": 367,
+    "bytes": 91171178,
+    "original_364_preserved": true,
+    "new_voice_user_authorized": true,
+    "runtime_bank_bytes": 289573,
+    "frames": 92
+  },
+  "device_tests": {
+    "status": "PARTIAL PASS",
+    "installed_app_sha256": "d2032e7b95d6e45aa0cc7e8fb6a9acdfb1628e3ea09578b7eafb061f866b4711",
+    "user_acceptance": [
+      "Startup voice and key sounds normal; key pop disappeared on dev3",
+      "Distinct costumes and animated characters in shortcuts/PPT/meeting/media/camera",
+      "Full welcome animation completes and returns to menu"
+    ],
+    "connected_observation": {
+      "samples": 240,
+      "connected_samples": 240,
+      "heap_min": 92696,
+      "largest_min": 77824,
+      "crash_markers": 0
+    },
+    "global_min_heap_bytes": 86172,
+    "draw_max_us": 188227,
+    "audio": {
+      "audio_writes": 394,
+      "audio_errors": 0,
+      "audio_nonzero": 324,
+      "voice_starts": 1,
+      "tone_starts": 68,
+      "audio_last": 0
+    },
+    "draw_time_is_not_fps": true,
+    "preserved_regions": "Same-connection chip/8MiB/legacy-layout guard; app verified; partition/NVS/PHY/assets-first-sector hashes unchanged before reset. Entire assets partition lies outside write/erase range; no full-assets readback hash.",
+    "historical_not_retested_on_dev3": {
+      "F2 dev2": "Windows re-pair/paste/volume; custom text/card/QR; successful-save cold-power retention; USB save/read/errors/resets/20 reads",
+      "F3 dev1": "USB save/read/errors/abort/timeout/test refusal/two resets/20 reads; original config restored"
+    },
+    "failed_iterations": {
+      "dev1": "User heard neither startup nor key sound with both settings on",
+      "dev2": "Both sounds audible, but key sound had a pop; dev3 adds 5ms attack/release"
+    }
+  },
+  "unverified": [
+    "Public-page browser permission and physical USB workflow",
+    "Dev3 repeat of USB configuration/NVS/cold power retention",
+    "Physical any-key startup skip/cancel sound/no HID",
+    "Dev3 Windows paste/volume and other hosts with the final image",
+    "Three-device switching/old-bond migration/long stability/sleep-wake",
+    "PPT/Keynote/camera physical effects and stable frame rate",
+    "Restart-to-ready under 3 seconds: historical Harmony F0 FAIL remains",
+    "Tango 2S and television deferred"
+  ],
+  "publication": "Public test release; exact accepted dev3 app only, no merged image or device dumps"
+}

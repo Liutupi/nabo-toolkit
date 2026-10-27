@@ -1,0 +1,32 @@
+{
+  "avatar": {
+    "source": "game-art/toolkit/prototype/assets/sprites/base_avatar.png",
+    "source_sha256": "c78cca7866adc58cc9ee10b10bddf4dd8f47c77d48469360f82d83c887246c02",
+    "frame": 0,
+    "w": 64,
+    "h": 64,
+    "rgb565_sha256": "135be3cf8b0f235b61b8fbb6566928037b927f0588c71744a8099a6ee55f1782",
+    "alpha_sha256": "7145c3aa4ee4fee6a7caa95b730b9ca978678e10e6af0bf4f1ee86669a764d2b",
+    "alpha_unchanged": true
+  },
+  "bust": {
+    "source": "game-art/toolkit/prototype/assets/sprites/base_bust.png",
+    "source_sha256": "709a55bee9972c0825d8af464cfcc1ce7610682ec34b5aab105f019791226b11",
+    "frame": 0,
+    "w": 84,
+    "h": 110,
+    "rgb565_sha256": "15e99ab38a04750822864f72ce816934faa5c5b6d763adaf3b2eb0371aa4e186",
+    "alpha_sha256": "8edd43f0e4d4ce829d3e62dd5b97af7a2aa90e06f73203401cd1285535e63d58",
+    "alpha_unchanged": true
+  },
+  "welcome": {
+    "source": "game-art/toolkit/prototype/assets/sprites/welcome_large.png",
+    "source_sha256": "8852e417016177666646bbfffd1bc8571c08d077db62e38a072e08fe08f41a6a",
+    "frame": 0,
+    "w": 115,
+    "h": 150,
+    "rgb565_sha256": "1af0fc941762a649c22b50141c9f15b8448de373726ec8320e1f4124f363c236",
+    "alpha_sha256": "7ec56a40f724c22005a005170086f9df28832ca892ce6d3b92aa90656b258251",
+    "alpha_unchanged": true
+  }
+}

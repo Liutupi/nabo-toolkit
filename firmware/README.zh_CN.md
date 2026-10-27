@@ -1,6 +1,8 @@
 <p align="right"><strong>简体中文</strong> · <a href="README.md">English</a></p>
 
-# NABO 工具箱 F0
+# NABO 工具箱固件
+
+最新：**F3 dev3公开测试版**，固定app已安装并获用户声音/完整欢迎/各工具动画验收。100项宿主及IDF6.0.2构建通过，设备未测项见[验证记录](../docs/VALIDATION.zh_CN.md)。下载与安全升级见[发布说明](../docs/RELEASE_v0.3.0-f3-dev3.md)，配置见[配置页](https://liutupi.github.io/nabo-toolkit/)。下方F0按键/探路说明为历史，不适用于当前工具导航。
 
 这是完整工具固件之前的蓝牙探路版。复用 Adventure 的 BSP、直绘渲染器和文字读取器，诊断界面重新实现，没有地图、游戏或旧菜单。屏幕用已启用 Montserrat 字体的英文 ASCII 文案；中文蓝牙名称不由 LCD 字库显示。
 

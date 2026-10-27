@@ -7,7 +7,7 @@ function prototype() {
   for(const id of ['lcd','log','speed','sound','rgb565','disc','reconn','wake','passkey','autopair','info'])elements[id]=element();
   elements.lcd.getContext=()=>({getImageData:()=>({data:new Uint8ClampedArray(0)}),putImageData(){}});
   for(const key of ['up','down','ok'])buttons[key]=Object.assign(element(),{dataset:{k:key},setPointerCapture(){}});
-  const sandbox={performance:{now:()=>clock},Image:class{constructor(){this.complete=true;}},
+  const sandbox={TextEncoder,performance:{now:()=>clock},Image:class{constructor(){this.complete=true;}},
     document:{getElementById:(id)=>elements[id],createElement:element,createTextNode:(s)=>s,
       querySelector:(s)=>buttons[s.match(/data-k="(.*?)"/)[1]],querySelectorAll:()=>Object.values(buttons)},
     localStorage:{getItem:()=>null},fetch:()=>Promise.resolve({ok:true,json:()=>Promise.resolve({clips:{}})}),
@@ -15,7 +15,7 @@ function prototype() {
     requestAnimationFrame:(fn)=>{nextFrame=fn;},TKDraw:{draw(){}},NABO_IDLE:{},Date:undefined};
   sandbox.window=sandbox;const context=vm.createContext(sandbox);
   const dir=path.join(root,'game-art/toolkit/prototype');
-  for(const file of ['tk_hid.js','tk_core.js','tk_buttons.js'])vm.runInContext(fs.readFileSync(path.join(dir,file),'utf8'),context,{filename:file});
+  for(const file of ['tk_hid.js','tk_config_schema.js','tk_core.js','tk_buttons.js'])vm.runInContext(fs.readFileSync(path.join(dir,file),'utf8'),context,{filename:file});
   const html=fs.readFileSync(path.join(dir,'index.html'),'utf8');
   vm.runInContext(html.match(/<script>\s*([\s\S]*?)<\/script>/)[1],context,{filename:'prototype-inline.js'});
   function event(type,key){for(const fn of listeners[type]||[])fn({key,repeat:false,preventDefault(){}});}

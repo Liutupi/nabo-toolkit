@@ -29,6 +29,11 @@ function random(seed) {
 }
 
 start('boot_and_voice');tick(1399);tick(1);tick(4099);tick(1);sim('wake');press('up');
+start('binding_fifo_replacement');page('conn');
+while(st.connSel!==3)press('down');press('ok');sim('paired','Reader');press('ok');
+while(st.connSel!==3)press('down');press('ok');press('ok'); // Cancel: keep all bonds.
+press('ok');sim('paired','Office Xiaomi TV');press('ok');
+while(st.connSel!==3)press('down');press('ok');sim('paired','New computer');press('ok');
 for (const os of H.OS_LIST) {
   start('all_tools_'+os,os);press('ok');
   page('macro');
@@ -64,6 +69,18 @@ for(const [index,os] of H.OS_LIST.entries()) {
     else sim(st.pairing?'passkey':'paired',st.pairing?Math.floor(rng()*1000000):'Ignored late device');
   }
 }
+for(const os of H.OS_LIST) {
+  start('custom_config_'+os,os);page('macro');
+  const custom={v:1,groups:[{name:'Custom',up:{label:'Right',mac:{mod:96,key:0},win:null},ok:{label:'Text',text:'Hi!\n'},down:{label:'Media',media:233}},
+    {name:'Second',up:{label:'Empty',mac:null,win:null},ok:{label:'64 chars',text:'A'.repeat(64)},down:{label:'Chord',mac:{mod:8,key:5},win:{mod:1,key:5}}}],
+    cards:[{title:'Card',name:'TEST',line:'Synthetic fixture',qr:'https://example.org/card'},{title:'More',name:'TEST2',line:'Second fixture',qr:'https://example.org/other'}]};
+  if(!T.applyConfig(st,custom))throw new Error('Custom fixture invalid');record({type:'config',config:plain({v:1,groups:st.groups,cards:st.cards})});
+  for(const key of ['up','ok','down','long_ok','up','ok','down','long_ok','long_down'])press(key);
+  page('card');press('down');press('ok');press('long_up');
+  custom.groups=custom.groups.slice(0,1);custom.cards=custom.cards.slice(0,1);
+  if(!T.applyConfig(st,custom))throw new Error('Shrunk fixture invalid');record({type:'config',config:plain({v:1,groups:st.groups,cards:st.cards})});
+  press('down');page('macro');press('long_ok');press('ok');
+}
 function resolveTable(table,os) {return Object.fromEntries(Object.entries(table).map(([k,s])=>[k,H.resolve(s,os)]));}
 const tables={source_sha256:hashes()['tk_hid.js'],MOD:H.MOD,KEY:H.KEY,MEDIA:H.MEDIA,OS_LIST:H.OS_LIST,OS_NAME:H.OS_NAME,
   PPT:H.PPT,MEET_APPS:H.MEET_APPS,MEDIA_KEYS:H.MEDIA_KEYS,SHUTTER:H.SHUTTER,MACRO_GROUPS:H.MACRO_GROUPS,CODE_USAGE:H.CODE_USAGE,CODE_MOD:H.CODE_MOD,resolved:{}};
@@ -75,7 +92,7 @@ for(const os of H.OS_LIST) tables.resolved[os]={
 const coverage={schemaVersion:1,source_sha256:hashes(),rows:rows.length,scenarios:[...new Set(rows.map((r)=>r.scenario))],
   pages:[...pages].sort(),events:[...events].sort(),keys:[...keys].sort(),os:[...H.OS_LIST],
   boot_ms:T.BOOT_MS,voice_at_ms:T.VOICE_AT_MS,
-  scope:'JavaScript reference fixtures only; C replay and device validation remain pending'};
+  scope:'JavaScript reference fixtures; production C equality is checked separately by test_tk_model.py; device acceptance is separate'};
 for(const page of ['boot','menu',...T.MENU])if(!pages.has(page))throw new Error('Page not covered: '+page);
 for(const event of ['passkey','paired','disconnect','reconnect','wake'])if(!events.has(event))throw new Error('Event not covered: '+event);
 fs.writeFileSync(path.join(output,'traces.jsonl'),rows.map((r)=>JSON.stringify(r)).join('\n')+'\n');

@@ -673,6 +673,18 @@
       "bytes": 1465,
       "sha256": "06d4f016cc9b0d3e0510732dbdbc0cc05dc25a44cafadeb3bb8c976d590ee737"
     },
+    "game-art/toolkit/audio/boot-welcome.wav": {
+      "bytes": 84878,
+      "sha256": "1ee9ac761e69e1d46e33bc4dce8168e9fe297920bc1760bd71fa8e136044b292"
+    },
+    "game-art/toolkit/audio/generation.json": {
+      "bytes": 1126,
+      "sha256": "290e5b9e9fecd8a86cb30b3d61e7210cd9dee7922206e2bba69dc18eee4c2b98"
+    },
+    "game-art/toolkit/audio/originals/boot-welcome-dreamina.mp3": {
+      "bytes": 104534,
+      "sha256": "9080e0c83ae09c12580805eb9f3751bce8805c32710fd5d2f776f715e43c9d0e"
+    },
     "game-art/toolkit/prototype/assets/nabo_idle.js": {
       "bytes": 99226,
       "sha256": "262b8fc7b0ffc70113736c26232cb11a4bdaa47301e4c9436f5f25440f37f092"

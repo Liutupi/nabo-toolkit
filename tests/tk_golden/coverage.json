@@ -2,12 +2,14 @@
   "schemaVersion": 1,
   "source_sha256": {
     "tk_hid.js": "d5d6fe076c885c38b8f9d37a874dd374ef62de4aef2b8f4dcdffdf13e1c1e887",
-    "tk_core.js": "f1d78bab04dcadcf712a2f10b56c7635ba1c713fb5eb896fd2fc8b8f47450e89",
+    "tk_config_schema.js": "a6d30e854beada2081c284dc03a3f740de4dc9f9fcdd8f5ed2f05c288a68d8ce",
+    "tk_core.js": "3e7f2062477d7fa9e0c0a0707d42fe72c0f2a73b0f3ff29d803ba719488c42de",
     "tk_buttons.js": "e13cfed7b4c66d8b2fc96f1a7237004eda17e7ec681eb8417ec6b49569fe60cd"
   },
-  "rows": 1559,
+  "rows": 1710,
   "scenarios": [
     "boot_and_voice",
+    "binding_fifo_replacement",
     "all_tools_mac",
     "all_tools_win",
     "all_tools_ios",
@@ -15,7 +17,11 @@
     "random_mac_1312899663",
     "random_win_1312899664",
     "random_ios_1312899665",
-    "random_android_1312899666"
+    "random_android_1312899666",
+    "custom_config_mac",
+    "custom_config_win",
+    "custom_config_ios",
+    "custom_config_android"
   ],
   "pages": [
     "boot",
@@ -52,5 +58,5 @@
   ],
   "boot_ms": 5500,
   "voice_at_ms": 1400,
-  "scope": "JavaScript reference fixtures only; C replay and device validation remain pending"
+  "scope": "JavaScript reference fixtures; production C equality is checked separately by test_tk_model.py; device acceptance is separate"
 }

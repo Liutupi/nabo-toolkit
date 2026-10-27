@@ -1,6 +1,8 @@
 <p align="right"><a href="README.zh_CN.md">简体中文</a> · <strong>English</strong></p>
 
-# NABO Toolkit F0
+# NABO Toolkit firmware
+
+Latest: **F3 dev3 public test release**. Exact app installed; user accepted startup/key audio, complete welcome and tool animations. 100 host tests and IDF6.0.2 build pass. See [validation](../docs/VALIDATION.md), [release/upgrade instructions](../docs/RELEASE_v0.3.0-f3-dev3.md), and [configuration](https://liutupi.github.io/nabo-toolkit/). F0 controls below are historical and do not describe current navigation.
 
 This is the Bluetooth feasibility probe, before the full tool firmware. It reuses the Adventure BSP, direct renderer and text reader, with an independent diagnostic screen. No game/map/menu shell is included. English ASCII labels use enabled Montserrat fonts; the Chinese Bluetooth name is not LCD text.
 

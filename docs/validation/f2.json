@@ -1,0 +1,269 @@
+{
+  "date": "2026-10-27",
+  "stage": "F2 partial device acceptance",
+  "version": "0.2.0-f2-dev2",
+  "build": "PASS",
+  "sdk": "v6.0.2",
+  "target": "esp32c3",
+  "flash_bytes": 8388608,
+  "psram": false,
+  "archive": "build/firmware/35b077ef48a7ecbee1b671c28ed60b157deade1028b46bf76a399929bd1a45b4",
+  "artifacts": {
+    "nabo-toolkit.bin": {
+      "sha256": "49e596ca849119428f1d9cc95f6ff91b9c7016a99e6e9fca53e5285bb3185d57",
+      "bytes": 1859696
+    },
+    "nabo-toolkit-merged.bin": {
+      "sha256": "35b077ef48a7ecbee1b671c28ed60b157deade1028b46bf76a399929bd1a45b4",
+      "bytes": 1925232
+    },
+    "nabo-toolkit.elf": {
+      "sha256": "6758c1ae41b225cef965165bcb771753be68680df76e44a743092443eb2acee5",
+      "bytes": 10965164
+    },
+    "nabo-toolkit.map": {
+      "sha256": "83e2b8f75ff54b46895b5f5072581fe3fb62d5478ddaf2fc4bd540f43397eae7",
+      "bytes": 6299110
+    }
+  },
+  "actual_legacy_factory_capacity": 2031616,
+  "remaining_bytes": 171920,
+  "planned_table_installed": false,
+  "wifi_init_symbols": "ABSENT",
+  "independent_archive_verify": "PASS",
+  "host_tests": {
+    "status": "PASS",
+    "node": 27,
+    "python": 60,
+    "total": 87,
+    "skipped": 0,
+    "full_model_steps": 1710,
+    "previous_default_steps_retained": 1582,
+    "new_configured_steps": 128,
+    "coverage": [
+      "Shared JS/C schema corpus and rejection atomicity",
+      "Production JS client to production C protocol/parser/RAM NVS through stdio",
+      "Write/readback/CRC and simulated reboot restore",
+      "Set/commit failures, corrupt stored record, invalid JSON/UTF8, duplicate/unknown keys, numeric spelling",
+      "4000-byte exact transport, truncation, overlap, invalid base64, abort/timeout/test-mode refusal",
+      "Custom groups/cards/all four OS/disabled family/right modifiers/64 ASCII chars/media/index shrink",
+      "Custom Chinese fallback size and dirty/full pixel equality",
+      "Three deliberate model mutations caught"
+    ],
+    "limits": "RAM providers and stdio are synthetic; no proof of actual USB, NVS power-loss or physical HID/QR"
+  },
+  "browser_qa": {
+    "local_page": "config.html",
+    "edit_browser_save_reload_restore": "PASS",
+    "unconnected_read_write_disabled": true,
+    "console_warnings_errors": 0,
+    "serial_port_opened": false,
+    "screenshot": "docs/images/f2/config-page.png",
+    "c_renderer_preview": "docs/images/f2/overview.png"
+  },
+  "configuration": {
+    "root_version": 1,
+    "max_utf8_bytes": 4000,
+    "groups": [
+      1,
+      6
+    ],
+    "cards": [
+      1,
+      3
+    ],
+    "label_chars": 8,
+    "group_name_chars": 8,
+    "text_max_ascii": 64,
+    "qr_max_utf8_bytes": 160,
+    "nvs_namespace": "nabo_tk",
+    "nvs_key": "cfg_v1",
+    "record": "TKCF/version/length/CRC + canonical UTF8 JSON",
+    "apply": "Only after successful store commit; browser automatically reads back and compares",
+    "transport": "48-byte chunks, per-chunk ACK; 10s inactivity/60s total receive timeout; abort supported",
+    "test_mode": "Writes refused; reads actual committed model config. Not a global NVS/NimBLE read-only lock."
+  },
+  "font_fallback": {
+    "glyphs": 21281,
+    "source": "Same existing SourceHanSansCN-Medium font",
+    "size": 16,
+    "bpp": 1,
+    "storage": "Flash",
+    "scale": "Nominal font pixel size, not maximal line bounding box",
+    "missing": "Square fallback"
+  },
+  "dependencies": {
+    "added": "espressif/cjson 1.7.19~2",
+    "cmake_utilities_preserved": "1.1.1",
+    "other_versions_changed": false
+  },
+  "regression_builds": {
+    "f1": {
+      "status": "PASS",
+      "archive": "build/firmware/7b10d300b76d70d1b5f88a96ad55cb74d7ed25f12e84c6fdb07228fc62e48267",
+      "app": {
+        "sha256": "e2c12da6fe061cdb64c5dbf13be2ef410847b9c82c3f663756eca829affe02dc",
+        "bytes": 1835232
+      },
+      "device_tests": "NOT RUN"
+    },
+    "f0": {
+      "status": "PASS",
+      "archive": "build/firmware/8fbd04b62ad7928c5f9bdaa37a01d7ae2fd0fe41d0e0e6a889fef5b363bd8992",
+      "app": {
+        "sha256": "298f0ef3cc3762ee6c334dd5bcd5316ad81a7b2563ac539ff0f77c12f0576daa",
+        "bytes": 647520
+      },
+      "device_tests": "NOT RUN"
+    }
+  },
+  "source_sha256": {
+    "game-art/toolkit/prototype/config.js": "032771ac1285d801c9554cdda463552e225934acefc841b055eb3b43f370b4d8",
+    "game-art/toolkit/prototype/tk_config_schema.js": "a6d30e854beada2081c284dc03a3f740de4dc9f9fcdd8f5ed2f05c288a68d8ce",
+    "game-art/toolkit/prototype/tk_config_serial.js": "decc3ebb2beb26217bad4cc0dcb89cc841eab9206dc7a06374029294a21ac0ca",
+    "game-art/toolkit/prototype/config.html": "9d62e4f0807a73c8fdf9f42c94c7dc656c6c5ae4272414ff95c16231affac7b4",
+    "tests/tk_golden/traces.jsonl": "e4eaaf4117b77b4541ced72a341424bc63a2e89650a52b295ecd0822ffee8e14",
+    "tests/test_tk_config.py": "b508e9b8d4fe1da100d39b758f25988b50e2055f999ada2a10c41adb31747d86",
+    "tests/tk_golden/config.test.js": "4ce30da5d12ab58bda9545bc4a0b6aeae8429920d18f83f2006486eb58fc10b4",
+    "tests/test_tk_renderer.py": "3783c913b89aa22a7fe2b61b9d253611c3b5f5c8357eb75ff5f55957579833fc",
+    "firmware/main/tk_usb_console.c": "bf1b12e0a13575cd0bc20be03154008ffde92b74389c848a8bf08afd07b6a09d",
+    "firmware/main/tk_usb_console.h": "e961a272cc5c4ddcc8026071ac9cb9ed7d2a9ca1f8c4d1476a8b0bff685d22bd",
+    "firmware/main/tk_f1_main.c": "a4cf4bb3e1f390297beb1fade3b58cff6947b25c8dd08561c35c8cbb741ef3b7",
+    "firmware/main/CMakeLists.txt": "473e5c6ed6d550472e2d13738b93edee1ebeee4b84da2595e83ec819fb1d47f6",
+    "firmware/sdkconfig.f2.defaults": "60e3933b7644ec00130c5c941274c27100d036f331a0922f103a90ac7548d6ea"
+  },
+  "archive_source_inventory_matches_worktree": true,
+  "assets": {
+    "status": "PASS",
+    "original_files": 364,
+    "original_bytes": 90980640,
+    "original_art_regenerated": false,
+    "author_hid_sha256": "d5d6fe076c885c38b8f9d37a874dd374ef62de4aef2b8f4dcdffdf13e1c1e887"
+  },
+  "device_tests": {
+    "status": "PASS for scoped F2 actual USB/configuration/Windows checks; overall firmware acceptance remains partial",
+    "app_sha256": "49e596ca849119428f1d9cc95f6ff91b9c7016a99e6e9fca53e5285bb3185d57",
+    "usb": {
+      "checks": {
+        "initial_read": "PASS",
+        "write_save_readback": "PASS",
+        "bad_crc_preserves": "PASS",
+        "bad_ascii_preserves": "PASS",
+        "abort_preserves": "PASS",
+        "device_timeout_preserves": "PASS",
+        "test_mode_refusal": "PASS",
+        "usb_reset_retains_temporary": "PASS",
+        "original_restored": "PASS",
+        "usb_reset_retains_original": "PASS",
+        "twenty_repeated_reads": "PASS"
+      },
+      "status": "PASS",
+      "timeout_ms": 10010,
+      "first_boot_uptime_ms": 748,
+      "second_boot_uptime_ms": 746,
+      "original_restored": true,
+      "crash_markers": 0
+    },
+    "transport_fix": "IDF interrupt USB driver with 2048-byte TX/512-byte RX buffers; nonblocking input. Default VFS can drop bytes after a 50ms host stall. Host capture also drains immediately and reopens after USB reset. Improvement verified; sole original loss cause not established.",
+    "scope": "Production JS client over actual COM USB, actual NVS and USB hardware resets. Browser Web Serial chooser/physical unplug/cold power remain separate.",
+    "screen_input": "PASS: dev1 menu/Chinese/UP/DOWN user-confirmed; dev2 Windows tool navigation/paste/volume confirmed.",
+    "windows": "PASS: user confirmed re-pairing on this Windows, Ctrl+V paste and media volume increase. Initial imported-slot reconnect attempts failed; stale-record root cause not established.",
+    "connected_heap_largest": {
+      "status": "PASS",
+      "peer_identity": "Windows, user-confirmed",
+      "default_capture": {
+        "ready_samples": 220,
+        "heap_min": 113772
+      },
+      "configured_capture": {
+        "ready_samples": 175,
+        "heap_min": 113664
+      },
+      "largest_min": 98304,
+      "min_required_heap": 61440,
+      "min_required_largest": 30720,
+      "crash_markers": 0
+    },
+    "idle_heap": 114288,
+    "idle_largest": 98304,
+    "observed_send_count": 91,
+    "observed_failed_count": 0,
+    "configured_physical_test": {
+      "status": "PASS user-confirmed",
+      "group_count": 1,
+      "card_count": 1,
+      "group_label_and_card_chinese": "PASS",
+      "ascii_text_macro": "PASS: NABO-F2-TEST",
+      "qr_payload": "PASS: https://example.org/nabo-f2",
+      "qr_note": "Initial report concerned webpage content; user then confirmed the exact decoded test URL. No QR decoding failure established."
+    },
+    "cold_power_retention": {
+      "status": "PASS",
+      "procedure": "User unplugged USB, powered off with side switch, waited about5s, powered on and confirmed custom fields retained; reconnected USB. Production JS client read the exact temporary configuration before restoring.",
+      "pre_restore_read_matches_temporary": true,
+      "limit": "Successful committed save retention only; not a power cut during NVS commit or measured cold-boot reconnect timing."
+    },
+    "original_configuration_restored": {
+      "status": "PASS",
+      "save_and_readback": true
+    },
+    "observed_slot_count_after_user_pairing_navigation": 1,
+    "after_cold_power_and_restore": {
+      "ready_samples": 25,
+      "heap_min": 114048,
+      "largest_min": 98304,
+      "sent": 12,
+      "failed": 0,
+      "error": 0,
+      "crash_markers": 0
+    }
+  },
+  "new_flash": true,
+  "commit_push_publish": false,
+  "unverified": [
+    "Actual Chrome/Edge Web Serial chooser and page-to-badge flow; physical unplug recovery during transfer",
+    "Power cut during NVS write/commit and actual Flash storage-error semantics",
+    "Current-image Mac/iPhone/Harmony regression; imported-bond reconnect cause/all-peer migration and timing/slot mapping",
+    "Remaining F0/F1 physical gates, three-slot stress, long stability, sleep/wake; prior Harmony3s FAIL retained",
+    "Tango2S/XiaomiTV deferred",
+    "Full animation/UI sprites/boot sound/voice still F3"
+  ],
+  "f3_capacity_note": "Legacy factory has171920 spare bytes, below existing405362-byte sprite packs. Plan protected external resource loading without repartitioning or replacing retained FAT contents; free space/resource accessibility unverified.",
+  "previous_f2_dev1": {
+    "version": "0.2.0-f2-dev1",
+    "archive": "build/firmware/002ba9facfb572270d1d6c13672994c86e10c468e8cc5c48b7be3846d0f10c13",
+    "artifacts": {
+      "nabo-toolkit.bin": {
+        "sha256": "55967cb3a9c89acc520bae2e295e7d92d52db8a0a0a1050cb71718da4428cb67",
+        "bytes": 1849584
+      },
+      "nabo-toolkit-merged.bin": {
+        "sha256": "002ba9facfb572270d1d6c13672994c86e10c468e8cc5c48b7be3846d0f10c13",
+        "bytes": 1915120
+      },
+      "nabo-toolkit.elf": {
+        "sha256": "6eb00de3a5cece2371279bebd420ff915df3919a343d3f220e82c1451e62b5be",
+        "bytes": 11035516
+      },
+      "nabo-toolkit.map": {
+        "sha256": "42f567a86b689a0431bb826e07fc5b317c487b36d49bbcfc16e1cff322641b3a",
+        "bytes": 6287364
+      }
+    },
+    "device": "Menu/Chinese/UP/DOWN user-confirmed; config save/readback passed; repeated reads dropped chunks and correctly failed length checks. Original configuration restored. Superseded by dev2."
+  },
+  "installed_app_sha256": "49e596ca849119428f1d9cc95f6ff91b9c7016a99e6e9fca53e5285bb3185d57",
+  "flash_protection": {
+    "app_only": true,
+    "write_start": "0x10000",
+    "write_end": "0x1d6070",
+    "erase_end": "0x1d7000",
+    "actual_flash_bytes": 8388608,
+    "actual_factory_bytes": 2031616,
+    "same_connection_identity_layout_capacity_verified": true,
+    "app_verify": "PASS",
+    "table_nvs_phy_assets_first_sector_hashes_equal_before_reboot": true,
+    "full_assets_hash": "NOT RUN; entire asset partition excluded by guarded write/erase bounds",
+    "runtime_nvs": "Normal cfg_v1 save and slot selection are authorized feature writes; NVS was not erased or flashed."
+  }
+}

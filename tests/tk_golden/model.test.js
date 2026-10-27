@@ -34,11 +34,33 @@ test('pair timeout, pairing success, type cancellation and slot capacity',()=>{
   let st=pairing();T.tick(st,60010);assert.equal(st.pairing,null);assert.equal(st.toast.kind,'err');
   st=pairing();T.sim(st,'paired',20,'Test device');assert.equal(st.slots[2].name,'Test device');
   const os=st.slots[2].os;T.press(st,'up',30);T.press(st,'long_up',40);assert.equal(st.osPick,null);assert.equal(st.slots[2].os,os);
-  st.connSel=3;T.press(st,'ok',50);assert.equal(st.pairing,null);assert.equal(st.toast.kind,'err');
+  st.connSel=3;T.press(st,'ok',50);assert.notEqual(st.pairing,null);
+  assert.equal(st.slots[0].name,'MacBook'); // Opening the window does not evict.
+  T.sim(st,'paired',60,'Fourth device');assert.equal(st.slots[0].name,'Fourth device');
+  assert.equal(st.slots[1].name,'iPhone');assert.equal(st.slots[2].name,'Test device');
+});
+test('full-slot cancellation preserves bonds; new pairings replace oldest, not last used',()=>{
+  const st=pairing();T.sim(st,'paired',20,'Reader');T.press(st,'long_up',30);
+  st.connSel=3;T.press(st,'ok',40);
+  const slots=JSON.stringify(st.slots), order=JSON.stringify(st.bindOrder);
+  T.press(st,'ok',50);T.sim(st,'paired',60,'Ignored late pair');
+  assert.equal(JSON.stringify(st.slots),slots);assert.equal(JSON.stringify(st.bindOrder),order);
+  T.press(st,'ok',70);T.tick(st,60070);assert.equal(JSON.stringify(st.slots),slots);
+  assert.equal(JSON.stringify(st.bindOrder),order);
+  st.connSel=0;T.press(st,'ok',60080); // Using oldest MacBook does not make it newest.
+  st.connSel=3;T.press(st,'ok',60090);T.sim(st,'paired',60100,'TV');
+  assert.deepEqual(plain(st.slots.map(x=>x.name)),['TV','iPhone','Reader']);
+  T.press(st,'long_up',60110);st.connSel=3;T.press(st,'ok',60120);T.sim(st,'paired',60130,'New computer');
+  assert.deepEqual(plain(st.slots.map(x=>x.name)),['TV','New computer','Reader']);
+  assert.deepEqual(plain(st.bindOrder),[2,0,1]);
 });
 test('deleting active slot disconnects without modifying other bonds',()=>{
   const st=menu();st.page='conn';st.connSel=0;T.press(st,'long_down',10);T.press(st,'ok',20);
   assert.equal(st.slots[0],null);assert.equal(st.connected,false);assert.equal(st.slots[1].name,'iPhone');
+});
+test('old bonded reconnect cannot occupy the new-device pairing window',()=>{
+  const st=pairing();T.sim(st,'reconnect',20);assert.equal(st.connected,false);assert.ok(st.pairing);
+  T.sim(st,'paired',30,'New host');assert.equal(st.connected,true);assert.equal(st.slots[2].name,'New host');
 });
 test('disconnected actions produce no HID or fake camera success',()=>{
   const st=menu();T.sim(st,'disconnect',1);

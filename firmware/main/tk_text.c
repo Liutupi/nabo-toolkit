@@ -1,5 +1,18 @@
 #include "tk_text.h"
 #include <string.h>
+#ifdef TK_COMPACT_CJK
+#include "tk_cjk_compact.h"
+extern const lv_font_t tk_font_cjk;
+#endif
+static const lv_font_fmt_txt_glyph_dsc_t *descriptor(const lv_font_t *font,uint32_t id,lv_font_fmt_txt_glyph_dsc_t *temporary)
+{
+#ifdef TK_COMPACT_CJK
+    if(font==&tk_font_cjk){tk_cjk_descriptor(id,temporary);return temporary;}
+#else
+    (void)temporary;
+#endif
+    const lv_font_fmt_txt_dsc_t *f=font->dsc;return &f->glyph_dsc[id];
+}
 
 // Adapted from nabo_dive_text.c. Reads lv_font_conv output directly (no LVGL glyph cache),
 // so the game task can draw while LVGL refresh is paused.
@@ -67,19 +80,29 @@ static uint32_t glyph_id(const lv_font_fmt_txt_dsc_t* f, uint32_t letter) {
     return 0;
 }
 
+static uint32_t locate(const lv_font_t *font,uint32_t code,const lv_font_t **actual) {
+    const lv_font_t *next=font;uint32_t gid=0;
+    for(int i=0;next && i<4;i++){*actual=next;gid=glyph_id(next->dsc,code);if(gid)return gid;next=next->fallback;}
+    return *actual!=font?glyph_id((*actual)->dsc,0x25a1):0;
+}
+// Generated font user_data carries its nominal pixel size. A full CJK subset's
+// bounding line_height includes exceptional glyphs and must not shrink normal Han text.
+static int nominal(const lv_font_t *font) {
+    uintptr_t size=(uintptr_t)font->user_data;
+    return size>0 && size<=96?(int)size:font->line_height;
+}
 int nt_text_width(const lv_font_t* font, const char* s) {
-    const lv_font_fmt_txt_dsc_t* f = (const lv_font_fmt_txt_dsc_t*)font->dsc;
     int w = 0;
     while (*s) {
-        uint32_t gid = glyph_id(f, next_utf8(&s));
-        w += gid ? (f->glyph_dsc[gid].adv_w + 8) / 16 : font->line_height / 3;  // unknown: a space
+        const lv_font_t *actual=font;uint32_t gid=locate(font,next_utf8(&s),&actual);
+        lv_font_fmt_txt_glyph_dsc_t temporary;
+        w += gid ? (int)((descriptor(actual,gid,&temporary)->adv_w+8)/16)*nominal(font)/nominal(actual) : font->line_height/3;
     }
     return w;
 }
 
 bool nt_text_layout(nt_glyph_pool_t* pool, nt_text_t* t, const lv_font_t* font, const char* s, int x, int y,
                     nt_align_t align) {
-    const lv_font_fmt_txt_dsc_t* f = (const lv_font_fmt_txt_dsc_t*)font->dsc;
     int w = nt_text_width(font, s);
     if (align == NT_ALIGN_CENTER)
         x -= w / 2;
@@ -94,28 +117,32 @@ bool nt_text_layout(nt_glyph_pool_t* pool, nt_text_t* t, const lv_font_t* font, 
     t->y1 = (int16_t)(y + font->base_line);
     int pen = x;
     while (*s) {
-        uint32_t gid = glyph_id(f, next_utf8(&s));
+        const lv_font_t *actual=font;uint32_t gid=locate(font,next_utf8(&s),&actual);
+        const lv_font_fmt_txt_dsc_t *f=actual->dsc;int scale=nominal(font),denominator=nominal(actual);
         if (!gid) {
             pen += font->line_height / 3;
             continue;
         }
-        const lv_font_fmt_txt_glyph_dsc_t* g = &f->glyph_dsc[gid];
+        lv_font_fmt_txt_glyph_dsc_t temporary;
+        const lv_font_fmt_txt_glyph_dsc_t* g = descriptor(actual,gid,&temporary);
         if (g->box_w && g->box_h) {
             if (pool->used >= NT_GLYPH_POOL)
                 return false;
             nt_glyph_t* out = &pool->g[pool->used++];
             t->count++;
             out->bitmap = &f->glyph_bitmap[g->bitmap_index];
-            out->x = (int16_t)(pen + g->ofs_x);
-            out->y = (int16_t)(y - g->box_h - g->ofs_y);
-            out->w = g->box_w;
-            out->h = g->box_h;
+            out->x = (int16_t)(pen + g->ofs_x*scale/denominator);
+            out->w = (g->box_w*scale+denominator-1)/denominator;
+            out->source_w = g->box_w;
+            out->source_h=g->box_h;out->bpp=f->bpp;
+            out->h=(g->box_h*scale+denominator-1)/denominator;
+            out->y=(int16_t)(y-out->h-g->ofs_y*scale/denominator);
             if (out->x < t->x0) t->x0 = out->x;
             if (out->x + out->w > t->x1) t->x1 = (int16_t)(out->x + out->w);
             if (out->y < t->y0) t->y0 = out->y;
             if (out->y + out->h > t->y1) t->y1 = (int16_t)(out->y + out->h);
         }
-        pen += (g->adv_w + 8) / 16;
+        pen += (g->adv_w+8)/16*scale/denominator;
     }
     return true;
 }
@@ -138,10 +165,13 @@ void nt_text_row(const nt_glyph_pool_t* pool, const nt_text_t* t, int y, int x0,
             continue;
         int a = g->x > x0 ? g->x : x0, b = g->x + g->w < x1 ? g->x + g->w : x1;
         for (int x = a; x < b; ++x) {
-            unsigned bit = (unsigned)(gy * g->w + (x - g->x)) * 4;
-            int v = (g->bitmap[bit >> 3] >> ((bit & 4) ? 0 : 4)) & 15;
+            int source_x=(x-g->x)*g->source_w/g->w;
+            int source_y=gy*g->source_h/g->h;
+            unsigned bit=(unsigned)(source_y*g->source_w+source_x)*g->bpp;
+            int maximum=(1<<g->bpp)-1;
+            int v=(g->bitmap[bit>>3]>>(8-g->bpp-(bit&7)))&maximum;
             if (v)
-                row[x - x0] = nt_blend565(row[x - x0], color, v * 256 / 15);
+                row[x - x0] = nt_blend565(row[x - x0], color, v * 256 / maximum);
         }
     }
 }

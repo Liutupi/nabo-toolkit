@@ -47,3 +47,17 @@ bool tk_hid_packet(int report, int modifier, int usage, uint8_t out[8], unsigned
     }
     return false;
 }
+int tk_pairing_choice(bool pending, bool physical, int key)
+{
+    if (!pending || !physical) return 0;
+    return key == TK_OK ? 1 : key == TK_LONG_UP ? 2 : 0;
+}
+bool tk_pairing_token_valid(bool pending, uint32_t current, uint32_t requested)
+{
+    return pending && current != 0 && current == requested;
+}
+tk_reconnect_phase_t tk_reconnect_phase(uint32_t now, uint32_t started)
+{
+    uint32_t elapsed = now - started;
+    return elapsed < TK_DIRECTED_MS ? TK_RC_DIRECTED : elapsed < TK_RECONNECT_MS ? TK_RC_FILTERED : TK_RC_IDLE;
+}

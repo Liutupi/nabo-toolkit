@@ -16,7 +16,7 @@ extern "C" {
 typedef struct {
     const uint8_t *bitmap;  // 4 bpp, rows packed without padding, high nibble first
     int16_t x, y;           // top-left in screen pixels
-    uint8_t w, h;
+    uint8_t w,h,source_w,source_h,bpp;
 } nt_glyph_t;
 
 typedef struct {

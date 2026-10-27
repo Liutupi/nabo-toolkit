@@ -20,6 +20,7 @@
       page: 'boot', menu: 0, lastInput: now || 0,
       boot: { start: now || 0, voiced: false },
       slots: [{ name: 'MacBook', os: 'mac' }, { name: 'iPhone', os: 'ios' }, null],
+      bindOrder: [0, 1],  // Oldest pairing first; ordinary reconnects do not reorder.
       active: 0, connected: true, pairing: null, connSel: 0, confirmDel: -1, osPick: null,
       settings: { beep: true, voice: true, talk: 1, sleep: 3 }, setSel: 0,
       ppt: { running: false, startMs: 0, accMs: 0, pages: 1, black: false },
@@ -45,7 +46,7 @@
   /* Send one spec. Returns false (and shows why) when nothing could be sent. */
   function send(out, st, now, spec, label, key) {
     if (!st.connected) { toast(st, now, '未连接 · 去菜单选「连接」', 'err'); return false; }
-    const p = H.resolve(spec, os(st));
+    const p = root.TKConfig ? root.TKConfig.resolve(spec, os(st)) : H.resolve(spec, os(st));
     if (!p) { toast(st, now, '这个设备没有对应快捷键', 'err'); return false; }
     const chord = H.chordLabel(p, os(st));
     const packets = p.kind === 'text' ? H.textPackets(p.text) : [p];
@@ -61,9 +62,10 @@
 
   /* Config written by the config page (same JSON the firmware will keep in NVS). */
   function applyConfig(st, cfg) {
-    if (!cfg || cfg.v !== 1) return false;
-    if (Array.isArray(cfg.groups) && cfg.groups.length) st.groups = cfg.groups.slice(0, 6);
-    if (Array.isArray(cfg.cards) && cfg.cards.length) st.cards = cfg.cards.slice(0, MAX_CARDS);
+    let valid;
+    try { valid = root.TKConfig.validate(cfg); } catch (_) { return false; }
+    st.groups = valid.groups;
+    st.cards = valid.cards;
     st.macro.group = Math.min(st.macro.group, groups(st).length - 1);
     st.card.idx = Math.min(st.card.idx, st.cards.length - 1);
     return true;
@@ -148,13 +150,14 @@
   /* ---- 连接 ---- */
   function connRows(st) { return MAX_SLOTS + 1; }   // 3 slots + 配对新设备
   function startPairing(st, now) {
-    if (st.slots.every(Boolean)) { toast(st, now, '3 台设备满了，先长按↓删一台', 'err'); return; }
+    if (st.slots.every(Boolean)) toast(st, now, '配对成功后替换 ' + st.slots[st.bindOrder[0]].name);
     st.connected = false; st.pairing = { until: now + PAIR_MS, passkey: null };
   }
   function onConn(st, k, now, out) {
     if (st.confirmDel >= 0) {
       if (k === 'ok') {
         const i = st.confirmDel; st.slots[i] = null;
+        st.bindOrder = st.bindOrder.filter((index) => index !== i);
         if (st.active === i) st.connected = false;
         toast(st, now, '已删除配对');
       }
@@ -248,9 +251,10 @@
   /* Simulated radio events from the host side (prototype only). */
   function sim(st, ev, now, arg) {
     if (ev === 'paired' && st.pairing) {
-      const i = st.slots.indexOf(null);
-      if (i < 0) return;
+      const empty = st.slots.indexOf(null);
+      const i = empty >= 0 ? empty : st.bindOrder[0];
       st.slots[i] = { name: arg || '新设备 ' + (i + 1), os: 'win' };
+      st.bindOrder = st.bindOrder.filter((index) => index !== i).concat(i);
       st.pairing = null; st.active = i; st.connected = true; st.connSel = i;
       st.osPick = { slot: i, sel: 1 };
     } else if (ev === 'passkey' && st.pairing) {
@@ -258,7 +262,7 @@
         (typeof arg === 'string' && /^\d{6}$/.test(arg));
       if (valid) st.pairing.passkey = String(arg).padStart(6, '0');
     } else if (ev === 'disconnect') st.connected = false;
-    else if (ev === 'reconnect' && st.slots[st.active]) st.connected = true;
+    else if (ev === 'reconnect' && !st.pairing && st.slots[st.active]) st.connected = true;
     else if (ev === 'wake') {
       st.page = 'boot'; st.boot = { start: now, voiced: false }; st.osPick = null;
       st.lastInput = now; st.connected = false; st.pairing = null;

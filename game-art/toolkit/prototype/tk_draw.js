@@ -40,7 +40,7 @@
     if (stroke) { g.lineWidth = lw || 2; g.strokeStyle = stroke; g.stroke(); }
   }
   function chordLabel(spec, os) {
-    const packet = H.resolve(spec, os);
+    const packet = root.TKConfig ? root.TKConfig.resolve(spec, os) : H.resolve(spec, os);
     if (!packet || packet.kind !== 'key' || !H.isApple(os)) return H.chordLabel(packet, os);
     const parts = [];
     for (const [mask, name] of [[1,'⌃'],[16,'R⌃'],[4,'⌥'],[64,'R⌥'],[2,'⇧'],[32,'R⇧'],[8,'⌘'],[128,'R⌘']]) {
@@ -179,7 +179,7 @@
       const cur = i === st.active, s = cur ? (st.connected ? '已连接' : '未连接') : 'OK 连接';
       txt(g, s, 220, y + 28, 12, cur ? (st.connected ? (sel ? C.INK : C.GREEN) : C.RED) : dim, 'right');
     }
-    bottomBar(g, '长按 OK 改类型 · 长按↓ 删除 · 长按↑ 返回');
+    bottomBar(g, '长 OK 类型 · 长↓ 删除 · 长↑ 返回');
     if (st.pairing) {
       popup(g, 156);
       if (st.pairing.passkey !== null) {

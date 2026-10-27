@@ -1,6 +1,7 @@
 #include "tk_gfx.h"
 
 #include <string.h>
+#include "qrcodegen.h"
 
 // ---------- display list ----------
 
@@ -81,14 +82,28 @@ int ag_text_width(const lv_font_t *font, const char *utf8) { return nt_text_widt
 
 bool ag_text(ag_t *g, const lv_font_t *font, const char *utf8, int x, int baseline, nt_align_t align, uint16_t color)
 {
+    return ag_text_squeezed(g,font,utf8,x,baseline,align,color,0);
+}
+bool ag_text_squeezed(ag_t *g,const lv_font_t *font,const char *utf8,int x,int baseline,nt_align_t align,uint16_t color,int max_width)
+{
     if (!font || !utf8 || !*utf8) return true;
     nt_text_t t;
     if (!nt_text_layout(&g->glyphs, &t, font, utf8, x, baseline, align)) { g->overflow = true; return false; }
+    int original=t.x1-t.x0;
+    if(max_width>0 && original>max_width){
+        int left=align==NT_ALIGN_CENTER?x-max_width/2:align==NT_ALIGN_RIGHT?x-max_width:x;
+        for(int i=t.first;i<t.first+t.count;i++){
+            nt_glyph_t *glyph=&g->glyphs.g[i];int start=left+(glyph->x-t.x0)*max_width/original;
+            int end=left+(glyph->x+glyph->w-t.x0)*max_width/original;
+            glyph->x=start;glyph->w=end>start?end-start:1;
+        }
+        t.x0=left;t.x1=left+max_width;t.w=max_width;
+    }
     ag_op_t *op = add(g, AG_TEXT, t.x0, t.y0, t.x1, t.y1);
     if (!op) return false;
     op->u.text.t = t;
     op->u.text.color = color;
-    uint32_t h = mix((uint32_t)(uintptr_t)font, color);
+    uint32_t h = mix(mix((uint32_t)(uintptr_t)font,color),max_width);
     for (const char *s = utf8; *s; s++) h = mix(h, (uint8_t)*s);
     seal(op, h);
     return true;
@@ -115,16 +130,35 @@ bool ag_glow(ag_t *g, int cx, int cy, int r, uint16_t color)
 
 bool ag_bitmap(ag_t *g, const uint16_t *pixels, int x, int y, int w, int h)
 {
+    return ag_bitmap_alpha(g,pixels,NULL,x,y,w,h);
+}
+bool ag_bitmap_alpha(ag_t *g, const uint16_t *pixels, const uint8_t *alpha, int x, int y, int w, int h)
+{
     if (!pixels || w <= 0 || h <= 0) return false;
     ag_op_t *op = add(g, AG_BITMAP, x, y, x + w, y + h);
     if (!op) return false;
     op->u.bitmap.pixels = pixels;
+    op->u.bitmap.alpha = alpha;
     op->u.bitmap.w = (int16_t)w;
-    seal(op, (uint32_t)(uintptr_t)pixels);
+    seal(op, mix((uint32_t)(uintptr_t)pixels,(uint32_t)(uintptr_t)alpha));
     return true;
+}
+bool ag_qr(ag_t *g,const uint8_t *modules,int x,int y,int scale,int border,uint32_t revision)
+{
+    if(!modules || scale<1 || border<0)return false;
+    int size=(qrcodegen_getSize(modules)+2*border)*scale;
+    ag_op_t *op=add(g,AG_QR,x,y,x+size,y+size);if(!op)return false;
+    op->u.qr.modules=modules;op->u.qr.scale=scale;op->u.qr.border=border;seal(op,revision);return true;
 }
 
 // ---------- dirty rectangles ----------
+bool ag_indexed(ag_t *g,const uint8_t *pixels,const uint8_t *palette,int x,int y,int w,int h,uint32_t revision)
+{
+    if(!pixels || !palette || w<1 || h<1)return false;
+    ag_op_t *op=add(g,AG_INDEXED,x,y,x+w,y+h);if(!op)return false;
+    op->u.indexed.pixels=pixels;op->u.indexed.palette=palette;op->u.indexed.w=w;
+    seal(op,mix(revision,(uint32_t)(uintptr_t)palette));return true;
+}
 
 typedef struct { int16_t x0, y0, x1, y1; } rect_t;
 
@@ -165,7 +199,26 @@ static void paint(ag_t *g, const ag_op_t *op, int y, int x0, int x1, uint16_t *r
         int first = x0 > op->x0 ? x0 : op->x0;
         int last = x1 < op->x1 ? x1 : op->x1;
         const uint16_t *src = op->u.bitmap.pixels + (y - op->y0) * op->u.bitmap.w;
-        for (int x = first; x < last; x++) row[x - x0] = src[x - op->x0];
+        const uint8_t *alpha=op->u.bitmap.alpha?op->u.bitmap.alpha+(y-op->y0)*op->u.bitmap.w:NULL;
+        for (int x = first; x < last; x++) {
+            int i=x-op->x0;
+            row[x-x0]=alpha?nt_blend565(row[x-x0],src[i],alpha[i]*256/255):src[i];
+        }
+        break;
+    }
+    case AG_QR: {
+        int first=x0>op->x0?x0:op->x0,last=x1<op->x1?x1:op->x1;
+        int qy=(y-op->y0)/op->u.qr.scale-op->u.qr.border;
+        for(int x=first;x<last;x++) {
+            int qx=(x-op->x0)/op->u.qr.scale-op->u.qr.border;
+            row[x-x0]=qrcodegen_getModule(op->u.qr.modules,qx,qy)?0:0xffff;
+        }
+        break;
+    }
+    case AG_INDEXED: {
+        int first=x0>op->x0?x0:op->x0,last=x1<op->x1?x1:op->x1;
+        const uint8_t *src=op->u.indexed.pixels+(y-op->y0)*op->u.indexed.w;
+        for(int x=first;x<last;x++){unsigned index=src[x-op->x0];if(index && index<64){const uint8_t *p=op->u.indexed.palette+index*2;row[x-x0]=p[0]|(uint16_t)p[1]<<8;}}
         break;
     }
     default: break;

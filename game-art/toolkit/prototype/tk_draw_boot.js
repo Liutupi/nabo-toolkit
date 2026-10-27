@@ -52,13 +52,13 @@
     const sub = clamp((t - 1050) / 350);
     if (sub > 0) { g.globalAlpha = sub; txt(g, '陪你遥控万物', 120, 74, 16, C.PAPER, 'center'); g.globalAlpha = 1; }
 
-    /* 1.4 s: 150px waist-up welcome, fixed bottom-center anchor. */
+    txt(g, '按任意键跳过', 120, 314, 12, C.DIM, 'center');
+    /* 1.4 s: 150px waist-up welcome, fixed bottom-center anchor; NABO stays in front. */
     const rise = easeOut(clamp((t - RISE_AT) / RISE_MS));
     if (rise > 0) {
       const bottom = 470 - rise * 150;
       D.naboBust(g, imgs, 'welcome', CX, bottom, 150, t - RISE_AT);
     }
-    txt(g, '按任意键跳过', 120, 314, 12, C.DIM, 'center');
   }
 
   root.TKDraw.drawBoot = drawBoot;

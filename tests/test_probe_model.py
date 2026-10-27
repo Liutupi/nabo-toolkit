@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import random
 import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -31,8 +32,18 @@ class ProbeTests(unittest.TestCase):
         cls.lib.tk_hid_ready.restype = C.c_bool
         cls.lib.tk_hid_packet.argtypes = [C.c_int, C.c_int, C.c_int, C.POINTER(C.c_uint8), C.POINTER(C.c_uint)]
         cls.lib.tk_hid_packet.restype = C.c_bool
+        cls.lib.tk_pairing_choice.argtypes = [C.c_bool, C.c_bool, C.c_int]
+        cls.lib.tk_pairing_token_valid.argtypes = [C.c_bool, C.c_uint32, C.c_uint32]
+        cls.lib.tk_pairing_token_valid.restype = C.c_bool
+        cls.lib.tk_reconnect_phase.argtypes = [C.c_uint32, C.c_uint32]
     @classmethod
-    def tearDownClass(cls): cls.temp.cleanup()
+    def tearDownClass(cls):
+        # Windows locks loaded DLLs, including a PE library named probe.so.
+        if sys.platform == 'win32':
+            import _ctypes
+            _ctypes.FreeLibrary(cls.lib._handle)
+            cls.lib = None
+        cls.temp.cleanup()
     def test_button_classifier_matches_javascript_for_4000_edges_and_ticks(self):
         rng = random.Random(0x4e41424f)
         events = []; now = 0
@@ -90,3 +101,22 @@ console.log(JSON.stringify(es.map(([op,k,t])=>op==='tick'?B.tick(st,t):op==='dow
         self.assertEqual(self.lib.tk_probe_press(C.byref(p),1),5); self.assertFalse(p.mac)
         self.assertEqual(self.lib.tk_probe_press(C.byref(p),4),3)
         self.assertEqual(self.lib.tk_probe_press(C.byref(p),5),4)
+
+    def test_numeric_comparison_requires_physical_short_ok_or_long_up(self):
+        for pending, physical, key in itertools.product([False, True], [False, True], range(-1, 7)):
+            expected = (1 if key == 2 else 2 if key == 3 else 0) if pending and physical else 0
+            self.assertEqual(self.lib.tk_pairing_choice(pending, physical, key), expected)
+
+    def test_numeric_comparison_rejects_stale_cancelled_and_zero_tokens(self):
+        for pending, current, requested in [(False, 7, 7), (True, 7, 6), (True, 8, 7),
+                                            (True, 0, 0), (True, 1, 0xffffffff)]:
+            self.assertFalse(self.lib.tk_pairing_token_valid(pending, current, requested))
+        self.assertTrue(self.lib.tk_pairing_token_valid(True, 7, 7))
+        self.assertTrue(self.lib.tk_pairing_token_valid(True, 0xffffffff, 0xffffffff))
+
+    def test_reconnect_falls_back_before_three_second_budget_and_preserves_ten_second_window(self):
+        # Same policy must work across the uint32 uptime wrap, including delayed ticks.
+        for started in [0, 12345, 0xffffff00]:
+            for elapsed, expected in [(0, 0), (499, 0), (500, 1), (501, 1),
+                                      (2999, 1), (9999, 1), (10000, 2), (11000, 2)]:
+                self.assertEqual(self.lib.tk_reconnect_phase((started + elapsed) & 0xffffffff, started), expected)
