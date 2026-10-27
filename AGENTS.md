@@ -3,6 +3,7 @@
 这是《NABO 工具箱》：离线的蓝牙遥控工牌（FoloToy AI Passport，ESP32-C3）。先读 `docs/HANDOFF.md` 和 `game-art/toolkit/DESIGN.md`，按 nabo-passport-game skill 的流程工作。
 
 - 规则以 `game-art/toolkit/prototype/tk_core.js` 为准，键位表以 `tk_hid.js` 为准：先改原型，再改文档和固件。
+- **先能用，再好看**：功能（HANDOFF A 线）是关键路径，美术不挡功能发布。固件的结构和运行逻辑按 `game-art/toolkit/FIRMWARE_PLAN.md`，界面按 `game-art/toolkit/UI_DESIGN.md`。
 - **NABO 的身份不能改**：脸、眼睛、细圆框眼镜、发型、白帽和帽标、比例以 `game-art/toolkit/art/reference/nabo-idle.png` 左帧为准，只能换衣服和道具。必须拿参考图做图像编辑，不要重画、不要用 SVG 拼脸。帽标不能左右镜像。
 - 美术只在 `game-art/toolkit/art/` 下工作，规格见 `game-art/toolkit/ART_BRIEF.md`，提示词见 `CODEX_PROMPTS.md`、`GROK_PROMPTS.md`。原片和参考图不要覆盖、不要改名；重做用 `_v2`、`_v3`。
 - 不联网：不做 Wi-Fi 功能。蓝牙只做 HID 外设。

@@ -8,6 +8,8 @@
 |---|---|
 | `game-art/toolkit/DESIGN.md` | 规则、按键、界面、底座、预算 |
 | `game-art/toolkit/prototype/` | 浏览器原型（规则的标准答案）。`python3 -m http.server -d game-art/toolkit/prototype` 后打开 |
+| `game-art/toolkit/FIRMWARE_PLAN.md` | 固件框架、运行逻辑、“能用”的验收标准 |
+| `game-art/toolkit/UI_DESIGN.md` | 界面风格（工牌挂绳）和每个画面的版式 |
 | `game-art/toolkit/ART_BRIEF.md` | 美术规格与分工 |
 | `game-art/toolkit/CODEX_PROMPTS.md` / `GROK_PROMPTS.md` | 起始图 / 图生视频提示词 |
 
