@@ -2,6 +2,8 @@
 
 # 验证记录 — 2026-10-28
 
+公开发布PASS：仓库PUBLIC，测试版Release及NABO配置页已上线；5个下载文件匿名下载、37个ZIP成员和网页11文件校验通过。浏览器名片/Wi-Fi编辑、保存/重载及NABO形象显示通过；未开串口，真实权限/USB传输仍未验收。详情见[发布核验](validation/publication-v0.3.0-f3-dev3.json)。
+
 - Build: PASS（F3 dev3，ESP-IDF6.0.2/C3/8MiB/无PSRAM；固定app已安装）
 - Host tests: PASS（100：27 Node+73 Python；1,710步完整JS–C对拍；跳过0）
 - Device tests: 部分PASS：用户确认完整欢迎、各工具服装/动画、开机音和无爆破按键音；240次连接采样堆最低92,696/最大块77,824，音频错误0、崩溃0。

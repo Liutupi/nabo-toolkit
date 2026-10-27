@@ -91,7 +91,8 @@ def main():
                     raise ValueError('Offline configuration differs')
     report = {'date': '2026-10-28', 'repo': repo['html_url'], 'visibility': 'PUBLIC',
               'release': release['html_url'], 'version': args.version, 'prerelease': True,
-              'source_commit': args.commit, 'tag_commit': ref['sha'], 'authorization_header_used': False,
+              'source_commit': args.commit, 'configuration_source_commit': manifest.get('configuration_source_commit', args.commit),
+              'tag_commit': ref['sha'], 'authorization_header_used': False,
               'public_downloads': entries, 'zip_members_verified': len(names),
               'accepted_app_sha256': manifest['app']['sha256'], 'merged_image_published': False,
               'device_readbacks_published': False, 'status': 'PASS'}

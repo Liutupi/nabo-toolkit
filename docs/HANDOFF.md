@@ -1,6 +1,6 @@
 # 交接本
 
-更新：2026-10-28 · **最新第22–23节：F3 dev3动画/声音已验收，公开发布准备** · 提交见 `git log`
+更新：2026-10-28 · **最新第22–23节：F3 dev3动画/声音已验收，公开仓库/固件/配置页已发布并复核** · 提交见 `git log`
 
 ## 1. 现在是什么状态
 
@@ -346,10 +346,14 @@ Windows用户确认重新配对、粘贴和音量正常：**dev2 Windows配对/�
 
 **Unverified**：dev3重复USB配置/断电保留、真实浏览器权限流程、传输中拔线/写入中断电、实体开机跳过/声音取消/不误发HID、最终镜像Windows粘贴/音量及全部其他宿主、旧绑定迁移/三槽压力/稳定帧率/睡眠与长稳。F2 dev2的Windows和配置实体/断电验收作为历史证据保留。历史鸿蒙三秒回连FAIL不改，Tango2S/小米电视延期。NVS备份、设备身份、绑定及原始日志仅留忽略的private。
 
-## 23. 公开发布准备（2026-10-28）
+## 23. 公开发布完成（2026-10-28）
 
 用户明确授权更新GitHub、将同一仓库改为公开、发布新固件及配置页。沿用main及全部既有成果。版本标为 `v0.3.0-f3-dev3` 公开测试版，发布精确已验收app，不用新编译产物替代，也不提供可能覆盖旧表的合并镜像。发布包包含受保护的app-only升级脚本、manifest、SHA256、验收说明、许可和离线配置页；不包含设备读取产物、NVS、原始日志或个人配置。
 
-配置网页使用白名单构建到build/pages，由GitHub Pages部署。首页直接显示编辑器，顶部可直达快捷键、名片/Wi-Fi及说明。用户以Chrome/Edge+USB连接，先读回、编辑，再“写入工牌并核对”；无需开发环境。Wi-Fi仅编码二维码，工牌不联网；密码不上传配置服务器，但包含在工牌/导出文件里。计划入口：https://liutupi.github.io/nabo-toolkit/ 。部署及下载验证结果另记 `validation/publication-v0.3.0-f3-dev3.json`，在成功前不声称已公开可用。
+配置网页使用白名单构建到build/pages，由GitHub Pages部署。首页直接显示编辑器，顶部可直达快捷键、名片/Wi-Fi及说明。用户以Chrome/Edge+USB连接，先读回、编辑，再“写入工牌并核对”；无需开发环境。Wi-Fi仅编码二维码，工牌不联网；密码不上传配置服务器，但包含在工牌/导出文件里。公开入口：https://liutupi.github.io/nabo-toolkit/ 。部署及匿名下载验证已通过，证据见 `validation/publication-v0.3.0-f3-dev3.json`。
 
 用户追加要求配置页显示NABO形象：页头直接复用原 `sprites/master/base/00.png` RGBA母版，帽标/方向不变，无重生成。网页与离线包使用同一白名单复制，nabo.png逐字节等于原母版。固件tag/已验收app保持不变；配置页后续提交单独记入发布manifest。
+
+公开结果：同一 `Liutupi/nabo-toolkit` 仓库已设PUBLIC，main已更新。公开测试Release https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.0-f3-dev3 ，firmware tag固定指向 `a317ccc8cdfec30d854491dac4c014cf63357cb8`，配置页/离线包单独记录 `17bdd131f300fad0677fa95aefa5a6260f13d404`。精确已验收app未重新构建或替换，仍为d2032e7b…866b4711。发布5个下载文件，全部无认证独立下载并核对字节/SHA256，固件ZIP37成员和内部校验逐项通过；没有合并镜像、设备读回、NVS、个人配置或日志。
+
+Pages工作流40547201879成功；网页manifest与11个可访问文件均HTTP200且内容/SHA匹配，包括原样NABO母版。真实浏览器检查了名片导航、Wi-Fi分号/冒号转义、浏览器保存/重载、未连接时读写禁用及NABO页头显示，演示配置已恢复默认。未打开串口，浏览器实际权限/USB传输仍UNVERIFIED。Build固定产物PASS、Host100项PASS、Device部分PASS/未测项维持第22节；公开发布不等于全部F0/F1设备门槛通过。此轮没有再刷设备。

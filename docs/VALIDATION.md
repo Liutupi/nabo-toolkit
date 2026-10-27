@@ -2,6 +2,8 @@
 
 # Validation checkpoint — 2026-10-28
 
+Publication PASS: public repository, test Release and NABO configuration page are live. Five assets anonymously re-downloaded,37 ZIP members and11 site files verified. Browser card/Wi-Fi editing/save/reload/portrait checks pass; no serial port opened. Physical browser permission/USB transfer remains unverified. See [publication verification](validation/publication-v0.3.0-f3-dev3.json).
+
 - Build: PASS (F3 dev3, ESP-IDF6.0.2/C3/8MiB/no PSRAM; exact app installed).
 - Host tests: PASS (100: 27 Node+73 Python; 1,710 full JS-C steps; zero skips).
 - Device tests: PARTIAL PASS. User accepted full welcome, distinct tool costumes/animation, startup voice and clean key sounds. 240 connected samples: minimum heap92,696/largest77,824; audio errors0, crash markers0.

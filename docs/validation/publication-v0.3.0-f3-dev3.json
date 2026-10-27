@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-28",
+  "repo": "https://github.com/Liutupi/nabo-toolkit",
+  "visibility": "PUBLIC",
+  "release": "https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.0-f3-dev3",
+  "version": "v0.3.0-f3-dev3",
+  "prerelease": true,
+  "source_commit": "a317ccc8cdfec30d854491dac4c014cf63357cb8",
+  "configuration_source_commit": "17bdd131f300fad0677fa95aefa5a6260f13d404",
+  "tag_commit": "a317ccc8cdfec30d854491dac4c014cf63357cb8",
+  "authorization_header_used": false,
+  "public_downloads": {
+    "manifest.json": {
+      "bytes": 7025,
+      "sha256": "082f4e041894dd330ccee3897b6464aed82f98af9d20c7aea2e5674421f38721",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/manifest.json",
+      "http": 200
+    },
+    "nabo-toolkit-app.bin": {
+      "bytes": 1999600,
+      "sha256": "d2032e7b95d6e45aa0cc7e8fb6a9acdfb1628e3ea09578b7eafb061f866b4711",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-app.bin",
+      "http": 200
+    },
+    "nabo-toolkit-config-offline.zip": {
+      "bytes": 90229,
+      "sha256": "ee66af384130728edf58f0046f9473f86cd31d418607f452ee6597179eeb4913",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-config-offline.zip",
+      "http": 200
+    },
+    "nabo-toolkit-v0.3.0-f3-dev3.zip": {
+      "bytes": 1532935,
+      "sha256": "1312e1b6be0912405306d437452c049a9fd43442b707f675304019813681ed62",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-v0.3.0-f3-dev3.zip",
+      "http": 200
+    },
+    "SHA256SUMS.txt": {
+      "bytes": 363,
+      "sha256": "07f9cee132bf90194c2b1b8dcf9b5d776696fb1012e96eac2a65305778a4407f",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/SHA256SUMS.txt",
+      "http": 200
+    }
+  },
+  "zip_members_verified": 37,
+  "accepted_app_sha256": "d2032e7b95d6e45aa0cc7e8fb6a9acdfb1628e3ea09578b7eafb061f866b4711",
+  "merged_image_published": false,
+  "device_readbacks_published": false,
+  "status": "PASS",
+  "site": {
+    "url": "https://liutupi.github.io/nabo-toolkit/",
+    "manifest_http": 200,
+    "files_http_200_sha256_match": [
+      "LICENSE",
+      "NOTICE.md",
+      "README.txt",
+      "config.html",
+      "config.js",
+      "index.html",
+      "nabo.png",
+      "tk_config_schema.js",
+      "tk_config_serial.js",
+      "tk_core.js",
+      "tk_hid.js"
+    ],
+    "browser_physical_serial_permission": "UNVERIFIED"
+  },
+  "github_pages_workflow": {
+    "run_id": 40547201879,
+    "commit": "17bdd131f300fad0677fa95aefa5a6260f13d404",
+    "conclusion": "success",
+    "url": "https://github.com/Liutupi/nabo-toolkit/actions/runs/40547201879"
+  },
+  "browser_qa": {
+    "online_page_load": "PASS",
+    "card_navigation": "PASS",
+    "wifi_generator_escapes_semicolon_and_colon": "PASS",
+    "browser_save_reload": "PASS",
+    "unconnected_read_write_disabled": "PASS",
+    "approved_portrait_visually_displayed": "PASS",
+    "demo_configuration_restored": true,
+    "serial_port_opened": false,
+    "physical_serial_permission_and_transfer": "UNVERIFIED",
+    "portrait_source": "game-art/toolkit/sprites/master/base/00.png",
+    "portrait_bytes_unchanged": true,
+    "portrait_sha256": "c6a65614e8af7eb6318eaa55aae50688aac4aa69998ce4681226df608e719b0b"
+  },
+  "preflight": {
+    "asset_files": 367,
+    "asset_bytes": 91171178,
+    "original_364_preserved": true,
+    "host_tests": 100,
+    "node": 27,
+    "python": 73,
+    "full_model_steps": 1710,
+    "accepted_firmware_source_files_matched": 114,
+    "private_data_excluded": true,
+    "history_audit": "No credential or actual device-address matches; two synthetic unit-test addresses retained"
+  }
+}
