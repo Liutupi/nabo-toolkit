@@ -61,7 +61,7 @@ python3 -m http.server 8770 --directory game-art/toolkit/prototype
 - 会议快捷键表是凭记忆写的，**全部没实测**。
 - 用户的键盘没有 F13 以上的键，不要设计依赖 F 键的默认键位。
 - 截屏默认用“截到剪贴板”（Mac Ctrl+Cmd+Shift+4，Windows Win+Shift+S），截完直接粘贴。
-- 还没有 GitHub 远程仓库，建之前先问用户（公开还是私有）。
+- GitHub 私有仓库：https://github.com/Liutupi/nabo-toolkit（main）。
 
 ## 7. 给 Codex 的开场白（可直接复制）
 
