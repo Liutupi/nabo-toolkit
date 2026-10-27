@@ -6,6 +6,7 @@
 
 《NABO 工具箱》是一个**离线的蓝牙遥控工牌**：工牌模拟蓝牙键盘，用上 / 下 / OK 控制电脑、手机、平板，不联网。
 
+- 开机画面 + 开机语音“那波，陪你遥控万物！”（和算命机、声音实验室同一做法，DESIGN 5.0）。原型里语音先用浏览器 TTS 代替。
 - 设计定稿到 M0：快捷键（截屏 / 粘贴 / 复制、Typeless 等 6 组）、PPT 翻页笔、会议键、媒体遥控、拍照快门、名片二维码，加连接和设置。
 - 浏览器原型能完整操作所有页面，右侧显示每次会发给电脑的 HID 报告。
 - 网页配置页原型能录组合键（分左右修饰键），保存后工牌原型马上生效。
@@ -29,7 +30,8 @@
 |---|---|
 | `game-art/toolkit/prototype/tk_hid.js` | 键位表：HID 键码、会议软件快捷键、6 组默认快捷键、录键用的键码映射 |
 | `game-art/toolkit/prototype/tk_core.js` | **规则的标准答案**：菜单、各工具、连接、设置的状态机（纯逻辑，时间作为参数） |
-| `game-art/toolkit/prototype/tk_draw.js`、`tk_draw_tools.js` | 按固件版式画 240×320 画面 |
+| `game-art/toolkit/prototype/tk_draw.js`、`tk_draw_tools.js`、`tk_draw_boot.js` | 按固件版式画 240×320 画面（`tk_draw_boot.js` 是开机画面） |
+| `game-art/toolkit/audio/VOICE.md` | 开机语音的生成和处理步骤；原片放 `audio/originals/` |
 | `game-art/toolkit/prototype/index.html` | 工牌原型（键盘 ↑ ↓ Enter，按住 0.5 秒为长按；调试钩子 `TOOLKIT.press/state/advance`） |
 | `game-art/toolkit/prototype/config.html`、`config.js` | 网页配置页原型（存在浏览器 localStorage；正式版改为 Web Serial 写入） |
 | `game-art/toolkit/prototype/assets/` | NABO 占位帧（参考图原样裁切，不是重画） |
@@ -47,11 +49,12 @@ python3 -m http.server 8770 --directory game-art/toolkit/prototype
 
 | # | 任务 | 谁 | 完成标准 |
 |---|---|---|---|
-| 1 | **Codex 第 1 轮**：S0 基础形象 + S1 讲师 A/B | Codex，用户验收 | `art/design/r1/` 下有 S0、S1_A、S1_B、对比图、小尺寸检查图、README；用户确认是 NABO 本人并选定 S1 |
+| 1 | **Codex 第 1 轮**：S0 基础形象 + S0R 拿遥控器 + S1 讲师 A/B | Codex，用户验收 | `art/design/r1/` 下有 S0、S0R、S1_A、S1_B、对比图、小尺寸检查图、README；用户确认是 NABO 本人并选定 S1 |
+| 1b | **开机语音**：即梦“阳光小男孩”读“那波，陪你遥控万物！” | 用户生成，Claude 处理 | 原片在 `audio/originals/`；`audio/boot-welcome.wav`（16 kHz 单声道）和 `generation.json` 写好 |
 | 2 | Codex 第 2 轮：S2–S5 行头 | Codex，用户验收 | 6 张起始图都放进 `art/start/` |
-| 3 | Grok 第 1 批：6 条待机循环 | 用户跑 Grok | 原片放进 `art/video/batch1/` |
+| 3 | Grok 第 1 批：开机欢迎 + 6 条待机循环 | 用户跑 Grok | 原片放进 `art/video/batch1/` |
 | 4 | 审片、抽帧、接进原型 | Claude | `art/qa/` 有审查记录；原型里换上真 NABO |
-| 5 | Grok 第 2 批 + Codex 第 3 轮（界面风格板） | 用户 / Codex | 同上 |
+| 5 | Grok 第 2 批 + Codex 第 3 轮（风格板，用户选）+ 第 4 轮（字标、图标、九宫格、数字） | 用户 / Codex | 同上 |
 | 6 | **蓝牙探路**（M2 前） | Claude + 用户的工牌 | 离线底座打开 NimBLE 后空闲堆 ≥ 60 KB；Mac / Windows / iPhone / 安卓配对和重连；相机快门实测 |
 | 7 | 会议快捷键实测 | 用户 | DESIGN 5.2 的表逐条确认 |
 | 8 | M2–M4 固件 | Claude | 按 skill 流程 |

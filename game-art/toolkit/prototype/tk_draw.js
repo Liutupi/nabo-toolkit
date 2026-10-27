@@ -175,17 +175,18 @@
     const T = root.TK, s = st.settings, sl = T.SLEEP[s.sleep];
     const rows = [
       ['按键提示音', s.beep ? '开' : '关', '演讲翻页时始终不响'],
+      ['开机语音', s.voice ? '开' : '关', '“那波，陪你遥控万物！”'],
       ['演讲时长', T.TALK_MIN[s.talk] + ' 分钟', 'PPT 计时的目标时长'],
       ['自动休眠', sl ? sl + ' 分钟' : '连接时不休眠', '计时、倒数、配对时不休眠'],
       ['关于', 'v0.1 原型', '离线 · 蓝牙键盘 · 不联网'],
     ];
     rows.forEach((r, i) => {
-      const y = 44 + i * 48, sel = i === st.setSel;
-      rr(g, 10, y, 220, 42, 10, sel ? C.GOLD : C.PANEL, sel ? C.INK : null, 2);
-      txt(g, r[0], 22, y + 27, 16, sel ? C.INK : C.PAPER);
-      txt(g, r[1], 218, y + 27, 16, sel ? C.INK : ACCENT.set, 'right');
+      const y = 42 + i * 44, sel = i === st.setSel;
+      rr(g, 10, y, 220, 38, 10, sel ? C.GOLD : C.PANEL, sel ? C.INK : null, 2);
+      txt(g, r[0], 22, y + 25, 16, sel ? C.INK : C.PAPER);
+      txt(g, r[1], 218, y + 25, 16, sel ? C.INK : ACCENT.set, 'right');
     });
-    txt(g, rows[st.setSel][2], 120, 250, 12, C.DIM, 'center');
+    txt(g, rows[st.setSel][2], 120, 272, 12, C.DIM, 'center');
     bottomBar(g, '↑↓ 选择 · OK 修改 · 长按↑ 返回');
   }
 

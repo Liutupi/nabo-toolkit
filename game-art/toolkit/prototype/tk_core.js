@@ -11,15 +11,17 @@
   const SLEEP = [5, 15, 30, 0];              // minutes; 0 = 连接时不休眠
   const CAM_DELAYS = [0, 3, 10];
   const BURST = { count: 5, gapMs: 600 };
+  const BOOT_MS = 3500, VOICE_AT_MS = 1400;    // DESIGN 5.0
   const PAIR_MS = 60000, TOAST_MS = 1200, ERR_MS = 1500, REACT_MS = 500;
   const MAX_SLOTS = 3, MAX_CARDS = 3;
 
   function create(now) {
     return {
-      page: 'menu', menu: 0, lastInput: now || 0,
+      page: 'boot', menu: 0, lastInput: now || 0,
+      boot: { start: now || 0, voiced: false },
       slots: [{ name: 'MacBook', os: 'mac' }, { name: 'iPhone', os: 'ios' }, null],
       active: 0, connected: true, pairing: null, connSel: 0, confirmDel: -1, osPick: null,
-      settings: { beep: true, talk: 1, sleep: 3 }, setSel: 0,
+      settings: { beep: true, voice: true, talk: 1, sleep: 3 }, setSel: 0,
       ppt: { running: false, startMs: 0, accMs: 0, pages: 1, black: false },
       meet: { app: 0 },
       cam: { delay: 0, endMs: 0, lastSec: 0, burstLeft: 0, nextShot: 0, shots: 0 },
@@ -179,14 +181,15 @@
   }
 
   /* ---- 设置 ---- */
-  const SET_ROWS = 4;
+  const SET_ROWS = 5;   // 提示音 · 开机语音 · 演讲时长 · 自动休眠 · 关于
   function onSet(st, k, now, out) {
     const s = st.settings;
     if (k === 'up' || k === 'down') st.setSel = (st.setSel + (k === 'up' ? SET_ROWS - 1 : 1)) % SET_ROWS;
     else if (k === 'ok') {
       if (st.setSel === 0) s.beep = !s.beep;
-      else if (st.setSel === 1) s.talk = (s.talk + 1) % TALK_MIN.length;
-      else if (st.setSel === 2) s.sleep = (s.sleep + 1) % SLEEP.length;
+      else if (st.setSel === 1) s.voice = !s.voice;
+      else if (st.setSel === 2) s.talk = (s.talk + 1) % TALK_MIN.length;
+      else if (st.setSel === 3) s.sleep = (s.sleep + 1) % SLEEP.length;
     }
     beep(out, st, 660);
   }
@@ -198,6 +201,7 @@
     const out = [];
     st.lastInput = now;
     if (st.osPick) { onOsPick(st, key, now, out); return out; }
+    if (st.page === 'boot') { st.page = 'menu'; return out; }   // any key skips; nothing is sent
     if (st.page === 'menu') {
       if (key === 'up' || key === 'down') { st.menu = (st.menu + (key === 'up' ? MENU.length - 1 : 1)) % MENU.length; beep(out, st, 660); }
       else if (key === 'ok') { st.page = MENU[st.menu]; st.toast = null; beep(out, st, 880); }
@@ -215,6 +219,14 @@
   /* Timers: camera countdown and burst, pairing timeout, expiring overlays. */
   function tick(st, now) {
     const out = [], c = st.cam;
+    if (st.page === 'boot') {
+      const t = now - st.boot.start;
+      if (!st.boot.voiced && t >= VOICE_AT_MS) {
+        st.boot.voiced = true;
+        if (st.settings.voice) out.push({ t: 'voice', id: 'boot-welcome', text: '那波，陪你遥控万物！' });
+      }
+      if (t >= BOOT_MS) st.page = 'menu';
+    }
     if (c.endMs > 0) {
       const left = Math.ceil((c.endMs - now) / 1000);
       if (now >= c.endMs) { c.endMs = 0; camShoot(st, now, out); }
@@ -240,6 +252,7 @@
       st.osPick = { slot: i, sel: 1 };
     } else if (ev === 'disconnect') st.connected = false;
     else if (ev === 'reconnect' && st.slots[st.active]) st.connected = true;
+    else if (ev === 'wake') { st.page = 'boot'; st.boot = { start: now, voiced: false }; st.osPick = null; }
   }
 
   function sleepDue(st, now) {
@@ -250,7 +263,7 @@
   }
 
   root.TK = {
-    MENU, TOOLS, TALK_MIN, SLEEP, CAM_DELAYS, MAX_SLOTS,
+    MENU, TOOLS, TALK_MIN, SLEEP, CAM_DELAYS, MAX_SLOTS, BOOT_MS, VOICE_AT_MS,
     create, press, tick, sim, sleepDue, pptElapsed, os, groups, applyConfig,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -1,10 +1,10 @@
 # 给 Codex 的提示词
 
-分 3 轮，每轮结束你检查一次再进下一轮。每段都能在新会话里单独用。在 `nabo-toolkit/game-art/toolkit/` 目录下启动 Codex。
+分 3 轮，每轮结束你检查一次再进下一轮。每段都能在新会话里单独用。在 `nabo-toolkit` 仓库根目录启动 Codex（能读到 `AGENTS.md` 和 `docs/HANDOFF.md`）；下面提示词里的 `art/`、`ART_BRIEF.md` 都指 `game-art/toolkit/` 下的文件。
 
 ---
 
-## 第 1 轮：基础形象 S0 + PPT 讲师 S1
+## 第 1 轮：基础形象 S0 + 开机用 S0R + PPT 讲师 S1
 
 ```
 请先完整阅读 ART_BRIEF.md，尤其是第 0 节“身份锁定”和第 4 节“起始图规格”。
@@ -19,25 +19,27 @@ NABO 不重新设计。以 art/reference/nabo-idle.png 左边那一帧为准，
 1. S0 基础形象：衣服完全不改（白大褂、听诊器），只把构图改成 ART_BRIEF 第 4 节的规格：
    1024×1024，正面半身，帽顶在 y≈60，画面底边切在腰部，纯色背景 #00B140。
    存为 art/design/r1/S0_base.png。
-2. S1 PPT 讲师：在 S0 的基础上只换衣服：深色西装外套 + 浅色衬衫，右手拿一支黑色细长翻页笔。
+2. S0R 开机用：在 S0 上只加一样东西：右手在胸前拿一个白色的大遥控器（几颗大圆按钮，没有文字和标志），
+   不挡脸和帽标，其余完全不变。存为 art/design/r1/S0R_remote.png。
+3. S1 PPT 讲师：在 S0 的基础上只换衣服：深色西装外套 + 浅色衬衫，右手拿一支黑色细长翻页笔。
    出 2 套配色（A、B），存为 art/design/r1/S1_ppt_A.png、S1_ppt_B.png。
    构图和 S0 完全一致（帽顶高度、腰部切线、左右位置不变）。
-3. 对比图 art/design/r1/compare.png：参考图左帧 | S0 | S1_A | S1_B 并排，头部放大一份在下面。
-4. 小尺寸检查 art/design/r1/small_check.png：每张缩到 110 px 高和 64 px 头像（从同一张图裁头部），
+4. 对比图 art/design/r1/compare.png：参考图左帧 | S0 | S0R | S1_A | S1_B 并排，头部放大一份在下面。
+5. 小尺寸检查 art/design/r1/small_check.png：每张缩到 110 px 高和 64 px 头像（从同一张图裁头部），
    分别放在 #14203A 和 #22324F 底色上，再用最近邻放大 4 倍。
-5. art/design/r1/README.md：说明做法（用了什么编辑工具、怎么保证身份不变），以及你自查的结果。
+6. art/design/r1/README.md：说明做法（用了什么编辑工具、怎么保证身份不变），以及你自查的结果。
 
 只在 art/ 下工作，不改其他目录。完成后告诉我所有图的路径。
 ```
 
-**你要检查的：** 三张图是不是你的 NABO 本人；S1 选 A 还是 B；110 px 和 64 px 下认不认得出、表情清不清楚。选定后把 S0 和选中的 S1 复制到 `art/start/`（或者让 Codex 复制）。
+**你要检查的：** 四张图是不是你的 NABO 本人；S1 选 A 还是 B；110 px 和 64 px 下认不认得出、表情清不清楚。选定后把 S0、S0R 和选中的 S1 复制到 `art/start/`（或者让 Codex 复制）。
 
 ---
 
 ## 第 2 轮：其余 4 套行头 S2–S5
 
 ```
-请先完整阅读 ART_BRIEF.md 第 0、4 节。art/start/S0_base.png 和 art/start/S1_ppt.png 是已定稿的起始图。
+请先完整阅读 ART_BRIEF.md 第 0、4 节。art/start/S0_base.png、S0R_remote.png、S1_ppt.png 是已定稿的起始图。
 
 身份锁定：同第 1 轮。以 art/reference/nabo-idle.png 左帧为准，只换衣服和道具，
 用图像编辑在 art/start/S0_base.png 的基础上改，不要重画脸，不能镜像。
@@ -68,14 +70,39 @@ prototype/index.html 是现在的占位界面，可以用浏览器打开看。
 
 任务：
 1. 风格板：按 ART_BRIEF 第 7 节的两个方向（工牌挂绳 / 贴纸工具箱），
-   每个方向画 菜单、PPT 页、名片页 三个画面的 240×320 效果图（1 倍尺寸），
+   每个方向画 开机画面、菜单、PPT 页、名片页 四个画面的 240×320 效果图（1 倍尺寸），
+   开机画面按 DESIGN.md 第 5.0 节：信号波纹、8 个图标围成一圈、标题字标“NABO 工具箱”和副标题“陪你遥控万物”、
+   底部升起拿遥控器的 NABO（用 art/start/S0R_remote.png 缩小，不要重画）；
    再各放大 2 倍一份。NABO 用 art/start/ 里的定稿图缩小摆进去，不要重画。
    存到 art/ui/style_board/。
-2. 等我选定方向后再做（这一步先不要做）：8 个菜单图标、九宫格、计时数字，规格见第 7 节表格。
-3. 输出 art/ui/palette.json：底色、面板色、8 个点缀色，附 RGB565 值。
+2. 输出 art/ui/palette.json：底色、面板色、8 个点缀色，附 RGB565 值。
 
 文字（名字、提示、快捷键）用占位字体写在效果图里即可，最终由程序写，不要画进素材。
 只在 art/ 下工作。
 ```
 
-**你要检查的：** 选一个风格方向，告诉 Codex 继续做第 2 项。
+**你要检查的：** 选一个风格方向，告诉 Codex 做下面的第 4 轮。
+
+---
+
+## 第 4 轮：界面全套素材（风格方向选定后）
+
+```
+请先完整阅读 ART_BRIEF.md 第 7 节和 DESIGN.md 第 5.0、7 节。
+我选定的风格方向是：____（工牌挂绳 / 贴纸工具箱），风格板在 art/ui/style_board/。
+
+按选定方向做全套素材，全部按最终尺寸出图（另附 4 倍放大预览），透明背景 PNG：
+1. 开机字标 art/ui/wordmark.png：“NABO 工具箱” + 副标题“陪你遥控万物”，≤ 220×90，≤ 16 色。
+2. 菜单图标 art/ui/icons/<id>.png，24×24，≤ 16 色，id 依次为
+   keys、ppt、meet、media、cam、card、conn、set（快捷键、PPT、会议、媒体、拍照、名片、连接、设置）。
+   开机画面围成一圈的也是这一套。
+3. 九宫格 art/ui/nine/：菜单卡（normal / selected）、按键行（normal / pressed）、弹出卡，
+   角块 12×12（弹出卡 16×16），四条边和中间各一块，必须能无缝平铺。
+4. 计时数字 art/ui/digits/：0–9、冒号、加号，高 40 px，≤ 8 色，等宽。
+5. art/ui/manifest.json：每个文件的尺寸、颜色数、九宫格的角尺寸。
+6. art/ui/preview.png：用这些素材拼出 开机画面、菜单、PPT 页 三张 240×320 的原尺寸效果图。
+
+会变的文字不要画进素材。NABO 只用 art/start/ 里的定稿图缩小摆放，不要重画。只在 art/ 下工作。
+```
+
+**你要检查的：** `preview.png` 上图标在 24 px 下认不认得出，选中的卡片和普通卡片一眼能分开。
