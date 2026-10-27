@@ -30,6 +30,8 @@ Mac 构建并已刷入工牌的 F0 app SHA256：`ea6789e39fddc8a7063a94d45c6687c
 
 工牌实测旧分区与构建计划不同：NVS `0x9000/0x6000`、PHY `0xf000/0x1000`、factory `0x10000/0x1f0000`、FAT assets `0x200000/0x600000`。保留的引导程序日志为 IDF 5.5.3，原 Adventure app 和当前 F0 app 为 IDF 6.0.2。**保留现有分区表**。F0 不访问 assets/files，可放入较小 app 区，已只写 app 升级。不要直接 `idf.py flash` 或刷合并镜像覆盖表。保护安装器显式支持这份旧表，并按实际 app 容量检查。Windows 上重新枚举 COM 与设备身份，不要套用 Mac `/dev/cu.usbmodem212401` 或私有收据；新设备/写入范围按要求重新取得授权。NVS 报错不能擦片绕过。
 
+回家首次 Windows 配对时，长按工牌下键 0.5 秒开放配对 60 秒；配好后按 OK 进测试页，按下键把 Mac 切成 Win / phone，再用 OK 测 Ctrl+V、上键测音量。当前保存的是 Mac 模式，不切换会发送 Windows 键而不是 Ctrl。若 Mac 还在旁边，先在 Mac 断开这一个 NABO 设备以免抢回连接；不用删除配对。打开串口若触发重启，需重新按 OK 进入测试页。
+
 下一步：Windows 配对/粘贴/音量、iPhone 配对/音量，测连接中内存、多轮三秒重启回连，补安卓测试，过约定门槛再做 F1。B2 语音、B6 界面风格板、Grok 第 2 批、F3 素材接固件仍待后续。不要重做第一批素材，不要把 JS 参考轨迹当成完整 JS–C 应用对拍已完成。
 
 MAC/绑定数据、原始设备日志、凭据、build/ELF/MAP 包不进 Git；脱敏结果/哈希在 `docs/validation/f0.json` 和 `VALIDATION.zh_CN.md`。历史 Grok ZIP 的 README 可能提 Mac 投递绝对路径，Windows 以仓库相对 `game-art/toolkit/art/video/batch1/` 为准。

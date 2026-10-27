@@ -137,3 +137,5 @@ python3 -m http.server 8770 --directory game-art/toolkit/prototype
 - **环境**：SDK 固定 ESP-IDF 6.0.2；BSP 及依赖锁定元数据已在仓库，managed_components、SDK 和 build 由 Windows 重建。完整宿主门禁需要 Node、Python、宿主 C11 编译器，IDF 的 RISC-V 编译器不是宿主 cc；具体 Git Bash/WSL/原生 Windows 命令见接续文档。
 - **当前验证**：40 项宿主测试 + JS 1,559 步重录一致 + 精灵逐像素解码 + F0 完整构建/合并/归档校验 PASS。完整 JS–C 应用状态对拍仍未实现。设备精确 app SHA256 及脱敏结果见 `docs/VALIDATION.zh_CN.md`、`docs/validation/f0.json`。
 - **不入库**：凭据、设备 MAC/绑定、原始日志与私有收据、build/ELF/MAP；不影响 Windows 用已齐素材接着开发。设备当前已运行 F0，不需要为了接班重新刷。未创建 Release/社区发布。
+
+- Windows 第一次测试：长下 0.5 秒开放配对，配好按 OK 进测试页，再按下把保存的 Mac 模式切到 Win / phone，之后 OK 才是 Ctrl+V；上键测试音量。若开串口触发重启，需重新进测试页。
