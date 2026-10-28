@@ -33,7 +33,9 @@ class State(C.Structure):
               ('next_shot',C.c_int64),('shots',C.c_int),('macro_group',C.c_int),('card_idx',C.c_int),('card_zoom',C.c_bool),
               ('cards',Card*3),('card_count',C.c_int),('toast',C.c_bool),('toast_text',C.c_char*256),('toast_error',C.c_bool),
               ('toast_until',C.c_int64),('react',C.c_bool),('react_key',C.c_int),('react_until',C.c_int64),
-              ('hit',C.c_bool),('hit_key',C.c_int),('hit_until',C.c_int64),('config',C.POINTER(Custom))]
+              ('hit',C.c_bool),('hit_key',C.c_int),('hit_until',C.c_int64),('config',C.POINTER(Custom)),
+              ('remote_dim',C.c_bool),('screen_off',C.c_bool),('screen_since',C.c_int64),
+              ('media_mode',C.c_int),('media_select',C.c_bool)]
 
 def build(folder, source=None):
     source=source or ROOT/'firmware/main'
@@ -52,6 +54,7 @@ def build(folder, source=None):
     lib.tk_model_event.argtypes=[C.POINTER(State),C.c_char_p,C.c_int64,C.c_char_p]
     lib.tk_model_apply_config.argtypes=[C.POINTER(State),C.POINTER(Custom)]
     lib.tk_model_sleep_due.argtypes=[C.POINTER(State),C.c_int64];lib.tk_model_sleep_due.restype=C.c_bool
+    lib.tk_model_screen_reset.argtypes=[C.POINTER(State),C.c_int64]
     lib.tk_host_binding.argtypes=[C.c_int]*4;lib.tk_host_binding.restype=C.POINTER(Packet)
     lib.tk_hid_chord.argtypes=[C.POINTER(Packet),C.c_int,C.c_char_p,C.c_size_t]
     lib.tk_hid_key_name.argtypes=[C.c_uint,C.c_char_p,C.c_size_t]
@@ -70,9 +73,10 @@ def snapshot(s):
                 bindOrder=list(s.bind_order[:s.bind_count]),active=s.active,connected=s.connected,
                 pairing=dict(until=s.pair_until,passkey=f'{s.passkey:06d}' if s.passkey_valid else None) if s.pairing else None,
                 connSel=s.conn_sel,confirmDel=s.confirm_del,osPick=dict(slot=s.os_slot,sel=s.os_sel) if s.os_pick else None,
-                settings=dict(beep=s.beep,voice=s.voice,talk=s.talk,sleep=s.sleep),setSel=s.set_sel,
+                settings=dict(beep=s.beep,voice=s.voice,talk=s.talk,sleep=s.sleep,remoteDim=s.remote_dim),setSel=s.set_sel,
                 ppt=dict(running=s.ppt_running,startMs=s.ppt_start,accMs=s.ppt_acc,pages=s.ppt_pages,black=s.ppt_black),
-                meet=dict(app=s.meet_app),cam=dict(delay=s.cam_delay,endMs=s.cam_end,lastSec=s.cam_last_sec,
+                meet=dict(app=s.meet_app),media=dict(mode=s.media_mode,choosing=s.media_select),
+                display=dict(off=s.screen_off,since=s.screen_since),cam=dict(delay=s.cam_delay,endMs=s.cam_end,lastSec=s.cam_last_sec,
                     burstLeft=s.burst_left,nextShot=s.next_shot,shots=s.shots),macro=dict(group=s.macro_group),groups=None,
                 card=dict(idx=s.card_idx,zoom=s.card_zoom),cards=[{k:getattr(c,k).decode() for k in ['title','name','line','qr']} for c in s.cards[:s.card_count]],
                 toast=dict(text=s.toast_text.decode(),kind='err' if s.toast_error else 'ok',until=s.toast_until) if s.toast else None,

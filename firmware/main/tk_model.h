@@ -24,6 +24,10 @@ typedef struct {
     bool react; int react_key; int64_t react_until;
     bool hit; int hit_key; int64_t hit_until;
     const tk_custom_t *config; // UI-owned immutable committed configuration; NULL = author defaults.
+    bool remote_dim, screen_off;
+    int64_t screen_since;
+    int media_mode;
+    bool media_select;
 } tk_state_t;
 
 void tk_model_init(tk_state_t *s, int64_t now); // Real device starts with empty slots, disconnected.
@@ -31,6 +35,7 @@ void tk_model_press(tk_state_t *s, tk_key_t key, int64_t now, tk_effects_t *out)
 void tk_model_tick(tk_state_t *s, int64_t now, tk_effects_t *out);
 void tk_model_event(tk_state_t *s, const char *event, int64_t now, const char *arg);
 bool tk_model_sleep_due(const tk_state_t *s, int64_t now);
+void tk_model_screen_reset(tk_state_t *s, int64_t now);
 int64_t tk_model_ppt_elapsed(const tk_state_t *s, int64_t now);
 tk_os_t tk_model_os(const tk_state_t *s);
 void tk_model_apply_config(tk_state_t *s,const tk_custom_t *config);

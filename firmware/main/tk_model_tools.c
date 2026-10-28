@@ -65,12 +65,22 @@ static void macro(tk_state_t *s,tk_key_t key,int64_t now,tk_effects_t *out)
     tk_binding_t b=tk_model_macro_binding(s,s->macro_group,key==TK_UP?0:key==TK_OK?1:2);
     tk_model_send(out,s,now,&b,b.label,key);
 }
+static void media(tk_state_t *s,tk_key_t key,int64_t now,tk_effects_t *out)
+{
+    if(s->media_select){
+        if(key==TK_UP || key==TK_DOWN){s->media_mode=1-s->media_mode;tk_model_beep(out,s,660,40);}
+        else if(key==TK_OK){s->media_select=false;tk_model_beep(out,s,880,40);}
+        return;
+    }
+    const tk_binding_t *b=&(s->media_mode?tk_douyin_bindings:tk_media_bindings)[key];
+    if(tk_hid_resolve(b,tk_model_os(s)))tk_model_send(out,s,now,b,b->label,key>=3?key-3:key);
+}
 void tk_model_tools(tk_state_t *s,tk_key_t key,int64_t now,tk_effects_t *out)
 {
     switch(s->page){
     case TK_PAGE_PPT:ppt(s,key,now,out);break;
     case TK_PAGE_MEET:meet(s,key,now,out);break;
-    case TK_PAGE_MEDIA:{const tk_binding_t *b=&tk_media_bindings[key];if(tk_hid_resolve(b,tk_model_os(s)))tk_model_send(out,s,now,b,b->label,key>=3?key-3:key);break;}
+    case TK_PAGE_MEDIA:media(s,key,now,out);break;
     case TK_PAGE_CAM:camera(s,key,now,out);break;
     case TK_PAGE_MACRO:macro(s,key,now,out);break;
     case TK_PAGE_CARD:

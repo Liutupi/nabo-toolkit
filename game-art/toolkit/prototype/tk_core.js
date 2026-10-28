@@ -14,6 +14,7 @@
   const BOOT_MS = 5500, VOICE_AT_MS = 1400;    // Full welcome clip; any key skips.
   const PAIR_MS = 60000, TOAST_MS = 1200, ERR_MS = 1500, REACT_MS = 500;
   const MAX_SLOTS = 3, MAX_CARDS = 3;
+  const SCREEN_MS = 30000;
 
   function create(now) {
     return {
@@ -22,9 +23,11 @@
       slots: [{ name: 'MacBook', os: 'mac' }, { name: 'iPhone', os: 'ios' }, null],
       bindOrder: [0, 1],  // Oldest pairing first; ordinary reconnects do not reorder.
       active: 0, connected: true, pairing: null, connSel: 0, confirmDel: -1, osPick: null,
-      settings: { beep: true, voice: true, talk: 1, sleep: 3 }, setSel: 0,
+      settings: { beep: true, voice: true, talk: 1, sleep: 3, remoteDim: true }, setSel: 0,
       ppt: { running: false, startMs: 0, accMs: 0, pages: 1, black: false },
       meet: { app: 0 },
+      media: { mode: 0, choosing: true },
+      display: { off: false, since: -1 },
       cam: { delay: 0, endMs: 0, lastSec: 0, burstLeft: 0, nextShot: 0, shots: 0 },
       macro: { group: 0 },
       groups: null,          // null = built-in H.MACRO_GROUPS; set by the config page
@@ -39,8 +42,10 @@
   }
 
   const os = (st) => (st.slots[st.active] || { os: 'win' }).os;
-  const toast = (st, now, text, kind) =>
-    (st.toast = { text, kind: kind || 'ok', until: now + (kind === 'err' ? ERR_MS : TOAST_MS) });
+  const toast = (st, now, text, kind) => {
+    if (kind === 'err') screenReset(st, now);
+    return (st.toast = { text, kind: kind || 'ok', until: now + (kind === 'err' ? ERR_MS : TOAST_MS) });
+  };
   const beep = (out, st, f, ms) => { if (st.settings.beep) out.push({ t: 'beep', f, ms: ms || 40 }); };
 
   /* Send one spec. Returns false (and shows why) when nothing could be sent. */
@@ -105,7 +110,12 @@
   }
 
   function onMedia(st, k, now, out) {
-    const m = H.MEDIA_KEYS[k];
+    if (st.media.choosing) {
+      if (k === 'up' || k === 'down') { st.media.mode = 1 - st.media.mode; beep(out, st, 660); }
+      else if (k === 'ok') { st.media.choosing = false; beep(out, st, 880); }
+      return;
+    }
+    const m = (st.media.mode ? H.DOUYIN_KEYS : H.MEDIA_KEYS)[k];
     if (m) send(out, st, now, m, m.label, k.replace('long_', ''));
   }
 
@@ -185,7 +195,7 @@
   }
 
   /* ---- 设置 ---- */
-  const SET_ROWS = 5;   // 提示音 · 开机语音 · 演讲时长 · 自动休眠 · 关于
+  const SET_ROWS = 6;   // 提示音 · 开机语音 · 演讲时长 · 自动休眠 · 息屏遥控 · 关于
   function onSet(st, k, now, out) {
     const s = st.settings;
     if (k === 'up' || k === 'down') st.setSel = (st.setSel + (k === 'up' ? SET_ROWS - 1 : 1)) % SET_ROWS;
@@ -194,6 +204,7 @@
       else if (st.setSel === 1) s.voice = !s.voice;
       else if (st.setSel === 2) s.talk = (s.talk + 1) % TALK_MIN.length;
       else if (st.setSel === 3) s.sleep = (s.sleep + 1) % SLEEP.length;
+      else if (st.setSel === 4) s.remoteDim = !s.remoteDim;
     }
     beep(out, st, 660);
   }
@@ -201,23 +212,51 @@
   const HANDLERS = { ppt: onPpt, meet: onMeet, media: onMedia, cam: onCam, macro: onMacro, card: onCard, conn: onConn, set: onSet };
 
   /* key ∈ up | down | ok | long_up | long_down | long_ok */
-  function press(st, key, now) {
+  function dispatchPress(st, key, now) {
     const out = [];
     st.lastInput = now;
     if (st.osPick) { onOsPick(st, key, now, out); return out; }
     if (st.page === 'boot') { st.page = 'menu'; return out; }   // any key skips; nothing is sent
     if (st.page === 'menu') {
       if (key === 'up' || key === 'down') { st.menu = (st.menu + (key === 'up' ? MENU.length - 1 : 1)) % MENU.length; beep(out, st, 660); }
-      else if (key === 'ok') { st.page = MENU[st.menu]; st.toast = null; beep(out, st, 880); }
+      else if (key === 'ok') {
+        st.page = MENU[st.menu]; st.toast = null;
+        if (st.page === 'media') st.media.choosing = true;
+        beep(out, st, 880);
+      }
       return out;
     }
     if (key === 'long_up') {
       if (st.pairing) { st.pairing = null; toast(st, now, '已停止配对'); }
       else if (st.page === 'card' && st.card.zoom) st.card.zoom = false;
+      else if (st.page === 'media' && !st.media.choosing) { st.media.choosing = true; st.toast = null; }
       else { st.cam.endMs = 0; st.cam.burstLeft = 0; st.confirmDel = -1; st.page = 'menu'; st.toast = null; }
       beep(out, st, 523); return out;
     }
     HANDLERS[st.page](st, key, now, out);
+    return out;
+  }
+
+  function screenEligible(st) {
+    return st.settings.remoteDim && st.connected && !st.pairing && !st.osPick &&
+      (st.page === 'macro' || (st.page === 'media' && !st.media.choosing));
+  }
+  function screenReset(st, now) { st.display.off = false; st.display.since = now; }
+  function screenSync(st, now, reset) {
+    if (!screenEligible(st)) { st.display.off = false; st.display.since = -1; return; }
+    if (reset || st.display.since < 0) screenReset(st, now);
+    if (now - st.display.since >= SCREEN_MS) st.display.off = true;
+  }
+  function press(st, key, now) {
+    screenSync(st, now, false); // Check the deadline before interpreting long OK.
+    if (st.display.off && key === 'long_ok') {
+      st.lastInput = now; screenReset(st, now); return [];
+    }
+    const page = st.page, choosing = st.media.choosing;
+    const out = dispatchPress(st, key, now);
+    screenSync(st, now, st.page !== page || key === 'long_up' ||
+      (st.page === 'macro' && (key === 'long_ok' || key === 'long_down')) ||
+      (st.page === 'media' && choosing !== st.media.choosing));
     return out;
   }
 
@@ -245,6 +284,7 @@
     if (st.toast && now >= st.toast.until) st.toast = null;
     if (st.react && now >= st.react.until) st.react = null;
     if (st.hit && now >= st.hit.until) st.hit = null;
+    screenSync(st, now, false);
     return out;
   }
 
@@ -267,6 +307,7 @@
       st.page = 'boot'; st.boot = { start: now, voiced: false }; st.osPick = null;
       st.lastInput = now; st.connected = false; st.pairing = null;
     }
+    screenSync(st, now, ev === 'wake');
   }
 
   function sleepDue(st, now) {
@@ -277,7 +318,7 @@
   }
 
   root.TK = {
-    MENU, TOOLS, TALK_MIN, SLEEP, CAM_DELAYS, MAX_SLOTS, BOOT_MS, VOICE_AT_MS,
-    create, press, tick, sim, sleepDue, pptElapsed, os, groups, applyConfig,
+    MENU, TOOLS, TALK_MIN, SLEEP, CAM_DELAYS, MAX_SLOTS, BOOT_MS, VOICE_AT_MS, SCREEN_MS,
+    create, press, tick, sim, sleepDue, pptElapsed, os, groups, applyConfig, screenReset,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

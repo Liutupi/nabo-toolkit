@@ -1,6 +1,7 @@
 // F1 UI task owns the complete model. BLE/buttons/serial only enqueue bounded inputs.
 #include "tk_model_internal.h"
 #include "tk_ble.h"
+#include "tk_ble_diag.h"
 #include "tk_f1_device.h"
 #include "tk_persist.h"
 #include <stdatomic.h>
@@ -57,7 +58,8 @@ static void button_input(bsp_btn_t key,bsp_btn_ev_t event,void *context)
 }
 static void problem(const char *text,esp_err_t error)
 {
-    s_last_error=error;tk_model_toast(&s_model,now_ms(),text,true);ESP_LOGW("tk_f1","operation error=%d",error);
+    int64_t now=now_ms();tk_model_screen_reset(&s_model,now);
+    s_last_error=error;tk_model_toast(&s_model,now,text,true);ESP_LOGW("tk_f1","operation error=%d",error);
 }
 static void profiles(void)
 {
@@ -104,7 +106,7 @@ static void press(int key,bool physical)
     }
     bool pairing=s_model.pairing,picker=s_model.os_pick;int old_delete=s_model.confirm_del,old_os_slot=s_model.os_slot;
     int page=s_model.page,selected=s_model.conn_sel;
-    bool beep=s_model.beep,voice=s_model.voice;int talk=s_model.talk,sleep=s_model.sleep;
+    bool beep=s_model.beep,voice=s_model.voice,remote_dim=s_model.remote_dim;int talk=s_model.talk,sleep=s_model.sleep;
     tk_model_press(&s_model,(tk_key_t)key,now_ms(),&s_effects);
 #ifdef TK_F3
     if(page==TK_PAGE_BOOT && s_model.page!=TK_PAGE_BOOT)tk_sound_stop_voice();
@@ -124,6 +126,10 @@ static void press(int key,bool physical)
             esp_err_t error=tk_persist_save(&s_model);
             if(error){s_model.beep=beep;s_model.voice=voice;s_model.talk=talk;s_model.sleep=sleep;problem("设置保存失败",error);}
         }
+        if(remote_dim!=s_model.remote_dim){
+            esp_err_t error=tk_persist_save_remote(&s_model);
+            if(error){s_model.remote_dim=remote_dim;problem("设置保存失败",error);}
+        }
     }
     effects();
 }
@@ -142,22 +148,26 @@ static void on_ble(tk_ble_event_t e)
         else {char code[8];snprintf(code,sizeof(code),"%06lu",(unsigned long)e.value);tk_model_event(&s_model,"passkey",now_ms(),code);}
     }else if(e.kind==TK_BLE_COMPARE){
         if(!s_model.pairing || s_test){tk_ble_compare_reply(false,e.ms);return;}
-        s_compare=1;s_compare_token=e.ms;s_model.passkey_valid=true;s_model.passkey=e.value;
+        tk_model_screen_reset(&s_model,now_ms());s_compare=1;s_compare_token=e.ms;s_model.passkey_valid=true;s_model.passkey=e.value;
     }else if(e.kind==TK_BLE_RESULT){if(e.value)s_sent++;else s_failed++;}
     else if(e.kind==TK_BLE_ERROR){if(!s_test)profiles();problem("蓝牙或存储操作失败",e.value);}
 }
 static void status(void)
 {
+    tk_ble_diag_t diag=tk_ble_diag_snapshot();
 #ifdef TK_F3
     tk_sound_stats_t audio=tk_sound_stats();
 #endif
-    printf("@tk {\"stage\":\"" TK_STAGE "\",\"page\":\"%s\",\"ready\":%s,\"slot\":%d,\"slots\":%d,\"test\":%s,\"heap\":%u,\"largest\":%u,\"sent\":%u,\"failed\":%u,\"simulated\":%u,\"error\":%d"
+    printf("@tk {\"stage\":\"" TK_STAGE "\",\"page\":\"%s\",\"ready\":%s,\"slot\":%d,\"slots\":%d,\"test\":%s,\"heap\":%u,\"largest\":%u,\"sent\":%u,\"failed\":%u,\"simulated\":%u,\"error\":%d,\"screen_off\":%s,\"remote_dim\":%s,\"media_mode\":%d,\"ble_params_valid\":%s,\"ble_ci_us\":%u,\"ble_latency\":%u,\"ble_sto_ms\":%u,\"ble_tx_ok\":%u,\"ble_tx_err\":%u,\"ble_press_err\":%u,\"ble_release_err\":%u,\"ble_enqueue_error\":%d,\"ble_tx_error\":%d"
 #ifdef TK_F3
            ",\"min_heap\":%u,\"draw_max_us\":%u,\"anim_id\":%d,\"anim_frame\":%d,\"beep\":%s,\"voice\":%s,\"muted\":%s,\"audio_writes\":%u,\"audio_errors\":%u,\"audio_nonzero\":%u,\"voice_starts\":%u,\"tone_starts\":%u,\"audio_last\":%d"
 #endif
            "}\n",
            tk_page_names[s_model.page],s_model.connected&&tk_ble_ready()?"true":"false",s_model.active,s_model.bind_count,s_test?"true":"false",
-           (unsigned)esp_get_free_heap_size(),(unsigned)heap_caps_get_largest_free_block(MALLOC_CAP_8BIT),s_sent,s_failed,s_simulated,s_last_error
+           (unsigned)esp_get_free_heap_size(),(unsigned)heap_caps_get_largest_free_block(MALLOC_CAP_8BIT),s_sent,s_failed,s_simulated,s_last_error,
+           s_model.screen_off?"true":"false",s_model.remote_dim?"true":"false",s_model.media_mode,
+           diag.params_valid?"true":"false",(unsigned)diag.interval_us,(unsigned)diag.latency,(unsigned)diag.supervision_ms,
+           (unsigned)diag.tx_completed,(unsigned)diag.tx_errors,(unsigned)diag.press_errors,(unsigned)diag.release_errors,diag.enqueue_error,diag.tx_error
 #ifdef TK_F3
            ,(unsigned)esp_get_minimum_free_heap_size(),tk_f1_ui_max_draw_us(),tk_f1_ui_animation_id(),tk_f1_ui_animation_frame()
            ,s_model.beep?"true":"false",s_model.voice?"true":"false",audio.muted?"true":"false",audio.writes,audio.errors,audio.nonzero,audio.voice_starts,audio.tone_starts,audio.last_error
@@ -167,14 +177,14 @@ static void status(void)
 static void command(const char *text)
 {
 #ifdef CONFIG_NABO_TOOLKIT_F2
-    if(tk_config_serial_line(&s_config,text,now_ms(),!s_test && !s_compare)){s_model.last_input=now_ms();return;}
+    if(tk_config_serial_line(&s_config,text,now_ms(),!s_test && !s_compare)){s_model.last_input=now_ms();tk_model_screen_reset(&s_model,now_ms());return;}
 #endif
     if(!strcmp(text,">tk.status"))status();
-    else if(!strcmp(text,">tk.test=1")){if(!s_test)s_before_test=s_model;s_test=true;tk_sound_mute(true);tk_ble_reconnect();puts("@tk test=1");}
+    else if(!strcmp(text,">tk.test=1")){if(!s_test)s_before_test=s_model;s_test=true;tk_model_screen_reset(&s_model,now_ms());tk_sound_mute(true);tk_ble_reconnect();puts("@tk test=1");}
     else if(!strcmp(text,">tk.test=0")){
         if(s_test)s_model=s_before_test;
         s_test=false;s_compare=0;profiles();s_model.pairing=false;s_model.passkey_valid=false;s_model.os_pick=false;s_model.confirm_del=-1;
-        s_model.connected=tk_ble_ready();s_model.cam_end=0;s_model.burst_left=0;s_model.last_input=now_ms();tk_sound_mute(false);puts("@tk test=0");
+        s_model.connected=tk_ble_ready();s_model.cam_end=0;s_model.burst_left=0;s_model.last_input=now_ms();tk_model_screen_reset(&s_model,now_ms());tk_sound_mute(false);puts("@tk test=0");
     }
     else if(!strcmp(text,">tk.reconnect")){s_model.connected=false;tk_ble_reconnect();}
     else if(!strcmp(text,">tk.pair") || !strcmp(text,">tk.pair.compare")){
@@ -236,6 +246,7 @@ static void ui_task(void *arg)
         if(!s_test)s_model.connected=s_ble_available && tk_ble_ready() && s_model.slots[s_model.active].used;
 #ifdef CONFIG_NABO_TOOLKIT_F2
         tk_config_serial_tick(&s_config,now_ms(),!s_test && !s_compare);
+        if(tk_config_serial_busy(&s_config))tk_model_screen_reset(&s_model,now_ms());
 #endif
         int64_t now=now_ms();press(tk_button_tick(&s_buttons,(uint32_t)now),true);tk_model_tick(&s_model,now,&s_effects);effects();
         if(now-battery_at>=5000){tk_ble_hid_battery(bsp_battery_soc());battery_at=now;}
@@ -269,5 +280,6 @@ void app_main(void)
 #endif
     if(xTaskCreate(ui_task,"tk_ui",8192,NULL,5,NULL)!=pdPASS){ESP_LOGE("tk_f1","UI task failed");return;}
     if(xTaskCreate(serial_task,"tk_serial",3072,NULL,2,NULL)!=pdPASS)ESP_LOGE("tk_f1","serial task failed");
-    bsp_display_backlight(80);ESP_LOGI("tk_f1","NABO Toolkit " TK_STAGE " dev / board ai-passport-nabo / no Wi-Fi");
+    // The UI enables backlight only after the first complete, fenced frame.
+    ESP_LOGI("tk_f1","NABO Toolkit " TK_STAGE " dev / board ai-passport-nabo / no Wi-Fi");
 }

@@ -69,7 +69,8 @@ class RendererTests(unittest.TestCase):
                 else:
                     arg=call.get('arg');arg=f'{arg:06d}' if call['event']=='passkey' and isinstance(arg,int) else arg
                     self.lib.tk_model_event(C.byref(s),call['event'].encode(),now,str(arg).encode() if arg is not None else None)
-                key=(s.page,s.pairing,s.passkey_valid,s.os_pick,s.confirm_del>=0,s.card_zoom,s.cam_end>0,s.ppt_black)
+                key=(s.page,s.pairing,s.passkey_valid,s.os_pick,s.confirm_del>=0,s.card_zoom,s.cam_end>0,s.ppt_black,
+                     s.media_mode,s.media_select,s.screen_off)
                 if key in seen and index%19:continue
                 seen.add(key);frames+=1
                 self.assertTrue(self.lib.tk_render_frame(dirty,C.byref(s),now,False,0),(row['scenario'],row['step']))
@@ -87,6 +88,27 @@ class RendererTests(unittest.TestCase):
             self.assertTrue(self.lib.tk_render_frame(h,C.byref(s),20,True,1))
             self.assertEqual(self.lib.tk_render_scaled_glyphs(h),6)
         finally:self.lib.tk_render_free(h)
+    def test_media_modes_and_screen_off_wake_incremental_match_full(self):
+        dirty=self.lib.tk_render_new(C.byref(self.assets));full=self.lib.tk_render_new(C.byref(self.assets))
+        self.assertTrue(dirty and full);s=State();self.lib.tk_host_demo(C.byref(s),0)
+        try:
+            s.page=5
+            for selecting,mode in [(True,0),(True,1),(False,0),(False,1)]:
+                s.media_select=selecting;s.media_mode=mode
+                self.assertTrue(self.lib.tk_render_frame(dirty,C.byref(s),10,False,0))
+                self.assertTrue(self.lib.tk_render_frame(full,C.byref(s),10,True,0))
+                self.assertEqual(self.image(dirty),self.image(full),(selecting,mode))
+            s.screen_off=True;s.toast=True;s.os_pick=True
+            self.assertTrue(self.lib.tk_render_frame(dirty,C.byref(s),10,False,0))
+            self.assertTrue(self.lib.tk_render_frame(full,C.byref(s),10,True,0))
+            self.assertEqual(self.image(dirty),bytes(240*320*2),'Screen-off must remain fully black, including overlays')
+            self.assertEqual(self.image(dirty),self.image(full))
+            self.assertEqual(self.lib.tk_render_glyphs(dirty),0)
+            s.screen_off=False;s.toast=False;s.os_pick=False
+            self.assertTrue(self.lib.tk_render_frame(dirty,C.byref(s),10,False,0))
+            self.assertTrue(self.lib.tk_render_frame(full,C.byref(s),10,True,0))
+            self.assertEqual(self.image(dirty),self.image(full));self.assertNotEqual(self.image(dirty),bytes(240*320*2))
+        finally:self.lib.tk_render_free(dirty);self.lib.tk_render_free(full)
     def test_custom_chinese_labels_use_flash_fallback_and_dirty_matches_full(self):
         from test_tk_config import example
         h=self.lib.tk_render_new(C.byref(self.assets));full=self.lib.tk_render_new(C.byref(self.assets));s=State();self.lib.tk_host_demo(C.byref(s),0)

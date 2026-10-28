@@ -16,12 +16,16 @@ class ModelReplayTests(unittest.TestCase):
     def tearDownClass(cls):
         unload(cls.lib);cls.lib=None;cls.temp.cleanup()
     def test_every_reference_step_matches_complete_c_state_and_outputs(self):
-        self.assertGreaterEqual(len(ROWS),1582)
+        self.assertGreaterEqual(len(ROWS),2206)
+        self.assertEqual({r['state']['display']['off'] for r in ROWS},{False,True})
+        self.assertEqual({r['state']['media']['mode'] for r in ROWS if r['state']['page']=='media'},{0,1})
         self.assertIsNone(replay(self.lib,ROWS))
     def test_production_init_has_no_demonstration_bonds_or_fake_connection(self):
         s=State();self.lib.tk_model_init(C.byref(s),12345)
         self.assertFalse(s.connected);self.assertFalse(any(x.used for x in s.slots));self.assertEqual(s.bind_count,0)
         self.assertEqual(s.last_input,12345);self.assertEqual(s.boot_start,12345)
+        self.assertTrue(s.remote_dim);self.assertFalse(s.screen_off);self.assertEqual(s.screen_since,-1)
+        self.assertEqual(s.media_mode,0);self.assertTrue(s.media_select)
         self.assertLess(C.sizeof(State),8192);self.assertLess(C.sizeof(Effects),32768)
     def test_replay_rejects_time_cadence_and_right_modifier_mutations(self):
         self.assertIsNone(replay(self.lib,ROWS), 'Mutation probes require a passing unmodified model first')

@@ -2,6 +2,8 @@
 
 # 验证记录 — 2026-10-28
 
+媒体/息屏候选0.3.1-remote-dev2：**Build PASS；Host tests PASS（127：37 Node+90 Python，2206步，3变异，0跳过）；Device tests NOT RUN；Unverified：新候选全部实机/功耗/配置迁移，以及现有dev3 Windows蓝牙共存原因。** 媒体音乐/抖音选择、实体↑↓OK提示、30秒息屏及暗屏长OK只亮屏均已宿主验证；未刷、未发布，线上仍旧六组。见[记录](validation/remote-control-v0.3.1.json)和HANDOFF26。
+
 快捷键改版：Build PASS（0.3.1-shortcuts-dev1候选，未刷/未发布）；Host tests PASS（102：29 Node+73 Python，1710步）；Device tests：旧dev3真实USB配置保存+3读回通过，截图/Esc及读书/抖音当前端由用户确认可用。候选实机、手机/电脑逐项矩阵和新配置拔电保留仍Unverified。见[新分组记录](validation/shortcuts-v0.3.1.json)。
 
 新版配置交付PASS：Pages提交f8b8ad8部署成功，11个可访问文件匿名HTTP200/字节/SHA一致；公开浏览器预设切换/名片保留/未连接禁写通过。Release另增仅配置更新包及独立manifest/校验文件，11资产匿名重下通过，原8资产不变；未发布新候选固件。见[交付核验](validation/shortcuts-publication-20261028.json)。

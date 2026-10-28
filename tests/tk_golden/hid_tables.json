@@ -1,5 +1,5 @@
 {
-  "source_sha256": "811ce05d34e5228e8beb9c0d2c18fb2e0d2ee25a3e8560fec47782bcfd88a0d1",
+  "source_sha256": "6b29b08cf350ab6b5484ddf13f5ba589e1ec3cc65066a72b3996141f0b3ab53b",
   "MOD": {
     "ctrl": 1,
     "shift": 2,
@@ -245,6 +245,23 @@
       "media": 182
     }
   },
+  "DOUYIN_KEYS": {
+    "up": {
+      "label": "上个视频",
+      "mods": [],
+      "key": 82
+    },
+    "down": {
+      "label": "下个视频",
+      "mods": [],
+      "key": 81
+    },
+    "ok": {
+      "label": "向右/快进",
+      "mods": [],
+      "key": 79
+    }
+  },
   "SHUTTER": {
     "media": 233
   },
@@ -351,24 +368,6 @@
       },
       "down": {
         "label": "下一页",
-        "mods": [],
-        "key": 81
-      }
-    },
-    {
-      "name": "抖音",
-      "up": {
-        "label": "上个视频",
-        "mods": [],
-        "key": 82
-      },
-      "ok": {
-        "label": "向右/快进",
-        "mods": [],
-        "key": 79
-      },
-      "down": {
-        "label": "下个视频",
         "mods": [],
         "key": 81
       }
@@ -551,6 +550,23 @@
           "usage": 182
         }
       },
+      "douyin": {
+        "up": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 82
+        },
+        "down": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 81
+        },
+        "ok": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 79
+        }
+      },
       "meetings": [
         {
           "name": "腾讯会议",
@@ -674,24 +690,6 @@
         },
         {
           "name": "微信读书",
-          "up": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 82
-          },
-          "ok": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 79
-          },
-          "down": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 81
-          }
-        },
-        {
-          "name": "抖音",
           "up": {
             "kind": "key",
             "mod": 0,
@@ -778,6 +776,23 @@
           "usage": 182
         }
       },
+      "douyin": {
+        "up": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 82
+        },
+        "down": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 81
+        },
+        "ok": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 79
+        }
+      },
       "meetings": [
         {
           "name": "腾讯会议",
@@ -918,24 +933,6 @@
           }
         },
         {
-          "name": "抖音",
-          "up": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 82
-          },
-          "ok": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 79
-          },
-          "down": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 81
-          }
-        },
-        {
           "name": "编辑",
           "up": {
             "kind": "key",
@@ -1003,6 +1000,23 @@
         "long_down": {
           "kind": "media",
           "usage": 182
+        }
+      },
+      "douyin": {
+        "up": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 82
+        },
+        "down": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 81
+        },
+        "ok": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 79
         }
       },
       "meetings": [
@@ -1145,24 +1159,6 @@
           }
         },
         {
-          "name": "抖音",
-          "up": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 82
-          },
-          "ok": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 79
-          },
-          "down": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 81
-          }
-        },
-        {
           "name": "编辑",
           "up": {
             "kind": "key",
@@ -1230,6 +1226,23 @@
         "long_down": {
           "kind": "media",
           "usage": 182
+        }
+      },
+      "douyin": {
+        "up": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 82
+        },
+        "down": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 81
+        },
+        "ok": {
+          "kind": "key",
+          "mod": 0,
+          "usage": 79
         }
       },
       "meetings": [
@@ -1355,24 +1368,6 @@
         },
         {
           "name": "微信读书",
-          "up": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 82
-          },
-          "ok": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 79
-          },
-          "down": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 81
-          }
-        },
-        {
-          "name": "抖音",
           "up": {
             "kind": "key",
             "mod": 0,

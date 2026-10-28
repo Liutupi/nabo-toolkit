@@ -2,6 +2,8 @@
 
 Public entry: https://liutupi.github.io/nabo-toolkit/ . Use the latest online page or the separate [`nabo-toolkit-config-shortcuts-20261028.zip`](https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-config-shortcuts-20261028.zip) offline configuration supplement for the new-default-groups button. The supplement is available in the [existing v0.3.0-f3-dev3 Release](https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.0-f3-dev3). F3 retains the F2 protocol. Physical browser permission flow remains unverified.
 
+**Publication boundary:** that online page and named supplement still contain the published f8b8ad8 six-group snapshot, including Douyin (HANDOFF25). The current local source is a separate, unreleased five-group/media/display candidate; its new UI and display behavior are not yet online or installed on the badge.
+
 The original firmware ZIP and `nabo-toolkit-config-offline.zip` retain their publication-time page/defaults and do not automatically track the online page. The newly named configuration supplement has `config-shortcuts-manifest.json` and the separate `CONFIG_SHORTCUTS_SHA256SUMS.txt`. It contains no new firmware and does not replace the original eight release assets. All 11 release assets were anonymously downloaded and matched local bytes/SHA-256; the original eight hashes are unchanged, and all 13 members of the new ZIP matched its manifest. The latest Pages deployment also passed anonymous HTTP 200 and byte/hash checks for its manifest and 11 accessible files.
 
 # Shortcut and card configuration (F2/F3)
@@ -10,24 +12,25 @@ Use existing offline `game-art/toolkit/prototype/config.html`. Browser Save upda
 
 The current badge still runs F3 dev3 and retains the F2 protocol. Open the HTTPS page, complete offline package or localhost page in desktop Chrome/Edge, connect by data cable and choose the freshly enumerated correct USB port. Read, edit and write. Release serial monitors first; opening/reset may restart the badge, and USB reset may require reconnecting the page. Ports never open automatically. Interrupted/timed-out writes need a readback check rather than automatic rewriting.
 
-Edit1–6 groups with UP/OK/DOWN bindings and1–3 cards. Record or manually select left/right modifiers. Mac/iPhone and Windows/Android families are independent; clearing a family disables it. Unset bindings emit no HID. Fixed meeting/PPT/media/camera tables stay unchanged. Defaults come from the current author-maintained tk_hid.js; the user explicitly requested the group changes below. Personal saved configurations are never automatically overwritten.
+Edit1–6 groups and1–3 cards. The local candidate editor displays UP/DOWN/OK rows to match the physical top-to-bottom keys; the published snapshot still has its earlier layout. JSON keeps its existing up/ok/down fields. Record or manually select left/right modifiers. Mac/iPhone and Windows/Android families are independent; clearing a family disables it. Unset bindings emit no HID. Meeting/PPT/camera and the candidate's Music/Douyin controls are fixed outside this editor. Defaults come from the current author-maintained tk_hid.js; personal saved configurations are never automatically overwritten.
 
-## New defaults and existing-device configuration
+## Unreleased candidate defaults and existing-device configuration
 
-| Group | UP | OK | DOWN |
+| Group | UP | DOWN | OK |
 |---|---|---|---|
-| Screenshot | Original screenshot chord | Original paste chord | Esc cancel |
-| Typeless | Original translate binding | Original voice-input binding | Original ask binding |
-| CapCut | Original split binding | Original play/pause binding | Original undo binding |
-| WeRead | ↑ previous page | → next chapter | ↓ next page |
-| Douyin | ↑ previous video | → right/seek | ↓ next video |
-| Edit | Undo: Cmd/Ctrl+Z | Copy: Cmd/Ctrl+C | Select all: Cmd/Ctrl+A |
+| Screenshot | Original screenshot chord | Esc cancel | Original paste chord |
+| Typeless | Original translate binding | Original ask binding | Original voice-input binding |
+| CapCut | Original split binding | Original undo binding | Original play/pause binding |
+| WeRead | ↑ previous page | ↓ next page | → next chapter |
+| Edit | Undo: Cmd/Ctrl+Z | Select all: Cmd/Ctrl+A | Copy: Cmd/Ctrl+C |
 
-Window, PS and Browser are removed from the new default set. The screenshot/paste, Typeless and CapCut actions are retained; Screenshot DOWN now sends Esc. WeRead/Douyin send plain UP0x52, RIGHT0x4f and DOWN0x51 on all four host types, including phones. OK sends the keyboard right arrow, not a mouse right click. Page/chapter/seek behavior depends on the actual app, reading mode and focus; Douyin RIGHT is not guaranteed to select the next video. The user confirmed screenshot invocation/cancellation and said WeRead/Douyin work on the current test host. The host type was not specified; separate phone/desktop platforms and individual chapter/seek behaviors remain unverified.
+The candidate has five default groups. Window, PS and Browser remain removed; Douyin moves from the default groups to Media → Douyin. Music retains volume up/down, play/pause, long-OK next track and long-DOWN previous track. Douyin sends plain UP0x52/RIGHT0x4f/DOWN0x51 with UP/OK/DOWN; long OK/DOWN have no tool action, and long UP returns to the media picker. WeRead also uses plain arrows on all four host types. OK sends the keyboard right arrow. Page/chapter/seek behavior depends on the app, mode and focus; Douyin RIGHT is not guaranteed to select the next video. The earlier user confirmation of screenshots and WeRead/Douyin concerned the old dev3 six-group configuration on an unspecified host, not this candidate's new media UI.
+
+The candidate adds Settings row4 Remote display-off (About moves to5). When eligible, display-off begins30 seconds after entering/waking the remote page; short keys still send and do not reset that interval. Dark-screen long OK only wakes and is consumed; lit-screen long-OK actions remain, and long UP still returns. The switch is saved independently in NVS `remote_v1`, preserving `settings_v1`, `cfg_v1` and bonds without migration or erase. Existing custom configurations may still have six groups, including Douyin; nothing removes them automatically. Device migration requires the new firmware, not just a configuration write. Candidate `0.3.1-remote-dev2` passed the complete127-test/2,206-step host gate and ESP-IDF6.0.2/F3 build. It remains unflashed/unpublished; physical display-off/HID/wake and power measurements are unverified.
 
 For an existing badge: **Connect → Read from badge → Use new default shortcuts (keep cards) → Write and verify**. The new-default-groups button only replaces groups in the current editor and retains that editor's cards. Read first to retain the actual cards stored on the badge. Clicking the button does not automatically read/write the device or save browser storage. Restore defaults resets both draft groups and cards, so it is not a substitute for the card-preserving workflow.
 
-For the separate offline configuration supplement, extract the complete package and open its `config.html` in desktop Chrome/Edge, then use the same workflow on the existing dev3; no firmware reflash is required. Neither the new page nor the new offline package automatically migrates stored NVS `cfg_v1`, and the package contains no personal configuration export. Only explicit Write and verify saves new groups to the badge; retained cards come from the actual configuration read first.
+For the published separate offline supplement, extract the complete package and open its `config.html` in desktop Chrome/Edge. Its historical six-group update works on old dev3 without flashing; it does not add the candidate media/display features. Neither page/package automatically migrates NVS `cfg_v1`, and the package contains no personal configuration export. Only explicit Write and verify saves groups; retained cards come from the actual configuration read first.
 
 Existing dev3 loads its stored NVS configuration before using defaults; a firmware upgrade does not automatically replace personal groups. The production JS client has written the six new groups over real USB to the current old dev3 and read them back three times; original screenshot/paste, Typeless, CapCut and cards are retained as intended. No firmware flash, bond change, partition change or NVS erase was performed. This proves configuration save/readback on the old dev3. The user subsequently confirmed screenshot invocation/cancellation and WeRead/Douyin operation on the current host, without identifying phone versus desktop. It is not all-platform acceptance or on-device acceptance of the new candidate.
 
@@ -67,6 +70,10 @@ During >tk.test=1, configuration writes are refused; reads return actual committ
 
 Use project ESP-IDF6.0.2 plus Node/Python/native C11 compiler. Current F3: native Windows ./tools/validate.ps1 -Stage F3; Linux/WSL ./tools/validate.sh --f3; output build/f3. F3 inherits F1/F2 defaults; use -Stage F2 / --f2 to regress F2 separately. JSON uses pinned espressif/cjson1.7.19~2; preexisting cmake_utilities stays1.1.1 and other dependency versions remain.
 
-The complete gate has PASSED:29 Node+73 Python=102 checks,1710 full replay steps and3 deliberate mutations caught; ESP-IDF6.0.2/F3 build PASS. Candidate `0.3.1-shortcuts-dev1` app is1,999,728 bytes and has not been flashed or published. Current user feedback comes from the old dev3 configuration update, not device acceptance of this candidate.
+Current media/display gate PASS:37 Node+90 Python=127 checks, zero skips,2,206 replay steps and3 deliberate mutations caught; ESP-IDF6.0.2/F3 build PASS. Candidate `0.3.1-remote-dev2` app is2,011,616 bytes, SHA-256 `b4043d24fb20bf4ad68091587486ded70d889e0a42579edca0e44e9e211b8ffe`, leaving20,000 bytes in the legacy factory partition. Independent archive verification, source-input SHA comparison and binary version checks passed. The candidate has not been flashed or published; online Pages still serves the old six-group snapshot.
+
+Dev2 adds read-only diagnostics for connection interval (CI), latency, supervision timeout and HID transmission errors. It does not change BLE policy or the configuration protocol. A completed TX is not a host acknowledgment and does not prove that an app executed the action; the Windows Bluetooth fault cause remains unresolved.
+
+Historical shortcut-only gate PASSED:29 Node+73 Python=102 checks,1710 full replay steps and3 deliberate mutations caught; ESP-IDF6.0.2/F3 build PASS. That `0.3.1-shortcuts-dev1` app is1,999,728 bytes and was not flashed/published. Current user feedback comes from the old dev3 configuration update, not device acceptance of either candidate.
 
 Historical F2 acceptance, not this default-group revision:87 host tests/1710 steps covered shared JS/C validation, production JS-to-C stdio/RAM persistence/fault injection, model and rendering. The production JS client subsequently passed actual USB save/readback/rejections/two resets/20 reads, restoring original configuration. Dev1 dropped-read chunks were detected by length checks; dev2 buffered USB completed the tests. Configured text/card/QR and cold power retention after commit are user/readback verified. Actual browser permission/unplug during transfer/power interruption during commit/hardware fault semantics still need separate acceptance; see [validation](VALIDATION.md) and validation/f2.json.

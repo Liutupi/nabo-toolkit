@@ -13,6 +13,7 @@ class HidMapTests(unittest.TestCase):
 const specs=[];['prev','next','black','end','start'].forEach((k,i)=>specs.push([0,i,0,H.PPT[k]]));
 H.MEET_APPS.forEach((a,i)=>['mute','cam','hand'].forEach((k,j)=>specs.push([1,i,j,a[k]])));
 ['up','down','ok','long_up','long_down','long_ok'].forEach((k,i)=>specs.push([2,i,0,H.MEDIA_KEYS[k]]));
+['up','down','ok','long_up','long_down','long_ok'].forEach((k,i)=>specs.push([5,i,0,H.DOUYIN_KEYS[k]]));
 H.MACRO_GROUPS.forEach((g,i)=>['up','ok','down'].forEach((k,j)=>specs.push([3,i,j,g[k]])));specs.push([4,0,0,H.SHUTTER]);
 console.log(JSON.stringify({bindings:H.OS_LIST.flatMap((os,n)=>specs.map(([t,i,j,s])=>{const p=H.resolve(s,os);return {t,i,j,os:n,p,chord:H.chordLabel(p,os),bytes:p?H.reportBytes(p):[]}})),
  ascii:Array.from({length:128},(_,i)=>H.textPackets(String.fromCharCode(i))),names:Array.from({length:256},(_,i)=>H.keyName(i))}));"""
@@ -22,7 +23,7 @@ console.log(JSON.stringify({bindings:H.OS_LIST.flatMap((os,n)=>specs.map(([t,i,j
         unload(cls.lib);cls.lib=None;cls.temp.cleanup()
     def test_c_export_matches_current_author_table(self):
         subprocess.run(['node','tools/export_hid_map.js','--check'],cwd=ROOT,check=True,capture_output=True)
-    def test_all_168_default_bindings_chords_and_exact_reports_match_js(self):
+    def test_every_default_and_media_mode_binding_chord_and_exact_report_matches_js(self):
         for row in self.reference['bindings']:
             p=self.lib.tk_host_binding(row['t'],row['i'],row['j'],row['os'])
             if row['p'] is None:self.assertFalse(p);continue

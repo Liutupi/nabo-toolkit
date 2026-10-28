@@ -1,0 +1,187 @@
+{
+  "date": "2026-10-28",
+  "candidate_version": "0.3.1-remote-dev2",
+  "source_base_commit": "0878ce1edc4bf9f97142b987b3fd3f02b5bd67c8",
+  "build": "PASS",
+  "sdk": "v6.0.2",
+  "target": "esp32c3",
+  "flash_bytes": 8388608,
+  "psram": false,
+  "archive": "build/firmware/9bcc39298ddaced09803052de27b6671d502e5d72cd5e249e55140f48abe548b",
+  "artifacts": {
+    "nabo-toolkit.bin": {
+      "sha256": "b4043d24fb20bf4ad68091587486ded70d889e0a42579edca0e44e9e211b8ffe",
+      "bytes": 2011616
+    },
+    "nabo-toolkit.elf": {
+      "sha256": "b315693e37b2a4115318d195450f6740e844244529e12c27277aa524f4300c7c",
+      "bytes": 11205624
+    },
+    "nabo-toolkit.map": {
+      "sha256": "7539da45373128d971cfd1f258ccaf4246d2b80ae1b67867ac960bf6e3f417f3",
+      "bytes": 6316034
+    },
+    "nabo-toolkit-merged.bin": {
+      "sha256": "9bcc39298ddaced09803052de27b6671d502e5d72cd5e249e55140f48abe548b",
+      "bytes": 2077152
+    }
+  },
+  "archive_independently_verified": true,
+  "source_input_hashes_match": true,
+  "binary_version_verified": true,
+  "actual_legacy_factory_capacity": 2031616,
+  "actual_legacy_remaining_bytes": 20000,
+  "potential_app_only_range": "[0x10000,0x1fb1e0)",
+  "potential_erase_end_exclusive": "0x1fc000",
+  "host_tests": {
+    "status": "PASS",
+    "node": 37,
+    "python": 90,
+    "total": 127,
+    "skipped": 0,
+    "full_model_steps": 2206,
+    "mutations_caught": 3
+  },
+  "assets": {
+    "status": "PASS",
+    "files": 368,
+    "bytes": 93040985,
+    "original_364_unchanged": true
+  },
+  "physical_button_order": {
+    "top_to_bottom": [
+      "UP",
+      "DOWN",
+      "OK"
+    ],
+    "source": "https://ai-passport.folotoy.cn/guides/getting-started/",
+    "source_annotated_image": "https://ai-passport.folotoy.cn/assets/guides/mote-controls-side.png",
+    "bsp_adc_mapping_changed": false
+  },
+  "behavior": {
+    "default_groups": [
+      "截图",
+      "Typeless",
+      "剪映",
+      "微信读书",
+      "编辑"
+    ],
+    "media_mode_picker": [
+      "音乐",
+      "抖音"
+    ],
+    "music_bindings_retained": true,
+    "douyin_short_up_ok_down": [
+      "0x52",
+      "0x4f",
+      "0x51"
+    ],
+    "old_six_group_config_supported": true,
+    "automatic_personal_config_migration": false,
+    "display_off_enabled_by_default": true,
+    "display_off_ms": 30000,
+    "eligible": "Connected macro page or selected media tool; no pairing or OS picker",
+    "short_keys_extend_display_timer": false,
+    "dark_short_keys_send_hid": true,
+    "dark_long_ok": "Wake only; consume without group/track/HID action",
+    "lit_long_ok": "Original tool action retained",
+    "long_up": "Return and light; media tool returns to picker",
+    "hardware_dark": "Backlight zero; no renderer, animation decode or LCD transfers; BLE/buttons/USB active",
+    "hardware_wake": "Invalidate, complete repaint and DMA fences before backlight80",
+    "error_or_config_wakes": true,
+    "new_persistence_key": "nabo_tk/remote_v1",
+    "existing_settings_and_config_preserved": true
+  },
+  "ui_checks": {
+    "status": "PASS",
+    "host_c_preview": "docs/images/remote-control/host-overview.png",
+    "preview_is_lcd_photograph": false,
+    "full_and_incremental_rendering_equal": true,
+    "browser_local_config_qa": true,
+    "browser_rows_up_down_ok_for_all_five_groups": true,
+    "browser_cards_preserved": true,
+    "browser_disconnected_write_disabled": true,
+    "browser_no_serial_opened": true,
+    "browser_preview": "docs/images/remote-control/config-order.jpg"
+  },
+  "device_tests": "NOT RUN for this candidate",
+  "candidate_flashed": false,
+  "candidate_published": false,
+  "candidate_config_published": false,
+  "public_page_remains": "f8b8ad8 six-group snapshot",
+  "windows_bluetooth_issue": {
+    "installed_firmware": "Existing F3 dev3; candidate not installed",
+    "user_report": "Other Bluetooth headphones and keyboard failed to connect/respond or disconnected",
+    "badge_off_did_not_recover": true,
+    "windows_bluetooth_off_on_recovered": true,
+    "badge_connected_idle_30s_other_devices_ok": true,
+    "single_plain_arrow_other_devices_ok": true,
+    "screenshot_chord_coexistence": "PASS: screenshot chord and Esc cancellation; headphones and keyboard remained normal",
+    "controller": "BARROT Bluetooth 5.4 Adapter",
+    "controller_driver_version": "17.55.6.566",
+    "controller_device_status": "OK",
+    "bthserv": "RUNNING",
+    "historical_authentication_failure_observed": true,
+    "causation": "UNCONFIRMED; no reproduction yet after Windows Bluetooth reset",
+    "ble_code_changed_for_this_issue": false,
+    "hid_release_delivery_to_host": "UNVERIFIED at link-control race boundaries",
+    "diagnosis_is_candidate_acceptance": false,
+    "user_clarification": "Intermittent difficulty establishing or recovering headphone connection while badge is on; shutting badge helped previously; once connected simultaneous use can be normal",
+    "cause_status": "UNCONFIRMED; post-reset idle, plain-arrow and modifier-chord coexistence tests passed on existing dev3",
+    "candidate_telemetry_preparation": "remote-dev2 fixed candidate passed 127-test gate; telemetry device observation pending exact-app authorization"
+  },
+  "unverified": [
+    "Candidate installation and physical media navigation/key position acceptance",
+    "Dark-screen HID and long-OK wake on real hardware",
+    "Independent remote_v1 real power-off retention and existing-config migration acceptance",
+    "Measured current or battery-runtime savings",
+    "Bluetooth headphones/keyboard coexistence cause and sustained reproduction",
+    "Original full-host/reconnect/three-slot/sleep/stability gates"
+  ],
+  "read_only_target_preflight": {
+    "status": "PASS",
+    "port": "COM12",
+    "chip": "esp32c3",
+    "flash_bytes": 8388608,
+    "factory_offset": 65536,
+    "factory_bytes": 2031616,
+    "assets_offset": 2097152,
+    "assets_bytes": 6291456,
+    "current_version": "0.3.0-f3-dev3",
+    "installed_app_matches_fixed_accepted_binary": true,
+    "flash_write_or_erase_performed": false,
+    "identity_and_raw_protected_data_private": true
+  },
+  "earlier_candidate": {
+    "version": "0.3.1-remote-dev1",
+    "app_sha256": "76c246709570c2ee98f0ed724f8f7b9c90e124cd4a752288b9144baf8dea1b4d",
+    "app_bytes": 2010112,
+    "host_tests": 125,
+    "archive": "build/firmware/46d02c2f7d8d236e1b86e19f5a5c8f05654d087f0a29fa18f39e39cef89d0c2d",
+    "flashed": false
+  },
+  "ble_telemetry": {
+    "policy_changed": false,
+    "fields": [
+      "ble_params_valid",
+      "ble_ci_us",
+      "ble_latency",
+      "ble_sto_ms",
+      "ble_tx_ok",
+      "ble_tx_err",
+      "ble_press_err",
+      "ble_release_err",
+      "ble_enqueue_error",
+      "ble_tx_error"
+    ],
+    "ci_units": "microseconds, raw conn_itvl *1250",
+    "supervision_units": "milliseconds, raw timeout *10",
+    "notification_completion_is_host_processing_ack": false,
+    "identifiers_or_report_payload_logged": false,
+    "snapshot_max_attempts": 2,
+    "uses_64_bit_atomics": false,
+    "host_tests": 2,
+    "device_observation": "NOT RUN"
+  },
+  "flash_authorization": "PENDING for exact remote-dev2 app; no write performed"
+}

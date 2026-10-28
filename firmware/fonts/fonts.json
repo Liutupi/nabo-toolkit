@@ -1,10 +1,11 @@
 {
   "converter": "lv_font_conv 1.5.3",
-  "symbols": "·—…←↑→↓∈−「」一万上下不两个中主举么习书二于五享什今他以件任休会位体作你便保信修停储像先入全关其具内再准分切列删制前剪割功动助卓单原去发取口只可台右同名后向回图在型备复多大天太失头始媒字存安定容对小尚就屏工已应延开张录待微快恢惯意成我或截手才打扫抖拍拒择持按换捷接控提搞摄撤播操支改放数文断新无时映是暂曲替最有未机束校核止正没法波消源满演照片版牌牙物用电画留的目直相眠短码确示秒程稍空窗章端第等箱类粘组绑结绝继绪续维缓编置翻脑腾自致菜蓝要视计认议讯记讲设译试语读败贴资超足跳软辑输过返还这进远连送选遥那配里重量钟销键长门问间队除陪随静面音页项频飞验黑！，：？",
+  "symbols": "·—…←↑→↓∈−、「」一万上下不两个中为主举么乐习书二于五享亮什今他以件任休会位体作你便保信修倒停储像先入全关其具内再准分切列删制前剪割功动助卓单原去发取口只可台右同名后向响回图在型备复多大天太失头始媒字存安定容对小尚就屏工已常应延开张录待微快恢息惯意成我或截手才打扫抖拍拒择持按换捷接控提搞摄撤播操支改放数文新方无时映是暂曲替最有未机束标校核歌止正没法波消源满演照片版牌牙物玩用电画留的盘目直相眠短码确示离秒程稍空窗章端第等箱类粘线组终绑结绝继绪续维缓编网置翻联能脑腾自致菜蓝要视计认议讯记讲设译试语读败贴资超足跳软辑输过返还这进远连送选遥那配里重量钟销键长门问间队除陪随静面音页项频飞验黑！，：？",
   "source_files": [
     "firmware/main/tk_animation.c",
     "firmware/main/tk_audio_mix.c",
     "firmware/main/tk_ble.c",
+    "firmware/main/tk_ble_diag.c",
     "firmware/main/tk_ble_hid.c",
     "firmware/main/tk_ble_slots.c",
     "firmware/main/tk_cjk_compact.c",
@@ -46,22 +47,22 @@
       "size": 12,
       "font": "SourceHanSansCN-Medium.otf",
       "source_sha256": "a94e558a2fe972bee4f46bce0843abff37063fd68c33f1e7d9058f6f09432b01",
-      "sha256": "19f1141404d72985fa17bc66243f55f4b650daa81e14845eba2abfc54a524858",
-      "bytes": 183764
+      "sha256": "8d785b4ae46fe51371b5af31c9ccefe56ecc2f0649850f1715f1a7aabbdfa9d1",
+      "bytes": 193595
     },
     "tk_font_16": {
       "size": 16,
       "font": "SourceHanSansCN-Medium.otf",
       "source_sha256": "a94e558a2fe972bee4f46bce0843abff37063fd68c33f1e7d9058f6f09432b01",
-      "sha256": "77d6b08956bce0de34b2b6e165088c71a62f7bff95276dd059797424f828685d",
-      "bytes": 278959
+      "sha256": "aea45e35628238f8a5435cd94b76a4d218a39a310958ca739c62ac0e43d2cede",
+      "bytes": 293819
     },
     "tk_font_18": {
       "size": 18,
       "font": "SourceHanSansCN-Medium.otf",
       "source_sha256": "a94e558a2fe972bee4f46bce0843abff37063fd68c33f1e7d9058f6f09432b01",
-      "sha256": "d2078e17e58e218576c86d7a7b80f31d150af70373a1b381233d8bcb55ae051f",
-      "bytes": 327195
+      "sha256": "c6a4975389800af11b2679abe15690a584ce93961d056db3947150234e989103",
+      "bytes": 344896
     },
     "tk_font_28": {
       "size": 28,

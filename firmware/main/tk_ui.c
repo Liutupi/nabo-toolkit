@@ -37,7 +37,7 @@ static void top(ag_t *g,const tk_state_t *s,int64_t now,bool unavailable)
 static void menu(ag_t *g,const tk_state_t *s,int64_t now,const tk_ui_assets_t *a)
 {
     static const char *const names[]={"快捷键","PPT翻页","会议","媒体","拍照","名片","连接","设置"};
-    static const char *const sub[]={"一键搞定","演讲计时","静音举手","音量播放","远程快门","扫码分享","设备切换","按你习惯"};
+    static const char *const sub[]={"一键搞定","演讲计时","静音举手","音乐抖音","远程快门","扫码分享","设备切换","按你习惯"};
     ag_rect(g,0,36,240,68,0,UI_PANEL,255,0,0);ui_nabo(g,a,TK_AN_AVATAR,42,102,now);
     ag_rect(g,84,44,148,50,10,UI_PAPER,255,0,0);ui_text(g,"今天遥控什么？",94,66,16,UI_INK,NT_ALIGN_LEFT);
     char line[160];
@@ -55,16 +55,19 @@ static void menu(ag_t *g,const tk_state_t *s,int64_t now,const tk_ui_assets_t *a
 }
 static void settings(ag_t *g,const tk_state_t *s)
 {
-    static const char *const names[]={"按键提示音","开机语音","演讲时长","自动休眠","关于"};
+    static const char *const names[]={"按键提示音","开机语音","演讲时长","自动休眠","息屏遥控","关于"};
+    static const char *const hints[]={"演讲翻页时始终不响","那波，陪你遥控万物！","PPT 计时的目标时长","计时、倒数、配对时不休眠","短键照常发送 · 长OK只亮屏","离线 · 蓝牙键盘 · 不联网"};
     static const int talk[]={5,10,15,20,30,45,60},sleep[]={5,15,30,0};
-    char values[5][64];snprintf(values[0],64,"%s",s->beep?"开":"关");snprintf(values[1],64,"%s",s->voice?"开":"关");
+    char values[6][64];snprintf(values[0],64,"%s",s->beep?"开":"关");snprintf(values[1],64,"%s",s->voice?"开":"关");
     snprintf(values[2],64,"%d 分钟",talk[s->talk]);if(sleep[s->sleep])snprintf(values[3],64,"%d 分钟",sleep[s->sleep]);else snprintf(values[3],64,"连接时不休眠");
-    snprintf(values[4],64,"工具箱开发版");
-    for(int i=0;i<5;i++){int y=42+i*44;bool sel=s->set_sel==i;ag_rect(g,10,y,220,38,10,sel?UI_GOLD:UI_PANEL,255,sel?UI_INK:0,sel?2:0);ui_text(g,names[i],20,y+25,16,sel?UI_INK:UI_PAPER,NT_ALIGN_LEFT);ui_fit(g,values[i],220,y+25,116,16,sel?UI_INK:UI_DIM,NT_ALIGN_RIGHT);}
-    ui_text(g,"设置会在断电后保留",120,272,12,UI_DIM,NT_ALIGN_CENTER);ui_bar(g,"↑↓ 选择 · OK 修改 · 长按↑ 返回");
+    snprintf(values[4],64,"%s",s->remote_dim?"开":"关");snprintf(values[5],64,"工具箱开发版");
+    for(int i=0;i<6;i++){int y=42+i*36;bool sel=s->set_sel==i;ag_rect(g,10,y,220,32,8,sel?UI_GOLD:UI_PANEL,255,sel?UI_INK:0,sel?2:0);ui_text(g,names[i],20,y+22,16,sel?UI_INK:UI_PAPER,NT_ALIGN_LEFT);ui_fit(g,values[i],220,y+22,116,16,sel?UI_INK:UI_DIM,NT_ALIGN_RIGHT);}
+    const char *hint=s->set_sel==4 && !s->remote_dim?"遥控时保持亮屏":hints[s->set_sel];
+    ui_fit(g,hint,120,275,224,12,UI_DIM,NT_ALIGN_CENTER);ui_bar(g,"↑↓ 选择 · OK 修改 · 长按↑ 返回");
 }
 void tk_ui_frame(tk_ui_t *ui,ag_t *g,const tk_state_t *s,int64_t now,const tk_ui_assets_t *a,int comparison)
 {
+    if(s->screen_off){ag_begin(g,40);ag_rect(g,0,0,240,320,0,0,255,0,0);return;}
     ag_begin(g,s->page*4+(s->card_zoom?1:0));ag_rect(g,0,0,240,320,0,UI_BG,255,0,0);
     if(s->page==TK_PAGE_BOOT)ui_boot(g,s,now,a);
     else{

@@ -2,6 +2,8 @@
 
 # Validation checkpoint — 2026-10-28
 
+Media/display candidate0.3.1-remote-dev2: **Build PASS; Host tests PASS (127:37 Node+90 Python,2206 steps,3 mutations,zero skips); Device tests NOT RUN; Unverified: candidate hardware/power/config migration and the existing dev3 Windows coexistence cause.** Music/Douyin selection,physical UP/DOWN/OK rows,30-second display-off and dark long-OK-only wake passed host checks. No flash/publication;live page remains the old six groups. See [record](validation/remote-control-v0.3.1.json) and HANDOFF26.
+
 Shortcut update: Build PASS (0.3.1-shortcuts-dev1 candidate,not flashed/published); Host tests PASS (102:29 Node+73 Python,1710 steps); Device config save/three reads on existing dev3 PASS,user accepted screenshot/Esc and reading/Douyin on the current end. Candidate device tests,separate phone/desktop acceptance and new-config cold retention remain unverified. See [record](validation/shortcuts-v0.3.1.json).
 
 Configuration delivery PASS: Pages commit f8b8ad8 deployed;11 accessible files match anonymously over HTTP200/bytes/SHA. Public-browser preset/card-preservation/disconnected-write checks pass. A separately named config-only ZIP plus manifest/checksums supplements the Release;all11 assets anonymously re-downloaded,original8 unchanged. No candidate firmware published. See [delivery verification](validation/shortcuts-publication-20261028.json).

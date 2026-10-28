@@ -1,5 +1,6 @@
 // Shared F0/F1 secure peripheral. The F1 build adds a persistent three-slot registry.
 #include "tk_ble.h"
+#include "tk_ble_diag.h"
 #include "tk_probe_model.h"
 #include <stdatomic.h>
 #include <string.h>
@@ -63,11 +64,17 @@ bool tk_ble_ready(void)
         tk_hid_ready(atomic_load(&s_encrypted), atomic_load(&s_authenticated), atomic_load(&s_subscribed),
                      tk_ble_hid_protocol(), tk_ble_hid_suspended());
 }
+static void connection_diag(uint16_t handle)
+{
+    struct ble_gap_conn_desc d;
+    if(!ble_gap_conn_find(handle,&d))tk_ble_diag_link(true,d.conn_itvl,d.conn_latency,d.supervision_timeout);
+}
 static void state(void)
 {
     tk_ble_state_t next = tk_ble_ready() ? TK_BLE_SECURED :
         atomic_load(&s_conn) != BLE_HS_CONN_HANDLE_NONE ? TK_BLE_LINK : s_mode;
     if (next != s_last_state) {
+        if(next==TK_BLE_SECURED)connection_diag(atomic_load(&s_conn));
         ESP_LOGI("tk_ble_diag", "state=%u", (unsigned)next);
         emit(TK_BLE_STATE, next, next == TK_BLE_SECURED ? now_ms() - s_attempt : 0);
         s_last_state = next;
@@ -82,6 +89,7 @@ static void clear_link(void)
     atomic_store(&s_encrypted, false); atomic_store(&s_authenticated, false);
     atomic_store(&s_subscribed, 0);
     tk_ble_hid_reset();
+    tk_ble_diag_link(false,0,0,0);
     xQueueReset(s_queue);
     emit(TK_BLE_PASSKEY, UINT32_MAX, 0);
 }
@@ -185,7 +193,7 @@ static int gap(struct ble_gap_event *ev, void *arg)
     case BLE_GAP_EVENT_CONNECT:
         ESP_LOGI("tk_ble_diag", "connect status=%d", ev->connect.status);
         if (ev->connect.status) { s_restart = true; break; }
-        clear_link(); atomic_store(&s_conn, ev->connect.conn_handle);
+        clear_link(); atomic_store(&s_conn, ev->connect.conn_handle);connection_diag(ev->connect.conn_handle);
 #ifdef CONFIG_NABO_TOOLKIT_F1
         if(s_mode==TK_BLE_PAIRING){struct ble_gap_conn_desc d;
             if(!ble_gap_conn_find(ev->connect.conn_handle,&d) && tk_ble_slots_known(&d.peer_id_addr)){
@@ -240,6 +248,12 @@ static int gap(struct ble_gap_event *ev, void *arg)
         ESP_LOGI("tk_ble_diag", "subscription mask=%u", atomic_load(&s_subscribed));
         break;
     }
+    case BLE_GAP_EVENT_CONN_UPDATE:
+        if(!ev->conn_update.status)connection_diag(ev->conn_update.conn_handle);
+        break;
+    case BLE_GAP_EVENT_NOTIFY_TX:
+        if(!ev->notify_tx.indication && tk_ble_hid_subscription(ev->notify_tx.attr_handle))tk_ble_diag_tx(ev->notify_tx.status);
+        break;
     case BLE_GAP_EVENT_PASSKEY_ACTION:
         // Log only the action kind, never the code or any peer address/key.
         ESP_LOGI("tk_ble_diag", "passkey_action=%u", (unsigned)ev->passkey.params.action);
@@ -372,11 +386,11 @@ static void sender(void *arg)
         if (r.generation != atomic_load(&s_generation) || !tk_ble_ready()) { emit(TK_BLE_RESULT, 0, 0); continue; }
         if (r.report == 2 && !tk_ble_hid_protocol()) { emit(TK_BLE_RESULT, 0, 0); continue; }
         uint16_t handle = tk_ble_hid_handle(r.report, tk_ble_hid_protocol());
-        int rc = notify(&r, handle, false);
+        int rc = notify(&r, handle, false);tk_ble_diag_enqueue(false,rc);
         if (!rc) {
             vTaskDelay(pdMS_TO_TICKS(45));
             for (int i = 0; i < 3; ++i) {
-                rc = notify(&r, handle, true);
+                rc = notify(&r, handle, true);tk_ble_diag_enqueue(true,rc);
                 if (!rc || rc == BLE_HS_ENOTCONN) break;
                 vTaskDelay(pdMS_TO_TICKS(20));
             }
@@ -431,6 +445,7 @@ bool tk_ble_sleep_ready(void){return atomic_load(&s_quiet);}
 #endif
 esp_err_t tk_ble_start(tk_ble_sink_t sink)
 {
+    tk_ble_diag_reset();
     s_sink = sink;
 #ifdef CONFIG_NABO_TOOLKIT_F1
     tk_ble_slots_init();s_controls=xQueueCreate(8,sizeof(control_t));if(!s_controls)return ESP_ERR_NO_MEM;

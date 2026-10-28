@@ -1,4 +1,4 @@
-set(TK_COMMON "tk_ble.c" "tk_ble_hid.c" "tk_probe_model.c" "tk_gfx.c" "tk_shapes.c" "tk_text.c")
+set(TK_COMMON "tk_ble.c" "tk_ble_hid.c" "tk_ble_diag.c" "tk_probe_model.c" "tk_gfx.c" "tk_shapes.c" "tk_text.c")
 if(CONFIG_NABO_TOOLKIT_F1)
     set(TK_APPLICATION "tk_f1_main.c" "tk_f1_ui_device.c" "tk_f1_assets.c" "tk_sound.c" "tk_persist.c"
         "tk_model.c" "tk_model_config.c" "tk_model_tools.c" "tk_model_connection.c" "tk_hid_map.c" "tk_slots.c" "tk_ble_slots.c"

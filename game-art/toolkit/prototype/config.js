@@ -7,7 +7,8 @@
   const H = window.TKHID;
   const STORE = 'nabo_tk_config_v1';
   const C = window.TKConfig, LIMIT = C.LIMIT;
-  const SLOTS = [['up', '↑'], ['ok', 'OK'], ['down', '↓']];
+  // Passport right edge, top to bottom: UP, DOWN, OK.
+  const SLOTS = [['up', '↑'], ['down', '↓'], ['ok', 'OK']];
   const MODS = [['ctrl', 'Ctrl'], ['shift', 'Shift'], ['alt', 'Alt / Option'], ['gui', 'Win / Cmd'],
                 ['rctrl', '右 Ctrl'], ['rshift', '右 Shift'], ['ralt', '右 Alt / Option'], ['rgui', '右 Win / Cmd']];
   const MEDIA = [[0xcd, '播放 / 暂停'], [0xb5, '下一曲'], [0xb6, '上一曲'], [0xe9, '音量 +'], [0xea, '音量 −']];

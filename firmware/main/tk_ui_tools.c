@@ -14,7 +14,26 @@ static void row(ag_t *g,const tk_state_t *s,int index,const char *label,const tk
 }
 static void rows(ag_t *g,const tk_state_t *s,const char *up,const char *ok,const char *down,const tk_binding_t *u,const tk_binding_t *o,const tk_binding_t *d)
 {
-    row(g,s,0,up,u,TK_UP);row(g,s,1,ok,o,TK_OK);row(g,s,2,down,d,TK_DOWN);
+    row(g,s,0,up,u,TK_UP);row(g,s,1,down,d,TK_DOWN);row(g,s,2,ok,o,TK_OK);
+}
+static void remote_bar(ag_t *g,const tk_state_t *s,const char *hint)
+{
+    if(!s->remote_dim){ui_bar(g,hint);return;}
+    ag_rect(g,0,290,240,30,0,UI_INK,255,0,0);
+    ui_text(g,"30秒息屏 · 长OK亮屏",120,301,12,UI_PAPER,NT_ALIGN_CENTER);
+    ui_fit(g,hint,120,315,226,12,UI_PAPER,NT_ALIGN_CENTER);
+}
+static void media_choice(ag_t *g,const tk_state_t *s)
+{
+    static const char *const names[]={"音乐","抖音"},*const descriptions[]={"音量 · 播放 · 切歌","方向键 ↑ / → / ↓"};
+    ui_text(g,"选择媒体玩法",12,53,12,UI_DIM,NT_ALIGN_LEFT);
+    for(int i=0;i<2;i++){int y=66+i*78;bool selected=s->media_mode==i;
+        ag_rect(g,10,y,136,64,10,selected?UI_GOLD:UI_PANEL,255,selected?UI_INK:0,selected?2:0);
+        ag_rect(g,13,y+10,4,44,0,tk_ui_accents[TK_PAGE_MEDIA],255,0,0);
+        ui_text(g,names[i],80,y+28,18,selected?UI_INK:UI_PAPER,NT_ALIGN_CENTER);
+        ui_fit(g,descriptions[i],80,y+49,116,12,selected?UI_INK:UI_DIM,NT_ALIGN_CENTER);
+    }
+    ui_text(g,"选择后开始遥控",12,240,12,UI_DIM,NT_ALIGN_LEFT);ui_bar(g,"↑↓ 选择 · OK 进入 · 长↑ 返回");
 }
 void ui_tools(ag_t *g,const tk_state_t *s,int64_t now,const tk_ui_assets_t *a)
 {
@@ -27,7 +46,7 @@ void ui_tools(ag_t *g,const tk_state_t *s,int64_t now,const tk_ui_assets_t *a)
         ag_rect(g,12,62,216,44,10,UI_PANEL,255,accent,2);ui_text(g,tk_model_macro_name(s,s->macro_group),120,91,18,UI_PAPER,NT_ALIGN_CENTER);
         snprintf(text,sizeof(text),"%s 键位 · 配置页里可以改",tk_os_names[tk_model_os(s)]);ui_fit(g,text,12,125,216,12,UI_DIM,NT_ALIGN_LEFT);
         rows(g,s,b[0].label,b[1].label,b[2].label,&b[0],&b[1],&b[2]);
-        ui_bar(g,"长 OK 下一组 · 长↓ 上一组 · 长↑ 返回");break;}
+        remote_bar(g,s,"长OK 下组 · 长↓ 上组 · 长↑ 返回");break;}
     case TK_PAGE_PPT:{
         static const int minutes[]={5,10,15,20,30,45,60};int64_t elapsed=tk_model_ppt_elapsed(s,now),goal=(int64_t)minutes[s->talk]*60000;
         bool overtime=elapsed>goal;int64_t shown=(overtime?elapsed-goal:elapsed)/1000;
@@ -50,11 +69,19 @@ void ui_tools(ag_t *g,const tk_state_t *s,int64_t now,const tk_ui_assets_t *a)
         ui_bar(g,"长按 OK 换软件 · 长按↑ 返回");break;
     }
     case TK_PAGE_MEDIA:
-        ag_circle(g,120,80,30,accent,255,0,0);ui_text(g,"播放",120,86,16,UI_INK,NT_ALIGN_CENTER);
-        ag_circle(g,56,80,18,UI_PANEL,255,accent,2);ui_text(g,"−",56,86,16,UI_PAPER,NT_ALIGN_CENTER);
-        ag_circle(g,184,80,18,UI_PANEL,255,accent,2);ui_text(g,"+",184,86,16,UI_PAPER,NT_ALIGN_CENTER);
+        if(s->media_select){media_choice(g,s);break;}
+        if(s->media_mode==1){
+            ui_text(g,"抖音 · 键盘方向键",12,53,12,UI_DIM,NT_ALIGN_LEFT);
+            ag_rect(g,12,62,216,44,10,UI_PANEL,255,accent,2);ui_text(g,"↑     →     ↓",120,91,18,0xffff,NT_ALIGN_CENTER);
+            ui_fit(g,"右方向键可能快进，以App响应为准",120,128,216,12,UI_DIM,NT_ALIGN_CENTER);
+            rows(g,s,"上个视频","向右 / 快进","下个视频",NULL,NULL,NULL);remote_bar(g,s,"长↑ 返回媒体选择");break;
+        }
+        ui_text(g,"音乐遥控",12,52,12,UI_DIM,NT_ALIGN_LEFT);
+        ag_circle(g,120,88,30,accent,255,0,0);ui_text(g,"播放",120,94,16,UI_INK,NT_ALIGN_CENTER);
+        ag_circle(g,56,88,18,UI_PANEL,255,accent,2);ui_text(g,"−",56,94,16,UI_PAPER,NT_ALIGN_CENTER);
+        ag_circle(g,184,88,18,UI_PANEL,255,accent,2);ui_text(g,"+",184,94,16,UI_PAPER,NT_ALIGN_CENTER);
         ui_text(g,"音量",120,132,12,UI_DIM,NT_ALIGN_CENTER);rows(g,s,"音量 +","播放 / 暂停","音量 −",NULL,NULL,NULL);
-        ui_bar(g,"长 OK 下一曲 · 长↓ 上一曲 · 长↑ 返回");break;
+        remote_bar(g,s,"长OK 下曲 · 长↓ 上曲 · 长↑ 选择");break;
     case TK_PAGE_CAM:{
         static const char *const delays[]={"不延时","3 秒","10 秒"};
         if(s->cam_end>0){

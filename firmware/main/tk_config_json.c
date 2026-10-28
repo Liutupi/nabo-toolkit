@@ -45,8 +45,8 @@ size_t tk_config_json(const tk_custom_t *s,char *out,size_t capacity)
 }
 void tk_config_defaults(tk_custom_t *s)
 {
-    memset(s,0,sizeof(*s));s->group_count=6;s->card_count=3;memcpy(s->cards,tk_default_cards,sizeof(s->cards));
-    for(int g=0;g<6;g++){
+    memset(s,0,sizeof(*s));s->group_count=tk_macro_default_count;s->card_count=3;memcpy(s->cards,tk_default_cards,sizeof(s->cards));
+    for(int g=0;g<s->group_count;g++){
         snprintf(s->groups[g].name,sizeof(s->groups[g].name),"%s",tk_macro_names[g]);
         for(int k=0;k<3;k++){
             const tk_binding_t *b=&tk_macro_bindings[g][k];tk_cfg_slot_t *slot=&s->groups[g].slots[k];snprintf(slot->label,sizeof(slot->label),"%s",b->label);

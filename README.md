@@ -2,7 +2,9 @@
 
 # NABO Toolkit
 
-**Shortcut configuration update (2026-10-28)**: new presets are Screenshot (Esc cancel),Typeless,CapCut,WeRead,Douyin,Editing. Existing F2/F3 firmware can use them: [config page](https://liutupi.github.io/nabo-toolkit/),Read from badge,Use new default shortcuts (preserve cards),then Write and verify. Personal saved configurations are not silently replaced. New-default candidate0.3.1 passes102 host tests/build but is not installed or released; see HANDOFF25.
+**Unreleased media/display candidate (2026-10-28)**: source defaults now contain five groups—Screenshot (Esc cancel), Typeless, CapCut, WeRead and Edit. Media first offers Music or Douyin; Music retains volume/playback/track controls, while Douyin sends arrow keys. Screen and editor rows follow the physical top-to-bottom order UP, DOWN, OK. Optional remote display-off starts after 30 seconds without short keys extending that interval; short keys still send, long OK only wakes the screen, and long UP still returns. Candidate `0.3.1-remote-dev2` passed the complete gate:127 tests (37 Node+90 Python), zero skips,2,206 steps,3 deliberate mutations and the ESP-IDF6.0.2/F3 build. It is not flashed or published; device migration, dark-screen HID/wake behavior and power consumption remain unverified.
+
+**Published configuration snapshot (HANDOFF25)**: the [online page](https://liutupi.github.io/nabo-toolkit/) still serves f8b8ad8 with six groups, including Douyin. The separately named `nabo-toolkit-config-shortcuts-20261028.zip` matches that snapshot; the original firmware/offline ZIPs retain their publication-time contents. The earlier 102-test/build pass belongs to the shortcut-only candidate, not the media/display candidate. Existing personal six-group configurations remain supported and are never silently deleted or replaced.
 
 [Configuration page](https://liutupi.github.io/nabo-toolkit/) · [Firmware / offline configurator](https://github.com/Liutupi/nabo-toolkit/releases) · [Upgrade instructions](docs/RELEASE_v0.3.0-f3-dev3.md)
 
@@ -11,6 +13,8 @@ Community submission: **project1701/revision3928 submitted and under review; pub
 **v0.3.0-f3-dev3 public test release**: exact accepted app1,999,600 bytes, SHA256 `d2032e7b95d6e45aa0cc7e8fb6a9acdfb1628e3ea09578b7eafb061f866b4711`. Build PASS (IDF6.0.2), Host tests PASS (100/1710 full JS-C steps), Device tests PARTIAL PASS (user accepted full welcome, distinct tool animations, startup voice and clean key tones; 240 connected samples, minimum heap92,696/largest77,824 bytes, zero audio errors/crashes). Unverified: repeat final-image USB/power retention, physical boot skip, browser permissions, all hosts/three-slot/sleep/long stability. Historical 3s reconnect FAIL remains; F2 results are historical. See HANDOFF22-23 and validation/f3.json.
 
 Desktop Chrome/Edge + USB: Connect → Read current configuration → Edit → Write and verify. The top Cards / Wi-Fi link opens card editing. Browser Save only saves local edits. Extract the offline ZIP and open config.html; no development tools required. Wi-Fi QR codes contain the password and let a phone join that network; the badge itself stays offline. No configuration upload or analytics service.
+
+The candidate's display-off switch uses independent NVS `remote_v1`; existing `settings_v1`, `cfg_v1` and Bluetooth bonds are preserved. Applying draft default groups still requires reading the badge first and explicitly writing/verifying. A configuration-only update cannot add the candidate's media picker or display-off behavior to the old dev3 firmware.
 
 ![Host preview from the actual C renderer, not an LCD photograph](docs/images/f3/overview.png)
 

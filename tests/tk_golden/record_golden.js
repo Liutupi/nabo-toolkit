@@ -5,10 +5,12 @@ const {load,plain,hashes}=require('./model.js');
 const {T,H}=load();
 const output=path.resolve(process.argv[2]||__dirname);
 fs.mkdirSync(output,{recursive:true});
-const rows=[], pages=new Set(), events=new Set(), keys=new Set();
+const rows=[], pages=new Set(), events=new Set(), keys=new Set(),mediaModes=new Set(),screens=new Set();
 let scenario,st,now,step;
 function record(call,out=[]) {
   pages.add(st.page);
+  if(st.page==='media' && !st.media.choosing)mediaModes.add(st.media.mode);
+  screens.add(st.display.off?'off':'on');
   rows.push({scenario,step:step++,now,call,outputs:plain(out),state:plain(st),sleepDue:T.sleepDue(st,now)});
 }
 function start(name,os='mac') {
@@ -20,7 +22,8 @@ function tick(ms) {now+=ms;record({type:'tick'},T.tick(st,now));}
 function sim(event,arg) {now+=20;events.add(event);T.sim(st,event,now,arg);record({type:'sim',event,...(arg===undefined?{}:{arg})});}
 function page(id) {
   if (st.page==='boot') press('ok');
-  if (st.page!=='menu') press('long_up');
+  let returns=0;
+  while(st.page!=='menu') {if(++returns>4)throw new Error('Cannot return to menu');press('long_up');}
   while (st.menu!==T.MENU.indexOf(id)) press('down');
   press('ok');
 }
@@ -37,12 +40,13 @@ while(st.connSel!==3)press('down');press('ok');sim('paired','New computer');pres
 for (const os of H.OS_LIST) {
   start('all_tools_'+os,os);press('ok');
   page('macro');
-  for (let i=0;i<6;i++) {for(const k of ['up','ok','down'])press(k);press('long_ok');}
+  for (let i=0;i<H.MACRO_GROUPS.length;i++) {for(const k of ['up','ok','down'])press(k);press('long_ok');}
   press('long_down');press('long_ok');
   page('ppt');press('long_ok');press('down');press('up');press('ok');press('ok');tick(480000);tick(120001);press('long_down');
   page('meet');
   for (let i=0;i<4;i++) {for(const k of ['up','ok','down'])press(k);press('long_ok');}
-  page('media');for(const k of ['up','down','ok','long_ok','long_down'])press(k);
+  page('media');press('ok');for(const k of ['up','down','ok','long_ok','long_down'])press(k);
+  press('long_up');press('down');press('ok');for(const k of ['up','down','ok','long_ok','long_down'])press(k);
   page('cam');press('up');press('ok');tick(1000);tick(1000);tick(1000);
   press('up');press('ok');tick(1000);press('ok');tick(10000);
   press('down');tick(0);for(let i=0;i<4;i++)tick(600);
@@ -52,8 +56,27 @@ for (const os of H.OS_LIST) {
   while(st.connSel!==3)press('down');press('ok');press('up');press('long_down');press('ok');
   while(st.connSel!==3)press('down');press('ok');sim('passkey',654321);press('long_up');
   press('ok');tick(60000);
-  page('set');for(let i=0;i<5;i++){press('ok');press('down');}
+  page('set');for(let i=0;i<6;i++){press('ok');press('down');}
   tick(1800001);sim('wake');tick(5500);
+}
+for(const os of H.OS_LIST) {
+  start('screen_deadline_long_ok_'+os,os);page('macro');press('long_ok',30000);
+  page('media');press('ok');press('long_ok',30000);
+  start('screen_off_remote_'+os,os);page('macro');
+  for(let i=0;i<3;i++)press('long_ok');
+  for(let i=0;i<31;i++)press('down',1000); // Continuous use must not keep the display lit.
+  press('ok');press('up');press('long_ok'); // Dark long OK only wakes.
+  tick(30000);press('long_down');tick(30000);sim('disconnect');sim('reconnect');
+  tick(30000);press('long_up');page('media');press('ok');
+  tick(30000);press('long_down');press('long_ok');press('long_ok'); // Previous while dark; wake; next while lit.
+  press('long_up');press('down');press('ok');tick(30000);press('up');press('ok');press('down');press('long_ok');
+  press('long_up');press('long_up');page('set');
+  while(st.setSel!==4)press('down');press('ok');page('macro');tick(30001);press('down');
+  page('set');press('ok');page('macro');tick(30000);press('long_ok');
+  start('screen_off_binding_error_'+os,os);page('macro');
+  const slot={label:'Unset',mac:null,win:null},empty={v:1,groups:[{name:'Custom',up:slot,ok:slot,down:slot}],cards:st.cards};
+  if(!T.applyConfig(st,empty))throw new Error('Empty binding fixture invalid');
+  record({type:'config',config:plain({v:1,groups:st.groups,cards:st.cards})});tick(30000);press('up');
 }
 const choices=['up','down','ok','long_up','long_down','long_ok'];
 for(const [index,os] of H.OS_LIST.entries()) {
@@ -81,20 +104,32 @@ for(const os of H.OS_LIST) {
   if(!T.applyConfig(st,custom))throw new Error('Shrunk fixture invalid');record({type:'config',config:plain({v:1,groups:st.groups,cards:st.cards})});
   press('down');page('macro');press('long_ok');press('ok');
 }
+start('legacy_six_group_configuration');page('macro');
+const legacy={v:1,groups:Array.from({length:6},(_,i)=>({name:i===5?'抖音':'Legacy'+i,
+  up:{label:'Previous',mac:{mod:0,key:0x52},win:{mod:0,key:0x52}},
+  ok:{label:'Right',mac:{mod:0,key:0x4f},win:{mod:0,key:0x4f}},
+  down:{label:'Next',mac:{mod:0,key:0x51},win:{mod:0,key:0x51}}})),
+  cards:[{title:'Keep',name:'SYNTHETIC',line:'Legacy card preserved',qr:'https://example.org/legacy'}]};
+if(!T.applyConfig(st,legacy))throw new Error('Legacy six-group fixture invalid');
+record({type:'config',config:plain({v:1,groups:st.groups,cards:st.cards})});
+for(let i=0;i<5;i++)press('long_ok');for(const key of ['up','ok','down'])press(key);
 function resolveTable(table,os) {return Object.fromEntries(Object.entries(table).map(([k,s])=>[k,H.resolve(s,os)]));}
 const tables={source_sha256:hashes()['tk_hid.js'],MOD:H.MOD,KEY:H.KEY,MEDIA:H.MEDIA,OS_LIST:H.OS_LIST,OS_NAME:H.OS_NAME,
-  PPT:H.PPT,MEET_APPS:H.MEET_APPS,MEDIA_KEYS:H.MEDIA_KEYS,SHUTTER:H.SHUTTER,MACRO_GROUPS:H.MACRO_GROUPS,CODE_USAGE:H.CODE_USAGE,CODE_MOD:H.CODE_MOD,resolved:{}};
+  PPT:H.PPT,MEET_APPS:H.MEET_APPS,MEDIA_KEYS:H.MEDIA_KEYS,DOUYIN_KEYS:H.DOUYIN_KEYS,SHUTTER:H.SHUTTER,MACRO_GROUPS:H.MACRO_GROUPS,CODE_USAGE:H.CODE_USAGE,CODE_MOD:H.CODE_MOD,resolved:{}};
 for(const os of H.OS_LIST) tables.resolved[os]={
-  ppt:resolveTable(H.PPT,os),media:resolveTable(H.MEDIA_KEYS,os),
+  ppt:resolveTable(H.PPT,os),media:resolveTable(H.MEDIA_KEYS,os),douyin:resolveTable(H.DOUYIN_KEYS,os),
   meetings:H.MEET_APPS.map((app)=>({name:app.name,...resolveTable({mute:app.mute,cam:app.cam,hand:app.hand},os)})),
   macros:H.MACRO_GROUPS.map((g)=>({name:g.name,...resolveTable({up:g.up,ok:g.ok,down:g.down},os)})),
 };
 const coverage={schemaVersion:1,source_sha256:hashes(),rows:rows.length,scenarios:[...new Set(rows.map((r)=>r.scenario))],
   pages:[...pages].sort(),events:[...events].sort(),keys:[...keys].sort(),os:[...H.OS_LIST],
+  media_modes:[...mediaModes].sort(),display_states:[...screens].sort(),
   boot_ms:T.BOOT_MS,voice_at_ms:T.VOICE_AT_MS,
   scope:'JavaScript reference fixtures; production C equality is checked separately by test_tk_model.py; device acceptance is separate'};
 for(const page of ['boot','menu',...T.MENU])if(!pages.has(page))throw new Error('Page not covered: '+page);
 for(const event of ['passkey','paired','disconnect','reconnect','wake'])if(!events.has(event))throw new Error('Event not covered: '+event);
+for(const mode of [0,1])if(!mediaModes.has(mode))throw new Error('Media mode not covered: '+mode);
+for(const state of ['on','off'])if(!screens.has(state))throw new Error('Display state not covered: '+state);
 fs.writeFileSync(path.join(output,'traces.jsonl'),rows.map((r)=>JSON.stringify(r)).join('\n')+'\n');
 fs.writeFileSync(path.join(output,'hid_tables.json'),JSON.stringify(tables,null,2)+'\n');
 fs.writeFileSync(path.join(output,'coverage.json'),JSON.stringify(coverage,null,2)+'\n');

@@ -17,8 +17,22 @@ test('updating recommended shortcut groups preserves all saved cards without mut
   before.groups[0].name='Custom';before.cards=[{title:'Keep',name:'NAME',line:'Keep me',qr:'WIFI:T:WPA;S:DEMO;P:test-only;;'}];
   const saved=JSON.stringify(before),updated=plain(c.TKConfig.withDefaultGroups(before));
   assert.equal(JSON.stringify(before),saved);assert.deepEqual(updated.cards,before.cards);
-  assert.deepEqual(updated.groups.map(g=>g.name),['截图','Typeless','剪映','微信读书','抖音','编辑']);
+  assert.deepEqual(updated.groups.map(g=>g.name),['截图','Typeless','剪映','微信读书','编辑']);
   const bad=structuredClone(before);bad.cards[0].qr='';assert.throws(()=>c.TKConfig.withDefaultGroups(bad));
+});
+
+test('five new defaults still accept an unchanged six-group legacy personal configuration',()=>{
+  const c=context(),legacy=plain(c.TKConfig.defaults());
+  assert.equal(legacy.groups.length,5);
+  legacy.groups.push({...structuredClone(legacy.groups[3]),name:'抖音'});
+  const before=JSON.stringify(legacy),validated=plain(c.TKConfig.parse(c.TKConfig.encode(legacy)));
+  assert.equal(JSON.stringify(legacy),before);assert.deepEqual(validated,legacy);
+  const state=c.TK.create(0);assert.equal(c.TK.applyConfig(state,legacy),true);
+  state.page='macro';state.macro.group=5;
+  const packets=c.TK.press(state,'ok',1).filter(x=>x.t==='hid');
+  assert.equal(state.groups.length,6);assert.equal(state.groups[5].name,'抖音');
+  assert.equal(packets.length,1);assert.equal(packets[0].usage,0x4f);
+  assert.deepEqual(plain(state.cards),legacy.cards);
 });
 test('shared schema rejects malformed, duplicate, overlong and non-ASCII text atomically',()=>{
   const c=context(),good=plain(c.TKConfig.defaults()),s=c.TK.create(0),before=JSON.stringify(s);
@@ -63,7 +77,7 @@ test('real JavaScript client writes, persists and reads back through production 
   child.stdout.on('data',(data)=>{text+=data;let i;while((i=text.indexOf('\n'))>=0){const row=JSON.parse(text.slice(0,i));text=text.slice(i+1);for(const line of row.lines)client.receive(line);}});
   child.on('error',(e)=>client.disconnect(e));child.on('exit',(code)=>{if(code)client.disconnect(new Error('C endpoint: '+errors));});
   t.after(()=>{child.stdin.end();client.disconnect();});
-  const cfg=await client.read();assert.equal(cfg.groups.length,6);cfg.groups=cfg.groups.slice(0,1);cfg.cards=cfg.cards.slice(0,1);
+  const cfg=await client.read();assert.equal(cfg.groups.length,5);cfg.groups=cfg.groups.slice(0,1);cfg.cards=cfg.cards.slice(0,1);
   cfg.groups[0].name='自定义';cfg.groups[0].ok={label:'Text',text:'Hello!\n'};cfg.groups[0].up={label:'Right',mac:{mod:96,key:0},win:null};cfg.cards[0].qr='https://example.org/test';
   assert.deepEqual(plain(await client.write(cfg)),plain(c.TKConfig.validate(cfg)));assert.deepEqual(plain(await client.read()),plain(c.TKConfig.validate(cfg)));
 });

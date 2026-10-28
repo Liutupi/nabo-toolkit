@@ -12,7 +12,7 @@
     topBar(g, st, now, page);
     legend(g, rows, st.hit && st.hit.key, A[page]);
     D.naboBust(g, imgs, page, 194, 286, 110, now);
-    bottomBar(g, hint);
+    bottomBar(g, hint, st.settings.remoteDim && (page === 'macro' || page === 'media'));
   }
 
   function drawPpt(g, st, now, imgs) {
@@ -52,9 +52,35 @@
     ], '长按 OK 换软件 · 长按↑ 返回');
   }
 
+  function drawMediaChoice(g, st, now, imgs) {
+    topBar(g, st, now, 'media');
+    txt(g, '选择媒体玩法', 12, 53, 12, C.DIM);
+    [['音乐', '音量 · 播放 · 切歌'], ['抖音', '方向键 ↑ / → / ↓']].forEach((r, i) => {
+      const y = 66 + i * 78, selected = st.media.mode === i;
+      rr(g, 10, y, 136, 64, 10, selected ? C.GOLD : C.PANEL, selected ? C.INK : null, 2);
+      g.fillStyle = A.media; g.fillRect(13, y + 10, 4, 44);
+      txt(g, r[0], 80, y + 28, 18, selected ? C.INK : C.PAPER, 'center');
+      txt(g, fit(g, r[1], 116, 12), 80, y + 49, 12, selected ? C.INK : C.DIM, 'center');
+    });
+    D.naboBust(g, imgs, 'media', 194, 286, 110, now);
+    txt(g, '选择后开始遥控', 12, 240, 12, C.DIM);
+    bottomBar(g, '↑↓ 选择 · OK 进入 · 长↑ 返回');
+  }
   function drawMedia(g, st, now, imgs) {
-    txt(g, '电脑、手机、平板、安卓电视都能用', 120, 52, 12, C.DIM, 'center');
-    const cx = 120, cy = 96, hit = st.hit && st.hit.key;
+    if (st.media.choosing) return drawMediaChoice(g, st, now, imgs);
+    if (st.media.mode === 1) {
+      txt(g, '抖音 · 键盘方向键', 12, 53, 12, C.DIM);
+      rr(g, 12, 62, 216, 44, 10, C.PANEL, A.media, 2);
+      txt(g, '↑     →     ↓', 120, 91, 18, C.WHITE, 'center');
+      txt(g, '右方向键可能快进，以App响应为准', 120, 128, 12, C.DIM, 'center');
+      return toolFrame(g, st, now, imgs, 'media', [
+        { id: 'up', k: '↑', label: '上个视频' },
+        { id: 'down', k: '↓', label: '下个视频' },
+        { id: 'ok', k: 'OK', label: '向右 / 快进' },
+      ], '长↑ 返回媒体选择');
+    }
+    txt(g, '音乐遥控', 12, 52, 12, C.DIM);
+    const cx = 120, cy = 88, hit = st.hit && st.hit.key;
     g.beginPath(); g.arc(cx, cy, 30, 0, 7); g.fillStyle = hit === 'ok' ? A.media : C.PANEL; g.fill();
     g.fillStyle = hit === 'ok' ? C.INK : C.WHITE;
     g.beginPath(); g.moveTo(cx - 12, cy - 13); g.lineTo(cx + 2, cy); g.lineTo(cx - 12, cy + 13); g.fill();
@@ -68,7 +94,7 @@
       { id: 'up', k: '↑', label: '音量 +' },
       { id: 'ok', k: 'OK', label: '播放 / 暂停' },
       { id: 'down', k: '↓', label: '音量 −' },
-    ], '长 OK 下一曲 · 长↓ 上一曲 · 长↑ 返回');
+    ], '长OK 下曲 · 长↓ 上曲 · 长↑ 选择');
   }
 
   function drawCam(g, st, now, imgs) {
@@ -119,7 +145,7 @@
       { id: 'up', k: '↑', label: grp.up.label, sub: sub(grp.up) },
       { id: 'ok', k: 'OK', label: grp.ok.label, sub: sub(grp.ok) },
       { id: 'down', k: '↓', label: grp.down.label, sub: sub(grp.down) },
-    ], '长 OK 下一组 · 长↓ 上一组 · 长↑ 返回');
+    ], '长OK 下组 · 长↓ 上组 · 长↑ 返回');
   }
 
   /* QR via qrcode-generator (prototype only; firmware uses nayuki qrcodegen). */
@@ -171,7 +197,23 @@
   }
 
   const PAGES = { ppt: drawPpt, meet: drawMeet, media: drawMedia, cam: drawCam, macro: drawMacro, card: drawCard };
+  const offNotes = new WeakMap();
+  function displayNote(g, off) {
+    const canvas = g.canvas, doc = canvas && canvas.ownerDocument;
+    if (!doc || !canvas.parentElement) return;
+    let note = offNotes.get(canvas);
+    if (!note && off) {
+      note = doc.createElement('p'); note.className = 'hint'; note.setAttribute('role', 'status');
+      note.textContent = '息屏遥控中：短键继续发送；长OK只亮屏，长↑返回。';
+      const anchor = canvas.closest('.badge') || canvas.parentElement;
+      anchor.insertAdjacentElement('afterend', note); offNotes.set(canvas, note);
+    }
+    if (note) note.hidden = !off;
+  }
   function draw(g, st, now, imgs) {
+    const off = Boolean(st.display && st.display.off);
+    displayNote(g, off);
+    if (off) { g.fillStyle = '#000000'; g.fillRect(0, 0, 240, 320); return; }
     g.fillStyle = C.BG; g.fillRect(0, 0, 240, 320);
     if (st.page === 'boot') { D.drawBoot(g, st, now, imgs); if (st.osPick) D.drawOsPick(g, st); return; }
     if (st.page === 'menu') D.drawMenu(g, st, now, imgs);

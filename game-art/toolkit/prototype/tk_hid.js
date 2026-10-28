@@ -136,6 +136,12 @@
   /* Built-in groups, used until the config page writes its own. Typeless
    * defaults are the author's bindings (Mac: 右Option+M / 右Option+右Shift /
    * 右Option+Space); other people re-record them on the config page. */
+  // Media > Douyin; use plain arrows on both computers and phones.
+  const DOUYIN_KEYS = {
+    up: B('上个视频', { mods: [], key: KEY.UP }),
+    down: B('下个视频', { mods: [], key: KEY.DOWN }),
+    ok: B('向右/快进', { mods: [], key: KEY.RIGHT }),
+  };
   const MACRO_GROUPS = [
     { name: '截图',
       up: B('截屏', { mac: { mods: ['ctrl', 'gui', 'shift'], key: 0x21 }, win: { mods: ['gui', 'shift'], key: L('s') } }),
@@ -150,15 +156,11 @@
       ok: B('播放 / 暂停', { mods: [], key: KEY.SPACE }),
       down: B('撤销', { mods: ['main'], key: L('z') }) },
     // User-requested plain arrows for desktop and phone apps. The app decides
-    // how an arrow behaves; in Douyin, Right may seek rather than switch video.
+    // how an arrow behaves; Right is requested for the next chapter.
     { name: '微信读书',
       up: B('上一页', { mods: [], key: KEY.UP }),
       ok: B('下一章 →', { mods: [], key: KEY.RIGHT }),
       down: B('下一页', { mods: [], key: KEY.DOWN }) },
-    { name: '抖音',
-      up: B('上个视频', { mods: [], key: KEY.UP }),
-      ok: B('向右/快进', { mods: [], key: KEY.RIGHT }),
-      down: B('下个视频', { mods: [], key: KEY.DOWN }) },
     { name: '编辑',
       up: B('撤销', { mods: ['main'], key: L('z') }),
       ok: B('复制', { mods: ['main'], key: L('c') }),
@@ -189,6 +191,6 @@
 
   root.TKHID = {
     MOD, KEY, MEDIA, OS_LIST, OS_NAME, isApple, isDesktop, resolve, chordLabel, keyName,
-    textPackets, reportBytes, PPT, MEET_APPS, MEDIA_KEYS, SHUTTER, MACRO_GROUPS, CODE_USAGE, CODE_MOD,
+    textPackets, reportBytes, PPT, MEET_APPS, MEDIA_KEYS, DOUYIN_KEYS, SHUTTER, MACRO_GROUPS, CODE_USAGE, CODE_MOD,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

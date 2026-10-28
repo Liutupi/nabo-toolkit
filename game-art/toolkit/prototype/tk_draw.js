@@ -17,7 +17,7 @@
     macro: '快捷键', card: '名片', conn: '连接', set: '设置', menu: 'NABO 工具箱',
   };
   const SUB = {
-    ppt: '翻页 · 计时', meet: '静音 · 摄像头', media: '音量 · 切歌', cam: '延时 · 连拍',
+    ppt: '翻页 · 计时', meet: '静音 · 摄像头', media: '音乐 · 抖音', cam: '延时 · 连拍',
     macro: '截屏 · 复制 · 粘贴', card: '二维码', conn: '3 台设备', set: '提示音 · 休眠',
   };
   const FONT = '"Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif';
@@ -70,9 +70,10 @@
     g.beginPath(); g.arc(240 - 14 - w - 8, 17, 3.5, 0, 7); g.fillStyle = t.c; g.fill();
     txt(g, s, 230, 21, 12, C.PAPER, 'right');
   }
-  function bottomBar(g, hint) {
+  function bottomBar(g, hint, remoteDim) {
     g.fillStyle = C.INK; g.fillRect(0, 290, 240, 30);
-    txt(g, fit(g, hint, 228, 12), 120, 310, 12, C.PAPER, 'center');
+    if (remoteDim) txt(g, '30秒息屏 · 长OK亮屏', 120, 301, 12, C.PAPER, 'center');
+    txt(g, fit(g, hint, 228, 12), 120, remoteDim ? 315 : 310, 12, C.PAPER, 'center');
   }
 
   /* NABO placeholder: unchanged frames from nabo-idle.png in a round frame. */
@@ -125,7 +126,8 @@
   function legend(g, rows, hitKey, accent, x, y, w) {
     const h = 34;
     x = x || 8; y = y || 142; w = w || 138;
-    rows.forEach((r, i) => {
+    const physicalOrder = ['up', 'down', 'ok'];
+    rows.slice().sort((a, b) => physicalOrder.indexOf(a.id) - physicalOrder.indexOf(b.id)).forEach((r, i) => {
       const hit = hitKey && r.id === hitKey, ry = y + i * (h + 4) + (hit ? 2 : 0);
       if (!hit) rr(g, x, ry + 2, w, h, 8, C.INK);
       rr(g, x, ry, w, h, 8, hit ? accent : C.PANEL);
@@ -230,15 +232,16 @@
       ['开机语音', s.voice ? '开' : '关', '“那波，陪你遥控万物！”'],
       ['演讲时长', T.TALK_MIN[s.talk] + ' 分钟', 'PPT 计时的目标时长'],
       ['自动休眠', sl ? sl + ' 分钟' : '连接时不休眠', '计时、倒数、配对时不休眠'],
+      ['息屏遥控', s.remoteDim ? '开' : '关', s.remoteDim ? '短键照常发送 · 长OK只亮屏' : '遥控时保持亮屏'],
       ['关于', 'v0.1 原型', '离线 · 蓝牙键盘 · 不联网'],
     ];
     rows.forEach((r, i) => {
-      const y = 42 + i * 44, sel = i === st.setSel;
-      rr(g, 10, y, 220, 38, 10, sel ? C.GOLD : C.PANEL, sel ? C.INK : null, 2);
-      txt(g, r[0], 22, y + 25, 16, sel ? C.INK : C.PAPER);
-      txt(g, r[1], 218, y + 25, 16, sel ? C.INK : ACCENT.set, 'right');
+      const y = 42 + i * 36, sel = i === st.setSel;
+      rr(g, 10, y, 220, 32, 8, sel ? C.GOLD : C.PANEL, sel ? C.INK : null, 2);
+      txt(g, r[0], 22, y + 22, 16, sel ? C.INK : C.PAPER);
+      txt(g, fit(g, r[1], 116, 16), 218, y + 22, 16, sel ? C.INK : ACCENT.set, 'right');
     });
-    txt(g, rows[st.setSel][2], 120, 272, 12, C.DIM, 'center');
+    txt(g, fit(g, rows[st.setSel][2], 224, 12), 120, 275, 12, C.DIM, 'center');
     bottomBar(g, '↑↓ 选择 · OK 修改 · 长按↑ 返回');
   }
 

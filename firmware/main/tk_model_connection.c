@@ -52,12 +52,13 @@ void tk_model_os_pick(tk_state_t *s,tk_key_t key,int64_t now,tk_effects_t *out)
 }
 void tk_model_settings(tk_state_t *s,tk_key_t key,tk_effects_t *out)
 {
-    if(key==TK_UP || key==TK_DOWN)s->set_sel=(s->set_sel+(key==TK_UP?4:1))%5;
+    if(key==TK_UP || key==TK_DOWN)s->set_sel=(s->set_sel+(key==TK_UP?5:1))%6;
     else if(key==TK_OK){
         if(s->set_sel==0)s->beep=!s->beep;
         else if(s->set_sel==1)s->voice=!s->voice;
         else if(s->set_sel==2)s->talk=(s->talk+1)%7;
         else if(s->set_sel==3)s->sleep=(s->sleep+1)%4;
+        else if(s->set_sel==4)s->remote_dim=!s->remote_dim;
     }
     tk_model_beep(out,s,660,40);
 }

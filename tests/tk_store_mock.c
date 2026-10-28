@@ -3,10 +3,10 @@
 #include "host/ble_store.h"
 #include <string.h>
 typedef struct {uint8_t bytes[4016];size_t size;} blob_t;
-static blob_t s_blobs[5],s_stage;
+static blob_t s_blobs[6],s_stage;
 static int s_key=-1,s_fail,s_step,s_commit_step,s_unpair_step,s_drops[16],s_drop_count;
 static ble_addr_t s_peers[4];static int s_peer_count;
-static int key(const char *s){return !strcmp(s,"slots_v1")?0:!strcmp(s,"settings_v1")?1:!strcmp(s,"f0_peer")?2:!strcmp(s,"f0_mac")?3:!strcmp(s,"cfg_v1")?4:-1;}
+static int key(const char *s){return !strcmp(s,"slots_v1")?0:!strcmp(s,"settings_v1")?1:!strcmp(s,"f0_peer")?2:!strcmp(s,"f0_mac")?3:!strcmp(s,"cfg_v1")?4:!strcmp(s,"remote_v1")?5:-1;}
 void tk_mock_reset(void){memset(s_blobs,0,sizeof(s_blobs));s_fail=s_step=s_commit_step=s_unpair_step=s_drop_count=s_peer_count=0;s_key=-1;}
 void tk_mock_fail(int stage){s_fail=stage;}
 void tk_mock_blob(const char *name,const uint8_t *bytes,unsigned size){int i=key(name);if(i>=0 && size<=4016){memcpy(s_blobs[i].bytes,bytes,size);s_blobs[i].size=size;}}

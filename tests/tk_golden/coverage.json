@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "source_sha256": {
-    "tk_hid.js": "811ce05d34e5228e8beb9c0d2c18fb2e0d2ee25a3e8560fec47782bcfd88a0d1",
+    "tk_hid.js": "6b29b08cf350ab6b5484ddf13f5ba589e1ec3cc65066a72b3996141f0b3ab53b",
     "tk_config_schema.js": "95db0b0c5276e58869825d43e0b6402387f3539ce37cb224887e7071c75bba5b",
-    "tk_core.js": "3e7f2062477d7fa9e0c0a0707d42fe72c0f2a73b0f3ff29d803ba719488c42de",
+    "tk_core.js": "967de659c35877f1ed1cea2b310c6e19ef78a525c467537a77fa9974689c2477",
     "tk_buttons.js": "e13cfed7b4c66d8b2fc96f1a7237004eda17e7ec681eb8417ec6b49569fe60cd"
   },
-  "rows": 1710,
+  "rows": 2206,
   "scenarios": [
     "boot_and_voice",
     "binding_fifo_replacement",
@@ -14,6 +14,18 @@
     "all_tools_win",
     "all_tools_ios",
     "all_tools_android",
+    "screen_deadline_long_ok_mac",
+    "screen_off_remote_mac",
+    "screen_off_binding_error_mac",
+    "screen_deadline_long_ok_win",
+    "screen_off_remote_win",
+    "screen_off_binding_error_win",
+    "screen_deadline_long_ok_ios",
+    "screen_off_remote_ios",
+    "screen_off_binding_error_ios",
+    "screen_deadline_long_ok_android",
+    "screen_off_remote_android",
+    "screen_off_binding_error_android",
     "random_mac_1312899663",
     "random_win_1312899664",
     "random_ios_1312899665",
@@ -21,7 +33,8 @@
     "custom_config_mac",
     "custom_config_win",
     "custom_config_ios",
-    "custom_config_android"
+    "custom_config_android",
+    "legacy_six_group_configuration"
   ],
   "pages": [
     "boot",
@@ -55,6 +68,14 @@
     "win",
     "ios",
     "android"
+  ],
+  "media_modes": [
+    0,
+    1
+  ],
+  "display_states": [
+    "off",
+    "on"
   ],
   "boot_ms": 5500,
   "voice_at_ms": 1400,

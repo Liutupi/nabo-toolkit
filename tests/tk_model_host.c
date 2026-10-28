@@ -17,7 +17,8 @@ const tk_packet_t *tk_host_binding(int table,int row,int col,int os)
     if(table==0 && row<5)b=&tk_ppt_bindings[row];
     else if(table==1 && row<4 && col<3)b=&tk_meeting_bindings[row][col];
     else if(table==2 && row<6)b=&tk_media_bindings[row];
-    else if(table==3 && row<6 && col<3)b=&tk_macro_bindings[row][col];
+    else if(table==3 && row<tk_macro_default_count && col<3)b=&tk_macro_bindings[row][col];
     else if(table==4)b=&tk_shutter_binding;
+    else if(table==5 && row<6)b=&tk_douyin_bindings[row];
     return tk_hid_resolve(b,(tk_os_t)os);
 }

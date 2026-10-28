@@ -1,6 +1,6 @@
 #include "tk_model.h"
 #include <string.h>
-int tk_model_macro_count(const tk_state_t *s){return s->config?s->config->group_count:6;}
+int tk_model_macro_count(const tk_state_t *s){return s->config?s->config->group_count:tk_macro_default_count;}
 const char *tk_model_macro_name(const tk_state_t *s,int group){return s->config?s->config->groups[group].name:tk_macro_names[group];}
 tk_binding_t tk_model_macro_binding(const tk_state_t *s,int group,int column)
 {

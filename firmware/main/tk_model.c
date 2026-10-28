@@ -14,6 +14,7 @@ void tk_model_init(tk_state_t *s, int64_t now)
 {
     memset(s,0,sizeof(*s));s->page=TK_PAGE_BOOT;s->last_input=s->boot_start=now;
     s->confirm_del=-1;s->beep=s->voice=true;s->talk=1;s->sleep=3;s->ppt_pages=1;s->card_count=3;
+    s->remote_dim=true;s->screen_since=-1;s->media_select=true;
     memcpy(s->cards,tk_default_cards,sizeof(tk_default_cards));
 }
 tk_os_t tk_model_os(const tk_state_t *s)
@@ -22,6 +23,7 @@ tk_os_t tk_model_os(const tk_state_t *s)
 }
 void tk_model_toast(tk_state_t *s, int64_t now, const char *text, bool error)
 {
+    if(error)tk_model_screen_reset(s,now);
     s->toast=true;snprintf(s->toast_text,sizeof(s->toast_text),"%s",text);s->toast_error=error;s->toast_until=now+(error?1500:1200);
 }
 static tk_effect_t *effect(tk_effects_t *out, int type)
@@ -63,7 +65,19 @@ bool tk_model_send(tk_effects_t *out, tk_state_t *s, int64_t now, const tk_bindi
     return true;
 }
 int64_t tk_model_ppt_elapsed(const tk_state_t *s,int64_t now){return s->ppt_acc+(s->ppt_running?now-s->ppt_start:0);}
-void tk_model_press(tk_state_t *s,tk_key_t key,int64_t now,tk_effects_t *out)
+static bool screen_eligible(const tk_state_t *s)
+{
+    return s->remote_dim && s->connected && !s->pairing && !s->os_pick &&
+        (s->page==TK_PAGE_MACRO || (s->page==TK_PAGE_MEDIA && !s->media_select));
+}
+void tk_model_screen_reset(tk_state_t *s,int64_t now){s->screen_off=false;s->screen_since=now;}
+static void screen_sync(tk_state_t *s,int64_t now,bool reset)
+{
+    if(!screen_eligible(s)){s->screen_off=false;s->screen_since=-1;return;}
+    if(reset || s->screen_since<0)tk_model_screen_reset(s,now);
+    if(now-s->screen_since>=30000)s->screen_off=true;
+}
+static void dispatch_press(tk_state_t *s,tk_key_t key,int64_t now,tk_effects_t *out)
 {
     out->count=0;out->overflow=false;
     if(key<TK_UP || key>TK_LONG_OK)return;
@@ -72,18 +86,30 @@ void tk_model_press(tk_state_t *s,tk_key_t key,int64_t now,tk_effects_t *out)
     if(s->page==TK_PAGE_BOOT){s->page=TK_PAGE_MENU;return;}
     if(s->page==TK_PAGE_MENU){
         if(key==TK_UP || key==TK_DOWN){s->menu=(s->menu+(key==TK_UP?7:1))%8;tk_model_beep(out,s,660,40);}
-        else if(key==TK_OK){s->page=menu_pages[s->menu];s->toast=false;tk_model_beep(out,s,880,40);}
+        else if(key==TK_OK){s->page=menu_pages[s->menu];s->toast=false;if(s->page==TK_PAGE_MEDIA)s->media_select=true;tk_model_beep(out,s,880,40);}
         return;
     }
     if(key==TK_LONG_UP){
         if(s->pairing){s->pairing=false;tk_model_toast(s,now,"已停止配对",false);}
         else if(s->page==TK_PAGE_CARD && s->card_zoom)s->card_zoom=false;
+        else if(s->page==TK_PAGE_MEDIA && !s->media_select){s->media_select=true;s->toast=false;}
         else{s->cam_end=0;s->burst_left=0;s->confirm_del=-1;s->page=TK_PAGE_MENU;s->toast=false;}
         tk_model_beep(out,s,523,40);return;
     }
     if(s->page==TK_PAGE_CONN)tk_model_connection(s,key,now,out);
     else if(s->page==TK_PAGE_SET)tk_model_settings(s,key,out);
     else tk_model_tools(s,key,now,out);
+}
+void tk_model_press(tk_state_t *s,tk_key_t key,int64_t now,tk_effects_t *out)
+{
+    out->count=0;out->overflow=false;if(key<TK_UP || key>TK_LONG_OK)return;
+    screen_sync(s,now,false);
+    if(s->screen_off && key==TK_LONG_OK){s->last_input=now;tk_model_screen_reset(s,now);return;}
+    int page=s->page;bool selecting=s->media_select;
+    dispatch_press(s,key,now,out);
+    screen_sync(s,now,s->page!=page || key==TK_LONG_UP ||
+        (s->page==TK_PAGE_MACRO && (key==TK_LONG_OK || key==TK_LONG_DOWN)) ||
+        (s->page==TK_PAGE_MEDIA && selecting!=s->media_select));
 }
 void tk_model_tick(tk_state_t *s,int64_t now,tk_effects_t *out)
 {
@@ -105,6 +131,7 @@ void tk_model_tick(tk_state_t *s,int64_t now,tk_effects_t *out)
     if(s->toast && now>=s->toast_until)s->toast=false;
     if(s->react && now>=s->react_until)s->react=false;
     if(s->hit && now>=s->hit_until)s->hit=false;
+    screen_sync(s,now,false);
 }
 void tk_model_event(tk_state_t *s,const char *event,int64_t now,const char *arg)
 {
@@ -116,6 +143,7 @@ void tk_model_event(tk_state_t *s,const char *event,int64_t now,const char *arg)
     }else if(!strcmp(event,"disconnect"))s->connected=false;
     else if(!strcmp(event,"reconnect") && !s->pairing && s->slots[s->active].used)s->connected=true;
     else if(!strcmp(event,"wake")){s->page=TK_PAGE_BOOT;s->boot_start=now;s->boot_voiced=false;s->os_pick=false;s->last_input=now;s->connected=false;s->pairing=false;}
+    screen_sync(s,now,!strcmp(event,"wake"));
 }
 bool tk_model_sleep_due(const tk_state_t *s,int64_t now)
 {
