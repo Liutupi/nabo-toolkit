@@ -96,12 +96,15 @@
     "existing_card_fields_preserved": "PASS",
     "no_implicit_device_write": "PASS",
     "unconnected_write_disabled": true,
-    "physical_browser_serial_permission": "UNVERIFIED"
+    "physical_browser_serial_permission": "UNVERIFIED",
+    "public_page_and_new_preset": "PASS",
+    "deployment_source_commit": "f8b8ad8eac0d49e00e52c7cf680add44b9f46306"
   },
   "unverified": [
     "Candidate firmware has not been installed or device-tested",
     "Separate phone and desktop/app/version acceptance including exact right-arrow effects",
     "Power-off retention of this specific new configuration",
     "Remaining F0/F1 reconnect timing,three-slot stress,sleep and stability gates remain"
-  ]
+  ],
+  "publication_record": "shortcuts-publication-20261028.json"
 }

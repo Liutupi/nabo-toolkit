@@ -20,7 +20,7 @@ Desktop Chrome/Edge + USB: Connect → Read current configuration → Edit → W
 
 An offline Bluetooth HID remote for the FoloToy AI Passport (ESP32-C3): presentation controls, meeting shortcuts, media, camera shutter, configurable shortcuts/Typeless and QR contact cards.
 
-Current checkpoint: **F2 dev2 installed app-only;87 host tests,1710 full JS–C steps and ESP-IDF6.0.2 builds pass.** Actual USB save/readback/rejections/two warm resets/20 reads pass and original configuration is restored. Windows re-pairing/paste/volume/connected memory pass; configured text/card/QR and committed-save cold power retention pass, prior3s FAIL retained. Firmware uses static placeholders; existing animations/full startup visuals/sound still require F3. See HANDOFF21.
+Historical checkpoint: **F2 dev2 installed app-only;87 host tests,1710 full JS–C steps and ESP-IDF6.0.2 builds pass.** Actual USB save/readback/rejections/two warm resets/20 reads pass and original configuration is restored. Windows re-pairing/paste/volume/connected memory pass; configured text/card/QR and committed-save cold power retention pass, prior3s FAIL retained. Firmware uses static placeholders; existing animations/full startup visuals/sound still require F3. See HANDOFF21.
 
 Read [handoff](docs/HANDOFF.md), [firmware plan](game-art/toolkit/FIRMWARE_PLAN.md), [UI design](game-art/toolkit/UI_DESIGN.md) and [validation](docs/VALIDATION.md). Maintenance rules: `AGENTS.md`.
 

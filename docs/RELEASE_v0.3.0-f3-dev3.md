@@ -1,8 +1,8 @@
 # v0.3.0-f3-dev3 · 公开测试版
 
-本版本接通快捷键/名片USB配置保存与读回，使用原七条动画、完整欢迎和专用开机语音。最终dev3的完整欢迎、各工具服装/动作、开机音和无爆破按键音已由用户验收。作者默认键位保持原样。此为公开测试版，未测项见下文。
+本版本接通快捷键/名片USB配置保存与读回，使用原七条动画、完整欢迎和专用开机语音。最终dev3的完整欢迎、各工具服装/动作、开机音和无爆破按键音已由用户验收。本固件发布时的默认键位保持原样；后续新默认组属于下述仅配置补充，不替换已验收app。此为公开测试版，未测项见下文。
 
-配置入口：https://liutupi.github.io/nabo-toolkit/ 。电脑Chrome/Edge+USB，连接→从工牌读回→编辑→写入工牌并核对。顶部「名片 / Wi-Fi 二维码」直达编辑区。离线包解压后打开config.html，无需开发环境。不要将自己的Wi-Fi密码或配置导出上传到GitHub。
+配置入口：https://liutupi.github.io/nabo-toolkit/ 。电脑Chrome/Edge+USB，连接→从工牌读回→编辑→写入工牌并核对。顶部「名片 / Wi-Fi 二维码」直达编辑区。使用新默认组按钮时，选择最新在线页或新命名离线配置补充包；原固件ZIP和原离线包仍保留发布时内容。离线包完整解压后打开config.html，无需开发环境。不要将自己的Wi-Fi密码或配置导出上传到GitHub。
 
 ## 下载内容
 
@@ -12,6 +12,16 @@
 - `manifest.json`、`SHA256SUMS.txt`：产物身份/成员校验。
 - `nabo-toolkit-community-full.bin`：经用户单独授权的社区完整首装镜像，2,065,136字节，从**0x0**写入；会改默认分区表、重置NVS/设置/绑定，完整首装路径尚未真机验收。
 - `community-manifest.json`、`COMMUNITY_SHA256SUMS.txt`：社区首装镜像的来源、分区、嵌入app及独立校验。
+
+### 新增配置补充文件（不含新固件）
+
+- [`nabo-toolkit-config-shortcuts-20261028.zip`](https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-config-shortcuts-20261028.zip)：新版离线配置页，含“使用新版默认快捷键（保留名片）”按钮，支持截图Esc、微信读书/抖音方向键等新默认组。
+- `config-shortcuts-manifest.json`：这份配置页补充包的版本/成员来源记录。
+- `CONFIG_SHORTCUTS_SHA256SUMS.txt`：上述补充文件的独立校验清单。
+
+这三件已追加到本Release。新配置ZIP为90,845字节，SHA256 `92133a76bb0c4c92b040520cbf7fe9249308d4393364a9a1129b5fd600057c6c`，13个成员逐项通过manifest校验。全部11个Release资产已匿名直链重新下载，字节/SHA256与本地相等；原八个发布资产哈希不变，包括固件ZIP、原 `nabo-toolkit-config-offline.zip`、原manifest和校验清单，均保留发布时内容，不覆盖或重新打包。最新Pages部署的manifest及11个可访问文件也通过匿名HTTP200与字节/哈希核验。
+
+最新在线页和新命名离线包可对旧dev3使用同一v1配置协议，不需要刷入新候选固件。先“从工牌读回”，再点新默认组按钮，最后“写入工牌并核对”；只替换当前页面groups并保留当前页面cards，**不会自动迁移NVS的cfg_v1**。必须先读回才能保留设备实际名片。补充包只含配置页及相关资源，不含固件镜像或个人配置导出，不改变此版已验收app及下述原100项宿主验收记录；`0.3.1-shortcuts-dev1`仍是另一个未刷、未发布的固件候选。
 
 app为1,999,600字节，SHA256 **d2032e7b95d6e45aa0cc7e8fb6a9acdfb1628e3ea09578b7eafb061f866b4711**，固件内版本0.3.0-f3-dev3。没有重新构建或改版本后替换已验收app。所有动画和PCM都在app内，不需要写assets。
 
@@ -57,3 +67,15 @@ Use the app-only ZIP for preserving data. The app fits the legacy0x1f0000
 factory partition; NVS/PHY/assets/partition table are preserved. Browser configuration
 needs desktop Chrome/Edge and USB; read, edit, write and verify. Remaining validation
 items are listed in validation/f3.json. Source is MIT; NABO creative assets are excluded.
+
+Configuration-only supplement now available: `nabo-toolkit-config-shortcuts-20261028.zip`,
+`config-shortcuts-manifest.json`, and `CONFIG_SHORTCUTS_SHA256SUMS.txt`. The original
+eight assets keep their original contents. Use the latest online page or the newly
+named offline package for the new-default-groups button on existing dev3: read the
+actual badge first, replace draft groups while retaining draft cards, then explicitly
+write and verify. No automatic cfg_v1 migration or new firmware is included. All 11
+release assets passed anonymous byte/SHA-256 re-download checks; the original eight
+hashes are unchanged. The 90,845-byte new ZIP has SHA-256
+`92133a76bb0c4c92b040520cbf7fe9249308d4393364a9a1129b5fd600057c6c`,
+and all 13 members passed manifest checks. The latest Pages deployment also passed
+anonymous HTTP 200 and byte/hash checks for its manifest and 11 accessible files.

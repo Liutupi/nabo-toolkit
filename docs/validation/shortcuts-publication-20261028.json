@@ -1,0 +1,187 @@
+{
+  "date": "2026-10-28",
+  "status": "PASS",
+  "site": {
+    "date": "2026-10-28",
+    "url": "https://liutupi.github.io/nabo-toolkit/",
+    "source_commit": "f8b8ad8eac0d49e00e52c7cf680add44b9f46306",
+    "deployment_run": 40629364834,
+    "deployment_status": "success",
+    "authorization_header_used": false,
+    "manifest_match": true,
+    "files": {
+      "LICENSE": {
+        "http": 200,
+        "bytes": 1064,
+        "sha256": "91f473186318ca77c486fb1e8dbf3980b2f964fc563c4cef75c5932d371a3221"
+      },
+      "NOTICE.md": {
+        "http": 200,
+        "bytes": 1476,
+        "sha256": "6cac32fceb6c7b8c6aef0ebaf37ac9bba05b59b7c40254a54648fc6436387ce9"
+      },
+      "README.txt": {
+        "http": 200,
+        "bytes": 678,
+        "sha256": "a4057a72632fe712d30a1049bbbc62ecca5d9e1bc6f1a14442d8daa70104ccd7"
+      },
+      "config.html": {
+        "http": 200,
+        "bytes": 9057,
+        "sha256": "7222e2062effe64ed9812bb12eaed8b4ef4447ac78948c408afca752b230dca6"
+      },
+      "config.js": {
+        "http": 200,
+        "bytes": 13060,
+        "sha256": "8b5559036020c34bfdb250107105b347568996a4c81cb8a7e04ad51b063cf585"
+      },
+      "index.html": {
+        "http": 200,
+        "bytes": 9057,
+        "sha256": "7222e2062effe64ed9812bb12eaed8b4ef4447ac78948c408afca752b230dca6"
+      },
+      "nabo.png": {
+        "http": 200,
+        "bytes": 61860,
+        "sha256": "c6a65614e8af7eb6318eaa55aae50688aac4aa69998ce4681226df608e719b0b"
+      },
+      "tk_config_schema.js": {
+        "http": 200,
+        "bytes": 5546,
+        "sha256": "95db0b0c5276e58869825d43e0b6402387f3539ce37cb224887e7071c75bba5b"
+      },
+      "tk_config_serial.js": {
+        "http": 200,
+        "bytes": 6035,
+        "sha256": "decc3ebb2beb26217bad4cc0dcb89cc841eab9206dc7a06374029294a21ac0ca"
+      },
+      "tk_core.js": {
+        "http": 200,
+        "bytes": 13574,
+        "sha256": "3e7f2062477d7fa9e0c0a0707d42fe72c0f2a73b0f3ff29d803ba719488c42de"
+      },
+      "tk_hid.js": {
+        "http": 200,
+        "bytes": 10021,
+        "sha256": "811ce05d34e5228e8beb9c0d2c18fb2e0d2ee25a3e8560fec47782bcfd88a0d1"
+      }
+    },
+    "status": "PASS",
+    "release_metadata_recheck": "Not repeated: unauthenticated GitHub API returned HTTP 403 rate limit; prior eight-asset verification retained"
+  },
+  "release": {
+    "date": "2026-10-28",
+    "source_commit": "f8b8ad8eac0d49e00e52c7cf680add44b9f46306",
+    "release": "https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.0-f3-dev3",
+    "authorization_header_used": false,
+    "release_metadata_via": "gh authenticated; anonymous GitHub API limited HTTP403",
+    "downloads_via": "anonymous direct release asset URLs",
+    "old_eight_assets_unchanged": true,
+    "firmware_replaced": false,
+    "candidate_firmware_published": false,
+    "public_downloads": {
+      "community-manifest.json": {
+        "bytes": 1901,
+        "sha256": "dae40451ccf66ce928fccef76cc6bb1f1639b97f13b1297a90ee9f407703debf",
+        "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/community-manifest.json",
+        "http": 200
+      },
+      "COMMUNITY_SHA256SUMS.txt": {
+        "bytes": 188,
+        "sha256": "69b10cfca2b0ab2d69e5c153db1d8d883a43ad8a8fdc23b1fdb68a5e29fd01a0",
+        "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/COMMUNITY_SHA256SUMS.txt",
+        "http": 200
+      },
+      "config-shortcuts-manifest.json": {
+        "bytes": 642,
+        "sha256": "3027090f63c19bf45521daa51d39c54bc414d28da40967c8baf179e4e0282a3f",
+        "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/config-shortcuts-manifest.json",
+        "http": 200
+      },
+      "CONFIG_SHORTCUTS_SHA256SUMS.txt": {
+        "bytes": 206,
+        "sha256": "5862d4d81bf695d8a728448080086fa12248a04cdca29038dd105afd7a37aecf",
+        "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/CONFIG_SHORTCUTS_SHA256SUMS.txt",
+        "http": 200
+      },
+      "manifest.json": {
+        "bytes": 7025,
+        "sha256": "082f4e041894dd330ccee3897b6464aed82f98af9d20c7aea2e5674421f38721",
+        "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/manifest.json",
+        "http": 200
+      },
+      "nabo-toolkit-app.bin": {
+        "bytes": 1999600,
+        "sha256": "d2032e7b95d6e45aa0cc7e8fb6a9acdfb1628e3ea09578b7eafb061f866b4711",
+        "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-app.bin",
+        "http": 200
+      },
+      "nabo-toolkit-community-full.bin": {
+        "bytes": 2065136,
+        "sha256": "9fa968de2a4837d130188bb9541ec55a67a3f1bd936b01eeeb4b81ea5047ad1c",
+        "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-community-full.bin",
+        "http": 200
+      },
+      "nabo-toolkit-config-offline.zip": {
+        "bytes": 90229,
+        "sha256": "ee66af384130728edf58f0046f9473f86cd31d418607f452ee6597179eeb4913",
+        "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-config-offline.zip",
+        "http": 200
+      },
+      "nabo-toolkit-config-shortcuts-20261028.zip": {
+        "bytes": 90845,
+        "sha256": "92133a76bb0c4c92b040520cbf7fe9249308d4393364a9a1129b5fd600057c6c",
+        "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-config-shortcuts-20261028.zip",
+        "http": 200
+      },
+      "nabo-toolkit-v0.3.0-f3-dev3.zip": {
+        "bytes": 1532935,
+        "sha256": "1312e1b6be0912405306d437452c049a9fd43442b707f675304019813681ed62",
+        "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-v0.3.0-f3-dev3.zip",
+        "http": 200
+      },
+      "SHA256SUMS.txt": {
+        "bytes": 363,
+        "sha256": "07f9cee132bf90194c2b1b8dcf9b5d776696fb1012e96eac2a65305778a4407f",
+        "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/SHA256SUMS.txt",
+        "http": 200
+      }
+    },
+    "status": "PASS"
+  },
+  "configuration_package": {
+    "schema": 1,
+    "date": "2026-10-28",
+    "kind": "configuration-only supplement",
+    "source_commit": "f8b8ad8eac0d49e00e52c7cf680add44b9f46306",
+    "file": "nabo-toolkit-config-shortcuts-20261028.zip",
+    "bytes": 90845,
+    "sha256": "92133a76bb0c4c92b040520cbf7fe9249308d4393364a9a1129b5fd600057c6c",
+    "members": 13,
+    "firmware_included": false,
+    "compatible_protocol": "F2/F3 v1; existing F3 dev3 device configuration written and verified",
+    "existing_release_assets_replaced": false,
+    "workflow": "Read from badge; use new default shortcuts preserving current editor cards; write and verify",
+    "candidate_firmware_published": false
+  },
+  "browser_qa": {
+    "public_page_loaded": true,
+    "new_groups": [
+      "截图",
+      "Typeless",
+      "剪映",
+      "微信读书",
+      "抖音",
+      "编辑"
+    ],
+    "legacy_draft_replaced_only_after_explicit_preset_click": true,
+    "card_fields_preserved": true,
+    "unconnected_write_disabled": true,
+    "implicit_usb_write": false,
+    "screenshot": "docs/images/config-shortcuts-20261028.jpg",
+    "screenshot_sha256": "5981a5cd97cdf39c738d4a9e06f1bfaee1b5e5e265f4953595530e47da5f53d8",
+    "physical_serial_permission": "UNVERIFIED"
+  },
+  "new_firmware_candidate_flashed": false,
+  "new_firmware_candidate_published": false
+}

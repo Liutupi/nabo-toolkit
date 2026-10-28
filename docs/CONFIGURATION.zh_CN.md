@@ -2,7 +2,9 @@
 
 # 快捷键和名片配置（F2/F3）
 
-公开入口：[NABO工具箱配置](https://liutupi.github.io/nabo-toolkit/)；离线包见[Release](https://github.com/Liutupi/nabo-toolkit/releases)。顶部“名片 / Wi-Fi 二维码”可直达编辑区。
+公开入口：[NABO工具箱配置](https://liutupi.github.io/nabo-toolkit/)；顶部“名片 / Wi-Fi 二维码”可直达编辑区。新版默认组使用最新在线页面，或独立离线配置补充包 [`nabo-toolkit-config-shortcuts-20261028.zip`](https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-config-shortcuts-20261028.zip)；补充包已追加到[原v0.3.0-f3-dev3 Release](https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.0-f3-dev3)。
+
+原固件ZIP及 `nabo-toolkit-config-offline.zip` 保留发布时的页面/默认组，不会随着在线页自动更新。要使用“使用新版默认快捷键（保留名片）”按钮，请选择最新在线页或上述新命名补充包；其元数据为 `config-shortcuts-manifest.json`，独立校验文件为 `CONFIG_SHORTCUTS_SHA256SUMS.txt`。这是仅配置补充，不含新固件，不替换原八个发布资产。全部11个Release资产已匿名下载，字节/SHA256与本地相等，原八个哈希不变；新ZIP的13个成员均通过manifest校验。最新Pages部署的manifest及11个可访问文件也通过匿名HTTP200与字节/哈希核验。
 
 开发入口是现有 `game-art/toolkit/prototype/config.html`，无需联网。页面分开提供浏览器保存和USB工牌读写：只有点击“写入工牌并核对”才向所选串口写入。**F2历史验收：dev2曾授权app-only安装，真实USB保存/读回/两轮重启保留和20次连续读回通过；自定义文字/名片/扫码及成功保存后断电保留也通过。浏览器真实权限弹窗和传输中拔线仍待验收。**
 
@@ -24,6 +26,8 @@
 窗口、PS和浏览器组已从新版默认表移除。截图/粘贴、Typeless、剪映的原有动作保持；截图组的下键改为Esc。微信读书/抖音对手机和电脑均发无修饰的↑（0x52）、→（0x4f）、↓（0x51），OK发送的是右方向键，不是鼠标右键。具体翻页/跳章/快进由App、阅读模式和焦点决定，抖音右方向键不能保证切到下个视频。用户已确认当前测试端能调出截图并能取消，微信读书/抖音反馈“可以了”；未注明手机还是电脑，因此仅记当前端可用，各手机/电脑平台和具体跳章/快进行为仍未逐项验收。
 
 更新旧工牌时：**连接→从工牌读回→使用新版默认快捷键（保留名片）→写入工牌并核对**。该按钮只替换当前页面的groups，保留当前页面的cards；只有先读回，才能保留设备中实际保存的名片。点按钮不会自动读设备、写设备或保存到浏览器。单独“恢复默认”会同时重置页面的快捷键与名片，不能代替这个保留名片的流程。
+
+使用独立配置补充包时，先完整解压，再用电脑Chrome/Edge打开其中的 `config.html`，按同一流程操作即可更新旧dev3；无需重刷固件。新页面或新离线包都不会自动迁移NVS的 `cfg_v1`，也不包含你的个人配置导出。只有显式写入并核对后，新groups才保存在工牌；名片以先读回的实际内容为准。
 
 旧dev3启动时仍优先加载NVS中的已保存配置，刷入新固件也不会自动覆盖个人分组。当前旧dev3已通过生产JS客户端的真实USB配置写入及3次读回，新六组读回一致，原截图/粘贴、Typeless、剪映和cards按预期保留；本轮没有刷固件、改绑定、改分区或擦NVS。这证明旧dev3的配置保存/读回；随后用户确认了当前测试端的截图/取消和读书/抖音可用，但没有注明手机或电脑，不能扩展为全平台验收，也不等于新候选固件已上机。
 
