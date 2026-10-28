@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-28",
+  "checked_at": "2026-10-28T06:07:41.852Z",
+  "project_id": 1701,
+  "revision_id": 3928,
+  "version": "v0.3.1-remote-dev2",
+  "title": "NABO 工具箱 · 随身蓝牙遥控器",
+  "category": "效率与工具",
+  "subcategory": "输入遥控",
+  "operation": "Update existing withdrawn revision in place; no new project",
+  "previous_version": "v0.3.0-f3-dev3",
+  "revision_is_mutable": true,
+  "user_manually_withdrew_previous_submission": true,
+  "submitted": true,
+  "status": "审核中",
+  "status_en": "IN REVIEW",
+  "publicly_published": false,
+  "public_url": null,
+  "creator_url": "https://ai-passport.folotoy.cn/account/?project=1701",
+  "configuration_link_saved": "https://liutupi.github.io/nabo-toolkit/",
+  "github_release_saved": "https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.1-remote-dev2",
+  "images_saved": 5,
+  "original_images_byte_and_sha256_unchanged": true,
+  "cover_and_order_unchanged": true,
+  "image_upload_delete_reorder_performed": false,
+  "saved_content_verification": {
+    "method": "Read saved Chinese and English creator workbench DOM after submitting; normalized whitespace equality",
+    "description_zh": true,
+    "instructions_zh": true,
+    "changelog_zh": true,
+    "description_en": true,
+    "instructions_en": true,
+    "changelog_en": true
+  },
+  "content_files": {
+    "COPY_ZH.md": {
+      "bytes": 5310,
+      "sha256": "f244a34bc666c9df8daba87c039fe6b0e1e0203c04cb2c2092e0b9a493066605"
+    },
+    "COPY_EN.md": {
+      "bytes": 4332,
+      "sha256": "4aed3061dfb76252846435e6e5eda8c08275b28147541605e85c78c5f5087dd4"
+    },
+    "USAGE_ZH.md": {
+      "bytes": 5220,
+      "sha256": "09b38f322d6d38d39faac26818bccb03f0aac85e96dc867208a75ec078a44e98"
+    },
+    "USAGE_EN.md": {
+      "bytes": 4908,
+      "sha256": "456e9f6cd247a3c2a20809cd08286f3f6d59898a934a0c6d7bd87c5c6c10a317"
+    },
+    "CHANGELOG_ZH.md": {
+      "bytes": 783,
+      "sha256": "b5a85f2c3536eca32050c22357434e627cb852670cc394e2a401e96e66de5768"
+    },
+    "CHANGELOG_EN.md": {
+      "bytes": 854,
+      "sha256": "88c02e39f7174ade7d9bf8e30c39e7c26cdaa6a986d49abdbf7cc006d03a49be"
+    }
+  },
+  "full_image_first_install_reset_warning_saved": true,
+  "user_requested_update_and_existing_images_preserved": true,
+  "firmware_authenticated_download": "PASS",
+  "full_install_device_test": "NOT RUN",
+  "status_screenshot": "build/community-v0.3.1-submitted-status.jpg"
+}

@@ -2,17 +2,19 @@
 
 # NABO 工具箱
 
-**已安装的媒体/息屏版本（发布进行中，2026-10-28）**：源码默认五组为截图（含Esc取消）、Typeless、剪映、微信读书、编辑，抖音移入媒体的“音乐/抖音”选择。音乐原音量/播放/切歌键保留；屏幕与本地网页按实体从上到下“上、下、OK”显示。可选30秒息屏遥控，普通短键不续亮屏计时且继续发送，长OK只亮屏、长上仍返回。候选 `0.3.1-remote-dev2` 完整门禁PASS：127项（37 Node+90 Python）、跳过0、2,206步、3项故意变异及ESP-IDF6.0.2/F3构建；固定app已获授权app-only安装、校验和复位通过。另经真实USB仅移除匹配的旧抖音组，其余组/名片逐项保留，自动读回及连续3次读回一致。实体媒体选择/键位顺序、息屏、暗屏翻页及长OK只亮屏已由用户确认通过；冷启动保留、真实功耗和全部App/平台矩阵仍待测，本轮发布核验进行中，社区审核/公开状态另记。
+**v0.3.1-remote-dev2已在GitHub发布，社区审核中（2026-10-28）**：源码默认五组为截图（含Esc取消）、Typeless、剪映、微信读书、编辑，抖音移入媒体的“音乐/抖音”选择。音乐原音量/播放/切歌键保留；屏幕与本地网页按实体从上到下“上、下、OK”显示。可选30秒息屏遥控，普通短键不续亮屏计时且继续发送，暗屏长OK只亮屏，亮屏长OK保留原工具动作，长上仍返回。候选 `0.3.1-remote-dev2` 完整门禁PASS：127项（37 Node+90 Python）、跳过0、2,206步、3项故意变异及ESP-IDF6.0.2/F3构建；固定app已获授权app-only安装、校验和复位通过。另经真实USB仅移除匹配的旧抖音组，其余组/名片逐项保留，自动读回及连续3次读回一致。实体媒体选择/键位顺序、息屏、暗屏翻页及长OK只亮屏已由用户确认通过；冷启动保留、真实功耗和全部App/平台矩阵仍待测，GitHub固件与公开配置页已核验，原社区条目已更新并重新提交审核，尚未公开上架。
 
 本轮实体验收PASS：用户确认媒体/键位顺序、息屏、暗屏翻页、长OK只亮屏，耳机/键盘本轮均正常。独立补采也在screen_off=true全程捕获16条HID成功/32次notification TX，动画帧9冻结、相关错误0，唤亮前后sent不增加。此前间歇连接根因仍未确定，不称已修复或全平台共存通过；TX完成非宿主ACK。
 
-**配置交付（发布进行中）**：[新版配置页](https://liutupi.github.io/nabo-toolkit/)与当前五组源码同步；v0.3.0包及旧 `nabo-toolkit-config-shortcuts-20261028.zip` 保留各自原六组快照，HANDOFF25仍作历史记录。旧dev3要获得媒体选择/息屏，需升级本版app；读回个人配置不会自动删组，替换默认组和写入设备仍须显式操作。此前102项属于快捷键候选，与本版127项分开记录；公共部署、Release及社区状态须独立核验。
+**配置页已公开并核验**：[新版配置页](https://liutupi.github.io/nabo-toolkit/)与当前五组源码同步；v0.3.0包及旧 `nabo-toolkit-config-shortcuts-20261028.zip` 保留各自原六组快照，HANDOFF25仍作历史记录。旧dev3要获得媒体选择/息屏，需升级本版app；读回个人配置不会自动删组，替换默认组和写入设备仍须显式操作。此前102项属于快捷键候选，与本版127项分开记录；本版Release的8个资产及配置站点11个文件已匿名下载并核对字节/SHA，社区公开上架仍待审核。
 
 离线的蓝牙 HID 遥控工牌（FoloToy AI Passport，ESP32-C3）：PPT 翻页、会议快捷键、媒体、拍照快门、自定义快捷键/Typeless、名片二维码。
 
-[打开配置页](https://liutupi.github.io/nabo-toolkit/) · [下载固件与离线配置包](https://github.com/Liutupi/nabo-toolkit/releases) · [升级说明](docs/RELEASE_v0.3.0-f3-dev3.md)
+[打开配置页](https://liutupi.github.io/nabo-toolkit/) · [下载固件与离线配置包](https://github.com/Liutupi/nabo-toolkit/releases) · [升级说明](docs/RELEASE_v0.3.1-remote-dev2.md)
 
-社区投稿：**项目1701/修订3928已提交，当前审核中，尚未确认公开上架**。完整固件、封面和六大工具的中英文说明已保存，见[投稿与核验记录](docs/community/v0.3.0-f3-dev3/README.md)。
+**社区更新**：原项目1701/可变修订3928已更新为v0.3.1-remote-dev2并重新提交，当前**审核中，尚未公开**。原五图/封面/顺序保留，逐张重下字节/SHA与更新前一致；保存页固件重下2,077,152字节、SHA256 `9bcc39298ddaced09803052de27b6671d502e5d72cd5e249e55140f48abe548b`，与已发布GitHub full逐字节相等。见[本轮社区核验](docs/community/v0.3.1-remote-dev2/README.md)。匿名社区端点本轮未重查。
+
+[历史首次投稿记录](docs/community/v0.3.0-f3-dev3/README.md)保留v0.3.0快照；3928是可变修订，当前固件href已替换为新二进制，旧字节/SHA和HTTP401不能称当前下载结果。
 
 **v0.3.0-f3-dev3公开测试版**：原七条动画、完整欢迎、专用开机语音和无爆破按键音已接入并由用户验收。Build PASS（ESP-IDF6.0.2）；Host tests PASS（100项、1,710步完整JS–C对拍）；Device tests 部分PASS（声音/动画，240次连接采样堆最低92,696/最大块77,824字节，音频错误0、崩溃0）。最终镜像重复USB/断电保留、实体跳过、浏览器权限、全部宿主/三槽/睡眠/长稳仍Unverified；历史三秒FAIL保留。F2的Windows/配置实体验收作为历史证据保留，详见HANDOFF22–23和validation/f3.json。
 
@@ -22,7 +24,7 @@
 
 ![实际C渲染器宿主预览，非LCD照片](docs/images/f3/overview.png)
 
-**保留数据升级仅写app到0x10000**：旧factory为0x10000/0x1f0000，assets FAT为0x200000/0x600000，与默认构建表不同。不要默认idf.py flash、刷社区完整镜像或整片擦除。经单独授权另提供 `nabo-toolkit-community-full.bin` 社区首装包（0x0写入、重置分区/NVS/绑定，完整首装尚未真机验收），详见[安装说明](docs/RELEASE_v0.3.0-f3-dev3.md)。两种包不能混用。固定已验收app1,999,600字节，SHA256 `d2032e7b95d6e45aa0cc7e8fb6a9acdfb1628e3ea09578b7eafb061f866b4711`。
+**保留数据升级仅写app到0x10000**：旧factory为0x10000/0x1f0000，assets FAT为0x200000/0x600000，与默认构建表不同。不要默认idf.py flash、刷社区完整镜像或整片擦除。经单独授权另提供 `nabo-toolkit-community-full.bin` 社区首装包（0x0写入、重置分区/NVS/绑定，完整首装尚未真机验收），详见[安装说明](docs/RELEASE_v0.3.1-remote-dev2.md)。两种包不能混用。本版固定app2,011,616字节，SHA256 `b4043d24fb20bf4ad68091587486ded70d889e0a42579edca0e44e9e211b8ffe`；旧v0.3.0产物仍按上文历史验收记录保留。
 
 先读[交接本](docs/HANDOFF.md)、[固件框架](game-art/toolkit/FIRMWARE_PLAN.md)、[界面设计](game-art/toolkit/UI_DESIGN.md)、[验证记录](docs/VALIDATION.zh_CN.md)。维护约定见 `AGENTS.md`。
 

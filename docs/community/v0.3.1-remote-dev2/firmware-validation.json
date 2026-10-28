@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-28",
+  "checked_at": "2026-10-28T06:07:41.852Z",
+  "project_id": 1701,
+  "revision_id": 3928,
+  "version": "v0.3.1-remote-dev2",
+  "saved_page_firmware_href": "https://ai-passport.folotoy.cn/api/me/revisions/3928/firmware",
+  "filename": "nabo-toolkit-community-full.bin",
+  "bytes": 2077152,
+  "sha256": "9bcc39298ddaced09803052de27b6671d502e5d72cd5e249e55140f48abe548b",
+  "authenticated_browser_download": "PASS",
+  "authenticated_context": "Download clicked from saved current-revision href after updating and re-submitting the original project",
+  "local_fixed_full_byte_equal": true,
+  "github_release_byte_equal": true,
+  "github_release_comparison_evidence": "docs/validation/publication-v0.3.1-remote-dev2.json",
+  "embedded_app_sha256": "b4043d24fb20bf4ad68091587486ded70d889e0a42579edca0e44e9e211b8ffe",
+  "embedded_app_exact_byte_equal": true,
+  "nvs_phy_gap_all_ff": true,
+  "anonymous_current_revision_download": {
+    "status": "NOT RECHECKED",
+    "bytes_verified": false,
+    "note": "Current download was verified only in authenticated creator context. Previous revision record HTTP401 is historical, not a fresh anonymous check."
+  },
+  "complete_install_device_test": "NOT RUN",
+  "current_device_reflashed_during_publication": false,
+  "public_listing_verified": false
+}

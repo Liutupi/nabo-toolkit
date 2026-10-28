@@ -2,24 +2,35 @@
 
 # 验证记录 — 2026-10-28
 
-v0.3.1 GitHub/Pages发布核验PASS：新Release8资产匿名重下、ZIP37成员、公开配置页11文件均字节/SHA一致。新媒体/息屏固定app已安装且本轮新增行为通过；社区原条目更新尚待进入编辑，原五图已只读记录且未改。见[发布记录](validation/publication-v0.3.1-remote-dev2.json)与HANDOFF27。
+v0.3.1 GitHub/Pages发布核验PASS：新Release8资产匿名重下、ZIP37成员、公开配置页11文件均字节/SHA一致。**原社区项目1701/可变修订3928已更新为v0.3.1-remote-dev2并重新提交审核，当前“审核中”，尚未公开上架。** 原五图逐张重下字节/SHA与更新前一致；社区当前完整固件重下2,077,152字节、SHA256 `9bcc39298ddaced09803052de27b6671d502e5d72cd5e249e55140f48abe548b`，与已发布GitHub full相等。见[发布核验](validation/publication-v0.3.1-remote-dev2.json)、[社区更新](community/v0.3.1-remote-dev2/README.md)和HANDOFF27。
 
-媒体/息屏0.3.1-remote-dev2：**Build PASS；Host tests PASS（127：37 Node+90 Python，2206步，3变异，0跳过）；Device tests 本轮新增行为PASS：固定app-only安装/保护区/五组配置迁移、媒体实体顺序、持续按键后息屏、暗屏HID和长OK只亮屏、本轮耳机键盘共存正常。** 两轮505/505 ready，连接堆最低92,624/最大块77,824；暗屏独立16条HID/32次TX、动画帧冻结，相关错误0。Unverified：实测功耗/冷启动开关保留/完整App与平台矩阵/历史间歇连接原因/原回连三槽深睡长稳及完整首装；不是全F0/F1门槛放行。见[记录](validation/remote-control-v0.3.1.json)和HANDOFF26。本轮新版本发布核验进行中。
+媒体/息屏0.3.1-remote-dev2：**Build PASS；Host tests PASS（127：37 Node+90 Python，2206步，3变异，0跳过）；Device tests 本轮新增行为PASS：固定app-only安装/保护区/五组配置迁移、媒体实体顺序、持续按键后息屏、暗屏HID和长OK只亮屏、本轮耳机键盘共存正常。** 两轮505/505 ready，连接堆最低92,624/最大块77,824；暗屏独立16条HID/32次TX、动画帧冻结，相关错误0。Unverified：实测功耗/冷启动开关保留/完整App与平台矩阵/历史间歇连接原因/原回连三槽深睡长稳及完整首装；不是全F0/F1门槛放行。见[记录](validation/remote-control-v0.3.1.json)和HANDOFF26。GitHub/Pages与社区保存文件核验已通过；社区公开状态仍待审核。
 
 快捷键改版：Build PASS（0.3.1-shortcuts-dev1候选，未刷/未发布）；Host tests PASS（102：29 Node+73 Python，1710步）；Device tests：旧dev3真实USB配置保存+3读回通过，截图/Esc及读书/抖音当前端由用户确认可用。候选实机、手机/电脑逐项矩阵和新配置拔电保留仍Unverified。见[新分组记录](validation/shortcuts-v0.3.1.json)。
 
 新版配置交付PASS：Pages提交f8b8ad8部署成功，11个可访问文件匿名HTTP200/字节/SHA一致；公开浏览器预设切换/名片保留/未连接禁写通过。Release另增仅配置更新包及独立manifest/校验文件，11资产匿名重下通过，原8资产不变；未发布新候选固件。见[交付核验](validation/shortcuts-publication-20261028.json)。
 
-## 社区投稿核验 — 2026-10-28
+## 社区更新核验 — v0.3.1-remote-dev2（2026-10-28）
 
-已提交AI Passport项目1701/修订3928，当前**审核中，尚未确认公开上架**。五张图、六工具中英文玩法/按键/配对说明、[配置页](https://liutupi.github.io/nabo-toolkit/)和安装边界已保存。完整首装镜像经用户单独授权；作者当前工牌未刷写。
+同一项目1701/修订3928在用户手动撤回后原位更新，已重新提交审核，当前**审核中、非公开**。六个中英介绍/操作/更新记录字段保存核对一致，原五图、封面和顺序保持，五张服务器WebP逐张重下的字节/SHA均与更新前一致。
+
+- Build：PASS，固定完整镜像2,077,152字节/SHA256 `9bcc39298ddaced09803052de27b6671d502e5d72cd5e249e55140f48abe548b`；登录创作者上下文从当前保存href重下，与固定产物/已发布GitHub full逐字节相等，内嵌app相等。
+- Host tests：固定app既有127项/2,206步/3变异PASS，发布核验不冒充重新执行设备测试。
+- Device tests：第26节固定app-only安装/配置迁移/本轮媒体与息屏部分PASS；本次社区更新没有再刷作者设备，完整0x0首装仍NOT RUN。
+- Unverified：社区公开上架、当前匿名端点（本轮未重查）、完整首装实机，以及功耗/冷启动开关保留/全部App平台/历史蓝牙间歇原因/原回连三槽深睡长稳。
+
+当前保存href：`https://ai-passport.folotoy.cn/api/me/revisions/3928/firmware`；工作台：https://ai-passport.folotoy.cn/account/?project=1701 。只证明登录上下文重下，不称匿名CDN可下载。见[固件核验](community/v0.3.1-remote-dev2/firmware-validation.json)、[图片继承](community/v0.3.1-remote-dev2/images-reused.json)和[提交状态](community/v0.3.1-remote-dev2/submission-status.json)。3928是可变修订，当前href已替换为新二进制，以下旧记录保留为历史快照。
+
+## 历史首次投稿核验 — v0.3.0-f3-dev3（2026-10-28）
+
+首次投稿当时AI Passport项目1701/修订3928已提交、**审核中，尚未确认公开上架**；此段为旧版本历史快照，当前同修订已更新，见第27节与上文。五张图、六工具中英文玩法/按键/配对说明、[配置页](https://liutupi.github.io/nabo-toolkit/)和安装边界已保存。完整首装镜像经用户单独授权；作者当前工牌未刷写。
 
 - Build：PASS，复用并校验固定完整镜像2,065,136字节，SHA256 `9fa968de2a4837d130188bb9541ec55a67a3f1bd936b01eeeb4b81ea5047ad1c`；内嵌app与已验收dev3相等。
 - Host tests：同一app既有100项/1,710步PASS；本次发布核验不代表重新执行完整首装验收。
 - Device tests：既有app声音/完整欢迎/动画部分PASS；本轮未刷设备，完整首装NOT RUN。
-- Unverified：社区公开上架、匿名修订固件下载（当前HTTP401）、完整首装实机路径及剩余设备兼容/回连项目。首装0x0会改分区表并重置NVS/绑定，保留数据使用app-only升级。
+- Unverified：社区公开上架、匿名修订固件下载（首次检查时HTTP401，非本轮新请求）、完整首装实机路径及剩余设备兼容/回连项目。首装0x0会改分区表并重置NVS/绑定，保留数据使用app-only升级。
 
-从保存页实际固件href登录浏览器下载已与本地/GitHub逐字节核对通过；GitHub8个资产匿名重下通过。素材库存368文件/93,040,985字节，原364不变。详细证据见[社区投稿记录](community/v0.3.0-f3-dev3/README.md)。后续微信读书/抖音默认组改动不包含在修订3928。
+首次投稿时从保存页实际固件href登录浏览器下载，与当时本地/GitHub逐字节核对通过；GitHub8个资产匿名重下通过。素材库存368文件/93,040,985字节，原364不变。详细证据见[社区投稿记录](community/v0.3.0-f3-dev3/README.md)。后续微信读书/抖音改动不包含在该首次投稿快照；3928当前内容已在第27节原位更新，旧下载记录不代表当前二进制。
 
 首次GitHub/Pages发布PASS（第23节阶段记录）：仓库PUBLIC，测试版Release及NABO配置页已上线；5个下载文件匿名下载、37个ZIP成员和网页11文件校验通过。浏览器名片/Wi-Fi编辑、保存/重载及NABO形象显示通过；未开串口，真实权限/USB传输仍未验收。详情见[发布核验](validation/publication-v0.3.0-f3-dev3.json)。
 

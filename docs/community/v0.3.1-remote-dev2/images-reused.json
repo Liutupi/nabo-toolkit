@@ -51,5 +51,56 @@
       ]
     }
   ],
-  "after_update_verified": false
+  "after_update_verified": true,
+  "checked_at": "2026-10-28T06:07:15.768Z",
+  "updated_revision_id": 3928,
+  "images_after_update": [
+    {
+      "url": "https://ai-passport.folotoy.cn/api/me/revisions/3928/images/0?v=4",
+      "bytes": 131502,
+      "sha256": "6ba8b0a68b49e3b6bcaf4bb7bd52dc4d61b9b499175f49ff42aeb01d0169c646",
+      "dimensions": [
+        900,
+        1200
+      ]
+    },
+    {
+      "url": "https://ai-passport.folotoy.cn/api/me/revisions/3928/images/1?v=4",
+      "bytes": 88042,
+      "sha256": "f87f7cad035ec8b903c313c62dea7d7df67fa56d2e4a19043be4bf668bffbab9",
+      "dimensions": [
+        900,
+        1200
+      ]
+    },
+    {
+      "url": "https://ai-passport.folotoy.cn/api/me/revisions/3928/images/2?v=4",
+      "bytes": 54090,
+      "sha256": "fc4661f1d197ac693be948a34da7434c538e2480e88c60e052fdf41a79e71e78",
+      "dimensions": [
+        900,
+        1200
+      ]
+    },
+    {
+      "url": "https://ai-passport.folotoy.cn/api/me/revisions/3928/images/3?v=4",
+      "bytes": 53408,
+      "sha256": "c897c9c4c18db7d7420c9fa85fb18da28c66735d4475b95264039f40af1d1e9a",
+      "dimensions": [
+        900,
+        1200
+      ]
+    },
+    {
+      "url": "https://ai-passport.folotoy.cn/api/me/revisions/3928/images/4?v=4",
+      "bytes": 70598,
+      "sha256": "5c7644c620cb02814c0b3d4d474fd28d74a1816641ca830b6d6754055897d3bb",
+      "dimensions": [
+        900,
+        1200
+      ]
+    }
+  ],
+  "same_order": true,
+  "no_image_mutations": true
 }
