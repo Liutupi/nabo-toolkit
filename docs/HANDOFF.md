@@ -1,6 +1,6 @@
 # 交接本
 
-更新：2026-10-28 · **最新第34节：个人名片直达全部作品，实际改配置写入/读回/受控重启留存及手机扫码PASS；dev4固定app不变，社区本轮未更新** · 提交见 git log
+更新：2026-10-28 · **最新第35节：v0.3.2-voice-dev4已发布GitHub/配置页并匿名重下核验；个人名片扫码PASS；社区因页面安全检查停止，未更新/未提交，原五图不变** · 提交见 git log
 
 ## 1. 现在是什么状态
 
@@ -541,3 +541,14 @@ dev3采用无损compact编码、每词新A/B键及写前容量预检；新记录
 生产JS客户端+真实USB只改 `cards[0].qr` 为该公开URL，完整canonical比较其余所有groups/cards字段均相同。JSON1,613→1,632B、NVS record1,629→1,648B，确认是真实payload变化，写入/读回完全相等；随后只读NVS并受控reset，再用生产客户端读回仍与expected完全相等。用户手机扫码确认“已打开，作品列表正确”。**此次changedcfg物理Flash写入、读回及受控重启留存PASS**，不再列为当前未测项；不等于冷断电或写入中掉电验收。
 
 21份模板、既有软件实现、固定d748 app和出厂默认名片不变；私人配置不进入发布，只记录上述公开destination。**Build/Host沿用固定213项记录 / Device本次个人名片配置与扫码PASS / Unverified**继续按第33节其余门槛保留。GitHub发布由root继续，社区仍因工具限制本轮未更新/未提交。
+
+
+## 35. dev4已公开，匿名下载核验PASS；社区本轮未更新（2026-10-28，最新）
+
+用户授权的源码已提交并推送main：`339c70ba95ca2b6934878d6b4b99f48b2bc38f5c`，tag `v0.3.2-voice-dev4` 指向同一源提交。[GitHub实验测试版](https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.2-voice-dev4)已公开，未设稳定最新版；未为打包重编译或替换已验收固定app。Pages workflow40661278514在该源提交成功，[配置页](https://liutupi.github.io/nabo-toolkit/)已更新。后续提交只写发布证据，不移动版本tag。
+
+**Publication PASS**：8个Release资产均匿名HTTP200重新下载、字节/SHA一致，ZIP内37文件/内外app/manifest/校验/离线配置等价核验通过，站点manifest与11可访问文件一致。GitHub元数据匿名403限流后用gh认证查询；下载和站点始终无认证。两份固件仍分别为app2,030,864B/d748…和full2,096,400B/9f6…；full内嵌app相等、NVS/PHY间隙全FF，无个人配置、模板或设备读回。社区manifest曾保留早期“changedcfg未测”文字，已修正为本轮实际名片写入/重启/扫码PASS并重下核对；未改固件。见[发布证据](validation/publication-v0.3.2-voice-dev4.json)。
+
+**社区未更新/未保存/未提交**：当前公开项目1701匿名预检仍为上一版2,077,152B/9bcc…，不是dev4。五张900×1200WebP逐张重下与原接受hash相等，未上传、删除、替换、重排任何图片。创作者页IAB访问不可用，Chrome native safety检查又无法可靠识别URL并要求停止；遵守停止、不再发UI输入、不用私有API绕过。六个中英文字段和新完整固件已准备；本地 `build/community-update/v0.3.2-voice-dev4/nabo-toolkit-community-update.zip` 只含固件、六字段、说明和校验，不含图片或私人数据。下一轮需先由用户在Chrome手动打开已知原项目页面，再刷新状态继续同一条目的更新；已有发布授权有效，无须重问。
+
+**Build PASS / Host tests PASS（213项、2,722步、3变异）/ Device tests本轮本人语音与模板保留、实际名片改写/重启/扫码限定PASS / Unverified**：完整0x0首装实机、长稳/全七词多人噪声、冷断电/写入中掉电/真实Flash故障、合法最大配置与极端容量/GC、功耗、历史平台回连/三槽/睡眠等；社区dev4保存/提交/审核/公开未完成。耳机问题按用户要求暂停，未改驱动/BLE策略或宣称修复。设备无追加刷写、串口均已关闭。

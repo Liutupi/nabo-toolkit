@@ -4,7 +4,7 @@
   "stage": "explicit lossless template compaction and enrolled voice prerelease",
   "status": "BUILD/HOST PASS; REQUESTED VOICE/LOSSLESS-COMPACTION/CONTROLLED-RESTART/PERSONAL-CARD CHECKS PASS WITH DISCLOSED LIMITS",
   "baseline_record": "offline-voice-v0.3.2-dev3.json",
-  "source_commit": null,
+  "source_commit": "339c70ba95ca2b6934878d6b4b99f48b2bc38f5c",
   "build": {
     "status": "PASS",
     "sdk": "ESP-IDF 6.0.2",
@@ -17,11 +17,17 @@
     "legacy_factory_offset": 65536,
     "legacy_factory_bytes": 2031616,
     "legacy_remaining_bytes": 752,
-    "app_only_write_range": [65536, 2096400],
+    "app_only_write_range": [
+      65536,
+      2096400
+    ],
     "erase_end_exclusive": 2097152,
     "record": "build/voice-dev4-gate.log",
     "non_realtime_config_sources_Os": [
-      "tk_config_lex.c", "tk_config_parse.c", "tk_config_json.c", "tk_config_store.c"
+      "tk_config_lex.c",
+      "tk_config_parse.c",
+      "tk_config_json.c",
+      "tk_config_store.c"
     ],
     "acoustic_animation_and_ble_policy_changed": false,
     "original_seven_font_c_files_unchanged": true,
@@ -98,9 +104,17 @@
     "fresh_usb_identity_checked": true,
     "same_connection_chip_capacity_security_and_actual_table_checked": true,
     "previous_fixed_2101_app_verified": true,
-    "write_range": [65536, 2096400],
+    "write_range": [
+      65536,
+      2096400
+    ],
     "erase_end_exclusive": 2097152,
-    "protected_regions_equal_before_reset": ["partition-table", "nvs", "phy", "asset-first-sector"],
+    "protected_regions_equal_before_reset": [
+      "partition-table",
+      "nvs",
+      "phy",
+      "asset-first-sector"
+    ],
     "protected_hash_scope": "After app write, before reset; not a claim that normal runtime/explicit compaction leaves NVS bytes unchanged",
     "entire_asset_region_readback": false,
     "default_or_merged_flash": false
@@ -111,7 +125,15 @@
     "installed": true,
     "root_cause_fixed": false,
     "startup_before_explicit_compaction": {
-      "template_counts": [3, 3, 3, 3, 3, 3, 3],
+      "template_counts": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
       "invalid_mask": 0
     },
     "explicit_compaction": {
@@ -125,8 +147,21 @@
       "configuration_settings_slots_values_unchanged": true,
       "legacy_voice_records_remaining": 0,
       "compact_v2_voice_records": 7,
-      "compact_record_bytes_by_word": [708, 736, 616, 648, 687, 634, 1108],
-      "nvs_entries": {"used": 379, "free": 377, "available": 251, "total": 756},
+      "compact_record_bytes_by_word": [
+        708,
+        736,
+        616,
+        648,
+        687,
+        634,
+        1108
+      ],
+      "nvs_entries": {
+        "used": 379,
+        "free": 377,
+        "available": 251,
+        "total": 756
+      },
       "scope": "Semantic coefficient/count/next retention; key/encoding/physical NVS representation intentionally changes"
     },
     "same_content_configuration_roundtrip": {
@@ -143,7 +178,9 @@
     "personal_card_profile_update": {
       "status": "PASS",
       "public_qr_target": "https://ai-passport.folotoy.cn/creators/?id=14101",
-      "changed_fields": ["cards[0].qr"],
+      "changed_fields": [
+        "cards[0].qr"
+      ],
       "all_other_card_fields_and_groups_canonical_equal": true,
       "old_json_utf8_bytes": 1613,
       "new_json_utf8_bytes": 1632,
@@ -161,7 +198,15 @@
     "controlled_restart": {
       "authorized": true,
       "preceded_by_read_only_nvs_inspection": true,
-      "post_startup_template_counts": [3, 3, 3, 3, 3, 3, 3],
+      "post_startup_template_counts": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
       "invalid_mask": 0,
       "cold_power_off_test": false
     },
@@ -189,14 +234,39 @@
     "combined_continuous_stability_claimed": false,
     "queries": {
       "terminal_jobs": 5,
-      "ambiguous": {"count": 1, "speech_frames": 29, "best_distance": 4, "runner_up_distance": 5},
-      "accepted_winner_ids": [5, 0, 6, 1],
+      "ambiguous": {
+        "count": 1,
+        "speech_frames": 29,
+        "best_distance": 4,
+        "runner_up_distance": 5
+      },
+      "accepted_winner_ids": [
+        5,
+        0,
+        6,
+        1
+      ],
       "known_intent_user_confirmations": [
-        {"target": "读书", "word": 0, "speech_frames": 20, "best_distance": 3, "runner_up_distance": 6},
-        {"target": "语音输入", "word": 6, "speech_frames": 37, "best_distance": 3, "runner_up_distance": 5}
+        {
+          "target": "读书",
+          "word": 0,
+          "speech_frames": 20,
+          "best_distance": 3,
+          "runner_up_distance": 6
+        },
+        {
+          "target": "语音输入",
+          "word": 6,
+          "speech_frames": 37,
+          "best_distance": 3,
+          "runner_up_distance": 5
+        }
       ],
       "other_query_intents_unknown_not_counted_as_accuracy": true,
-      "hid_sent_before_after_query_phase": [1, 1],
+      "hid_sent_before_after_query_phase": [
+        1,
+        1
+      ],
       "preceding_ordinary_nonvoice_hid_reports": 1,
       "user_confirmed_correct_navigation_and_no_freeze_restart": true,
       "accuracy_percentage_claimed": false
@@ -216,7 +286,15 @@
       "bluetooth_ready": true,
       "hid_failures": 0,
       "audio_errors": 0,
-      "template_counts": [3, 3, 3, 3, 3, 3, 3],
+      "template_counts": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
       "invalid_mask": 0
     },
     "configuration_capacity_status": "PASS for the observed changed personal-card payload after explicit compaction: real USB write/readback and controlled-restart retention are exact; legal maximum configuration/schema acceptance remains unverified",
@@ -232,22 +310,26 @@
     "fixed_or_causally_resolved": false,
     "ble_parameters_or_strategy_changed": false,
     "driver_changed": false,
-    "last_read_only_winrt_parameters": {"connection_interval_us": 7500, "latency": 0, "supervision_timeout_ms": 2000},
+    "last_read_only_winrt_parameters": {
+      "connection_interval_us": 7500,
+      "latency": 0,
+      "supervision_timeout_ms": 2000
+    },
     "scope": "Current user-reported recovery and tested power-path comparisons; not proof of a firmware/USB/adapter fix or all-day coexistence"
   },
   "original_fonts_and_art_assets_changed": false,
   "publication_authorized": true,
   "publication_class": "Public experimental prerelease with explicit limitations",
-  "publication_status": "PREPARATION ONLY; ROOT WILL EXECUTE",
-  "release_published": false,
+  "publication_status": "GITHUB/CONFIGURATION SITE PUBLISHED AND VERIFIED; COMMUNITY UPDATE NOT SUBMITTED",
+  "release_published": true,
   "community_update": {
     "target_project_id": 1701,
     "status": "PREPARED ONLY - NOT SUBMITTED THIS ROUND",
     "reason": "Browser access/policy prevented reliable community editing; no private-API workaround used",
     "original_five_images_changed_or_reordered": false
   },
-  "this_round_changes_committed": false,
-  "this_round_changes_pushed": false,
+  "this_round_changes_committed": true,
+  "this_round_changes_pushed": true,
   "unverified": [
     "Legal maximum configuration/schema acceptance; opaque4016-byte storage test is not that test",
     "Long-duration stability, more users/background noise and the complete seven-word accuracy/rejection matrix",
@@ -255,6 +337,11 @@
     "Intermittent PC-USB headphone root cause; investigation stopped at the user's request without a claimed fix",
     "Measured power/runtime and all historical platform/reconnect/slot/sleep gates",
     "Complete0x0 first-install image on hardware",
-    "New GitHub/Pages publication verification and community resubmission are not yet completed in this record"
-  ]
+    "Community dev4 firmware/text update, save, submission, approval and public availability; not performed after browser safety stop"
+  ],
+  "publication_record": "docs/validation/publication-v0.3.2-voice-dev4.json",
+  "release_url": "https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.2-voice-dev4",
+  "anonymous_release_assets_verified": 8,
+  "release_zip_members_verified": 37,
+  "configuration_files_anonymously_verified": 11
 }

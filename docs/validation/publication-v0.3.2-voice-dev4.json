@@ -1,0 +1,195 @@
+{
+  "date": "2026-10-28",
+  "repo": "https://github.com/Liutupi/nabo-toolkit",
+  "visibility": "PUBLIC",
+  "release": "https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.2-voice-dev4",
+  "version": "v0.3.2-voice-dev4",
+  "prerelease": true,
+  "source_commit": "339c70ba95ca2b6934878d6b4b99f48b2bc38f5c",
+  "configuration_source_commit": "339c70ba95ca2b6934878d6b4b99f48b2bc38f5c",
+  "tag_commit": "339c70ba95ca2b6934878d6b4b99f48b2bc38f5c",
+  "authorization_header_used": true,
+  "download_authorization_header_used": false,
+  "anonymous_release_asset_downloads": true,
+  "github_metadata": {
+    "authenticated_cli_fallback_used": true,
+    "fallbacks": [
+      {
+        "url": "https://api.github.com/repos/Liutupi/nabo-toolkit",
+        "anonymous_http": 403
+      },
+      {
+        "url": "https://api.github.com/repos/Liutupi/nabo-toolkit/releases/tags/v0.3.2-voice-dev4",
+        "anonymous_http": 403
+      },
+      {
+        "url": "https://api.github.com/repos/Liutupi/nabo-toolkit/git/ref/tags/v0.3.2-voice-dev4",
+        "anonymous_http": 403
+      },
+      {
+        "url": "https://api.github.com/repos/Liutupi/nabo-toolkit/git/tags/34930164f0002f475138342dfc641111e0563759",
+        "anonymous_http": 403
+      }
+    ]
+  },
+  "public_downloads": {
+    "community-manifest.json": {
+      "bytes": 3565,
+      "sha256": "e97d8f86587faeb3dec68e7985a12d2d0b63fbda13192de7531001325414de71",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.2-voice-dev4/community-manifest.json",
+      "http": 200
+    },
+    "COMMUNITY_SHA256SUMS.txt": {
+      "bytes": 190,
+      "sha256": "9654ef2fcf8f967403ae151144c24022bbdcf0af578eaf75bcb0ca1c1638d696",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.2-voice-dev4/COMMUNITY_SHA256SUMS.txt",
+      "http": 200
+    },
+    "manifest.json": {
+      "bytes": 7717,
+      "sha256": "8389e51f7d32f7caf011ac207e772aa40e2892c9d1f5b560271e3f346a603036",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.2-voice-dev4/manifest.json",
+      "http": 200
+    },
+    "nabo-toolkit-app.bin": {
+      "bytes": 2030864,
+      "sha256": "d748e54395bff10eaa85530d4287198607fc3fcd17f2d1da8250b272b15d1829",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.2-voice-dev4/nabo-toolkit-app.bin",
+      "http": 200
+    },
+    "nabo-toolkit-community-full.bin": {
+      "bytes": 2096400,
+      "sha256": "9f6ac2a640fd2c056d8367c4e62349c61472c9e6acc4e607463bb9bbe729dd78",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.2-voice-dev4/nabo-toolkit-community-full.bin",
+      "http": 200
+    },
+    "nabo-toolkit-config-offline.zip": {
+      "bytes": 92638,
+      "sha256": "9b9fceb0af2c5faf217acb758c921fc8642ea466d226e7e184331bcfb9732fa2",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.2-voice-dev4/nabo-toolkit-config-offline.zip",
+      "http": 200
+    },
+    "nabo-toolkit-v0.3.2-voice-dev4.zip": {
+      "bytes": 1560685,
+      "sha256": "bea65bc48a32c0bc405f7a41cc10c76396080e0781f35b34a1cbc7dd2d3005c9",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.2-voice-dev4/nabo-toolkit-v0.3.2-voice-dev4.zip",
+      "http": 200
+    },
+    "SHA256SUMS.txt": {
+      "bytes": 366,
+      "sha256": "df42899e30c940c3fd1d28c1031e583c05f6b1e001cff3877a007958b7aaa617",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.2-voice-dev4/SHA256SUMS.txt",
+      "http": 200
+    }
+  },
+  "zip_members_verified": 37,
+  "validation_firmware_version": "0.3.2-voice-dev4",
+  "validation_sha256": "cf734316bc8b0bae2acad5a70ba2c70c764296b8fc4899feaf41347aed702c51",
+  "unverified": [
+    "Community complete first installation from offset 0x0 has not been device-tested; it replaces default partitioning and resets NVS settings and Bluetooth bonds",
+    "Cause and sustained resolution of intermittent Windows headphone stutter with the badge connected through PC USB; latest normal playback does not establish a fix",
+    "Complete independent seven-word accuracy and rejection matrix, additional users, complex utterances, background noise and non-target sounds",
+    "Long-duration repeat stability, the original dev1 reset root cause and a demonstrated permanent resolution",
+    "Cold power-off retention, interrupted-power behavior and real Flash failures",
+    "Extreme personal feature widths and large configurations under physical NVS capacity and garbage-collection pressure; finite storage can still safely reject writes",
+    "Measured power draw and battery-runtime effects, full host/app/version compatibility, reconnect timing, slot switching, sleep/wake and prior sustained-stability gates"
+  ],
+  "accepted_app_sha256": "d748e54395bff10eaa85530d4287198607fc3fcd17f2d1da8250b272b15d1829",
+  "merged_image_published": true,
+  "device_readbacks_published": false,
+  "status": "PASS",
+  "community_first_install": {
+    "schema": 1,
+    "version": "v0.3.2-voice-dev4",
+    "date": "2026-10-28",
+    "purpose": "Complete first-install image prepared for the existing community project; original images retained",
+    "image": {
+      "file": "nabo-toolkit-community-full.bin",
+      "bytes": 2096400,
+      "sha256": "9f6ac2a640fd2c056d8367c4e62349c61472c9e6acc4e607463bb9bbe729dd78",
+      "offset": "0x0",
+      "erase_end_exclusive": "0x200000"
+    },
+    "embedded_accepted_app": {
+      "offset": "0x10000",
+      "bytes": 2030864,
+      "sha256": "d748e54395bff10eaa85530d4287198607fc3fcd17f2d1da8250b272b15d1829",
+      "byte_equal_to_accepted_app": true
+    },
+    "build": "ESP-IDF6.0.2 / ESP32-C3 / 8MiB / no PSRAM",
+    "build_artifact_reused_without_recompile": true,
+    "fixed_archive": "build/firmware/9f6ac2a640fd2c056d8367c4e62349c61472c9e6acc4e607463bb9bbe729dd78",
+    "partitions": [
+      {
+        "label": "nvs",
+        "offset": "0x9000",
+        "size": "0x6000",
+        "type": 1,
+        "subtype": 2
+      },
+      {
+        "label": "phy_init",
+        "offset": "0xf000",
+        "size": "0x1000",
+        "type": 1,
+        "subtype": 1
+      },
+      {
+        "label": "factory",
+        "offset": "0x10000",
+        "size": "0x3f0000",
+        "type": 0,
+        "subtype": 0
+      },
+      {
+        "label": "assets",
+        "offset": "0x400000",
+        "size": "0x300000",
+        "type": 1,
+        "subtype": 130
+      },
+      {
+        "label": "files",
+        "offset": "0x700000",
+        "size": "0x100000",
+        "type": 1,
+        "subtype": 130
+      }
+    ],
+    "nvs_phy_gap": "Erased 0xff build padding; no device readback, templates, configuration or credentials",
+    "data_warning": "Installation at0x0 writes the default partition table and resets NVS/settings/bonds/personal voice templates; preserve data with app-only upgrade",
+    "bootloader_provenance": "This fixed archive bootloader is used; its bytes differ from the preceding release bootloader, while the default partition table is byte-identical",
+    "full_install_device_test": "NOT RUN; only exact app-only installation, enrolled voice and retention checks were device accepted",
+    "current_badge_flashed_for_publication": false,
+    "configuration_url": "https://liutupi.github.io/nabo-toolkit/",
+    "source_commit": "339c70ba95ca2b6934878d6b4b99f48b2bc38f5c",
+    "changed_configuration_device_check": "PASS: personal-card URL changed, USB saved/read back, controlled restart readback matched, and phone scan accepted; no private configuration included",
+    "unverified": [
+      "Community complete first installation from offset 0x0 has not been device-tested; it replaces default partitioning and resets NVS settings and Bluetooth bonds",
+      "Cause and sustained resolution of intermittent Windows headphone stutter with the badge connected through PC USB; latest normal playback does not establish a fix",
+      "Complete independent seven-word accuracy and rejection matrix, additional users, complex utterances, background noise and non-target sounds",
+      "Long-duration repeat stability, the original dev1 reset root cause and a demonstrated permanent resolution",
+      "Cold power-off retention, interrupted-power behavior and real Flash failures",
+      "Extreme personal feature widths and large configurations under physical NVS capacity and garbage-collection pressure; finite storage can still safely reject writes",
+      "Measured power draw and battery-runtime effects, full host/app/version compatibility, reconnect timing, slot switching, sleep/wake and prior sustained-stability gates"
+    ]
+  },
+  "site": {
+    "url": "https://liutupi.github.io/nabo-toolkit/",
+    "manifest_http": 200,
+    "files_http_200_sha256_match": [
+      "LICENSE",
+      "NOTICE.md",
+      "README.txt",
+      "config.html",
+      "config.js",
+      "index.html",
+      "nabo.png",
+      "tk_config_schema.js",
+      "tk_config_serial.js",
+      "tk_core.js",
+      "tk_hid.js"
+    ],
+    "browser_physical_serial_permission": "UNVERIFIED"
+  }
+}
