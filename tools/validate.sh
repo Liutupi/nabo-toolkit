@@ -28,6 +28,7 @@ if [ "$TK_MODE" != --firmware ] && [ "$TK_MODE" != --f1-firmware ] && [ "$TK_MOD
     python3 tools/verify_assets.py
     node --test tests/tk_golden/model.test.js tests/tk_golden/prototype.test.js tests/tk_golden/config.test.js
     python3 -m unittest discover -s tests -p 'test_*.py' -v
+    python3 -m unittest discover -s tools/voice_probe -p 'test_*.py' -v
     python3 tools/verify_golden.py
     git diff --check
 fi

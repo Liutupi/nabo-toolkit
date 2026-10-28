@@ -1,6 +1,11 @@
 {
   "converter": "lv_font_conv 1.5.3",
-  "symbols": "·—…←↑→↓∈−、「」一万上下不两个中为主举么乐习书二于五享亮什今他以件任休会位体作你便保信修倒停储像先入全关其具内再准分切列删制前剪割功动助卓单原去发取口只可台右同名后向响回图在型备复多大天太失头始媒字存安定容对小尚就屏工已常应延开张录待微快恢息惯意成我或截手才打扫抖拍拒择持按换捷接控提搞摄撤播操支改放数文新方无时映是暂曲替最有未机束标校核歌止正没法波消源满演照片版牌牙物玩用电画留的盘目直相眠短码确示离秒程稍空窗章端第等箱类粘线组终绑结绝继绪续维缓编网置翻联能脑腾自致菜蓝要视计认议讯记讲设译试语读败贴资超足跳软辑输过返还这进远连送选遥那配里重量钟销键长门问间队除陪随静面音页项频飞验黑！，：？",
+  "symbols": "·—…←↑→↓∈−、「」一万上下不两个中为主举么义乐习书二于五享亮人什今他令以件任休会位体作你便保信修倒候停储像先入全关其具内再准分切列删别到制前剪割功动助卓单原去发取口只可台右同名后向听响唤回图在型备复多大天太失头始媒字存安定容对小尚就屏工已常应延开张录待微快恢息惯意成我或截所手才打扫找抖拍拒择持按换捷接控提搞摄撤播操支改放数文新方无时映是暂曲替最有未本机束查标校核次歌止正歧每没法波消源满演然照片版牌牙物玩用电画留的盘目直相眠短码确示离秒称程稍空窗章端第等箱类粘线组终绑结绝继绪续维缓编网置翻聆联能脑腾自致菜蓝要视计认议讯记讲设识译试语说请读败贴资超足跳软辑输过返还这进远连送选遥那配醒采里重量钟销键长门问间队除陪随需静面音页项频飞验黑！，：？",
+  "primary_symbols": "·—…←↑→↓∈−、「」一万上下不两个中为主举么乐习书二于五享亮什今他以件任休会位体作你便保信修倒停储像先入全关其具内再准分切列删制前剪割功动助卓单原去发取口只可台右同名后向响回图在型备复多大天太失头始媒字存安定容对小尚就屏工已常应延开张录待微快恢息惯意成我或截手才打扫抖拍拒择持按换捷接控提搞摄撤播操支改放数文新方无时映是暂曲替最有未机束标校核歌止正没法波消源满演照片版牌牙物玩用电画留的盘目直相眠短码确示离秒程稍空窗章端第等箱类粘线组终绑结绝继绪续维缓编网置翻联能脑腾自致菜蓝要视计认议讯记讲设译试语读败贴资超足跳软辑输过返还这进远连送选遥那配里重量钟销键长门问间队除陪随静面音页项频飞验黑！，：？",
+  "fallback_symbols": "义人令候别到听唤所找本查次歧每然称聆识说请醒采需",
+  "subset_policy": "firmware/fonts/subset-symbols.json",
+  "subset_policy_sha256": "5ffe6c94623453be22311e41f965b1c76eea9193ff11ed8ba99b717bcf6424b3",
+  "fallback_policy": "New CJK symbols use the existing 16px 1bpp fallback; legacy primary bitmaps remain unchanged.",
   "source_files": [
     "firmware/main/tk_animation.c",
     "firmware/main/tk_audio_mix.c",
@@ -39,6 +44,10 @@
     "firmware/main/tk_ui_connection.c",
     "firmware/main/tk_ui_tools.c",
     "firmware/main/tk_usb_console.c",
+    "firmware/main/tk_voice.c",
+    "firmware/main/tk_voice_bridge.c",
+    "firmware/main/tk_voice_capture.c",
+    "firmware/main/tk_voice_store.c",
     "game-art/toolkit/prototype/tk_core.js",
     "game-art/toolkit/prototype/tk_hid.js"
   ],

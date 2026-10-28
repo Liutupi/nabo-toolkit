@@ -5,12 +5,14 @@ const {load,plain,hashes}=require('./model.js');
 const {T,H}=load();
 const output=path.resolve(process.argv[2]||__dirname);
 fs.mkdirSync(output,{recursive:true});
-const rows=[], pages=new Set(), events=new Set(), keys=new Set(),mediaModes=new Set(),screens=new Set();
+const rows=[], pages=new Set(), events=new Set(), keys=new Set(),mediaModes=new Set(),screens=new Set(),voiceStatuses=new Set(),voiceTargets=new Set();
 let scenario,st,now,step;
 function record(call,out=[]) {
   pages.add(st.page);
   if(st.page==='media' && !st.media.choosing)mediaModes.add(st.media.mode);
   screens.add(st.display.off?'off':'on');
+  voiceStatuses.add(st.voice.status);
+  if(call.type==='voice_result' && call.accepted && call.outcome===1 && st.page!=='voice')voiceTargets.add(call.target);
   rows.push({scenario,step:step++,now,call,outputs:plain(out),state:plain(st),sleepDue:T.sleepDue(st,now)});
 }
 function start(name,os='mac') {
@@ -20,12 +22,20 @@ function start(name,os='mac') {
 function press(key,dt=30) {now+=dt;keys.add(key);record({type:'press',key},T.press(st,key,now));}
 function tick(ms) {now+=ms;record({type:'tick'},T.tick(st,now));}
 function sim(event,arg) {now+=20;events.add(event);T.sim(st,event,now,arg);record({type:'sim',event,...(arg===undefined?{}:{arg})});}
+function templates(counts) {now+=20;const accepted=T.voiceTemplates(st,counts);record({type:'voice_templates',counts,accepted});}
+function progress(status,token=st.voice.token) {now+=20;const accepted=T.voiceProgress(st,token,status,now);record({type:'voice_progress',token,status,accepted});}
+function voiceResult(outcome,target=-1,count=0,token=st.voice.token) {now+=20;const accepted=T.voiceResult(st,token,outcome,target,count,now);record({type:'voice_result',token,outcome,target,count,accepted});}
 function page(id) {
   if (st.page==='boot') press('ok');
   let returns=0;
   while(st.page!=='menu') {if(++returns>4)throw new Error('Cannot return to menu');press('long_up');}
   while (st.menu!==T.MENU.indexOf(id)) press('down');
   press('ok');
+}
+function voicePage() {
+  if(st.page==='boot')press('ok');
+  let returns=0;while(st.page!=='menu'){if(++returns>4)throw new Error('Cannot return to voice menu');press('long_up');}
+  press('long_ok');
 }
 function random(seed) {
   return ()=>{let t=seed+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;};
@@ -78,6 +88,23 @@ for(const os of H.OS_LIST) {
   if(!T.applyConfig(st,empty))throw new Error('Empty binding fixture invalid');
   record({type:'config',config:plain({v:1,groups:st.groups,cards:st.cards})});tick(30000);press('up');
 }
+for(const os of H.OS_LIST) {
+  start('voice_async_navigation_'+os,os);voicePage();press('ok');
+  for(const count of [1,2,3,3]){press('long_ok');progress(8);press('down');progress(2);voiceResult(0,0,count);}
+  templates([3,1,1,1,1,1,1]);
+  for(const outcome of [2,3,4,5,6]){press('ok');progress(1);voiceResult(outcome);}
+  for(let target=0;target<T.VOICE_TARGETS.length;target++){voicePage();press('ok');progress(8);progress(1);voiceResult(1,target);tick(1);}
+  voicePage();press('ok');const old=st.voice.token;press('long_up');progress(1,old);voiceResult(1,1,0,old);
+  voicePage();press('ok');progress(2);progress(3);voiceResult(0,0,1);voiceResult(1,7);voiceResult(1,1,0,old);voiceResult(2);
+  const slot={label:'Test',mac:{mod:0,key:4},win:{mod:0,key:4}};
+  const cfg={v:1,groups:['截图','Other','读书','语音输入'].map(name=>({name,up:slot,ok:slot,down:slot})),cards:st.cards};
+  if(!T.applyConfig(st,cfg))throw new Error('Voice named-group fixture invalid');
+  record({type:'config',config:plain({v:1,groups:st.groups,cards:st.cards})});
+  press('ok');progress(1);voiceResult(1,0);voicePage();press('ok');voiceResult(1,5);voicePage();press('ok');voiceResult(1,6);
+  voicePage();cfg.groups=cfg.groups.slice(1,2);T.applyConfig(st,cfg);
+  record({type:'config',config:plain({v:1,groups:st.groups,cards:st.cards})});
+  for(const target of [0,5,6]){press('ok');progress(1);voiceResult(1,target);}
+}
 const choices=['up','down','ok','long_up','long_down','long_ok'];
 for(const [index,os] of H.OS_LIST.entries()) {
   const seed=(0x4E41424F+index)>>>0, rng=random(seed);
@@ -124,12 +151,15 @@ for(const os of H.OS_LIST) tables.resolved[os]={
 const coverage={schemaVersion:1,source_sha256:hashes(),rows:rows.length,scenarios:[...new Set(rows.map((r)=>r.scenario))],
   pages:[...pages].sort(),events:[...events].sort(),keys:[...keys].sort(),os:[...H.OS_LIST],
   media_modes:[...mediaModes].sort(),display_states:[...screens].sort(),
+  voice_statuses:[...voiceStatuses].sort((a,b)=>a-b),voice_targets_opened:[...voiceTargets].sort(),
   boot_ms:T.BOOT_MS,voice_at_ms:T.VOICE_AT_MS,
   scope:'JavaScript reference fixtures; production C equality is checked separately by test_tk_model.py; device acceptance is separate'};
-for(const page of ['boot','menu',...T.MENU])if(!pages.has(page))throw new Error('Page not covered: '+page);
+for(const page of ['boot','menu',...T.MENU,'voice'])if(!pages.has(page))throw new Error('Page not covered: '+page);
 for(const event of ['passkey','paired','disconnect','reconnect','wake'])if(!events.has(event))throw new Error('Event not covered: '+event);
 for(const mode of [0,1])if(!mediaModes.has(mode))throw new Error('Media mode not covered: '+mode);
 for(const state of ['on','off'])if(!screens.has(state))throw new Error('Display state not covered: '+state);
+for(let status=0;status<12;status++)if(!voiceStatuses.has(status))throw new Error('Voice status not covered: '+status);
+for(let target=0;target<T.VOICE_TARGETS.length;target++)if(!voiceTargets.has(target))throw new Error('Voice target not covered: '+target);
 fs.writeFileSync(path.join(output,'traces.jsonl'),rows.map((r)=>JSON.stringify(r)).join('\n')+'\n');
 fs.writeFileSync(path.join(output,'hid_tables.json'),JSON.stringify(tables,null,2)+'\n');
 fs.writeFileSync(path.join(output,'coverage.json'),JSON.stringify(coverage,null,2)+'\n');

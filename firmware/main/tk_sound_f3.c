@@ -58,6 +58,11 @@ bool tk_sound_tone(unsigned frequency,unsigned ms)
 bool tk_sound_boot_voice(void){if(!s_queue || atomic_load(&s_muted))return false;atomic_store(&s_voice,true);return true;}
 void tk_sound_stop_voice(void){atomic_store(&s_voice,false);atomic_store(&s_cancel,true);}
 bool tk_sound_idle(void){return !s_queue || (!atomic_load(&s_busy) && !atomic_load(&s_voice) && uxQueueMessagesWaiting(s_queue)==0);}
+bool tk_sound_capture_ready(void)
+{
+    if(!s_lock || !atomic_load(&s_muted) || xSemaphoreTake(s_lock,0)!=pdTRUE)return false;
+    bool ready=tk_sound_idle();xSemaphoreGive(s_lock);return ready;
+}
 void tk_sound_mute(bool muted)
 {
     atomic_store(&s_muted,muted);if(muted){tk_sound_stop_voice();if(s_queue)xQueueReset(s_queue);}

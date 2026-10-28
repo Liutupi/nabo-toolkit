@@ -57,6 +57,10 @@ def main():
     if stage!='F0':sources['firmware/sdkconfig.f1.defaults']=digest((ROOT/'firmware/sdkconfig.f1.defaults').read_bytes())
     if stage in ('F2','F3'):sources['firmware/sdkconfig.f2.defaults']=digest((ROOT/'firmware/sdkconfig.f2.defaults').read_bytes())
     if stage=='F3':sources['firmware/sdkconfig.f3.defaults']=digest((ROOT/'firmware/sdkconfig.f3.defaults').read_bytes())
+    if 'CONFIG_NABO_TOOLKIT_VOICE=y' in sdk.splitlines():
+        for name in ['features.c','features.h','feature_tables.inc','matcher.c','matcher.h']:
+            path=ROOT/'tools/voice_probe'/name
+            sources[path.relative_to(ROOT).as_posix()]=digest(path.read_bytes())
     unverified=['Mac/Windows/iPhone/Android pairing','Restart reconnect under 3 s',
                 'Connected heap >= 60 KiB and largest block >= 30 KiB','Keyboard/volume effects and stuck-key recovery']
     if stage!='F0':unverified+=['Ten switches across three real devices within 5 s each','PPT/Keynote/camera physical effects',

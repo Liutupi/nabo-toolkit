@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
-const uint16_t tk_ui_accents[10]={UI_GOLD,UI_GOLD,0xfe69,0xf467,0x4e11,0x9bdd,0x4d1e,0xf476,0x4e19,0xc639};
-static const char *const titles[]={"NABO 工具箱","NABO 工具箱","快捷键","PPT翻页","会议","媒体","拍照","名片","连接","设置"};
+const uint16_t tk_ui_accents[11]={UI_GOLD,UI_GOLD,0xfe69,0xf467,0x4e11,0x9bdd,0x4d1e,0xf476,0x4e19,0xc639,UI_GOLD};
+static const char *const titles[]={"NABO 工具箱","NABO 工具箱","快捷键","PPT翻页","会议","媒体","拍照","名片","连接","设置","语音查找"};
 static const lv_font_t *font(int n){return n==12?&tk_font_12:n==18?&tk_font_18:n==28?&tk_font_28:n==48?&tk_font_48:&tk_font_16;}
 void ui_text(ag_t *g,const char *s,int x,int y,int size,uint16_t color,nt_align_t align){ag_text(g,font(size),s,x,y,align,color);}
 void ui_fit(ag_t *g,const char *s,int x,int y,int width,int size,uint16_t color,nt_align_t align)
@@ -51,7 +51,41 @@ static void menu(ag_t *g,const tk_state_t *s,int64_t now,const tk_ui_assets_t *a
         ui_icon(g,i,x+20,y+20,UI_INK);
         ui_fit(g,names[i],x+38,y+19,64,16,UI_INK,NT_ALIGN_LEFT);ui_fit(g,sub[i],x+38,y+34,64,12,selected?fg:UI_DIM,NT_ALIGN_LEFT);
     }
-    ui_bar(g,"↑↓ 选择 · OK 进入");
+    ui_bar(g,"↑↓ 选择 · OK 进入 · 长OK 语音");
+}
+static void voice(ag_t *g,const tk_state_t *s,int64_t now,const tk_ui_assets_t *a)
+{
+    static const char *const states[]={"准备","请说口令","请说目标名称","已保存","未识别","操作失败","尚未录入","未找到分组","准备采音","歧义","口令太长","采音失败"};
+    const int sel=s->voice_selected>=0 && s->voice_selected<TK_VOICE_TARGETS?s->voice_selected:0;
+    const int status=s->voice_status>=0 && s->voice_status<12?s->voice_status:5;
+    ag_rect(g,0,36,240,68,0,UI_PANEL,255,0,0);ui_nabo(g,a,TK_AN_AVATAR,42,102,s->voice_busy?0:now);
+    ui_text(g,"本人录入",84,64,16,UI_PAPER,NT_ALIGN_LEFT);
+    ui_fit(g,"按需聆听 · 不持续唤醒",84,85,148,12,UI_DIM,NT_ALIGN_LEFT);
+    for(int i=0;i<TK_VOICE_TARGETS;i++){
+        const int x=i%2?124:10,y=110+i/2*26;const bool selected=i==sel;
+        const uint16_t fg=selected?UI_INK:UI_PAPER;
+        ag_rect(g,x,y,106,24,6,selected?UI_GOLD:UI_PANEL,255,selected?UI_INK:0,selected?2:0);
+        ui_text(g,tk_voice_names[i],x+10,y+18,16,fg,NT_ALIGN_LEFT);
+        char count[12];snprintf(count,sizeof(count),"%d/3",s->voice_counts[i]);
+        ui_text(g,count,x+96,y+18,12,selected?UI_INK:UI_DIM,NT_ALIGN_RIGHT);
+    }
+    const bool error=status==4 || status==5 || status==7 || status>=9;
+    ag_rect(g,10,222,220,60,10,UI_PANEL,255,error?UI_RED:0,error?1:0);
+    ui_fit(g,states[status],120,245,200,16,error?UI_RED:status==3?UI_GREEN:UI_PAPER,NT_ALIGN_CENTER);
+    const char *hint=sel==6?"只进Typeless · 再按键":"长OK 为每个口令录入3次";
+    if(status==1)hint="已录入口令任选一个";
+    else if(status==2)hint="自然说一次所选名称";
+    else if(status==3)hint=s->voice_counts[sel]<3?"长OK 继续录入":"OK 识别 · 长OK 重新录入";
+    else if(status==4 || status==9)hint="请短OK 后再说一次";
+    else if(status==5 || status==11)hint="请稍后重试";
+    else if(status==6)hint="长OK 录入所选口令";
+    else if(status==7)hint="配置页中恢复目标分组";
+    else if(status==8)hint="请保持安静，稍后再说";
+    else if(status==10)hint="请只说目标名称";
+    ui_fit(g,hint,120,266,204,12,UI_DIM,NT_ALIGN_CENTER);
+    ag_rect(g,0,290,240,30,0,UI_INK,255,0,0);
+    ui_fit(g,s->voice_busy?"采音中 · 请稍候":"↑↓ 选择 · OK 识别 · 长OK 录入",120,301,228,12,UI_PAPER,NT_ALIGN_CENTER);
+    ui_text(g,"长↑ 返回",120,315,12,UI_PAPER,NT_ALIGN_CENTER);
 }
 static void settings(ag_t *g,const tk_state_t *s)
 {
@@ -67,12 +101,13 @@ static void settings(ag_t *g,const tk_state_t *s)
 }
 void tk_ui_frame(tk_ui_t *ui,ag_t *g,const tk_state_t *s,int64_t now,const tk_ui_assets_t *a,int comparison)
 {
-    if(s->screen_off){ag_begin(g,40);ag_rect(g,0,0,240,320,0,0,255,0,0);return;}
+    if(s->screen_off){ag_begin(g,44);ag_rect(g,0,0,240,320,0,0,255,0,0);return;}
     ag_begin(g,s->page*4+(s->card_zoom?1:0));ag_rect(g,0,0,240,320,0,UI_BG,255,0,0);
     if(s->page==TK_PAGE_BOOT)ui_boot(g,s,now,a);
     else{
         top(g,s,now,ui->ble_unavailable);
         if(s->page==TK_PAGE_MENU)menu(g,s,now,a);
+        else if(s->page==TK_PAGE_VOICE)voice(g,s,now,a);
         else if(s->page==TK_PAGE_SET)settings(g,s);
         else if(s->page==TK_PAGE_CONN)ui_connections(g,s,now,comparison);
         else if(s->page==TK_PAGE_CARD)ui_card(ui,g,s,now,a);

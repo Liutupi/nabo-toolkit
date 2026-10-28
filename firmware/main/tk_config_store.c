@@ -7,6 +7,9 @@ static void set32(uint8_t *b,uint32_t n){for(int i=0;i<4;i++)b[i]=(uint8_t)(n>>(
 esp_err_t tk_config_store_save(const char *json,size_t size)
 {
     if(!json || !size || size>TK_CFG_MAX)return ESP_ERR_INVALID_SIZE;
+    nvs_stats_t stats;esp_err_t available=nvs_get_stats(NULL,&stats);
+    if(available)return available;
+    if(stats.available_entries<(size+16+31)/32+6)return ESP_ERR_NVS_NOT_ENOUGH_SPACE;
     uint8_t *record=calloc(1,size+16);if(!record)return ESP_ERR_NO_MEM;
     memcpy(record,"TKCF",4);record[4]=1;set32(record+8,(uint32_t)size);set32(record+12,tk_config_crc(json,size));memcpy(record+16,json,size);
     nvs_handle_t h;esp_err_t e=nvs_open("nabo_tk",NVS_READWRITE,&h);

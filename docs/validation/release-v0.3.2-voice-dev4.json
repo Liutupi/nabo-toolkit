@@ -1,0 +1,162 @@
+{
+  "date": "2026-10-28",
+  "candidate_version": "0.3.2-voice-dev4",
+  "release_scope": "Public test release of the exact accepted app; requested offline voice navigation, semantic retention and personal-card configuration update passed, with disclosed device limitations",
+  "detailed_validation_record": "docs/validation/offline-voice-v0.3.2-dev4.json",
+  "prior_device_evidence_record": "docs/validation/offline-voice-v0.3.2-dev3.json",
+  "historical_failure_records": [
+    "docs/validation/offline-voice-v0.3.2.json",
+    "docs/validation/offline-voice-v0.3.2-dev2.json"
+  ],
+  "build": "PASS",
+  "sdk": "v6.0.2",
+  "target": "esp32c3",
+  "board": "ai-passport-nabo",
+  "flash_bytes": 8388608,
+  "psram": false,
+  "archive": "build/firmware/9f6ac2a640fd2c056d8367c4e62349c61472c9e6acc4e607463bb9bbe729dd78",
+  "artifacts": {
+    "nabo-toolkit.bin": {
+      "bytes": 2030864,
+      "sha256": "d748e54395bff10eaa85530d4287198607fc3fcd17f2d1da8250b272b15d1829"
+    },
+    "nabo-toolkit.elf": {
+      "bytes": 11328060,
+      "sha256": "3f0dd8edf42aed43187ff786eefe20796aab04673295ebf7f75913b59b4bbd91"
+    },
+    "nabo-toolkit.map": {
+      "bytes": 6347917,
+      "sha256": "9362371e5893136249c960a7a130adff4deedd8587f0cc4e36ba99dc368339a3"
+    },
+    "nabo-toolkit-merged.bin": {
+      "bytes": 2096400,
+      "sha256": "9f6ac2a640fd2c056d8367c4e62349c61472c9e6acc4e607463bb9bbe729dd78"
+    }
+  },
+  "actual_legacy_factory_capacity": 2031616,
+  "actual_legacy_remaining_bytes": 752,
+  "host_tests": {
+    "status": "PASS",
+    "node": 44,
+    "python": 144,
+    "acoustic_probe": 25,
+    "total": 213,
+    "skipped": 0,
+    "full_model_steps": 2722,
+    "mutations_caught": 3,
+    "scope": "Model, protocol, persistence, rendering and acoustic algorithm checks; synthetic or enrollment-template tests are not independent speech-recognition accuracy"
+  },
+  "candidate_flashed": true,
+  "device_install": {
+    "status": "PASS",
+    "mode": "app-only",
+    "app_offset": 65536,
+    "app_bytes": 2030864,
+    "app_sha256": "d748e54395bff10eaa85530d4287198607fc3fcd17f2d1da8250b272b15d1829",
+    "default_or_merged_flash_used": false,
+    "scope": "Exact fixed app installed and verified on the existing device; not community full-install acceptance"
+  },
+  "physical_acceptance": {
+    "status": "PASS for requested offline voice navigation, semantic retention and personal-card configuration update",
+    "offline_voice": {
+      "status": "PASS within the requested bounded user tests",
+      "speaker_enrollment_required": true,
+      "navigation_only": true,
+      "intended_targets_this_round": ["读书", "语音输入"],
+      "unknown_intent_observations_counted_as_accuracy": false,
+      "scope": "See the detailed dev4 record for individual user-confirmed results; this is not a complete independent seven-word, multi-user or noise accuracy matrix"
+    },
+    "manual_compaction_semantic_retention": {
+      "status": "PASS on the physical device",
+      "words": 7,
+      "samples": 21,
+      "speech_frames": 638,
+      "coefficients_counts_and_next_exact": true,
+      "nvs_available_before": 47,
+      "nvs_available_after": 251,
+      "automatic_init_or_runtime_migration": false,
+      "personal_template_coefficients_or_raw_audio_published": false
+    },
+    "physical_usb_configuration_roundtrip": {
+      "status": "PASS for changed personal-card payload write/readback and controlled-restart retention over the real USB protocol",
+      "changed_payload_written_to_physical_flash": true,
+      "controlled_restart_readback_exact": true,
+      "historical_same_content_roundtrip": {
+        "status": "PASS for the earlier separate same-content USB roundtrip",
+        "same_value_sdk_write_skip_possible": true,
+        "scope": "That earlier same-content test alone was not proof of a changed Flash payload; the later personal-card update provides separate changed-payload evidence"
+      },
+      "scope": "Only the requested personal card QR URL changed; this does not establish maximum-configuration schema, cold-power or interrupted-power acceptance"
+    },
+    "personal_card_profile_update": {
+      "status": "PASS",
+      "public_qr_target": "https://ai-passport.folotoy.cn/creators/?id=14101",
+      "changed_fields": ["cards[0].qr"],
+      "all_other_card_fields_and_groups_canonical_equal": true,
+      "old_json_utf8_bytes": 1613,
+      "new_json_utf8_bytes": 1632,
+      "old_nvs_record_bytes": 1629,
+      "new_nvs_record_bytes": 1648,
+      "production_js_and_real_usb": true,
+      "changed_payload_written_to_physical_flash": true,
+      "write_readback_exact": true,
+      "controlled_restart_and_production_client_readback_exact": true,
+      "phone_scan_opened_correct_published_works_list_user_confirmed": true,
+      "default_firmware_cards_changed": false,
+      "personal_configuration_in_release": false,
+      "scope": "Authorized personal NVS configuration only; no other personal configuration, binding data or template coefficients are included"
+    }
+  },
+  "device_tests": {
+    "status": "PARTIAL PASS: requested offline voice, retention and personal-card configuration update passed; intermittent PC-USB Windows headphone coexistence remains unresolved",
+    "requested_behavior": "PASS as detailed in physical_acceptance and the linked dev4 record",
+    "bluetooth_coexistence": {
+      "intermittent_pc_usb_headphone_failure_observed": true,
+      "battery_only_comparison_user_confirmed_normal": true,
+      "latest_user_report": "Currently normal; user stopped further investigation",
+      "root_cause": "UNRESOLVED",
+      "permanent_or_sustained_fix_proven": false,
+      "connection_parameter_change_requested": false,
+      "ble_strategy_changed_for_this_issue": false
+    },
+    "overall_scope": "Requested dev4 checks, not completion of every historical F0/F1 platform, reconnect, sleep, power or long-stability gate"
+  },
+  "actual_sdk_nor_copy_capacity_evidence": {
+    "status": "PASS for the tested private host-copy capacity and retention cases",
+    "sdk": "Unchanged ESP-IDF 6.0.2 NVS backend with host-only API/NOR adapters and actual compact_legacy implementation",
+    "physical_flash": false,
+    "available_before_compaction": 47,
+    "available_after_compaction": 252,
+    "all_seven_words_coefficients_counts_and_next_exact": true,
+    "other_logical_values_exact": true,
+    "already_compact_word6_zero_write_skip": true,
+    "changed_equal_length_1629_byte_payload_write_and_reinit_readback": "PASS",
+    "independent_4016_byte_sdk_blob_write_and_reinit_readback": "PASS",
+    "opaque_test_payloads_are_valid_application_configuration": false,
+    "scope": "Host-copy results explain capacity recovery and are separate from the physical personal-card update; they do not establish maximum-valid-configuration schema or interrupted-power acceptance"
+  },
+  "community_full_install": {
+    "device_tested": false,
+    "source": "The separate complete image must reuse the fixed archive merged artifact and the same accepted app",
+    "write_offset": 0,
+    "resets_default_partitioning_settings_and_bluetooth_bonds": true,
+    "device_readbacks_personal_configuration_or_templates_included": false
+  },
+  "unverified": [
+    "Community complete first installation from offset 0x0 has not been device-tested; it replaces default partitioning and resets NVS settings and Bluetooth bonds",
+    "Cause and sustained resolution of intermittent Windows headphone stutter with the badge connected through PC USB; latest normal playback does not establish a fix",
+    "Complete independent seven-word accuracy and rejection matrix, additional users, complex utterances, background noise and non-target sounds",
+    "Long-duration repeat stability, the original dev1 reset root cause and a demonstrated permanent resolution",
+    "Cold power-off retention, interrupted-power behavior and real Flash failures",
+    "Extreme personal feature widths and large configurations under physical NVS capacity and garbage-collection pressure; finite storage can still safely reject writes",
+    "Measured power draw and battery-runtime effects, full host/app/version compatibility, reconnect timing, slot switching, sleep/wake and prior sustained-stability gates"
+  ],
+  "publication_boundaries": {
+    "exact_accepted_app_rebuilt_for_release": false,
+    "app_only_upgrade_and_complete_first_install_are_separate": true,
+    "prior_release_assets_replaced": false,
+    "credentials_device_identity_binding_data_private_configuration_templates_or_raw_logs_included": false,
+    "source_license": "LICENSE",
+    "creative_asset_rights_notice": "NOTICE.md"
+  }
+}

@@ -5,7 +5,16 @@
 #include <stdint.h>
 
 typedef enum { TK_PAGE_BOOT, TK_PAGE_MENU, TK_PAGE_MACRO, TK_PAGE_PPT, TK_PAGE_MEET,
-               TK_PAGE_MEDIA, TK_PAGE_CAM, TK_PAGE_CARD, TK_PAGE_CONN, TK_PAGE_SET } tk_page_t;
+               TK_PAGE_MEDIA, TK_PAGE_CAM, TK_PAGE_CARD, TK_PAGE_CONN, TK_PAGE_SET, TK_PAGE_VOICE } tk_page_t;
+
+enum { TK_VOICE_TARGETS=7 };
+typedef enum { TK_VOICE_NONE, TK_VOICE_RECOGNIZE, TK_VOICE_ENROLL } tk_voice_operation_t;
+typedef enum { TK_VOICE_READY, TK_VOICE_LISTENING, TK_VOICE_RECORDING, TK_VOICE_SAVED,
+    TK_VOICE_REJECTED, TK_VOICE_ERROR, TK_VOICE_UNTRAINED, TK_VOICE_MISSING_GROUP,
+    TK_VOICE_PREPARING, TK_VOICE_AMBIGUOUS, TK_VOICE_TOO_LONG, TK_VOICE_CAPTURE_ERROR } tk_voice_status_t;
+typedef enum { TK_VOICE_RESULT_ENROLLED, TK_VOICE_RESULT_MATCHED, TK_VOICE_RESULT_REJECTED,
+    TK_VOICE_RESULT_ERROR, TK_VOICE_RESULT_AMBIGUOUS, TK_VOICE_RESULT_TOO_LONG,
+    TK_VOICE_RESULT_CAPTURE_ERROR } tk_voice_outcome_t;
 typedef struct { bool used; char name[96]; int os; } tk_slot_t;
 typedef struct { int type, kind, mod, usage, frequency, ms; uint8_t bytes[8]; int length; char label[192]; } tk_effect_t;
 enum { TK_EFFECT_HID=1, TK_EFFECT_BEEP, TK_EFFECT_VOICE, TK_EFFECT_MAX=128 };
@@ -28,6 +37,11 @@ typedef struct {
     int64_t screen_since;
     int media_mode;
     bool media_select;
+    int voice_selected;
+    uint8_t voice_counts[TK_VOICE_TARGETS];
+    bool voice_busy;
+    int voice_operation, voice_status;
+    uint32_t voice_token;
 } tk_state_t;
 
 void tk_model_init(tk_state_t *s, int64_t now); // Real device starts with empty slots, disconnected.
@@ -36,6 +50,10 @@ void tk_model_tick(tk_state_t *s, int64_t now, tk_effects_t *out);
 void tk_model_event(tk_state_t *s, const char *event, int64_t now, const char *arg);
 bool tk_model_sleep_due(const tk_state_t *s, int64_t now);
 void tk_model_screen_reset(tk_state_t *s, int64_t now);
+bool tk_model_voice_open(tk_state_t *s,int64_t now);
+bool tk_model_voice_templates(tk_state_t *s,const uint8_t counts[TK_VOICE_TARGETS]);
+bool tk_model_voice_progress(tk_state_t *s,uint32_t token,int status,int64_t now);
+bool tk_model_voice_result(tk_state_t *s,uint32_t token,int outcome,int target,int count,int64_t now);
 int64_t tk_model_ppt_elapsed(const tk_state_t *s, int64_t now);
 tk_os_t tk_model_os(const tk_state_t *s);
 void tk_model_apply_config(tk_state_t *s,const tk_custom_t *config);
@@ -43,4 +61,4 @@ int tk_model_macro_count(const tk_state_t *s);
 const char *tk_model_macro_name(const tk_state_t *s,int group);
 tk_binding_t tk_model_macro_binding(const tk_state_t *s,int group,int column);
 extern const tk_card_t tk_default_cards[3];
-extern const char *const tk_page_names[10], *const tk_key_names[6];
+extern const char *const tk_page_names[11], *const tk_key_names[6], *const tk_voice_names[TK_VOICE_TARGETS];

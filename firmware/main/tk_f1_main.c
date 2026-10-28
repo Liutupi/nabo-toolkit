@@ -23,6 +23,10 @@
 #include "freertos/task.h"
 #include "nvs_flash.h"
 #include "sdkconfig.h"
+#ifdef CONFIG_NABO_TOOLKIT_VOICE
+#include "tk_voice_bridge.h"
+#include "tk_voice.h"
+#endif
 #ifdef CONFIG_NABO_TOOLKIT_F2
 #include "tk_config_serial.h"
 #include "tk_usb_console.h"
@@ -95,6 +99,14 @@ static void effects(void)
         }
     }
 }
+#ifdef CONFIG_NABO_TOOLKIT_VOICE
+static bool voice_allowed(void)
+{
+    return !s_test && !s_compare && !s_model.pairing && !s_model.os_pick &&
+           s_model.confirm_del<0 && !tk_config_serial_busy(&s_config);
+}
+static bool voice_busy(void){return s_model.voice_busy || tk_voice_bridge_busy();}
+#endif
 static void press(int key,bool physical)
 {
     if(key<TK_UP || key>TK_LONG_OK)return;
@@ -162,7 +174,7 @@ static void status(void)
 #ifdef TK_F3
            ",\"min_heap\":%u,\"draw_max_us\":%u,\"anim_id\":%d,\"anim_frame\":%d,\"beep\":%s,\"voice\":%s,\"muted\":%s,\"audio_writes\":%u,\"audio_errors\":%u,\"audio_nonzero\":%u,\"voice_starts\":%u,\"tone_starts\":%u,\"audio_last\":%d"
 #endif
-           "}\n",
+           ",\"ui_stack_min_bytes\":%u,\"heap_integrity\":%s}\n",
            tk_page_names[s_model.page],s_model.connected&&tk_ble_ready()?"true":"false",s_model.active,s_model.bind_count,s_test?"true":"false",
            (unsigned)esp_get_free_heap_size(),(unsigned)heap_caps_get_largest_free_block(MALLOC_CAP_8BIT),s_sent,s_failed,s_simulated,s_last_error,
            s_model.screen_off?"true":"false",s_model.remote_dim?"true":"false",s_model.media_mode,
@@ -172,12 +184,26 @@ static void status(void)
            ,(unsigned)esp_get_minimum_free_heap_size(),tk_f1_ui_max_draw_us(),tk_f1_ui_animation_id(),tk_f1_ui_animation_frame()
            ,s_model.beep?"true":"false",s_model.voice?"true":"false",audio.muted?"true":"false",audio.writes,audio.errors,audio.nonzero,audio.voice_starts,audio.tone_starts,audio.last_error
 #endif
+           ,(unsigned)uxTaskGetStackHighWaterMark(NULL),heap_caps_check_integrity_all(false)?"true":"false"
            );
 }
 static void command(const char *text)
 {
+#ifdef CONFIG_NABO_TOOLKIT_VOICE
+    if(voice_busy() && !strncmp(text,">tk.cfg.",8) && strcmp(text,">tk.cfg.abort")){
+        puts("tk.cfg.err busy");return;
+    }
+#endif
 #ifdef CONFIG_NABO_TOOLKIT_F2
-    if(tk_config_serial_line(&s_config,text,now_ms(),!s_test && !s_compare)){s_model.last_input=now_ms();tk_model_screen_reset(&s_model,now_ms());return;}
+    bool config_allowed=!s_test && !s_compare;
+#ifdef CONFIG_NABO_TOOLKIT_VOICE
+    config_allowed=config_allowed && !voice_busy();
+#endif
+    if(tk_config_serial_line(&s_config,text,now_ms(),config_allowed)){s_model.last_input=now_ms();tk_model_screen_reset(&s_model,now_ms());return;}
+#endif
+#ifdef CONFIG_NABO_TOOLKIT_VOICE
+    if(tk_voice_bridge_command(&s_model,text,now_ms(),voice_allowed(),&s_effects))return;
+    if(voice_busy() && (!strcmp(text,">tk.test=1") || !strcmp(text,">tk.test=0"))){puts("@tk voice busy; cancel before test mode");return;}
 #endif
     if(!strcmp(text,">tk.status"))status();
     else if(!strcmp(text,">tk.test=1")){if(!s_test)s_before_test=s_model;s_test=true;tk_model_screen_reset(&s_model,now_ms());tk_sound_mute(true);tk_ble_reconnect();puts("@tk test=1");}
@@ -215,6 +241,12 @@ static void serial_task(void *arg)
 }
 static void power(int64_t now)
 {
+#ifdef CONFIG_NABO_TOOLKIT_VOICE
+    if(voice_busy()){
+        if(s_sleep_pending){s_sleep_pending=false;tk_ble_reconnect();}
+        return;
+    }
+#endif
 #ifdef CONFIG_NABO_TOOLKIT_F2
     if(tk_config_serial_busy(&s_config))return;
 #endif
@@ -225,6 +257,9 @@ static void power(int64_t now)
         if(now-s_sleep_requested>2000){s_sleep_pending=false;s_model.last_input=now;problem("蓝牙未停止，暂缓休眠",ESP_ERR_TIMEOUT);tk_ble_reconnect();}return;
     }
     if(bsp_button_read_mv()<BSP_BTN_MV_RELEASED_MIN){s_sleep_pending=false;s_model.last_input=now;tk_ble_reconnect();return;}
+#ifdef CONFIG_NABO_TOOLKIT_VOICE
+    if(!tk_voice_prepare_sleep()){s_sleep_pending=false;s_model.last_input=now;tk_ble_reconnect();return;}
+#endif
     if(!tk_sound_prepare_sleep()){s_sleep_pending=false;s_model.last_input=now;tk_sound_mute(false);tk_ble_reconnect();return;}
     bsp_display_backlight(0);int level=0;
     if(bsp_button_prepare_deep_sleep(&level)!=ESP_OK || level!=1)esp_restart();
@@ -249,6 +284,9 @@ static void ui_task(void *arg)
         if(tk_config_serial_busy(&s_config))tk_model_screen_reset(&s_model,now_ms());
 #endif
         int64_t now=now_ms();press(tk_button_tick(&s_buttons,(uint32_t)now),true);tk_model_tick(&s_model,now,&s_effects);effects();
+#ifdef CONFIG_NABO_TOOLKIT_VOICE
+        tk_voice_bridge_tick(&s_model,now,voice_allowed(),s_test);
+#endif
         if(now-battery_at>=5000){tk_ble_hid_battery(bsp_battery_soc());battery_at=now;}
         if(!tk_f1_ui_draw(&s_model,now,s_compare,s_ble_available))problem("画面资源不足",ESP_ERR_NO_MEM);
         power(now);vTaskDelay(pdMS_TO_TICKS(16));
@@ -269,6 +307,9 @@ void app_main(void)
     if(!tk_f1_ui_open()){ESP_LOGE("tk_f1","renderer allocation failed");return;}
     esp_err_t battery=bsp_battery_init();if(battery)ESP_LOGW("tk_f1","battery unavailable=%d",battery);
     ESP_ERROR_CHECK(bsp_button_init(button_input,NULL));esp_err_t audio=tk_sound_open();if(audio)ESP_LOGW("tk_f1","audio unavailable=%d",audio);
+#ifdef CONFIG_NABO_TOOLKIT_VOICE
+    esp_err_t speech=tk_voice_bridge_init(&s_model);if(speech)ESP_LOGW("tk_f1","voice unavailable=%d",speech);
+#endif
     esp_err_t ble=tk_ble_start(ble_input);s_ble_available=!ble;
     if(saved)problem("设置校验失败，保留原记录",saved);
 #ifdef CONFIG_NABO_TOOLKIT_F2

@@ -6,7 +6,7 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[1]
 OS=['mac','win','ios','android']
-PAGES=['boot','menu','macro','ppt','meet','media','cam','card','conn','set']
+PAGES=['boot','menu','macro','ppt','meet','media','cam','card','conn','set','voice']
 KEYS=['up','down','ok','long_up','long_down','long_ok']
 class Slot(C.Structure):
     _fields_=[('used',C.c_bool),('name',C.c_char*96),('os',C.c_int)]
@@ -35,7 +35,9 @@ class State(C.Structure):
               ('toast_until',C.c_int64),('react',C.c_bool),('react_key',C.c_int),('react_until',C.c_int64),
               ('hit',C.c_bool),('hit_key',C.c_int),('hit_until',C.c_int64),('config',C.POINTER(Custom)),
               ('remote_dim',C.c_bool),('screen_off',C.c_bool),('screen_since',C.c_int64),
-              ('media_mode',C.c_int),('media_select',C.c_bool)]
+              ('media_mode',C.c_int),('media_select',C.c_bool),('voice_selected',C.c_int),
+              ('voice_counts',C.c_uint8*7),('voice_busy',C.c_bool),('voice_operation',C.c_int),
+              ('voice_status',C.c_int),('voice_token',C.c_uint32)]
 
 def build(folder, source=None):
     source=source or ROOT/'firmware/main'
@@ -55,6 +57,10 @@ def build(folder, source=None):
     lib.tk_model_apply_config.argtypes=[C.POINTER(State),C.POINTER(Custom)]
     lib.tk_model_sleep_due.argtypes=[C.POINTER(State),C.c_int64];lib.tk_model_sleep_due.restype=C.c_bool
     lib.tk_model_screen_reset.argtypes=[C.POINTER(State),C.c_int64]
+    lib.tk_model_voice_open.argtypes=[C.POINTER(State),C.c_int64];lib.tk_model_voice_open.restype=C.c_bool
+    lib.tk_model_voice_templates.argtypes=[C.POINTER(State),C.POINTER(C.c_uint8)];lib.tk_model_voice_templates.restype=C.c_bool
+    lib.tk_model_voice_progress.argtypes=[C.POINTER(State),C.c_uint32,C.c_int,C.c_int64];lib.tk_model_voice_progress.restype=C.c_bool
+    lib.tk_model_voice_result.argtypes=[C.POINTER(State),C.c_uint32,C.c_int,C.c_int,C.c_int,C.c_int64];lib.tk_model_voice_result.restype=C.c_bool
     lib.tk_host_binding.argtypes=[C.c_int]*4;lib.tk_host_binding.restype=C.POINTER(Packet)
     lib.tk_hid_chord.argtypes=[C.POINTER(Packet),C.c_int,C.c_char_p,C.c_size_t]
     lib.tk_hid_key_name.argtypes=[C.c_uint,C.c_char_p,C.c_size_t]
@@ -76,6 +82,8 @@ def snapshot(s):
                 settings=dict(beep=s.beep,voice=s.voice,talk=s.talk,sleep=s.sleep,remoteDim=s.remote_dim),setSel=s.set_sel,
                 ppt=dict(running=s.ppt_running,startMs=s.ppt_start,accMs=s.ppt_acc,pages=s.ppt_pages,black=s.ppt_black),
                 meet=dict(app=s.meet_app),media=dict(mode=s.media_mode,choosing=s.media_select),
+                voice=dict(selected=s.voice_selected,counts=list(s.voice_counts),busy=s.voice_busy,
+                    operation=s.voice_operation,status=s.voice_status,token=s.voice_token),
                 display=dict(off=s.screen_off,since=s.screen_since),cam=dict(delay=s.cam_delay,endMs=s.cam_end,lastSec=s.cam_last_sec,
                     burstLeft=s.burst_left,nextShot=s.next_shot,shots=s.shots),macro=dict(group=s.macro_group),groups=None,
                 card=dict(idx=s.card_idx,zoom=s.card_zoom),cards=[{k:getattr(c,k).decode() for k in ['title','name','line','qr']} for c in s.cards[:s.card_count]],
@@ -144,6 +152,15 @@ def replay(lib,rows):
         elif kind=='press':lib.tk_model_press(C.byref(s),KEYS.index(call['key']),now,C.byref(out))
         elif kind=='tick':lib.tk_model_tick(C.byref(s),now,C.byref(out))
         elif kind=='config':configure(lib,s,call['config'])
+        elif kind=='voice_templates':
+            accepted=lib.tk_model_voice_templates(C.byref(s),(C.c_uint8*7)(*call['counts']))
+            if accepted!=call['accepted']:return f"Voice-template acceptance mismatch: {row['scenario']}"
+        elif kind=='voice_progress':
+            accepted=lib.tk_model_voice_progress(C.byref(s),call['token'],call['status'],now)
+            if accepted!=call['accepted']:return f"Voice-progress acceptance mismatch: {row['scenario']}"
+        elif kind=='voice_result':
+            accepted=lib.tk_model_voice_result(C.byref(s),call['token'],call['outcome'],call['target'],call['count'],now)
+            if accepted!=call['accepted']:return f"Voice-result acceptance mismatch: {row['scenario']}"
         else:
             arg=call.get('arg')
             if call['event']=='passkey' and type(arg)==int and 0<=arg<=999999:arg=f'{arg:06d}'

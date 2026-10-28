@@ -10,4 +10,8 @@ config NABO_TOOLKIT_F3
     bool "Enable original toolkit animations and startup audio"
     depends on NABO_TOOLKIT_F2
     default n
+config NABO_TOOLKIT_VOICE
+    bool "Enable locally enrolled offline voice navigation"
+    depends on NABO_TOOLKIT_F3
+    default n
 endmenu

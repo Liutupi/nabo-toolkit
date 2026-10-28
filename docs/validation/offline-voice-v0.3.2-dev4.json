@@ -1,0 +1,260 @@
+{
+  "date": "2026-10-28",
+  "candidate_version": "v0.3.2-voice-dev4",
+  "stage": "explicit lossless template compaction and enrolled voice prerelease",
+  "status": "BUILD/HOST PASS; REQUESTED VOICE/LOSSLESS-COMPACTION/CONTROLLED-RESTART/PERSONAL-CARD CHECKS PASS WITH DISCLOSED LIMITS",
+  "baseline_record": "offline-voice-v0.3.2-dev3.json",
+  "source_commit": null,
+  "build": {
+    "status": "PASS",
+    "sdk": "ESP-IDF 6.0.2",
+    "target": "esp32c3",
+    "flash_bytes": 8388608,
+    "psram": false,
+    "archive": "build/firmware/9f6ac2a640fd2c056d8367c4e62349c61472c9e6acc4e607463bb9bbe729dd78",
+    "independent_archive_verify": "PASS",
+    "source_inputs_match": 130,
+    "legacy_factory_offset": 65536,
+    "legacy_factory_bytes": 2031616,
+    "legacy_remaining_bytes": 752,
+    "app_only_write_range": [65536, 2096400],
+    "erase_end_exclusive": 2097152,
+    "record": "build/voice-dev4-gate.log",
+    "non_realtime_config_sources_Os": [
+      "tk_config_lex.c", "tk_config_parse.c", "tk_config_json.c", "tk_config_store.c"
+    ],
+    "acoustic_animation_and_ble_policy_changed": false,
+    "original_seven_font_c_files_unchanged": true,
+    "original_art_assets_unchanged": true
+  },
+  "host_tests": {
+    "status": "PASS",
+    "node": 44,
+    "python": 144,
+    "acoustic_probe": 25,
+    "total": 213,
+    "skips": 0,
+    "js_c_steps": 2722,
+    "mutations_caught": 3,
+    "record": "build/voice-dev4-gate.log",
+    "synthetic_audio_is_not_recognition_accuracy": true
+  },
+  "app": {
+    "bytes": 2030864,
+    "sha256": "d748e54395bff10eaa85530d4287198607fc3fcd17f2d1da8250b272b15d1829"
+  },
+  "elf": {
+    "bytes": 11328060,
+    "sha256": "3f0dd8edf42aed43187ff786eefe20796aab04673295ebf7f75913b59b4bbd91"
+  },
+  "full_first_install_image": {
+    "bytes": 2096400,
+    "sha256": "9f6ac2a640fd2c056d8367c4e62349c61472c9e6acc4e607463bb9bbe729dd78",
+    "source": "The complete image from the same fixed9f6 archive, reused byte-for-byte",
+    "embedded_app_sha256": "d748e54395bff10eaa85530d4287198607fc3fcd17f2d1da8250b272b15d1829",
+    "recompiled_or_recomposed_for_release": false,
+    "partition_table_byte_equal_to_previous_public_9bcc_archive": true,
+    "bootloader_source": "This fixed archive, not a claimed byte-identical reuse of the prior public bootloader",
+    "bootloader_bytes": 21168,
+    "bootloader_differs_from_previous_public_bytes": 37,
+    "starts_at_offset": 0,
+    "changes_default_partition_table_and_resets_nvs_bonds_personal_templates": true,
+    "device_first_install_tested": false
+  },
+  "implemented_changes": {
+    "compaction_command": ">tk.voice.compact",
+    "automatic_startup_migration": false,
+    "foreground_allowed": "Idle menu/voice page only, without pairing/test/configuration transaction",
+    "microphone_or_hid_started_by_compaction": false,
+    "old_key_retirement": "Only the same word's legacy key is retired after CRC, all coefficients, counts and next-slot verification",
+    "configuration_save_preflight_entries": "ceil((JSON_bytes + 16) / 32) + 6",
+    "insufficient_preflight_capacity": "Refuse before attempting the configuration NVS write"
+  },
+  "sdk_nor_backend_evidence": {
+    "physical_flash": false,
+    "sdk": "ESP-IDF 6.0.2 actual NVS backend with private independent NOR copies",
+    "legacy_words_compacted": 6,
+    "available_entries_before": 47,
+    "available_entries_after": 252,
+    "seven_word_coefficients_counts_next_equal": true,
+    "other_logical_values_retained": true,
+    "changed_configuration": {
+      "bytes": 1629,
+      "equal_length_one_bit_modified": true,
+      "forced_write_and_reinitialization_exact_readback": "PASS"
+    },
+    "opaque_blob_capacity_case": {
+      "bytes": 4016,
+      "forced_write_and_reinitialization_exact_readback": "PASS",
+      "valid_maximum_configuration_schema_test": false,
+      "scope": "Opaque storage blob, not a legal maximum configuration/schema acceptance test"
+    },
+    "scope": "Actual-SDK host-copy write evidence; distinct from the real device's251 available entries and the separately recorded physical personal-card changed-payload update",
+    "raw_nvs_configuration_or_template_data_committed": false
+  },
+  "device_flash": {
+    "status": "PASS: FIXED APP VERIFIED AND RESET",
+    "mode": "app-only",
+    "fresh_usb_identity_checked": true,
+    "same_connection_chip_capacity_security_and_actual_table_checked": true,
+    "previous_fixed_2101_app_verified": true,
+    "write_range": [65536, 2096400],
+    "erase_end_exclusive": 2097152,
+    "protected_regions_equal_before_reset": ["partition-table", "nvs", "phy", "asset-first-sector"],
+    "protected_hash_scope": "After app write, before reset; not a claim that normal runtime/explicit compaction leaves NVS bytes unchanged",
+    "entire_asset_region_readback": false,
+    "default_or_merged_flash": false
+  },
+  "device_tests": {
+    "status": "PASS FOR THIS ROUND'S REQUESTED VOICE/LOSSLESS-COMPACTION/CONTROLLED-RESTART RETENTION CHECKS",
+    "overall_scope": "Limited checks for this experimental prerelease, not full seven-word accuracy, all-platform or long-term acceptance",
+    "installed": true,
+    "root_cause_fixed": false,
+    "startup_before_explicit_compaction": {
+      "template_counts": [3, 3, 3, 3, 3, 3, 3],
+      "invalid_mask": 0
+    },
+    "explicit_compaction": {
+      "authorized": true,
+      "result": 0,
+      "re_enrollment_required": false,
+      "confirmed_samples": 21,
+      "speech_frames": 638,
+      "all_seven_coefficients_counts_and_next_equal": true,
+      "all_nonvoice_nonphy_values_unchanged": true,
+      "configuration_settings_slots_values_unchanged": true,
+      "legacy_voice_records_remaining": 0,
+      "compact_v2_voice_records": 7,
+      "compact_record_bytes_by_word": [708, 736, 616, 648, 687, 634, 1108],
+      "nvs_entries": {"used": 379, "free": 377, "available": 251, "total": 756},
+      "scope": "Semantic coefficient/count/next retention; key/encoding/physical NVS representation intentionally changes"
+    },
+    "same_content_configuration_roundtrip": {
+      "status": "PASS",
+      "production_js_and_real_usb": true,
+      "same_content_only": true,
+      "groups": 5,
+      "cards": 3,
+      "exact_configuration_retained": true,
+      "sdk_same_value_skip_possible": true,
+      "test_order": "Earlier separate same-content test, before the personal-card profile URL update",
+      "scope": "This historical roundtrip could be an SDK same-value skip; the later personal-card update separately proves changed-payload physical Flash saving"
+    },
+    "personal_card_profile_update": {
+      "status": "PASS",
+      "public_qr_target": "https://ai-passport.folotoy.cn/creators/?id=14101",
+      "changed_fields": ["cards[0].qr"],
+      "all_other_card_fields_and_groups_canonical_equal": true,
+      "old_json_utf8_bytes": 1613,
+      "new_json_utf8_bytes": 1632,
+      "old_nvs_record_bytes": 1629,
+      "new_nvs_record_bytes": 1648,
+      "production_js_and_real_usb": true,
+      "changed_payload_written_to_physical_flash": true,
+      "write_readback_exact": true,
+      "controlled_restart_and_production_client_readback_exact": true,
+      "phone_scan_opened_correct_published_works_list_user_confirmed": true,
+      "default_firmware_cards_changed": false,
+      "personal_configuration_in_release": false,
+      "scope": "Authorized personal NVS configuration only; no other personal configuration, binding data or template coefficients are included"
+    },
+    "controlled_restart": {
+      "authorized": true,
+      "preceded_by_read_only_nvs_inspection": true,
+      "post_startup_template_counts": [3, 3, 3, 3, 3, 3, 3],
+      "invalid_mask": 0,
+      "cold_power_off_test": false
+    },
+    "observation_windows": [
+      {
+        "record_folder": "private/device/voice-observe-20261028-162339",
+        "duration_seconds": 69.19,
+        "status_samples": 139,
+        "voice_samples": 139,
+        "scope": "Initial startup/explicit compaction window",
+        "compaction_result": 0,
+        "panic_markers": 0,
+        "reset_markers": 0
+      },
+      {
+        "record_folder": "private/device/voice-observe-20261028-162551",
+        "duration_seconds": 127.09,
+        "status_samples": 253,
+        "voice_samples": 254,
+        "scope": "Post-controlled-restart queries and final user acceptance",
+        "panic_markers": 0,
+        "reset_markers": 0
+      }
+    ],
+    "combined_continuous_stability_claimed": false,
+    "queries": {
+      "terminal_jobs": 5,
+      "ambiguous": {"count": 1, "speech_frames": 29, "best_distance": 4, "runner_up_distance": 5},
+      "accepted_winner_ids": [5, 0, 6, 1],
+      "known_intent_user_confirmations": [
+        {"target": "读书", "word": 0, "speech_frames": 20, "best_distance": 3, "runner_up_distance": 6},
+        {"target": "语音输入", "word": 6, "speech_frames": 37, "best_distance": 3, "runner_up_distance": 5}
+      ],
+      "other_query_intents_unknown_not_counted_as_accuracy": true,
+      "hid_sent_before_after_query_phase": [1, 1],
+      "preceding_ordinary_nonvoice_hid_reports": 1,
+      "user_confirmed_correct_navigation_and_no_freeze_restart": true,
+      "accuracy_percentage_claimed": false
+    },
+    "final_window_resources": {
+      "global_min_heap_bytes": 64160,
+      "heap_floor_bytes": 61440,
+      "global_heap_headroom_bytes": 2720,
+      "status_and_voice_heap_min_bytes": 67444,
+      "largest_block_min_bytes": 55296,
+      "largest_block_floor_bytes": 30720,
+      "ui_stack_min_bytes": 5560,
+      "worker_stack_min_bytes": 2748,
+      "all_heap_integrity_checks_pass": true,
+      "observed_frame_max_us": 6071,
+      "frame_reference_period_us": 20000,
+      "bluetooth_ready": true,
+      "hid_failures": 0,
+      "audio_errors": 0,
+      "template_counts": [3, 3, 3, 3, 3, 3, 3],
+      "invalid_mask": 0
+    },
+    "configuration_capacity_status": "PASS for the observed changed personal-card payload after explicit compaction: real USB write/readback and controlled-restart retention are exact; legal maximum configuration/schema acceptance remains unverified",
+    "serial_monitor_gracefully_stopped": true,
+    "serial_port_released": true,
+    "additional_user_steps_requested": false
+  },
+  "bluetooth_coexistence": {
+    "history": "Intermittent headphone stutter was user-observed with PC USB attached; battery-only and external charger comparisons were normal",
+    "latest_user_confirmation": "Headphones now also normal with PC USB attached; user asked to stop investigating",
+    "investigation_status": "STOPPED AT USER REQUEST",
+    "root_cause": "OPEN",
+    "fixed_or_causally_resolved": false,
+    "ble_parameters_or_strategy_changed": false,
+    "driver_changed": false,
+    "last_read_only_winrt_parameters": {"connection_interval_us": 7500, "latency": 0, "supervision_timeout_ms": 2000},
+    "scope": "Current user-reported recovery and tested power-path comparisons; not proof of a firmware/USB/adapter fix or all-day coexistence"
+  },
+  "original_fonts_and_art_assets_changed": false,
+  "publication_authorized": true,
+  "publication_class": "Public experimental prerelease with explicit limitations",
+  "publication_status": "PREPARATION ONLY; ROOT WILL EXECUTE",
+  "release_published": false,
+  "community_update": {
+    "target_project_id": 1701,
+    "status": "PREPARED ONLY - NOT SUBMITTED THIS ROUND",
+    "reason": "Browser access/policy prevented reliable community editing; no private-API workaround used",
+    "original_five_images_changed_or_reordered": false
+  },
+  "this_round_changes_committed": false,
+  "this_round_changes_pushed": false,
+  "unverified": [
+    "Legal maximum configuration/schema acceptance; opaque4016-byte storage test is not that test",
+    "Long-duration stability, more users/background noise and the complete seven-word accuracy/rejection matrix",
+    "Cold power-off/power interruption, real Flash faults and extreme-width/large-configuration NVS capacity/GC",
+    "Intermittent PC-USB headphone root cause; investigation stopped at the user's request without a claimed fix",
+    "Measured power/runtime and all historical platform/reconnect/slot/sleep gates",
+    "Complete0x0 first-install image on hardware",
+    "New GitHub/Pages publication verification and community resubmission are not yet completed in this record"
+  ]
+}

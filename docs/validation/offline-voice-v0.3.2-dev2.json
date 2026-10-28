@@ -1,0 +1,235 @@
+{
+  "date": "2026-10-28",
+  "candidate_version": "v0.3.2-voice-dev2",
+  "stage": "seven-target offline enrolled voice navigation and lifecycle diagnosis",
+  "status": "DEVICE FAIL - STORAGE/RECOGNITION/RESOURCE ACCEPTANCE NOT MET",
+  "baseline_failure_record": "offline-voice-v0.3.2.json",
+  "build": {
+    "status": "PASS",
+    "sdk": "ESP-IDF 6.0.2",
+    "target": "esp32c3",
+    "flash_bytes": 8388608,
+    "psram": false,
+    "archive": "build/firmware/43756fdf70c69faec9029bcf287fc3d86c558091c65e466192cedce6b3edd77d",
+    "independent_archive_verify": "PASS",
+    "source_inputs_match": 130,
+    "legacy_factory_offset": 65536,
+    "legacy_factory_bytes": 2031616,
+    "legacy_remaining_bytes": 464,
+    "app_only_write_range": [
+      65536,
+      2096688
+    ],
+    "erase_end_exclusive": 2097152,
+    "record": "build/voice-dev2-build.log",
+    "original_seven_font_c_files_unchanged": true,
+    "original_art_assets_unchanged": true,
+    "counts_codegen": {
+      "elf_symbol": "tk_model_voice_templates",
+      "address": "0x42010ac2",
+      "snapshot_counts_offset": 28,
+      "snapshot_counts_alignment": 4,
+      "reads_writes": "Explicit lbu/sb byte accesses; no lw/sw counts access",
+      "scope": "Binary/code-generation evidence, not an established reset root cause or proven device fix"
+    }
+  },
+  "host_tests": {
+    "status": "PASS",
+    "node": 44,
+    "python": 129,
+    "acoustic_probe": 24,
+    "total": 197,
+    "skips": 0,
+    "js_c_steps": 2722,
+    "mutations_caught": 3,
+    "record": "build/voice-dev2-host.log",
+    "synthetic_audio_is_not_recognition_accuracy": true
+  },
+  "app": {
+    "bytes": 2031152,
+    "sha256": "c55e1307e367de2ca9b09fcea795efe93b91fc5499427a0559cc848d292442dc"
+  },
+  "elf": {
+    "bytes": 11335272,
+    "sha256": "7296d084562939bde4fb808353e94aca6b68797243dc48e6c09563dbca03d7ec"
+  },
+  "device_tests": {
+    "status": "FAIL: SEVENTH-WORD STORAGE, RECOGNITION AND LIFECYCLE HEAP ACCEPTANCE NOT MET",
+    "installed": true,
+    "root_cause_fixed": false,
+    "baseline_observed_template_counts": [
+      3,
+      3,
+      3,
+      3,
+      1,
+      0
+    ],
+    "preserve_existing_keys": [
+      "nabo_tk/voice0",
+      "nabo_tk/voice1",
+      "nabo_tk/voice2",
+      "nabo_tk/voice3",
+      "nabo_tk/voice4",
+      "nabo_tk/voice5"
+    ],
+    "existing_templates_retained": true,
+    "startup": {
+      "page": "menu",
+      "bluetooth_ready": true,
+      "voice_available": true,
+      "template_counts": [
+        3,
+        3,
+        3,
+        3,
+        1,
+        0,
+        0
+      ],
+      "invalid_mask": 0,
+      "heap_bytes": 87944,
+      "largest_block_bytes": 69632,
+      "global_min_heap_bytes": 81420,
+      "ui_stack_min_bytes": 6180,
+      "heap_integrity": true,
+      "audio_errors": 0,
+      "hid_failures": 0
+    },
+    "ui_cycle_observation": {
+      "commands_sent": 30,
+      "end_page": "menu",
+      "panic_markers": 0,
+      "reset_lines": 0,
+      "scope": "Bounded open/cancel command observation, not permanent proof that the dev1 reset is fixed"
+    },
+    "bounded_enrollment_observation": {
+      "duration_seconds": 220.28,
+      "status_samples": 318,
+      "voice_samples": 317,
+      "terminal_jobs": 15,
+      "panic_markers": 0,
+      "reset_lines": 0,
+      "dev1_reset_reproduced": false,
+      "scope": "No reset/panic in this bounded run; not a permanent stability guarantee",
+      "word4_camera_saved_samples": 2,
+      "word5_screenshot_saved_samples": 3,
+      "word5_too_short_rejected": 1,
+      "word6_example0_verified_saves": 4,
+      "word6_too_long_rejected": 1,
+      "word6_example1_storage_failures": 4,
+      "word6_storage_write_error": 4357,
+      "word6_storage_write_error_name": "ESP_ERR_NVS_NOT_ENOUGH_SPACE",
+      "word6_storage_read_error": -1,
+      "word6_storage_unknown": true,
+      "last_template_counts": [3, 3, 3, 3, 3, 3, 0],
+      "last_invalid_mask": 64,
+      "user_confirmation": "Voice-input enrollment failed",
+      "raw_terminal_jobs_committed": false
+    },
+    "lifecycle_resources": {
+      "status_heap_min_bytes": 67276,
+      "status_largest_min_bytes": 51200,
+      "voice_heap_min_bytes": 67456,
+      "voice_largest_min_bytes": 51200,
+      "global_min_heap_bytes": 60936,
+      "required_heap_floor_bytes": 61440,
+      "global_heap_shortfall_bytes": 504,
+      "global_heap_gate": "FAIL",
+      "ui_stack_min_bytes": 6180,
+      "worker_stack_min_bytes": 2392,
+      "all_heap_integrity_checks_pass": true,
+      "observed_frame_max_us": 22577,
+      "frame_reference_period_us": 20000,
+      "observed_frame_max_exceeded_reference": true,
+      "frame_max_excess_us": 2577,
+      "jobs_with_frame_max_above_reference": 1,
+      "scope": "Heap integrity and stack headroom do not erase the global-heap shortfall or the observed >20ms frame"
+    },
+    "cold_restart_readback": {
+      "template_counts": [3, 3, 3, 3, 3, 3, 0],
+      "invalid_mask": 0,
+      "first_six_words_retained": true,
+      "seventh_word_saved": false,
+      "scope": "Retained six-word evidence, not full seven-word persistence acceptance"
+    },
+    "nvs_statistics": {
+      "used_entries": 546,
+      "free_entries": 210,
+      "available_entries": 84,
+      "total_entries": 756
+    },
+    "independent_query_observation": {
+      "user_reported_targets": ["读书", "音乐"],
+      "user_report": "Queries were unrecognized or ambiguous",
+      "queries": 8,
+      "accepted": 0,
+      "ambiguous": 4,
+      "ambiguous_best_runner_distances": [[5, 5], [4, 6], [3, 5], [4, 5]],
+      "too_short": 3,
+      "too_short_speech_frames": [14, 11, 12],
+      "no_speech": 1,
+      "panic_markers": 0,
+      "acceptance": "FAIL"
+    },
+    "sdk_storage_source_audit": {
+      "sdk": "ESP-IDF 6.0.2",
+      "source": "components/nvs_flash/src/nvs_storage.cpp",
+      "plausible_path": "writeMultiPageBlob error cleanup may omit chunkStart and remove an older version's chunks; later missing-chunk read cleanup may remove the old blob record",
+      "evidence_level": "Source-audited possible path, not device instruction-by-instruction proof",
+      "device_path_proven": false
+    }
+  },
+  "diagnostic_scope": "Build/host and alignment/count code-generation checks do not establish the dev1 reset root cause or a proven device fix",
+  "privacy": {
+    "network_enabled": false,
+    "raw_audio_saved_or_exported": false,
+    "raw_logs_or_flash_readbacks_committed": false
+  },
+  "release_published": false,
+  "unverified": [
+    "Reliable seven-target enrollment/recognition and calibrated rejection",
+    "Longer repeated use and dev1 reset root cause despite bounded non-reproduction",
+    "Lifecycle heap floor and >20ms feature-frame remediation",
+    "Seventh-word NVS save/retry/data-retention behavior, capacity/GC and exact SDK failure path",
+    "Real Flash faults and power interruption",
+    "BLE coexistence, measured power and remaining historical device gates"
+  ],
+  "device_flash": {
+    "status": "PASS: EXACT APP VERIFIED AND RESET",
+    "mode": "app-only",
+    "fresh_usb_identity_checked": true,
+    "chip_capacity_security_and_actual_layout_checked": true,
+    "previous_installed_dev1_app_verified": true,
+    "write_range": [
+      65536,
+      2096688
+    ],
+    "erase_end_exclusive": 2097152,
+    "default_or_merged_flash": false,
+    "protected_regions_equal_before_reset": [
+      "partition-table",
+      "nvs",
+      "phy",
+      "asset-first-sector"
+    ],
+    "entire_asset_region_readback": false
+  },
+  "implemented_changes": [
+    "Check and align runtime snapshot transfer",
+    "Use explicit byte-count reads/writes for template counts",
+    "Add task lifecycle heap and stack diagnostics",
+    "Append target index6 for voice input, preserving old six-word records and indices",
+    "Voice input only navigates to Typeless or the same-named shortcut group; no HID or computer recording starts automatically"
+  ],
+  "targets": [
+    "读书",
+    "抖音",
+    "音乐",
+    "名片",
+    "拍照",
+    "截图",
+    "语音输入"
+  ],
+  "next_candidate_record": "offline-voice-v0.3.2-dev3.json"
+}

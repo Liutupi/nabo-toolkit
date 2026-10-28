@@ -40,6 +40,7 @@ try {
         Invoke-ToolkitCheck 'python' @('tools/verify_assets.py')
         Invoke-ToolkitCheck 'node' @('--test','tests/tk_golden/model.test.js','tests/tk_golden/prototype.test.js','tests/tk_golden/config.test.js')
         Invoke-ToolkitCheck 'python' @('-m','unittest','discover','-s','tests','-p','test_*.py','-v')
+        Invoke-ToolkitCheck 'python' @('-m','unittest','discover','-s','tools/voice_probe','-p','test_*.py','-v')
         Invoke-ToolkitCheck 'python' @('tools/verify_golden.py')
         Invoke-ToolkitCheck 'git' @('diff','--check')
     }

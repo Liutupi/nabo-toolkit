@@ -1,0 +1,172 @@
+{
+  "date": "2026-10-28",
+  "candidate_version": "v0.3.2-voice-dev1",
+  "stage": "offline enrolled voice navigation",
+  "status": "DEVICE FAIL - DEV1 DIAGNOSIS OPEN",
+  "build": {
+    "status": "PASS",
+    "sdk": "ESP-IDF 6.0.2",
+    "target": "esp32c3",
+    "flash_bytes": 8388608,
+    "psram": false,
+    "archive": "build/firmware/513807796aaa354745ae2373c23385c157f47c3e4e4b3675253d68bec32a0998",
+    "independent_archive_verify": "PASS",
+    "source_inputs_match": 130,
+    "legacy_factory_offset": 65536,
+    "legacy_factory_bytes": 2031616,
+    "legacy_remaining_bytes": 2528,
+    "first_oversize_candidate_bytes": 2038672,
+    "oversize_rejected_before_flash": true
+  },
+  "host_tests": {
+    "status": "PASS",
+    "node": 44,
+    "python": 124,
+    "acoustic_probe": 24,
+    "total": 192,
+    "skips": 0,
+    "js_c_steps": 2666,
+    "mutations_caught": 3,
+    "record": "build/voice-final-gate.log",
+    "synthetic_audio_is_not_recognition_accuracy": true
+  },
+  "app": {
+    "sha256": "acbfd4f7e0f1aa41b0acad5af3f044ddfec623046a82558c561c8631a89d3ffb",
+    "bytes": 2029088
+  },
+  "elf": {
+    "sha256": "3a9c1604f477f002c557a2a495bac9bc75cc668a240bbb2e92feaf8e9d072d3b",
+    "bytes": 11331060
+  },
+  "device_flash": {
+    "status": "PASS: VERIFIED AND RESET",
+    "write_range": [
+      65536,
+      2094624
+    ],
+    "erase_end_exclusive": 2097152,
+    "mode": "app-only",
+    "default_or_merged_flash": false,
+    "fresh_usb_identity_checked": true,
+    "chip_capacity_security_and_actual_layout_checked": true,
+    "previous_accepted_app_verified": true,
+    "protected_regions_equal_before_reset": [
+      "partition table",
+      "NVS",
+      "PHY",
+      "asset first sector"
+    ],
+    "entire_asset_region_readback": false,
+    "installed_same_fixed_app": true
+  },
+  "device_tests": {
+    "status": "FAIL: USER-REPORTED RESETS/FREEZES DURING CONSECUTIVE ENROLLMENT",
+    "microphone": true,
+    "microphone_acceptance": "Real speech frames and saved templates observed; repeated-use stability FAIL",
+    "personal_enrollment": "FAIL: consecutive enrollment resets/freezes; saved records preserved",
+    "independent_word_recognition": false,
+    "negative_rejection": false,
+    "cold_power_retention": false,
+    "startup": {
+      "page": "menu",
+      "bluetooth_ready": true,
+      "voice_available": true,
+      "template_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "heap_bytes": 88076,
+      "largest_block_bytes": 69632,
+      "global_min_heap_bytes": 81552,
+      "audio_errors": 0,
+      "hid_failures": 0
+    },
+    "observed_voice_jobs": {
+      "scope": "Early bounded positive observations; not the full consecutive-enrollment run",
+      "enrollment_attempts": 4,
+      "too_short_rejected": 1,
+      "verified_saved_samples": 3,
+      "saved_word_id": 0,
+      "saved_speech_frames": [
+        27,
+        28,
+        29
+      ],
+      "recognition_jobs": 1,
+      "matched_word_id": 0,
+      "match_distance": 4,
+      "query_speech_frames": 19,
+      "destination_page": "macro",
+      "hid_sent_before_after": [
+        0,
+        0
+      ],
+      "runtime_heap_min": 69636,
+      "runtime_largest_min": 53248,
+      "global_min_heap_bytes": 63152,
+      "observed_frame_max_us": 11949,
+      "storage_write_error": 0,
+      "storage_read_error": 0,
+      "storage_unknown": false,
+      "physical_confirmation": "Initial observation awaited user confirmation; later consecutive enrollment failed"
+    },
+    "latest_observed_template_counts": [3, 3, 3, 3, 1, 0],
+    "existing_record_keys_preserved": [
+      "nabo_tk/voice0", "nabo_tk/voice1", "nabo_tk/voice2",
+      "nabo_tk/voice3", "nabo_tk/voice4", "nabo_tk/voice5"
+    ],
+    "enrollment_data_erased_as_recovery": false,
+    "failure_analysis": {
+      "status": "OPEN - ROOT CAUSE UNDETERMINED",
+      "user_report": "Resets/freezes during consecutive personal enrollment",
+      "matching_fixed_elf_sha256": "3a9c1604f477f002c557a2a495bac9bc75cc668a240bbb2e92feaf8e9d072d3b",
+      "store_access_fault": {
+        "pc": "0x42019de0",
+        "ra": "0x42019dde"
+      },
+      "separate_ret_loop_pc": "0x42019dd4",
+      "observed_ui_bridge_return_delta_bytes": 4096,
+      "return_anomaly": "Observed UI bridge call return differs from expected normal return by +0x1000; cause not established",
+      "matcher_causation_established": false,
+      "low_memory_causation_established": false,
+      "app_flash_readback": {
+        "status": "PASS: FIXED APP BYTES MATCH",
+        "bytes": 2029088,
+        "sha256": "acbfd4f7e0f1aa41b0acad5af3f044ddfec623046a82558c561c8631a89d3ffb",
+        "byte_equal_to_fixed_app": true,
+        "scope": "Excludes changed/corrupt app-image bytes at this readback; does not exclude RAM/stack/ABI or other runtime faults",
+        "raw_readback_committed": false
+      },
+      "raw_logs_committed": false,
+      "fixed_or_accepted": false
+    }
+  },
+  "privacy": {
+    "network_enabled": false,
+    "raw_audio_saved_or_exported": false,
+    "templates_stored_only_on_badge": true,
+    "voice_keys": [
+      "nabo_tk/voice0",
+      "nabo_tk/voice1",
+      "nabo_tk/voice2",
+      "nabo_tk/voice3",
+      "nabo_tk/voice4",
+      "nabo_tk/voice5"
+    ]
+  },
+  "release_published": false,
+  "unverified": [
+    "Consecutive-enrollment stability and root cause of resets/freezes",
+    "Per-word enrollment/recognition accuracy, false triggers and confusion",
+    "Full-lifecycle C3 frame time, connected heap/largest and task stack during repeated record/readback",
+    "NVS six words with full personal configuration and GC stress",
+    "Cold-power template retention and real Flash failure/power interruption",
+    "Current Bluetooth/app/platform matrix and prior reconnect/stability gates",
+    "Measured power/runtime"
+  ],
+  "next_candidate_record": "offline-voice-v0.3.2-dev2.json"
+}

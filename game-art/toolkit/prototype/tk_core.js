@@ -15,6 +15,7 @@
   const PAIR_MS = 60000, TOAST_MS = 1200, ERR_MS = 1500, REACT_MS = 500;
   const MAX_SLOTS = 3, MAX_CARDS = 3;
   const SCREEN_MS = 30000;
+  const VOICE_TARGETS = ['读书', '抖音', '音乐', '名片', '拍照', '截图', '语音输入'];
 
   function create(now) {
     return {
@@ -28,6 +29,7 @@
       meet: { app: 0 },
       media: { mode: 0, choosing: true },
       display: { off: false, since: -1 },
+      voice: { selected: 0, counts: VOICE_TARGETS.map(() => 0), busy: false, operation: 0, status: 0, token: 0 },
       cam: { delay: 0, endMs: 0, lastSec: 0, burstLeft: 0, nextShot: 0, shots: 0 },
       macro: { group: 0 },
       groups: null,          // null = built-in H.MACRO_GROUPS; set by the config page
@@ -209,7 +211,58 @@
     beep(out, st, 660);
   }
 
-  const HANDLERS = { ppt: onPpt, meet: onMeet, media: onMedia, cam: onCam, macro: onMacro, card: onCard, conn: onConn, set: onSet };
+  const voiceBlocked = (st) => !!st.pairing || !!st.osPick || st.confirmDel >= 0;
+  function voiceToken(v) { v.token = (v.token + 1) >>> 0; if (!v.token) v.token = 1; }
+  function voiceCancel(st) { voiceToken(st.voice); st.voice.busy = false; st.voice.operation = 0; }
+  function voiceOpen(st, now) {
+    if (st.page !== 'menu' || voiceBlocked(st)) return false;
+    voiceCancel(st); st.voice.status = 0; st.page = 'voice'; st.toast = st.react = st.hit = null;
+    st.cam.endMs = 0; st.cam.burstLeft = 0; st.lastInput = now; screenSync(st, now, true); return true;
+  }
+  function voiceTemplates(st, counts) {
+    if (!Array.isArray(counts) || counts.length !== VOICE_TARGETS.length || counts.some(n => !Number.isInteger(n) || n < 0 || n > 3)) return false;
+    st.voice.counts = counts.slice(); return true;
+  }
+  function voicePending(st, token) { return st.page === 'voice' && st.voice.busy && st.voice.token === token && !voiceBlocked(st); }
+  function voiceProgress(st, token, status, now) {
+    if (!voicePending(st, token) || ![1, 2, 8].includes(status) ||
+        (status === 1 && st.voice.operation !== 1) || (status === 2 && st.voice.operation !== 2)) return false;
+    st.voice.status = status; st.lastInput = now; return true;
+  }
+  function voiceResult(st, token, outcome, target, count, now) {
+    const v = st.voice;
+    if (!voicePending(st, token) || !Number.isInteger(outcome) || outcome < 0 || outcome > 6) return false;
+    if (outcome <= 1 && (!Number.isInteger(target) || target < 0 || target >= VOICE_TARGETS.length)) return false;
+    if (outcome === 0 && (v.operation !== 2 || target !== v.selected || !Number.isInteger(count) || count < 1 || count > 3)) return false;
+    if (outcome === 1 && (v.operation !== 1 || !v.counts[target])) return false;
+    v.busy = false; v.operation = 0; st.lastInput = now;
+    if (outcome === 0) { v.counts[target] = count; v.status = 3; return true; }
+    if (outcome !== 1) { v.status = [0, 0, 4, 5, 9, 10, 11][outcome]; return true; }
+    let group = -1;
+    if (target === 0 || target === 5 || target === 6) {
+      const names = target === 0 ? ['微信读书', '读书'] : target === 5 ? ['截图'] : ['Typeless', '语音输入'];
+      group = groups(st).findIndex(g => names.includes(g.name));
+      if (group < 0) { v.status = 7; toast(st, now, '没有「' + names[0] + '」分组', 'err'); return true; }
+    }
+    v.status = 0; st.toast = st.react = st.hit = null; st.cam.endMs = 0; st.cam.burstLeft = 0;
+    if (target === 0 || target === 5 || target === 6) { st.page = 'macro'; st.menu = 0; st.macro.group = group; }
+    else if (target === 1 || target === 2) { st.page = 'media'; st.menu = 3; st.media.mode = target === 1 ? 1 : 0; st.media.choosing = false; }
+    else if (target === 3) { st.page = 'card'; st.menu = 5; st.card.zoom = false; }
+    else { st.page = 'cam'; st.menu = 4; }
+    screenSync(st, now, true); return true;
+  }
+  function onVoice(st, key, now) {
+    const v = st.voice;
+    if (v.busy) return;
+    if (key === 'up' || key === 'down') { v.selected = (v.selected + (key === 'up' ? VOICE_TARGETS.length - 1 : 1)) % VOICE_TARGETS.length; v.status = 0; }
+    else if (key === 'ok' || key === 'long_ok') {
+      if (voiceBlocked(st)) return;
+      if (key === 'ok' && !v.counts.some(Boolean)) { v.status = 6; return; }
+      voiceToken(v); v.busy = true; v.operation = key === 'ok' ? 1 : 2; v.status = 8; st.toast = null;
+    }
+  }
+
+  const HANDLERS = { ppt: onPpt, meet: onMeet, media: onMedia, cam: onCam, macro: onMacro, card: onCard, conn: onConn, set: onSet, voice: onVoice };
 
   /* key ∈ up | down | ok | long_up | long_down | long_ok */
   function dispatchPress(st, key, now) {
@@ -224,9 +277,11 @@
         if (st.page === 'media') st.media.choosing = true;
         beep(out, st, 880);
       }
+      else if (key === 'long_ok') voiceOpen(st, now);
       return out;
     }
     if (key === 'long_up') {
+      if (st.page === 'voice') voiceCancel(st);
       if (st.pairing) { st.pairing = null; toast(st, now, '已停止配对'); }
       else if (st.page === 'card' && st.card.zoom) st.card.zoom = false;
       else if (st.page === 'media' && !st.media.choosing) { st.media.choosing = true; st.toast = null; }
@@ -248,6 +303,7 @@
     if (now - st.display.since >= SCREEN_MS) st.display.off = true;
   }
   function press(st, key, now) {
+    if (st.voice.busy && (st.page !== 'voice' || voiceBlocked(st))) voiceCancel(st);
     screenSync(st, now, false); // Check the deadline before interpreting long OK.
     if (st.display.off && key === 'long_ok') {
       st.lastInput = now; screenReset(st, now); return [];
@@ -263,6 +319,7 @@
   /* Timers: camera countdown and burst, pairing timeout, expiring overlays. */
   function tick(st, now) {
     const out = [], c = st.cam;
+    if (st.voice.busy && (st.page !== 'voice' || voiceBlocked(st))) voiceCancel(st);
     if (st.page === 'boot') {
       const t = now - st.boot.start;
       if (!st.boot.voiced && t >= VOICE_AT_MS) {
@@ -304,6 +361,7 @@
     } else if (ev === 'disconnect') st.connected = false;
     else if (ev === 'reconnect' && !st.pairing && st.slots[st.active]) st.connected = true;
     else if (ev === 'wake') {
+      voiceCancel(st);
       st.page = 'boot'; st.boot = { start: now, voiced: false }; st.osPick = null;
       st.lastInput = now; st.connected = false; st.pairing = null;
     }
@@ -311,14 +369,15 @@
   }
 
   function sleepDue(st, now) {
-    if (st.ppt.running || st.cam.endMs > 0 || st.pairing) return false;
+    if (st.ppt.running || st.cam.endMs > 0 || st.pairing || st.voice.busy) return false;
     const m = SLEEP[st.settings.sleep];
     const limit = (m === 0 ? (st.connected ? Infinity : 5) : m) * 60000;
     return now - st.lastInput >= limit;
   }
 
   root.TK = {
-    MENU, TOOLS, TALK_MIN, SLEEP, CAM_DELAYS, MAX_SLOTS, BOOT_MS, VOICE_AT_MS, SCREEN_MS,
+    MENU, TOOLS, TALK_MIN, SLEEP, CAM_DELAYS, MAX_SLOTS, BOOT_MS, VOICE_AT_MS, SCREEN_MS, VOICE_TARGETS,
     create, press, tick, sim, sleepDue, pptElapsed, os, groups, applyConfig, screenReset,
+    voiceOpen, voiceTemplates, voiceProgress, voiceResult,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

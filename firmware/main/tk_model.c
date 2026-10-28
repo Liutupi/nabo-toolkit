@@ -2,8 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 
-const char *const tk_page_names[10]={"boot","menu","macro","ppt","meet","media","cam","card","conn","set"};
+const char *const tk_page_names[11]={"boot","menu","macro","ppt","meet","media","cam","card","conn","set","voice"};
 const char *const tk_key_names[6]={"up","down","ok","long_up","long_down","long_ok"};
+const char *const tk_voice_names[TK_VOICE_TARGETS]={"读书","抖音","音乐","名片","拍照","截图","语音输入"};
 static const int menu_pages[]={TK_PAGE_MACRO,TK_PAGE_PPT,TK_PAGE_MEET,TK_PAGE_MEDIA,TK_PAGE_CAM,TK_PAGE_CARD,TK_PAGE_CONN,TK_PAGE_SET};
 static const int sleep_minutes[]={5,15,30,0};
 const tk_card_t tk_default_cards[]={
@@ -77,6 +78,79 @@ static void screen_sync(tk_state_t *s,int64_t now,bool reset)
     if(reset || s->screen_since<0)tk_model_screen_reset(s,now);
     if(now-s->screen_since>=30000)s->screen_off=true;
 }
+static bool voice_blocked(const tk_state_t *s){return s->pairing || s->os_pick || s->confirm_del>=0;}
+static void voice_token(tk_state_t *s){if(++s->voice_token==0)++s->voice_token;}
+static void voice_cancel(tk_state_t *s){voice_token(s);s->voice_busy=false;s->voice_operation=TK_VOICE_NONE;}
+bool tk_model_voice_open(tk_state_t *s,int64_t now)
+{
+    if(!s || s->page!=TK_PAGE_MENU || voice_blocked(s))return false;
+    voice_cancel(s);s->voice_status=TK_VOICE_READY;s->page=TK_PAGE_VOICE;
+    s->toast=s->react=s->hit=false;s->cam_end=0;s->burst_left=0;s->last_input=now;
+    screen_sync(s,now,true);return true;
+}
+bool tk_model_voice_templates(tk_state_t *s,const uint8_t counts[TK_VOICE_TARGETS])
+{
+    if(!s || !counts)return false;
+    // Runtime snapshots may place this byte array at an unaligned address.
+    // Volatile byte access prevents a compiler from widening this to word I/O.
+    const volatile uint8_t *source=counts;uint8_t values[TK_VOICE_TARGETS];
+    for(int i=0;i<TK_VOICE_TARGETS;i++){values[i]=source[i];if(values[i]>3)return false;}
+    volatile uint8_t *destination=s->voice_counts;
+    for(int i=0;i<TK_VOICE_TARGETS;i++)destination[i]=values[i];
+    return true;
+}
+static bool voice_pending(const tk_state_t *s,uint32_t token)
+{
+    return s && s->page==TK_PAGE_VOICE && s->voice_busy && s->voice_token==token && !voice_blocked(s);
+}
+bool tk_model_voice_progress(tk_state_t *s,uint32_t token,int status,int64_t now)
+{
+    if(!voice_pending(s,token) || (status!=TK_VOICE_LISTENING && status!=TK_VOICE_RECORDING && status!=TK_VOICE_PREPARING) ||
+       (status==TK_VOICE_LISTENING && s->voice_operation!=TK_VOICE_RECOGNIZE) ||
+       (status==TK_VOICE_RECORDING && s->voice_operation!=TK_VOICE_ENROLL))return false;
+    s->voice_status=status;s->last_input=now;return true;
+}
+bool tk_model_voice_result(tk_state_t *s,uint32_t token,int outcome,int target,int count,int64_t now)
+{
+    if(!voice_pending(s,token) || outcome<TK_VOICE_RESULT_ENROLLED || outcome>TK_VOICE_RESULT_CAPTURE_ERROR)return false;
+    if(outcome<=TK_VOICE_RESULT_MATCHED && (target<0 || target>=TK_VOICE_TARGETS))return false;
+    if(outcome==TK_VOICE_RESULT_ENROLLED && (s->voice_operation!=TK_VOICE_ENROLL || target!=s->voice_selected || count<1 || count>3))return false;
+    if(outcome==TK_VOICE_RESULT_MATCHED && (s->voice_operation!=TK_VOICE_RECOGNIZE || !s->voice_counts[target]))return false;
+    s->voice_busy=false;s->voice_operation=TK_VOICE_NONE;s->last_input=now;
+    if(outcome==TK_VOICE_RESULT_ENROLLED){s->voice_counts[target]=(uint8_t)count;s->voice_status=TK_VOICE_SAVED;return true;}
+    if(outcome!=TK_VOICE_RESULT_MATCHED){
+        const int statuses[]={0,0,TK_VOICE_REJECTED,TK_VOICE_ERROR,TK_VOICE_AMBIGUOUS,TK_VOICE_TOO_LONG,TK_VOICE_CAPTURE_ERROR};
+        s->voice_status=statuses[outcome];return true;
+    }
+    int group=-1;
+    if(target==0 || target==5 || target==6){
+        for(int i=0;i<tk_model_macro_count(s);i++){
+            const char *name=tk_model_macro_name(s,i);
+            bool match=target==0?(!strcmp(name,"微信读书") || !strcmp(name,"读书")):
+                target==5?!strcmp(name,"截图"):(!strcmp(name,"Typeless") || !strcmp(name,"语音输入"));
+            if(match){group=i;break;}
+        }
+        if(group<0){s->voice_status=TK_VOICE_MISSING_GROUP;tk_model_toast(s,now,target==0?"没有「微信读书」分组":target==5?"没有「截图」分组":"没有「Typeless」分组",true);return true;}
+    }
+    s->voice_status=TK_VOICE_READY;s->toast=s->react=s->hit=false;s->cam_end=0;s->burst_left=0;
+    if(target==0 || target==5 || target==6){s->page=TK_PAGE_MACRO;s->menu=0;s->macro_group=group;}
+    else if(target==1 || target==2){s->page=TK_PAGE_MEDIA;s->menu=3;s->media_mode=target==1?1:0;s->media_select=false;}
+    else if(target==3){s->page=TK_PAGE_CARD;s->menu=5;s->card_zoom=false;}
+    else{s->page=TK_PAGE_CAM;s->menu=4;}
+    screen_sync(s,now,true);return true;
+}
+static void voice_press(tk_state_t *s,tk_key_t key)
+{
+    if(s->voice_busy)return;
+    if(key==TK_UP || key==TK_DOWN){s->voice_selected=(s->voice_selected+(key==TK_UP?TK_VOICE_TARGETS-1:1))%TK_VOICE_TARGETS;s->voice_status=TK_VOICE_READY;}
+    else if(key==TK_OK || key==TK_LONG_OK){
+        if(voice_blocked(s))return;
+        bool any=false;for(int i=0;i<TK_VOICE_TARGETS;i++)if(s->voice_counts[i])any=true;
+        if(key==TK_OK && !any){s->voice_status=TK_VOICE_UNTRAINED;return;}
+        voice_token(s);s->voice_busy=true;s->voice_operation=key==TK_OK?TK_VOICE_RECOGNIZE:TK_VOICE_ENROLL;
+        s->voice_status=TK_VOICE_PREPARING;s->toast=false;
+    }
+}
 static void dispatch_press(tk_state_t *s,tk_key_t key,int64_t now,tk_effects_t *out)
 {
     out->count=0;out->overflow=false;
@@ -87,9 +161,11 @@ static void dispatch_press(tk_state_t *s,tk_key_t key,int64_t now,tk_effects_t *
     if(s->page==TK_PAGE_MENU){
         if(key==TK_UP || key==TK_DOWN){s->menu=(s->menu+(key==TK_UP?7:1))%8;tk_model_beep(out,s,660,40);}
         else if(key==TK_OK){s->page=menu_pages[s->menu];s->toast=false;if(s->page==TK_PAGE_MEDIA)s->media_select=true;tk_model_beep(out,s,880,40);}
+        else if(key==TK_LONG_OK)tk_model_voice_open(s,now);
         return;
     }
     if(key==TK_LONG_UP){
+        if(s->page==TK_PAGE_VOICE)voice_cancel(s);
         if(s->pairing){s->pairing=false;tk_model_toast(s,now,"已停止配对",false);}
         else if(s->page==TK_PAGE_CARD && s->card_zoom)s->card_zoom=false;
         else if(s->page==TK_PAGE_MEDIA && !s->media_select){s->media_select=true;s->toast=false;}
@@ -98,11 +174,13 @@ static void dispatch_press(tk_state_t *s,tk_key_t key,int64_t now,tk_effects_t *
     }
     if(s->page==TK_PAGE_CONN)tk_model_connection(s,key,now,out);
     else if(s->page==TK_PAGE_SET)tk_model_settings(s,key,out);
+    else if(s->page==TK_PAGE_VOICE)voice_press(s,key);
     else tk_model_tools(s,key,now,out);
 }
 void tk_model_press(tk_state_t *s,tk_key_t key,int64_t now,tk_effects_t *out)
 {
     out->count=0;out->overflow=false;if(key<TK_UP || key>TK_LONG_OK)return;
+    if(s->voice_busy && (s->page!=TK_PAGE_VOICE || voice_blocked(s)))voice_cancel(s);
     screen_sync(s,now,false);
     if(s->screen_off && key==TK_LONG_OK){s->last_input=now;tk_model_screen_reset(s,now);return;}
     int page=s->page;bool selecting=s->media_select;
@@ -114,6 +192,7 @@ void tk_model_press(tk_state_t *s,tk_key_t key,int64_t now,tk_effects_t *out)
 void tk_model_tick(tk_state_t *s,int64_t now,tk_effects_t *out)
 {
     out->count=0;out->overflow=false;
+    if(s->voice_busy && (s->page!=TK_PAGE_VOICE || voice_blocked(s)))voice_cancel(s);
     if(s->page==TK_PAGE_BOOT){
         int64_t elapsed=now-s->boot_start;
         if(!s->boot_voiced && elapsed>=1400){s->boot_voiced=true;if(s->voice)effect(out,TK_EFFECT_VOICE);}
@@ -142,12 +221,12 @@ void tk_model_event(tk_state_t *s,const char *event,int64_t now,const char *arg)
         if(valid){s->passkey_valid=true;s->passkey=code;}
     }else if(!strcmp(event,"disconnect"))s->connected=false;
     else if(!strcmp(event,"reconnect") && !s->pairing && s->slots[s->active].used)s->connected=true;
-    else if(!strcmp(event,"wake")){s->page=TK_PAGE_BOOT;s->boot_start=now;s->boot_voiced=false;s->os_pick=false;s->last_input=now;s->connected=false;s->pairing=false;}
+    else if(!strcmp(event,"wake")){voice_cancel(s);s->page=TK_PAGE_BOOT;s->boot_start=now;s->boot_voiced=false;s->os_pick=false;s->last_input=now;s->connected=false;s->pairing=false;}
     screen_sync(s,now,!strcmp(event,"wake"));
 }
 bool tk_model_sleep_due(const tk_state_t *s,int64_t now)
 {
-    if(s->ppt_running || s->cam_end>0 || s->pairing)return false;
+    if(s->ppt_running || s->cam_end>0 || s->pairing || s->voice_busy)return false;
     int minutes=sleep_minutes[s->sleep];
     if(!minutes){if(s->connected)return false;minutes=5;}
     return now-s->last_input>=(int64_t)minutes*60000;

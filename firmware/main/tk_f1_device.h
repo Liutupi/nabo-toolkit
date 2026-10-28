@@ -9,6 +9,7 @@ int tk_f1_ui_animation_frame(void);
 esp_err_t tk_sound_open(void);
 bool tk_sound_tone(unsigned frequency,unsigned ms);
 bool tk_sound_idle(void);
+bool tk_sound_capture_ready(void);
 void tk_sound_mute(bool muted);
 bool tk_sound_prepare_sleep(void);
 bool tk_sound_boot_voice(void);

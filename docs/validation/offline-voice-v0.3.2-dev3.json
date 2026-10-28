@@ -1,0 +1,388 @@
+{
+  "date": "2026-10-28",
+  "candidate_version": "v0.3.2-voice-dev3",
+  "stage": "compact protected template persistence and query acceptance candidate",
+  "status": "NOT FINALLY ACCEPTED - DO NOT PUBLISH: VOICE PASS, PC-USB COEXISTENCE FAIL/BATTERY-ONLY PASS, CONFIGURATION CAPACITY BLOCKED",
+  "baseline_failure_record": "offline-voice-v0.3.2-dev2.json",
+  "build": {
+    "status": "PASS",
+    "sdk": "ESP-IDF 6.0.2",
+    "target": "esp32c3",
+    "flash_bytes": 8388608,
+    "psram": false,
+    "archive": "build/firmware/2e4a50f81c58140118dcd3edbe3fa44a1017e99f54f79fd2490f3e92e9e0de20",
+    "independent_archive_verify": "PASS",
+    "source_inputs_match": 130,
+    "legacy_factory_offset": 65536,
+    "legacy_factory_bytes": 2031616,
+    "legacy_remaining_bytes": 144,
+    "app_only_write_range": [65536, 2097008],
+    "erase_end_exclusive": 2097152,
+    "record": "build/voice-dev3-build.log",
+    "reconfigure_record": "build/voice-dev3-reconfigure.log",
+    "counts_codegen": {
+      "elf_symbol": "tk_model_voice_templates",
+      "address": "0x42010c54",
+      "snapshot_counts_offset": 28,
+      "snapshot_counts_alignment": 4,
+      "reads_writes": "Explicit lbu/sb byte accesses",
+      "scope": "Generated-code evidence, not a proven device fix"
+    },
+    "optimization": {
+      "Os_sources": ["tk_voice.c", "tk_voice_store.c", "tk_voice_bridge.c"],
+      "dsp_animation_ui_optimization": "O2 unchanged"
+    },
+    "original_seven_font_c_files_equal_head": true,
+    "original_art_assets_equal_head": true
+  },
+  "host_tests": {
+    "status": "PASS",
+    "node": 44,
+    "python": 138,
+    "acoustic_probe": 25,
+    "total": 207,
+    "skips": 0,
+    "js_c_steps": 2722,
+    "mutations_caught": 3,
+    "record": "build/voice-dev3-host.log",
+    "synthetic_audio_is_not_recognition_accuracy": true
+  },
+  "app": {
+    "bytes": 2031472,
+    "sha256": "2101d1d65355640b07e116701c401c5e53d281fa991d2cb76ef6bcc7ffe6dace"
+  },
+  "elf": {
+    "bytes": 11339780,
+    "sha256": "d8701ec9f3354d42cb3376fc2a7f18be1a479f770200b667dd9d4833ca2e7c3a"
+  },
+  "device_tests": {
+    "status": "PARTIAL: VOICE PASS; PC-USB COEXISTENCE FAIL/BATTERY-ONLY PASS; CONFIGURATION CAPACITY BLOCKED IN SDK COPY",
+    "voice_requested_checks_status": "PASS: personal enrollment/navigation/controlled-restart retention/one negative case, as detailed below",
+    "overall_acceptance": "NOT ACCEPTED FOR RELEASE",
+    "installed": true,
+    "root_cause_fixed": false,
+    "root_cause_status": "OPEN: original reset cause and a permanent fix are not established",
+    "baseline_retained_template_counts": [3, 3, 3, 3, 3, 3, 0],
+    "legacy_six_word_bulk_migration": false,
+    "startup": {
+      "template_counts": [3, 3, 3, 3, 3, 3, 0],
+      "bluetooth_ready": true,
+      "old_six_words_retained": true
+    },
+    "legacy_reading_music_navigation": {
+      "status": "PASS: USER CONFIRMED",
+      "targets": ["读书", "音乐"],
+      "correct_navigation": true,
+      "user_reported_no_restart": true,
+      "uart_job_evidence": false,
+      "scope": "User confirmation during USB disconnection; no corresponding UART job is claimed"
+    },
+    "voice_input_enrollment": {
+      "status": "PASS",
+      "fresh_usb_identity_rechecked_after_reconnect": true,
+      "template_speech_frames": [46, 45, 46],
+      "counts_after_enrollment": [3, 3, 3, 3, 3, 3, 3],
+      "storage_write_errors": 0,
+      "storage_read_errors": 0,
+      "invalid_mask": 0
+    },
+    "independent_voice_input_queries": [
+      {
+        "phase": "after three-sample enrollment",
+        "speech_frames": 41,
+        "winner": 6,
+        "best_distance": 3,
+        "runner_up_distance": 5,
+        "destination": "macro/Typeless",
+        "user_confirmed": true,
+        "hid_sent_before_after": [0, 0]
+      },
+      {
+        "phase": "after authorized controlled restart",
+        "speech_frames": 40,
+        "winner": 6,
+        "best_distance": 3,
+        "runner_up_distance": 5,
+        "destination": "macro/Typeless",
+        "user_confirmed": true
+      }
+    ],
+    "controlled_restart_retention": {
+      "status": "PASS",
+      "authorized_reset_between_observation_windows": true,
+      "preceded_by_read_only_nvs_capacity_inspection": true,
+      "startup_template_counts": [3, 3, 3, 3, 3, 3, 3],
+      "invalid_mask": 0,
+      "scope": "Controlled restart, not a cold power-off or power-interruption test"
+    },
+    "negative_query": {
+      "utterance": "你好",
+      "speech_frames": 16,
+      "best_distance": 5,
+      "runner_up_distance": 6,
+      "decision": 7,
+      "decision_name": "AMBIGUOUS",
+      "page_changed": false,
+      "user_confirmed": true,
+      "scope": "One negative case; not a complete rejection/noise matrix"
+    },
+    "hid_counter_scope": "Only the first query's 0-to-0 counter is attributed here; later ordinary tool HID activity is not attributed to recognition",
+    "observation_windows": [
+      {
+        "duration_seconds": 33.11,
+        "scope": "Initial bounded capture stopped on USB disconnection",
+        "panic_markers": 0,
+        "reset_markers": 0
+      },
+      {
+        "duration_seconds": 113.05,
+        "scope": "Three voice-input enrollments and one independent query",
+        "panic_markers": 0,
+        "reset_markers": 0
+      },
+      {
+        "duration_seconds": 326.0,
+        "scope": "Post-restart recognition and negative query",
+        "panic_markers": 0,
+        "reset_markers": 0
+      }
+    ],
+    "continuous_combined_duration_claimed": false,
+    "observation_scope": "Three separate bounded windows; the authorized controlled reset occurred between windows",
+    "resources": {
+      "global_min_heap_bytes": 64140,
+      "heap_floor_bytes": 61440,
+      "global_heap_headroom_bytes": 2700,
+      "status_and_voice_heap_min_bytes": 67424,
+      "largest_block_min_bytes": 55296,
+      "largest_block_floor_bytes": 30720,
+      "ui_stack_min_bytes": 5556,
+      "worker_stack_min_bytes": 2508,
+      "all_heap_integrity_checks_pass": true,
+      "observed_frame_max_us": 13702,
+      "frame_reference_period_us": 20000,
+      "bluetooth_ready": true,
+      "audio_errors": 0,
+      "hid_failures": 0,
+      "scope": "PASS within the observed jobs/windows, not all-day or all-environment resource acceptance"
+    },
+    "read_only_nvs_retention": {
+      "baseline_logical_records": 47,
+      "all_baseline_nvs_logical_values_unchanged": false,
+      "old_six_v1_record_values_byte_equal": true,
+      "toolkit_configuration_settings_slots_values_byte_equal": true,
+      "physical_device_configuration_write_test_performed": false,
+      "configuration_write_acceptance": "BLOCKED by a separately reproduced modified-payload capacity failure in an actual-SDK NOR copy; the live configuration was not changed",
+      "new_voice_input_valid_journals": 1,
+      "new_voice_input_journal_family": "vc6",
+      "new_voice_input_compact_record_bytes": 1108,
+      "new_voice_input_record_entries": 37,
+      "only_voice_input_journal_added": true,
+      "other_changed_record": "One PHY calibration blob",
+      "nvs_entries": {
+        "used": 583,
+        "free": 173,
+        "available": 47,
+        "total": 756,
+        "physical_written": 583,
+        "physical_empty": 133,
+        "physical_erased": 40
+      },
+      "scope": "Read-only toolkit logical-value retention, not configuration-write acceptance or a claim that the entire NVS stayed byte-identical after runtime/reset",
+      "raw_nvs_or_personal_templates_committed": false
+    },
+    "voice_check_serial_monitors_closed": true,
+    "voice_check_serial_port_released": true,
+    "voice_check_checkpoint_scope": "Prior voice-check completion only; the subsequent Bluetooth investigation is recorded separately",
+    "bluetooth_coexistence": {
+      "status": "FAIL IN PC-USB-CONNECTED SCENARIO; BATTERY-ONLY CURRENTLY PASS BY USER CONFIRMATION",
+      "symptom": "Windows headphones stutter with Passport connected through the PC USB cable; battery-only comparison currently plays normally",
+      "idle_menu_wait_seconds": 15,
+      "stutter_continued_while_idle": true,
+      "passport_only_powered_off": true,
+      "pc_bluetooth_settings_unchanged_during_recovery": true,
+      "headphones_recovered_after_passport_off": true,
+      "evidence_source": "Explicit user confirmation",
+      "snapshot": {
+        "voice_active": false,
+        "bluetooth_ready": true,
+        "connection_interval_us": 7500,
+        "latency": 0,
+        "supervision_timeout_ms": 2000,
+        "new_hid_activity_observed": false,
+        "new_errors_observed": false
+      },
+      "windows_adapter": {
+        "name": "BARROT Bluetooth 5.4",
+        "driver_version": "17.55.6.566",
+        "driver_date": "2024-07-26"
+      },
+      "usb_isolation_comparison": {
+        "passport_same_position": true,
+        "pc_usb_unplugged": true,
+        "battery_powered": true,
+        "still_bluetooth_connected_to_windows": true,
+        "headphones_normal_user_confirmed": true,
+        "alternate_pc_usb_port_test": "UNAVAILABLE: only the original port can be used",
+        "external_charger_or_power_bank_comparison": "PENDING USER RESPONSE"
+      },
+      "battery_only_winrt_probe": {
+        "read_only": true,
+        "connected": true,
+        "connection_interval_us": 7500,
+        "latency": 0,
+        "supervision_timeout_ms": 2000,
+        "connection_parameter_change_requested": false,
+        "gatt_session_created": false,
+        "driver_changed": false
+      },
+      "connection_interval_alone_established_as_cause": false,
+      "ble_strategy_changed": false,
+      "root_cause": "OPEN: USB power/data/cable-position/driver and wireless factors remain unseparated",
+      "scope": "FAIL is limited to the PC USB connection condition observed this round; battery-only currently passes. This does not prove a unique RF/USB/adapter/firmware cause or all-Windows behavior"
+    },
+    "latest_investigation_state": {
+      "latest_confirmed_power_state": "Passport battery-powered, PC USB unplugged, Bluetooth connected; headphones normal by user confirmation",
+      "all_flashing_and_device_writes_paused": true,
+      "usb_cable_and_wireless_factor_investigation": "OPEN",
+      "ble_strategy_review": "READ ONLY; no strategy change",
+      "configuration_capacity_preparation": "Unhooked compact_legacy API and tests only; no batch call, no device migration and no new flash",
+      "installed_app_remains_fixed_2101": true
+    }
+  },
+  "device_flash": {
+    "status": "PASS: EXACT FIXED APP VERIFIED AND RESET",
+    "mode": "app-only",
+    "installed_app_sha256": "2101d1d65355640b07e116701c401c5e53d281fa991d2cb76ef6bcc7ffe6dace",
+    "fresh_usb_identity_checked": true,
+    "same_connection_chip_capacity_security_and_actual_table_checked": true,
+    "previous_c55e_fixed_app_verified": true,
+    "write_range": [65536, 2097008],
+    "erase_end_exclusive": 2097152,
+    "default_or_merged_flash": false,
+    "protected_regions_equal_before_reset": ["partition-table", "nvs", "phy", "asset-first-sector"],
+    "protected_hash_scope": "After authorized app write and before reset only; normal runtime NVS/PHY changes are recorded separately",
+    "entire_asset_region_readback": false
+  },
+  "implemented_candidate_changes": {
+    "storage": [
+      "Lossless compact encoding of existing acoustic coefficients",
+      "New per-word A/B keys with pre-write capacity checks",
+      "Read back and verify the new record before retiring only that word's old key",
+      "No bulk migration or erasure of the retained legacy six-word bank"
+    ],
+    "memory": {
+      "on_demand_enrollment_workspace": true,
+      "base_allocation_bytes": 16864,
+      "enrollment_allocation_bytes": 576,
+      "matcher_allocation_bytes": 3104,
+      "allocation_sequence": "Allocate base and finish NVS bank load before allocating enrollment or matcher storage, avoiding overlap with NVS read temporary-buffer peaks",
+      "cleanup": "Wipe and free both allocations separately",
+      "enrollment_workspace_reduction_bytes": 2528,
+      "heap_floor_bytes": 61440,
+      "largest_block_floor_bytes": 30720,
+      "resource_gates_changed": false,
+      "scope": "Candidate allocation sizes/ordering, not a measured device lifecycle saving"
+    },
+    "recognition": {
+      "query_min_speech_frames_before": 15,
+      "query_min_speech_frames_candidate": 8,
+      "enrollment_min_speech_frames": 15,
+      "margin_before": 4,
+      "margin_candidate": 2,
+      "absolute_distance_limit": 18,
+      "ties_and_gap1_rejected": true,
+      "acoustic_coefficients_changed": false
+    }
+  },
+  "private_enrollment_bank_analysis": {
+    "method": "Leave one of the retained enrollment templates out and match against the remaining bank",
+    "templates": 18,
+    "correct_first_rank": 18,
+    "accepted_with_margin4": 0,
+    "accepted_with_margin2": 17,
+    "independent_accuracy_test": false,
+    "scope": "Enrollment-bank analysis informs a candidate margin; it is not independent speaker, query, noise or false-trigger acceptance",
+    "template_coefficients_or_raw_audio_committed": false
+  },
+  "sdk_nor_backend_probe": {
+    "status": "PASS WITH SAFE CAPACITY LIMITS",
+    "sdk": "Unchanged ESP-IDF 6.0.2 NVS backend sources with host-only NOR/platform adapters",
+    "physical_flash": false,
+    "independent_copy_bytes": 24576,
+    "initial_nvs_entries": {
+      "used": 546,
+      "free": 210,
+      "available": 84,
+      "total": 756
+    },
+    "storage_matrix_cases": 24,
+    "safe_capacity_refusal_cases": 19,
+    "repeatable_capacity_cases": [
+      {"frames_per_example": 47, "width_sum": 63, "successful_jobs": 30},
+      {"frames_per_example": 47, "width_sum": 64, "successful_jobs": 30},
+      {"frames_per_example": 48, "width_sum": 63, "successful_jobs": 30}
+    ],
+    "three_samples_then_fourth_refused": [
+      {"frames_per_example": 47, "width_sum_min": 65, "width_sum_max": 72},
+      {"frames_per_example": 48, "width_sum_min": 64, "width_sum_max": 72}
+    ],
+    "eight_bit_extreme": "Two samples fit; the third is safely refused",
+    "refusal_error": 4357,
+    "all_refusals_unknown_false": true,
+    "entire_copy_byte_equal_before_after_each_refusal": true,
+    "legacy_six_words_and_nonvoice_records_unchanged": true,
+    "original_private_image_unmodified": true,
+    "raw_report_or_image_committed": false,
+    "scope": "Aggregate host/NOR-copy evidence; finite capacity remains and physical Flash/power interruption are not validated"
+  },
+  "configuration_capacity_sdk_probe": {
+    "status": "BLOCKED: MODIFIED CONFIGURATION CANNOT BE SAVED IN CURRENT CAPACITY",
+    "sdk": "ESP-IDF 6.0.2 actual NVS backend with an independent host NOR copy",
+    "physical_device_write": false,
+    "live_configuration_changed": false,
+    "initial_used_entries": 583,
+    "initial_available_entries": 47,
+    "total_entries": 756,
+    "cfg_record_bytes": 1629,
+    "same_value_attempt": {
+      "return_code": 0,
+      "nor_write_calls": 0,
+      "scope": "SDK same-value skip; not proof that a changed configuration can be saved"
+    },
+    "equal_length_one_bit_changed_attempt": {
+      "independent_copy": true,
+      "return_code": 4357,
+      "candidate_saved_exactly": false,
+      "nor_write_calls": 431,
+      "gc_sector_erases": 2,
+      "physical_copy_bytes_unchanged": false,
+      "reinit_error": 0,
+      "read_error": 0,
+      "old_cfg_value_retained_exactly": true,
+      "other_logical_records": 41,
+      "all_other_records_retained_exactly": true
+    },
+    "scope": "Reproduced configuration-storage capacity blocker, not a physical-device configuration write; logical retention after GC is not successful candidate saving",
+    "raw_configuration_or_private_report_committed": false
+  },
+  "original_fonts_and_art_assets_changed": false,
+  "this_round_changes_committed": false,
+  "this_round_changes_pushed": false,
+  "release_published": false,
+  "publication_allowed": false,
+  "release_blockers": [
+    "Current user-confirmed Windows headphone stutter in the PC-USB-connected scenario; battery-only currently passes",
+    "Actual-SDK NOR-copy reproduction: a changed 1629-byte configuration returns4357 at available47 entries"
+  ],
+  "unverified": [
+    "Root cause/resolution of the PC-USB headphone failure; remaining USB power/data/cable-position/driver and wireless-factor isolation",
+    "Unblocking configuration-update capacity and subsequent protected acceptance",
+    "Long-duration repeat stability and original dev1 reset root cause/permanent resolution",
+    "More users/background noise and the complete independent seven-word accuracy/rejection matrix",
+    "Cold power-off retention and power-interruption faults",
+    "Extreme coefficient widths or large personal configurations under actual NVS capacity/GC pressure",
+    "Real Flash faults",
+    "Measured power/runtime and all prior compatibility/reconnect/slot/sleep/stability gates"
+  ]
+}

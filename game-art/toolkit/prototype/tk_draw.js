@@ -10,11 +10,11 @@
   };
   const ACCENT = {
     ppt: '#F28C38', meet: '#4CC38A', media: '#9B7BEA', cam: '#4FA3F7',
-    macro: '#FFCE4A', card: '#F08DB0', conn: '#4FC3C8', set: '#C5C6CD', menu: '#FFAD84',
+    macro: '#FFCE4A', card: '#F08DB0', conn: '#4FC3C8', set: '#C5C6CD', menu: '#FFAD84', voice: '#FFAD84',
   };
   const NAME = {
     ppt: 'PPT 翻页笔', meet: '会议键', media: '媒体遥控', cam: '拍照快门',
-    macro: '快捷键', card: '名片', conn: '连接', set: '设置', menu: 'NABO 工具箱',
+    macro: '快捷键', card: '名片', conn: '连接', set: '设置', menu: 'NABO 工具箱', voice: '语音查找',
   };
   const SUB = {
     ppt: '翻页 · 计时', meet: '静音 · 摄像头', media: '音乐 · 抖音', cam: '延时 · 连拍',
@@ -160,7 +160,41 @@
       txt(g, fit(g, id === 'ppt' ? 'PPT翻页' : NAME[id], 64, 16), x + 38, y + 19, 16, C.INK);
       txt(g, fit(g, SUB[id], 64, 12), x + 38, y + 34, 12, sel ? C.INK : C.DIM);
     });
-    bottomBar(g, '↑↓ 选择 · OK 进入');
+    bottomBar(g, '↑↓ 选择 · OK 进入 · 长OK 语音');
+  }
+
+  function drawVoice(g, st, now, imgs) {
+    topBar(g, st, now, 'voice');
+    const v = st.voice, names = root.TK.VOICE_TARGETS;
+    const states = ['准备', '请说口令', '请说目标名称', '已保存', '未识别', '操作失败', '尚未录入', '未找到分组', '准备采音', '歧义', '口令太长', '采音失败'];
+    const status = Number.isInteger(v.status) && v.status >= 0 && v.status < states.length ? v.status : 5;
+    g.fillStyle = C.PANEL; g.fillRect(0, 36, 240, 68);
+    nabo(g, imgs, 10, 38, 64, C.GOLD, v.busy ? 0 : now, null);
+    txt(g, '本人录入', 84, 64, 16, C.PAPER);
+    txt(g, fit(g, '按需聆听 · 不持续唤醒', 148, 12), 84, 85, 12, C.DIM);
+    names.forEach((name, i) => {
+      const x = i % 2 ? 124 : 10, y = 110 + Math.floor(i / 2) * 26, sel = i === v.selected;
+      rr(g, x, y, 106, 24, 6, sel ? C.GOLD : C.PANEL, sel ? C.INK : null, 2);
+      txt(g, name, x + 10, y + 18, 16, sel ? C.INK : C.PAPER);
+      txt(g, v.counts[i] + '/3', x + 96, y + 18, 12, sel ? C.INK : C.DIM, 'right');
+    });
+    const error = status === 4 || status === 5 || status === 7 || status >= 9;
+    rr(g, 10, 222, 220, 60, 10, C.PANEL, error ? C.RED : null, 1);
+    txt(g, states[status], 120, 245, 16, error ? C.RED : status === 3 ? C.GREEN : C.PAPER, 'center');
+    let hint = v.selected === 6 ? '只进Typeless · 再按键' : '长OK 为每个口令录入3次';
+    if (status === 1) hint = '已录入口令任选一个';
+    else if (status === 2) hint = '自然说一次所选名称';
+    else if (status === 3) hint = v.counts[v.selected] < 3 ? '长OK 继续录入' : 'OK 识别 · 长OK 重新录入';
+    else if (status === 4 || status === 9) hint = '请短OK 后再说一次';
+    else if (status === 5 || status === 11) hint = '请稍后重试';
+    else if (status === 6) hint = '长OK 录入所选口令';
+    else if (status === 7) hint = '配置页中恢复目标分组';
+    else if (status === 8) hint = '请保持安静，稍后再说';
+    else if (status === 10) hint = '请只说目标名称';
+    txt(g, fit(g, hint, 204, 12), 120, 266, 12, C.DIM, 'center');
+    g.fillStyle = C.INK; g.fillRect(0, 290, 240, 30);
+    txt(g, fit(g, v.busy ? '采音中 · 请稍候' : '↑↓ 选择 · OK 识别 · 长OK 录入', 228, 12), 120, 301, 12, C.PAPER, 'center');
+    txt(g, '长↑ 返回', 120, 315, 12, C.PAPER, 'center');
   }
 
   /* ---- 连接 ---- */
@@ -246,5 +280,5 @@
   }
 
   root.TKDraw = { C, ACCENT, NAME, FONT, NUM, txt, fit, rr, chordLabel, topBar, bottomBar, nabo, naboBust, sprite, toast, legend,
-                  drawMenu, drawConn, drawOsPick, drawSet };
+                  drawMenu, drawVoice, drawConn, drawOsPick, drawSet };
 })(window);

@@ -82,6 +82,11 @@ class ConfigTests(unittest.TestCase):
         self.upload(example());before=self.current();old=self.stored();changed=example();changed['groups'][0]['name']='Changed'
         for fault in (1,2):
             self.lib.tk_mock_fail(fault);self.assertEqual(self.upload(changed),['tk.cfg.err storage']);self.assertEqual(self.current(),before);self.assertEqual(self.stored(),old)
+    def test_capacity_precheck_preserves_live_and_stored_configuration(self):
+        self.upload(example());before=self.current();old=self.stored();changed=example();changed['groups'][0]['name']='Changed'
+        self.lib.tk_mock_capacity(630,629)
+        self.assertEqual(self.upload(changed),['tk.cfg.err storage'])
+        self.assertEqual(self.current(),before);self.assertEqual(self.stored(),old)
     def test_corrupted_persisted_record_is_preserved_and_not_applied(self):
         self.upload(example());data=bytearray(self.stored());data[-1]^=1;b=(C.c_ubyte*len(data)).from_buffer_copy(data);self.lib.tk_mock_blob(b'cfg_v1',b,len(data))
         self.lib.tk_cfg_host_free(self.h);self.h=self.lib.tk_cfg_host_new();self.assertNotEqual(self.lib.tk_cfg_host_error(self.h),0)

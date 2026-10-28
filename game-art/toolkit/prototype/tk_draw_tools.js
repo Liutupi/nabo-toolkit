@@ -217,6 +217,7 @@
     g.fillStyle = C.BG; g.fillRect(0, 0, 240, 320);
     if (st.page === 'boot') { D.drawBoot(g, st, now, imgs); if (st.osPick) D.drawOsPick(g, st); return; }
     if (st.page === 'menu') D.drawMenu(g, st, now, imgs);
+    else if (st.page === 'voice') D.drawVoice(g, st, now, imgs);
     else if (st.page === 'conn') D.drawConn(g, st, now);
     else if (st.page === 'set') D.drawSet(g, st, now);
     else PAGES[st.page](g, st, now, imgs);

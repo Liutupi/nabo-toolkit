@@ -2,6 +2,44 @@
 
 # 验证记录 — 2026-10-28
 
+**最新dev4：Build/Host PASS（213项：44 Node+144 Python+25声学探针；2,722步、3变异、0跳过），本轮语音/无损整理/受控重启保留限定PASS，实际名片配置改动写入/读回/重启留存及手机扫码PASS。** 固定app2,030,864B/SHA256 `d748e54395bff10eaa85530d4287198607fc3fcd17f2d1da8250b272b15d1829`，旧factory余752B，归档9f6ac2a6…729dd78独立verify、130份输入匹配。显式compact返回0，21样本/638帧全部系数/counts/next保留，七词均3条；真实available251。早先生产JS+USB同内容写/读可能SDK skip的边界保留为历史；后续真实payload变化已通过，不再称changedcfg物理Flash未测。SDK4,016B opaque blob写入仍不等于合法最大cfg schema测试。
+
+个人名片只把 `cards[0].qr` 改为 [土皮作者页](https://ai-passport.folotoy.cn/creators/?id=14101)，其它全部groups/cards字段canonical一致。JSON1,613→1,632B/NVS record1,629→1,648B，真实USB保存读回相等，受控reset后生产客户端再次读回expected相等；用户手机确认作品列表正确。公开作者页匿名HTTP200、Adventure1662条目关联Liutupi/nabo-adventure且authorProfile14101，creator API10个公开作品同作者、无下一页。私人配置不发布，默认名片/app不改；详见HANDOFF34。
+
+最终用户确认dev4语音输入/读书正确、无卡住重启；另外未知意图查询不计accuracy。准确初始观测目录162339（69.19秒），最终162551（127.09秒、253 tk/254 voice），两窗口分开、panic/reset0；最终global min64,160B、heap67,444/largest55,296、UI/worker栈余5,560/2,748、最大特征帧6,071us、完整性true，sent查询阶段1→1，前一条普通HID另计。耳机间歇问题当前PC USB也恢复正常，用户要求“先不理”，已停止BLE排查，根因OPEN、不改BLE参数/驱动、不称修复。
+
+用户已明确授权发布 `v0.3.2-voice-dev4` **公开实验测试版**，复用同一已验收app不重编译；发布准备中，尚不声称GitHub已上线或社区已提交。完整首装复用同一固定9f6镜像2,096,400B；其bootloader与上一公开版37字节不同，来自本次固定归档，不称旧bootloader同字节复用；完整0x0首装未真机验收。社区本轮受浏览器能力/策略限制，仅准备bundle，未更新/未提交；原五图不改。合法最大配置schema、全七词/多用户噪声矩阵、长稳、冷断电/故障、极端容量GC、功耗与旧平台门槛仍未测。见[dev4详细记录](validation/offline-voice-v0.3.2-dev4.json)和HANDOFF33–34；下方dev1–dev3失败/禁止发布字样为各自镜像的历史检查点，不替代本次新授权。
+
+本人离线语音dev1（HANDOFF28–29）：**Build PASS；Host tests PASS：192项（44 Node+124 Python+24声学探针），2,666步、3变异、0跳过；Device tests FAIL：用户连续录入时重启/卡死，根因未定。** 固定app2,029,088B/SHA256 `acbfd4f7e0f1aa41b0acad5af3f044ddfec623046a82558c561c8631a89d3ffb`，旧factory余2,528B；130份输入匹配/独立归档verify、授权app-only刷入/verify/复位和复位前保护区检查PASS，未刷超界镜像。原7份字体C/动画保持。
+
+保留早期正向证据：启动menu/蓝牙ready/voice available；读书3条保存读回及一次独立查询导航到macro，HID sent前后0。早期运行heap最低69,636/largest53,248、全局最低63,152B、单帧最高11,949us、保存/读回错误0；不能当连续录入稳定性PASS。dev1失败现场当时模板计数为 **[3,3,3,3,1,0]**，后续录入见dev2段。匹配固定ELF `3a9c1604f477f002c557a2a495bac9bc75cc668a240bbb2e92feaf8e9d072d3b` 的Store access fault为PC `0x42019de0` / RA `0x42019dde`，另见ret循环 `0x42019dd4`；观察UI bridge返回地址比预期正常返回多 `0x1000`，原因未定，不预先归因为matcher或低内存。私有完整app回读字节/SHA与固定app相等，排除该次读回时的app镜像字节损坏；不排除其他运行期问题。见[dev1失败记录](validation/offline-voice-v0.3.2.json)。
+
+**dev2：Build PASS / Host tests PASS：197项（44 Node+129 Python+24声学探针）、2,722步对拍、3变异、0跳过；Device tests FAIL，完整验收未过。** 固定app2,031,152B/SHA256 `c55e1307e367de2ca9b09fcea795efe93b91fc5499427a0559cc848d292442dc`，旧factory余464B，归档43756fdf…edd77d独立verify及130份source输入匹配。授权app-only刷写/verify/复位、fresh USB/芯片/安全/实际8MiB/旧表/原app核对和复位前表/NVS/PHY/素材首扇区hash均PASS；整素材未读回。原13条模板启动保留。二进制字节counts检查不是dev1根因或永久修复结论。
+
+30条open/cancel命令及后续220.28秒/15次录入有界窗口panic/reset均0，只说明本轮未复现原重启。拍照2条/截图3条保存并补一次过短后，旧六词均3条；第七词example1四次4357（NOT_ENOUGH_SPACE）/读回-1，计数降0，用户确认“语音输入”录入失败。冷重启旧六词仍[3,3,3,3,3,3,0]、invalid_mask0；NVS used546/free210/available84/total756。SDK6.0.2源码审计发现可能的chunkStart错误cleanup/读缺chunk清旧blob路径，未设备逐指令证明。
+
+status堆最低67,276/largest51,200，voice堆最低67,456；global minimum60,936B低于60KiB门槛504B，资源门槛FAIL。UI栈余6,180/worker2,392B，堆完整性均true；最大特征帧22,577us超过20ms。用户读书/音乐查询仍未识别或歧义：8次查询含4歧义（5/5、4/6、3/5、4/5）、3过短（14/11/12帧）、1无语音，接受0，无panic。详见[dev2记录](validation/offline-voice-v0.3.2-dev2.json)和HANDOFF30；原始日志/个人模板留private。
+
+**dev3：Build PASS / Host tests PASS：207项（44 Node+138 Python+25声学探针）、2,722步、3变异、0跳过；Device PARTIAL：语音PASS、PC USB共存FAIL/电池供电当前PASS，配置容量BLOCKED。** 固定app2,031,472B/SHA256 `2101d1d65355640b07e116701c401c5e53d281fa991d2cb76ef6bcc7ffe6dace`，旧factory仅余144B，写[0x10000,0x1fff70)、擦除截止0x200000 exclusive。归档2e4a50f8…e9e0de20独立verify及130份source输入匹配；最终host/build/reconfigure分别记录voice-dev3-host.log、voice-dev3-build.log、voice-dev3-reconfigure.log。counts仍lbu/sb、offset28/align4，仅为生成代码证据；3个存储/控制源-Os，DSP/动画/UI O2不变，7份字体C/素材仍与HEAD相同。
+
+候选使用无损compact/每词新A-B键/写前预检/验证后只退休同词旧key，不批迁旧六词；base16,864B先读完NVS，再分配enrollment576B或matcher3,104B，错开读临时缓冲、分别wipe/free，资源门槛不降。实际IDF6.0.2 backend在独立24KiB NOR副本（非实物Flash）做24矩阵：19项4357/unknown=false安全拒绝，整副本拒绝前后字节不变，旧六词/非voice一致，原私有镜像未改。47帧sum63/64与48帧sum63各30轮成功；更宽数据可三例齐但第四次覆盖拒绝，8bit极端仅两例，不能宣称容量无限或真机断电已验收。
+
+query最短15→8、enroll仍15，margin4→2/绝对距离18/声学系数不变，ties/gap1仍拒绝；私有录入库18留一第一名全对、margin2接受17/18，仍只是模型诊断，不是独立准确率。安装前fresh USB及同连接C3/8MiB/security/旧表/当前c55e固定app均核对；仅刷2101固定app并verify/复位，复位前表/NVS/PHY/素材首扇区hash一致，整素材未读回。
+
+用户确认旧读书/音乐正确跳转且未重启（USB暂断，无对应UART job）。USB重接fresh identity后，“语音输入”录入46/45/46帧三条，写/读错误0、invalid_mask0；独立查询41帧、winner6/best3/runner5，进入Typeless由用户确认，sent0→0。授权只读NVS容量后受控reset，七词各3条且invalid_mask0；再query40帧以同样best3/runner5进入Typeless，用户确认。负例“你好”16帧/best5/runner6/decision7 ambiguous，未跳页且用户确认；后续普通HID不归给识别。
+
+三段观测33.11秒（USB断开终止）、113.05秒（三录一识别）、326.0秒（重启后识别/负例）各panic/reset markers0，受控reset在窗口间，不合称连续472秒。global heap最低64,140>61,440B；status/voice67,424、largest55,296>30,720，UI栈余5,556/worker2,508B，完整性均true、最大特征帧13,702us，BLE ready、audio error/HID failed0。本轮资源门槛PASS不等于所有负载或长稳。
+
+只读对比47个原NVS逻辑记录：旧六词v1、nabo_tk配置/设置/slots逻辑字节保持，仅新增vc6一有效journal（1,108B/37entries）；used583/free173/available47/total756，物理Written583/Empty133/Erased40。另有一份PHY校准blob正常启动后变化，整个NVS并非全部逻辑值相同；保护hash仅刷后复位前成立。这些保留结果不代表配置更新可保存，后续SDK副本已复现容量阻断。
+
+**PC USB场景耳机共存FAIL（用户明确确认）**：PC USB连着工牌并连接Windows时耳机断续，主菜单静置15秒仍断续；只关工牌、不动PC蓝牙后恢复。快照voice inactive/BLE ready、CI7500us/latency0/STO2000ms，无新增HID或错误；这些正常计数不能覆盖耳机失败。适配器BARROT Bluetooth5.4，驱动17.55.6.566（2024-07-26）。
+
+**USB隔离补测：电池供电当前PASS（用户确认）**。同位置拔PC USB、工牌电池供电并继续蓝牙连接Windows时耳机正常；原PC仅该USB口可用，换口暂不可行。只读WinRT probe仍Connected=true、CI7.5ms/latency0/STO2s，未请求参数、未建GATT会话、未改驱动；不能把7.5ms单独定因，不改BLE策略。外部充电器/充电宝对照待回复，USB供电/数据/位置/驱动与无线因素仍未判。
+
+**配置容量BLOCKED（非物理工牌写入）**：实际SDK6.0.2在used583/available47私有NOR副本，原样1,629B cfg返回0、NOR写0，仅同值skip；另一个副本等长改一位返回4357，431次NOR writes/2 sector GC，新候选未保存。reinit后旧cfg和其余41个逻辑记录保持，物理副本因GC改变。真实cfg未改；这是已复现的配置存储发布阻断，不是“尚未测试”，也不是配置更新PASS。
+
+**历史dev3检查点：当时未最终验收、禁止发布。Unverified（当时）**：剩余USB供电/数据/位置/驱动与无线因素、配置容量修复后的保存验收、原故障根因/长稳、更多用户/背景噪声/完整七词矩阵、冷断电/掉电、极端位宽/大配置NVS与GC、真实Flash故障、功耗及全部旧门槛。见[dev3记录](validation/offline-voice-v0.3.2-dev3.json)和HANDOFF31–32；root_cause_fixed=false。当时设备为电池供电/PC USB拔除/蓝牙连接，暂停设备写入，compact_legacy尚未接入口，安装2101。后续dev4整理/验收和新发布授权见本页顶部与HANDOFF33；原图片/字体/素材不变。
+
 v0.3.1 GitHub/Pages发布核验PASS：新Release8资产匿名重下、ZIP37成员、公开配置页11文件均字节/SHA一致。**原社区项目1701/可变修订3928已更新为v0.3.1-remote-dev2并重新提交审核，当前“审核中”，尚未公开上架。** 原五图逐张重下字节/SHA与更新前一致；社区当前完整固件重下2,077,152字节、SHA256 `9bcc39298ddaced09803052de27b6671d502e5d72cd5e249e55140f48abe548b`，与已发布GitHub full相等。见[发布核验](validation/publication-v0.3.1-remote-dev2.json)、[社区更新](community/v0.3.1-remote-dev2/README.md)和HANDOFF27。
 
 媒体/息屏0.3.1-remote-dev2：**Build PASS；Host tests PASS（127：37 Node+90 Python，2206步，3变异，0跳过）；Device tests 本轮新增行为PASS：固定app-only安装/保护区/五组配置迁移、媒体实体顺序、持续按键后息屏、暗屏HID和长OK只亮屏、本轮耳机键盘共存正常。** 两轮505/505 ready，连接堆最低92,624/最大块77,824；暗屏独立16条HID/32次TX、动画帧冻结，相关错误0。Unverified：实测功耗/冷启动开关保留/完整App与平台矩阵/历史间歇连接原因/原回连三槽深睡长稳及完整首装；不是全F0/F1门槛放行。见[记录](validation/remote-control-v0.3.1.json)和HANDOFF26。GitHub/Pages与社区保存文件核验已通过；社区公开状态仍待审核。

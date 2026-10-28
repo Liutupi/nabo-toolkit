@@ -33,6 +33,9 @@ class RendererTests(unittest.TestCase):
         lib.tk_model_tick.argtypes=[C.POINTER(State),C.c_int64,C.POINTER(Effects)]
         lib.tk_model_event.argtypes=[C.POINTER(State),C.c_char_p,C.c_int64,C.c_char_p]
         lib.tk_model_apply_config.argtypes=[C.POINTER(State),C.POINTER(Custom)]
+        lib.tk_model_voice_templates.argtypes=[C.POINTER(State),C.POINTER(C.c_uint8)]
+        lib.tk_model_voice_progress.argtypes=[C.POINTER(State),C.c_uint32,C.c_int,C.c_int64]
+        lib.tk_model_voice_result.argtypes=[C.POINTER(State),C.c_uint32,C.c_int,C.c_int,C.c_int,C.c_int64]
         lib.tk_render_new.argtypes=[C.POINTER(Assets)];lib.tk_render_new.restype=C.c_void_p
         lib.tk_render_free.argtypes=[C.c_void_p]
         lib.tk_render_frame.argtypes=[C.c_void_p,C.POINTER(State),C.c_int64,C.c_bool,C.c_int];lib.tk_render_frame.restype=C.c_bool
@@ -66,18 +69,21 @@ class RendererTests(unittest.TestCase):
                 elif kind=='press':self.lib.tk_model_press(C.byref(s),KEYS.index(call['key']),now,C.byref(out))
                 elif kind=='tick':self.lib.tk_model_tick(C.byref(s),now,C.byref(out))
                 elif kind=='config':configure(self.lib,s,call['config'])
+                elif kind=='voice_templates':self.lib.tk_model_voice_templates(C.byref(s),(C.c_uint8*7)(*call['counts']))
+                elif kind=='voice_progress':self.lib.tk_model_voice_progress(C.byref(s),call['token'],call['status'],now)
+                elif kind=='voice_result':self.lib.tk_model_voice_result(C.byref(s),call['token'],call['outcome'],call['target'],call['count'],now)
                 else:
                     arg=call.get('arg');arg=f'{arg:06d}' if call['event']=='passkey' and isinstance(arg,int) else arg
                     self.lib.tk_model_event(C.byref(s),call['event'].encode(),now,str(arg).encode() if arg is not None else None)
                 key=(s.page,s.pairing,s.passkey_valid,s.os_pick,s.confirm_del>=0,s.card_zoom,s.cam_end>0,s.ppt_black,
-                     s.media_mode,s.media_select,s.screen_off)
+                     s.media_mode,s.media_select,s.screen_off,s.voice_selected,s.voice_status,s.voice_busy,tuple(s.voice_counts))
                 if key in seen and index%19:continue
                 seen.add(key);frames+=1
                 self.assertTrue(self.lib.tk_render_frame(dirty,C.byref(s),now,False,0),(row['scenario'],row['step']))
                 self.assertTrue(self.lib.tk_render_frame(full,C.byref(s),now,True,0))
                 self.assertEqual(self.image(dirty),self.image(full),(row['scenario'],row['step']))
                 self.assertLessEqual(self.lib.tk_render_ops(dirty),128);self.assertLessEqual(self.lib.tk_render_glyphs(dirty),320)
-            self.assertEqual({x[0] for x in seen},set(range(10)));self.assertGreater(frames,80)
+            self.assertEqual({x[0] for x in seen},set(range(11)));self.assertGreater(frames,80)
             self.assertTrue(self.lib.tk_render_frame(dirty,C.byref(s),now,False,0));self.assertTrue(self.lib.tk_render_frame(full,C.byref(s),now,True,0));self.assertEqual(self.image(dirty),self.image(full))
             self.assertTrue(self.lib.tk_render_frame(dirty,C.byref(s),now,False,0));self.assertEqual(self.lib.tk_render_bytes(dirty),0)
         finally:self.lib.tk_render_free(dirty);self.lib.tk_render_free(full)
@@ -108,6 +114,29 @@ class RendererTests(unittest.TestCase):
             self.assertTrue(self.lib.tk_render_frame(dirty,C.byref(s),10,False,0))
             self.assertTrue(self.lib.tk_render_frame(full,C.byref(s),10,True,0))
             self.assertEqual(self.image(dirty),self.image(full));self.assertNotEqual(self.image(dirty),bytes(240*320*2))
+        finally:self.lib.tk_render_free(dirty);self.lib.tk_render_free(full)
+    def test_voice_statuses_counts_and_selection_incremental_match_full(self):
+        dirty=self.lib.tk_render_new(C.byref(self.assets));full=self.lib.tk_render_new(C.byref(self.assets))
+        self.assertTrue(dirty and full);s=State();self.lib.tk_host_demo(C.byref(s),0);s.page=10
+        try:
+            for status in range(12):
+                s.voice_status=status;s.voice_selected=status%7;s.voice_busy=status in (1,2,8)
+                s.voice_operation=2 if status==2 else 1 if s.voice_busy else 0
+                s.voice_counts[:]=[status%4]*7
+                self.assertTrue(self.lib.tk_render_frame(dirty,C.byref(s),1000+status,False,0),status)
+                self.assertTrue(self.lib.tk_render_frame(full,C.byref(s),1000+status,True,0),status)
+                self.assertEqual(self.image(dirty),self.image(full),status)
+                self.assertLessEqual(self.lib.tk_render_ops(dirty),128);self.assertLessEqual(self.lib.tk_render_glyphs(dirty),320)
+            s.voice_selected=6;s.voice_busy=False;s.voice_operation=0;s.voice_status=0
+            for count in (0,1,2,3):
+                s.voice_counts[6]=count
+                self.assertTrue(self.lib.tk_render_frame(dirty,C.byref(s),1100+count,False,0))
+                self.assertTrue(self.lib.tk_render_frame(full,C.byref(s),1100+count,True,0))
+                self.assertEqual(self.image(dirty),self.image(full),('Typeless',count))
+            s.voice_busy=True;s.voice_operation=2;s.voice_status=2
+            self.lib.tk_render_frame(dirty,C.byref(s),2000,True,0);previous=self.image(dirty)
+            self.lib.tk_render_frame(dirty,C.byref(s),2300,False,0)
+            self.assertEqual(self.image(dirty),previous,'Busy recording keeps the avatar static')
         finally:self.lib.tk_render_free(dirty);self.lib.tk_render_free(full)
     def test_custom_chinese_labels_use_flash_fallback_and_dirty_matches_full(self):
         from test_tk_config import example

@@ -3,10 +3,10 @@
   "source_sha256": {
     "tk_hid.js": "6b29b08cf350ab6b5484ddf13f5ba589e1ec3cc65066a72b3996141f0b3ab53b",
     "tk_config_schema.js": "95db0b0c5276e58869825d43e0b6402387f3539ce37cb224887e7071c75bba5b",
-    "tk_core.js": "967de659c35877f1ed1cea2b310c6e19ef78a525c467537a77fa9974689c2477",
+    "tk_core.js": "ccc96686398ee43b431357a496ee1c32c870a5005b64ecda432c46c436b92c12",
     "tk_buttons.js": "e13cfed7b4c66d8b2fc96f1a7237004eda17e7ec681eb8417ec6b49569fe60cd"
   },
-  "rows": 2206,
+  "rows": 2722,
   "scenarios": [
     "boot_and_voice",
     "binding_fifo_replacement",
@@ -26,6 +26,10 @@
     "screen_deadline_long_ok_android",
     "screen_off_remote_android",
     "screen_off_binding_error_android",
+    "voice_async_navigation_mac",
+    "voice_async_navigation_win",
+    "voice_async_navigation_ios",
+    "voice_async_navigation_android",
     "random_mac_1312899663",
     "random_win_1312899664",
     "random_ios_1312899665",
@@ -46,7 +50,8 @@
     "meet",
     "menu",
     "ppt",
-    "set"
+    "set",
+    "voice"
   ],
   "events": [
     "disconnect",
@@ -76,6 +81,29 @@
   "display_states": [
     "off",
     "on"
+  ],
+  "voice_statuses": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "voice_targets_opened": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
   ],
   "boot_ms": 5500,
   "voice_at_ms": 1400,

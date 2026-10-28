@@ -17,11 +17,20 @@ if(CONFIG_NABO_TOOLKIT_F3)
 endif()
 if(CONFIG_NABO_TOOLKIT_F2)
     list(APPEND TK_APPLICATION "tk_config_lex.c" "tk_config_parse.c" "tk_config_json.c" "tk_config_store.c" "tk_config_serial.c" "tk_usb_console.c")
+    set_source_files_properties("tk_config_lex.c" "tk_config_parse.c" "tk_config_json.c" "tk_config_store.c"
+        PROPERTIES COMPILE_OPTIONS "-Os")
+endif()
+if(CONFIG_NABO_TOOLKIT_VOICE)
+    list(APPEND TK_APPLICATION "tk_voice.c" "tk_voice_store.c" "tk_voice_capture.c" "tk_voice_bridge.c"
+        "../../tools/voice_probe/features.c" "../../tools/voice_probe/matcher.c")
+    # Storage/control are not frame-time hot paths; preserve -O2 for DSP/rendering.
+    set_source_files_properties("tk_voice.c" "tk_voice_store.c" "tk_voice_bridge.c"
+        PROPERTIES COMPILE_OPTIONS "-Os")
 endif()
 # IDF expands requirements before CONFIG_* exists; unused libraries are discarded.
 idf_component_register(
     SRCS ${TK_COMMON} ${TK_APPLICATION}
-    INCLUDE_DIRS "."
+    INCLUDE_DIRS "." "../../tools/voice_probe"
     REQUIRES bsp lvgl esp_lcd esp_timer nvs_flash bt qrcodegen esp_driver_gpio espressif__cjson esp_driver_usb_serial_jtag
     EMBED_FILES ${TK_EMBED}
 )

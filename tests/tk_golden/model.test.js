@@ -200,6 +200,101 @@ test('wake resets inactivity and connection, returns to boot',()=>{
   const st=menu();T.sim(st,'wake',999999);assert.equal(st.lastInput,999999);assert.equal(st.connected,false);
   assert.equal(st.page,'boot');assert.equal(T.sleepDue(st,1000000),false);
 });
+
+function voicePage(counts=[1,1,1,1,1,1,1]) {
+  const st=menu();assert.equal(T.voiceTemplates(st,counts),true);
+  assert.equal(hid(T.press(st,'long_ok',10)).length,0);assert.equal(st.page,'voice');return st;
+}
+
+test('voice entry uses only idle-menu long OK and preserves original page gestures',()=>{
+  const st=voicePage();assert.equal(st.voice.status,0);assert.equal(st.voice.busy,false);
+  assert.deepEqual(plain(T.VOICE_TARGETS),['读书','抖音','音乐','名片','拍照','截图','语音输入']);
+  T.press(st,'up',11);assert.equal(st.voice.selected,6);T.press(st,'down',12);assert.equal(st.voice.selected,0);
+  for(const page of ['macro','ppt','meet','media','cam','card','conn','set']) {
+    const s=menu();s.page=page;T.press(s,'long_ok',10);assert.notEqual(s.page,'voice',page);
+  }
+  for(const mutate of [s=>{s.pairing={until:60000,passkey:null};},s=>{s.osPick={slot:0,sel:0};},s=>{s.confirmDel=0;}]) {
+    const s=menu();mutate(s);assert.equal(T.voiceOpen(s,10),false);
+    T.press(s,'long_ok',20);assert.notEqual(s.page,'voice');
+  }
+});
+
+test('voice enrollment counts validate atomically and long OK requests one asynchronous enrollment',()=>{
+  const st=voicePage([0,0,0,0,0,0,0]);T.press(st,'ok',20);
+  assert.equal(st.voice.status,6);assert.equal(st.voice.busy,false);
+  for(const counts of [[1,2,3],[0,0,0,0,0,0],[0,0,0,0,0,0,4],[0,0,0,0,0,0,-1],[0,0,0,0,0,0,1.5],null]) {
+    const before=JSON.stringify(st);assert.equal(T.voiceTemplates(st,counts),false);assert.equal(JSON.stringify(st),before);
+  }
+  assert.deepEqual(plain(T.press(st,'long_ok',30)),[]);
+  const token=st.voice.token;assert.equal(st.voice.busy,true);assert.equal(st.voice.operation,2);assert.equal(st.voice.status,8);
+  for(const key of ['up','down','ok','long_ok','long_down'])T.press(st,key,40);
+  assert.equal(st.voice.selected,0);assert.equal(st.voice.token,token);
+  assert.equal(T.voiceProgress(st,token,1,45),false);assert.equal(T.voiceProgress(st,token,2,50),true);
+  assert.equal(T.voiceResult(st,token,0,0,4,55),false);
+  assert.equal(T.voiceResult(st,token,0,0,1,60),true);
+  assert.equal(st.voice.counts[0],1);assert.equal(st.voice.status,3);assert.equal(st.voice.busy,false);
+});
+
+test('recognition can open all seven enrolled targets without sending HID or starting the camera',()=>{
+  for(const [target,page,detail] of [[0,'macro',3],[1,'media',1],[2,'media',0],[3,'card',0],[4,'cam',0],[5,'macro',0],[6,'macro',1]]) {
+    const st=voicePage();assert.deepEqual(plain(T.press(st,'ok',20)),[]);
+    assert.equal(st.voice.status,8);assert.equal(T.voiceProgress(st,st.voice.token,1,30),true);
+    assert.equal(T.voiceResult(st,st.voice.token,1,target,0,40),true);assert.equal(st.page,page);
+    assert.equal(st.voice.busy,false);assert.equal(st.cam.endMs,0);assert.equal(st.cam.burstLeft,0);
+    assert.equal(hid(T.tick(st,41)).length,0);assert.equal(st.cam.shots,0);
+    if(page==='macro')assert.equal(st.macro.group,detail);
+    if(page==='media'){assert.equal(st.media.mode,detail);assert.equal(st.media.choosing,false);}
+  }
+  const st=voicePage([0,1,0,0,0,0,0]);assert.equal(st.voice.selected,0);
+  T.press(st,'ok',20);assert.equal(st.voice.busy,true);
+  assert.equal(T.voiceResult(st,st.voice.token,1,1,0,30),true);assert.equal(st.page,'media');
+});
+
+test('voice read/screenshot/Typeless navigation finds current named groups and reports missing ones',()=>{
+  for(const [target,name,index] of [[0,'微信读书',1],[0,'读书',1],[5,'截图',0],[6,'Typeless',1],[6,'语音输入',1]]) {
+    const st=voicePage(),slot={label:'Test',mac:{mod:0,key:4},win:{mod:0,key:4}};
+    const names=target===5?['截图','Other']:['Other',name];
+    assert.equal(T.applyConfig(st,{v:1,groups:names.map(name=>({name,up:slot,ok:slot,down:slot})),cards:st.cards}),true);
+    T.press(st,'ok',20);assert.equal(T.voiceResult(st,st.voice.token,1,target,0,30),true);
+    assert.equal(st.page,'macro');assert.equal(st.macro.group,index);
+  }
+  for(const target of [0,5,6]) {
+    const st=voicePage(),slot={label:'Test',mac:null,win:null};
+    T.applyConfig(st,{v:1,groups:[{name:'Other',up:slot,ok:slot,down:slot}],cards:st.cards});
+    T.press(st,'ok',20);assert.equal(T.voiceResult(st,st.voice.token,1,target,0,30),true);
+    assert.equal(st.page,'voice');assert.equal(st.voice.status,7);assert.equal(st.voice.busy,false);assert.equal(st.toast.kind,'err');
+  }
+});
+
+test('voice cancellation invalidates late progress/results and never turns the release into a tool command',()=>{
+  const st=voicePage();T.press(st,'ok',20);const token=st.voice.token;
+  assert.equal(hid(T.press(st,'long_up',30)).length,0);assert.equal(st.page,'menu');assert.equal(st.voice.busy,false);
+  const before=JSON.stringify(st);
+  assert.equal(T.voiceProgress(st,token,1,40),false);assert.equal(T.voiceResult(st,token,1,1,0,40),false);
+  assert.equal(JSON.stringify(st),before);T.press(st,'long_ok',50);T.press(st,'ok',60);
+  assert.notEqual(st.voice.token,token);assert.equal(T.voiceResult(st,token,1,1,0,70),false);
+  T.sim(st,'wake',80);assert.equal(st.voice.busy,false);assert.equal(st.voice.operation,0);
+});
+
+test('voice rejects stale/unsafe events and exposes terminal rejection reasons without navigation',()=>{
+  for(const [outcome,status] of [[2,4],[3,5],[4,9],[5,10],[6,11]]) {
+    const st=voicePage();T.press(st,'ok',20);
+    assert.equal(T.voiceResult(st,st.voice.token,outcome,-1,0,30),true);
+    assert.equal(st.page,'voice');assert.equal(st.voice.status,status);assert.equal(st.voice.busy,false);
+  }
+  const st=voicePage();T.press(st,'ok',20);const token=st.voice.token,before=JSON.stringify(st);
+  assert.equal(T.voiceResult(st,token+1,1,1,0,30),false);assert.equal(T.voiceResult(st,token,1,7,0,30),false);
+  assert.equal(T.voiceProgress(st,token,3,30),false);assert.equal(JSON.stringify(st),before);
+  st.pairing={until:60000,passkey:null};assert.equal(T.voiceResult(st,token,1,1,0,30),false);
+  T.tick(st,31);assert.equal(st.voice.busy,false);
+});
+
+test('voice acquisition suppresses deep sleep, holds the display on and skips token zero at wrap',()=>{
+  const st=voicePage();st.connected=false;st.settings.sleep=0;st.voice.token=0xffffffff;
+  T.press(st,'long_ok',20);assert.equal(st.voice.token,1);assert.equal(st.voice.busy,true);
+  T.tick(st,300020);assert.equal(T.sleepDue(st,300020),false);assert.equal(st.display.off,false);
+  assert.equal(T.voiceProgress(st,1,8,300030),true);assert.equal(st.voice.status,8);
+});
 test('short/long boundary, delayed release and single ADC owner',()=>{
   const st=B.create();B.down(st,'up',0);B.down(st,'down',1);assert.equal(st.active,'up');
   assert.deepEqual(plain(B.up(st,'up',499)),['up']);
