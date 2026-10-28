@@ -2,6 +2,8 @@
 
 # 验证记录 — 2026-10-28
 
+v0.3.1 GitHub/Pages发布核验PASS：新Release8资产匿名重下、ZIP37成员、公开配置页11文件均字节/SHA一致。新媒体/息屏固定app已安装且本轮新增行为通过；社区原条目更新尚待进入编辑，原五图已只读记录且未改。见[发布记录](validation/publication-v0.3.1-remote-dev2.json)与HANDOFF27。
+
 媒体/息屏0.3.1-remote-dev2：**Build PASS；Host tests PASS（127：37 Node+90 Python，2206步，3变异，0跳过）；Device tests 本轮新增行为PASS：固定app-only安装/保护区/五组配置迁移、媒体实体顺序、持续按键后息屏、暗屏HID和长OK只亮屏、本轮耳机键盘共存正常。** 两轮505/505 ready，连接堆最低92,624/最大块77,824；暗屏独立16条HID/32次TX、动画帧冻结，相关错误0。Unverified：实测功耗/冷启动开关保留/完整App与平台矩阵/历史间歇连接原因/原回连三槽深睡长稳及完整首装；不是全F0/F1门槛放行。见[记录](validation/remote-control-v0.3.1.json)和HANDOFF26。本轮新版本发布核验进行中。
 
 快捷键改版：Build PASS（0.3.1-shortcuts-dev1候选，未刷/未发布）；Host tests PASS（102：29 Node+73 Python，1710步）；Device tests：旧dev3真实USB配置保存+3读回通过，截图/Esc及读书/抖音当前端由用户确认可用。候选实机、手机/电脑逐项矩阵和新配置拔电保留仍Unverified。见[新分组记录](validation/shortcuts-v0.3.1.json)。

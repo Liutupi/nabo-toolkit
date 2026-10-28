@@ -411,3 +411,13 @@ Pages工作流40547201879成功；网页manifest与11个可访问文件均HTTP20
 **Unverified**：实测电流/续航、remote_v1开关的冷启动保留、全部App/平台及右方向键行为、旧间歇断联根因/持续恢复，以及原回连/三槽/深睡/1小时长稳门槛；历史3秒FAIL不改。完整合并镜像首装路径仍未真机验收。记录见 `validation/remote-control-v0.3.1.json`，宿主图 `images/remote-control/host-overview.png` 不是LCD照片；身份、个人配置、保护区备份及原始日志只在private。
 
 用户随后明确要求更新GitHub、发布本次新固件、更新原社区条目，且保持原上传的图片不变。此刻新版本发布准备中，公共Pages/Release及社区3928尚未替换，不能提前称新版本已公开；后续结果写第27节。
+
+## 27. v0.3.1固件与配置页已公开，原社区条目更新中（2026-10-28）
+
+用户在实体验收后明确要求更新GitHub、发布新固件并更新原社区，原上传图片保持不变。main/固件tag `v0.3.1-remote-dev2` 指向发布准备提交 `d71c1944cd7b820f4250fa57b87dfd02b42fe1d2`，固定app b4043d24…211b8ffe及归档9bcc3929…f48abe548b原样复用，无重编译替换。源码提交包含正式本轮验收记录、五组配置页及发布工具适配；旧f3.json、旧Release和社区原图文件没有覆盖。
+
+**GitHub/Pages publication PASS**：新公开测试Release https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.1-remote-dev2 已创建，8个下载全部匿名重新下载、字节/SHA相等，app-only ZIP37成员校验、内外app/配置/manifest及完整镜像内嵌app/0xff空NVS均一致。Pages工作流40634249737成功，manifest及11可访问文件HTTP200且字节/SHA一致，公开配置页已同步五组和↑↓OK；新的独立离线配置包与固件ZIP内一致。旧v0.3.0/20261028下载快照原样保留。详见 `validation/publication-v0.3.1-remote-dev2.json`；GitHub元数据如遇限流仅回退gh认证读取，资产和网页始终匿名下载核验。
+
+新社区完整首装文件2,077,152字节/SHA256 `9bcc39298ddaced09803052de27b6671d502e5d72cd5e249e55140f48abe548b`，从0x0写默认表并重置设置/绑定，首装路径仍未实测；保留现有分区/NVS/素材请用新app-only保护升级。发布完整镜像不是再刷作者设备。作者已安装的仍为相同固定app-only产物，31条真实HID/暗屏16条等设备证据绑定该app。
+
+原社区项目1701/修订3928目前仍审核中。已只读取得原五张900×1200服务器WebP的链接/顺序/字节/SHA，记录在新 `community/v0.3.1-remote-dev2/images-reused.json`，没有修改、重绘、排序或重传图片；新双语说明/操作文本已准备。浏览器工具对“撤回并修改”反复无法触发，页面仍停在审核中，已请用户在可见工作台手动点该入口及撤回确认；当前尚未替换社区固件或重新提交，不能称社区更新完成或新版本已上架。人工入口完成后继续原项目，不新建项目；须保留五张原图，并从最终保存页href重新下载新固件核对。

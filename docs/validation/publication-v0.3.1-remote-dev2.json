@@ -1,0 +1,165 @@
+{
+  "date": "2026-10-28",
+  "repo": "https://github.com/Liutupi/nabo-toolkit",
+  "visibility": "PUBLIC",
+  "release": "https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.1-remote-dev2",
+  "version": "v0.3.1-remote-dev2",
+  "prerelease": true,
+  "source_commit": "d71c1944cd7b820f4250fa57b87dfd02b42fe1d2",
+  "configuration_source_commit": "d71c1944cd7b820f4250fa57b87dfd02b42fe1d2",
+  "tag_commit": "d71c1944cd7b820f4250fa57b87dfd02b42fe1d2",
+  "authorization_header_used": false,
+  "download_authorization_header_used": false,
+  "anonymous_release_asset_downloads": true,
+  "github_metadata": {
+    "authenticated_cli_fallback_used": false,
+    "fallbacks": []
+  },
+  "public_downloads": {
+    "community-manifest.json": {
+      "bytes": 1946,
+      "sha256": "bf6f143b1e42e64a8faca1234a07e5f1c8477a925b68f5b490ee8c6bf2281ccf",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.1-remote-dev2/community-manifest.json",
+      "http": 200
+    },
+    "COMMUNITY_SHA256SUMS.txt": {
+      "bytes": 188,
+      "sha256": "b97fae36f821e2c57ef9a4806d7ee89814a489dc0618b9b0ed577906aab9233d",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.1-remote-dev2/COMMUNITY_SHA256SUMS.txt",
+      "http": 200
+    },
+    "manifest.json": {
+      "bytes": 7137,
+      "sha256": "9eadb010846dfd033fef2d31fddd426241893146bbea80dbff036f7e895daf80",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.1-remote-dev2/manifest.json",
+      "http": 200
+    },
+    "nabo-toolkit-app.bin": {
+      "bytes": 2011616,
+      "sha256": "b4043d24fb20bf4ad68091587486ded70d889e0a42579edca0e44e9e211b8ffe",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.1-remote-dev2/nabo-toolkit-app.bin",
+      "http": 200
+    },
+    "nabo-toolkit-community-full.bin": {
+      "bytes": 2077152,
+      "sha256": "9bcc39298ddaced09803052de27b6671d502e5d72cd5e249e55140f48abe548b",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.1-remote-dev2/nabo-toolkit-community-full.bin",
+      "http": 200
+    },
+    "nabo-toolkit-config-offline.zip": {
+      "bytes": 91614,
+      "sha256": "bbe3fe794a0551dccde8c24e4bd8bf1254dc287bbaaf7e92eaeaf049adfd0a28",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.1-remote-dev2/nabo-toolkit-config-offline.zip",
+      "http": 200
+    },
+    "nabo-toolkit-v0.3.1-remote-dev2.zip": {
+      "bytes": 1547473,
+      "sha256": "8c69260b469ba49fd34154c04771198c38d482d04e22d59a7349c7ab9e9c83d5",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.1-remote-dev2/nabo-toolkit-v0.3.1-remote-dev2.zip",
+      "http": 200
+    },
+    "SHA256SUMS.txt": {
+      "bytes": 367,
+      "sha256": "1aae5352d5056e5f3232f06ea2f254d2b173d17c864b2cacd571ec64b99fcdae",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.1-remote-dev2/SHA256SUMS.txt",
+      "http": 200
+    }
+  },
+  "zip_members_verified": 37,
+  "validation_firmware_version": "0.3.1-remote-dev2",
+  "validation_sha256": "bcb8bd1ec61747d41f0a3bd6894c008638525b1cc56b186e442f9268ae7cf8fe",
+  "unverified": [
+    "Real current/battery-runtime savings",
+    "Remote display-off preference cold-power retention and physical toggle-off check",
+    "Complete phone/desktop/app/version matrix and exact right-arrow actions",
+    "Historical intermittent headphone/keyboard connection failure cause or sustained recovery",
+    "Original reconnect/three-slot/deep-sleep/one-hour stability gates",
+    "Community full-install path has not been device-tested"
+  ],
+  "accepted_app_sha256": "b4043d24fb20bf4ad68091587486ded70d889e0a42579edca0e44e9e211b8ffe",
+  "merged_image_published": true,
+  "device_readbacks_published": false,
+  "status": "PASS",
+  "community_first_install": {
+    "schema": 1,
+    "version": "v0.3.1-remote-dev2",
+    "date": "2026-10-28",
+    "purpose": "Community complete first-install update requested by user; existing uploaded images retained",
+    "image": {
+      "file": "nabo-toolkit-community-full.bin",
+      "bytes": 2077152,
+      "sha256": "9bcc39298ddaced09803052de27b6671d502e5d72cd5e249e55140f48abe548b",
+      "offset": "0x0",
+      "erase_end_exclusive": "0x1fc000"
+    },
+    "embedded_accepted_app": {
+      "offset": "0x10000",
+      "bytes": 2011616,
+      "sha256": "b4043d24fb20bf4ad68091587486ded70d889e0a42579edca0e44e9e211b8ffe",
+      "byte_equal_to_accepted_app": true
+    },
+    "build": "ESP-IDF6.0.2 / ESP32-C3 / 8MiB / no PSRAM",
+    "build_artifact_reused_without_recompile": true,
+    "partitions": [
+      {
+        "label": "nvs",
+        "offset": "0x9000",
+        "size": "0x6000",
+        "type": 1,
+        "subtype": 2
+      },
+      {
+        "label": "phy_init",
+        "offset": "0xf000",
+        "size": "0x1000",
+        "type": 1,
+        "subtype": 1
+      },
+      {
+        "label": "factory",
+        "offset": "0x10000",
+        "size": "0x3f0000",
+        "type": 0,
+        "subtype": 0
+      },
+      {
+        "label": "assets",
+        "offset": "0x400000",
+        "size": "0x300000",
+        "type": 1,
+        "subtype": 130
+      },
+      {
+        "label": "files",
+        "offset": "0x700000",
+        "size": "0x100000",
+        "type": 1,
+        "subtype": 130
+      }
+    ],
+    "nvs_phy_gap": "Erased 0xff build padding; no device readback or credentials",
+    "data_warning": "Community installation writes the default partition table and resets NVS/PHY/settings/bonds; use app-only upgrade when preserving data/layout",
+    "full_install_device_test": "NOT RUN; app-only install and requested media/display behavior accepted; full-image install remains unverified",
+    "current_badge_flashed_for_publication": false,
+    "configuration_url": "https://liutupi.github.io/nabo-toolkit/",
+    "source_commit": "d71c1944cd7b820f4250fa57b87dfd02b42fe1d2"
+  },
+  "site": {
+    "url": "https://liutupi.github.io/nabo-toolkit/",
+    "manifest_http": 200,
+    "files_http_200_sha256_match": [
+      "LICENSE",
+      "NOTICE.md",
+      "README.txt",
+      "config.html",
+      "config.js",
+      "index.html",
+      "nabo.png",
+      "tk_config_schema.js",
+      "tk_config_serial.js",
+      "tk_core.js",
+      "tk_hid.js"
+    ],
+    "browser_physical_serial_permission": "UNVERIFIED"
+  }
+}
