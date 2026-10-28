@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Verify a public release and Pages downloads without authentication."""
+"""Verify anonymous public downloads; GitHub metadata can fall back to gh on rate limits."""
 import argparse
 import hashlib
 import json
 from pathlib import Path
+import subprocess
+import urllib.error
 import urllib.request
 import zipfile
 
@@ -23,22 +25,40 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def github_metadata(url, authenticated_fallbacks):
+    repository_api = 'https://api.github.com/repos/' + REPO
+    if url != repository_api and not url.startswith(repository_api + '/'):
+        raise ValueError('Unexpected GitHub metadata destination')
+    try:
+        return json.loads(get(url))
+    except urllib.error.HTTPError as error:
+        if error.code not in (403, 429):
+            raise
+        # Metadata only. Asset and Pages downloads always keep the anonymous get() path.
+        data = subprocess.check_output(['gh', 'api', url], text=True, encoding='utf-8')
+        authenticated_fallbacks.append({'url': url, 'anonymous_http': error.code})
+        return json.loads(data)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--version', required=True)
     ap.add_argument('--commit', required=True)
     ap.add_argument('--site', action='store_true')
+    ap.add_argument('--validation', type=Path, help='Also compare uploaded validation.json with this accepted local record')
+    ap.add_argument('--report', type=Path, help='Optional verification report destination')
     args = ap.parse_args()
+    metadata_fallbacks = []
     api = 'https://api.github.com/repos/' + REPO
-    repo = json.loads(get(api))
+    repo = github_metadata(api, metadata_fallbacks)
     if repo['private'] or repo['visibility'] != 'public':
         raise ValueError('Repository is not public')
-    release = json.loads(get(api + '/releases/tags/' + args.version))
+    release = github_metadata(api + '/releases/tags/' + args.version, metadata_fallbacks)
     if release['draft'] or not release['prerelease'] or release['tag_name'] != args.version:
         raise ValueError('Unexpected release metadata')
-    ref = json.loads(get(api + '/git/ref/tags/' + args.version))['object']
+    ref = github_metadata(api + '/git/ref/tags/' + args.version, metadata_fallbacks)['object']
     if ref['type'] == 'tag':
-        ref = json.loads(get(ref['url']))['object']
+        ref = github_metadata(ref['url'], metadata_fallbacks)['object']
     if ref['type'] != 'commit' or ref['sha'] != args.commit:
         raise ValueError('Tag does not target accepted source commit')
     local = ROOT / 'build/release' / args.version
@@ -72,6 +92,15 @@ def main():
             raise ValueError('Inner/outer manifest mismatch')
         if package.read('nabo-toolkit-app.bin') != (target / 'nabo-toolkit-app.bin').read_bytes():
             raise ValueError('Inner/outer application mismatch')
+        validation_data = package.read('validation.json')
+        validation = json.loads(validation_data)
+        validated_version = validation.get('version') or validation.get('candidate_version')
+        if not isinstance(validated_version, str) or validated_version != manifest['firmware_version'] or 'v' + validated_version != args.version:
+            raise ValueError('Packaged validation firmware version differs')
+        if manifest.get('validation_record', {}).get('sha256', digest(validation_data)) != digest(validation_data):
+            raise ValueError('Packaged validation identity differs')
+        if args.validation and validation_data != args.validation.read_bytes():
+            raise ValueError('Packaged validation differs from requested accepted record')
         for name, identity in manifest['members'].items():
             data = package.read(name)
             if len(data) != identity['bytes'] or digest(data) != identity['sha256']:
@@ -93,8 +122,14 @@ def main():
     report = {'date': '2026-10-28', 'repo': repo['html_url'], 'visibility': 'PUBLIC',
               'release': release['html_url'], 'version': args.version, 'prerelease': True,
               'source_commit': args.commit, 'configuration_source_commit': manifest.get('configuration_source_commit', args.commit),
-              'tag_commit': ref['sha'], 'authorization_header_used': False,
+              'tag_commit': ref['sha'], 'authorization_header_used': bool(metadata_fallbacks),
+              'download_authorization_header_used': False,
+              'anonymous_release_asset_downloads': True,
+              'github_metadata': {'authenticated_cli_fallback_used': bool(metadata_fallbacks),
+                                  'fallbacks': metadata_fallbacks},
               'public_downloads': entries, 'zip_members_verified': len(names),
+              'validation_firmware_version': validated_version,
+              'validation_sha256': digest(validation_data), 'unverified': manifest['unverified'],
               'accepted_app_sha256': manifest['app']['sha256'], 'merged_image_published': False,
               'device_readbacks_published': False, 'status': 'PASS'}
     if (target / 'community-manifest.json').exists():
@@ -122,7 +157,9 @@ def main():
             checked.append(name)
         report['site'] = {'url': base, 'manifest_http': 200, 'files_http_200_sha256_match': checked,
                           'browser_physical_serial_permission': 'UNVERIFIED'}
-    (target / 'verification.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8', newline='\n')
+    destination = args.report or target / 'verification.json'
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8', newline='\n')
     print(json.dumps(report, indent=2))
 
 

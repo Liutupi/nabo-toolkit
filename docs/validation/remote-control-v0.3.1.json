@@ -104,8 +104,8 @@
     "browser_no_serial_opened": true,
     "browser_preview": "docs/images/remote-control/config-order.jpg"
   },
-  "device_tests": "NOT RUN for this candidate",
-  "candidate_flashed": false,
+  "device_tests": "PARTIAL PASS: exact app install, config migration, requested physical media/display behavior and current coexistence passed; outstanding power/cold retention/platform matrix listed separately",
+  "candidate_flashed": true,
   "candidate_published": false,
   "candidate_config_published": false,
   "public_page_remains": "f8b8ad8 six-group snapshot",
@@ -128,15 +128,16 @@
     "diagnosis_is_candidate_acceptance": false,
     "user_clarification": "Intermittent difficulty establishing or recovering headphone connection while badge is on; shutting badge helped previously; once connected simultaneous use can be normal",
     "cause_status": "UNCONFIRMED; post-reset idle, plain-arrow and modifier-chord coexistence tests passed on existing dev3",
-    "candidate_telemetry_preparation": "remote-dev2 fixed candidate passed 127-test gate; telemetry device observation pending exact-app authorization"
+    "candidate_telemetry_preparation": "remote-dev2 fixed candidate passed 127-test gate; telemetry device observation pending exact-app authorization",
+    "new_candidate_current_coexistence": "User confirmed headphones and keyboard normal during this bounded test; old intermittent reconnect cause remains unconfirmed"
   },
   "unverified": [
-    "Candidate installation and physical media navigation/key position acceptance",
-    "Dark-screen HID and long-OK wake on real hardware",
-    "Independent remote_v1 real power-off retention and existing-config migration acceptance",
-    "Measured current or battery-runtime savings",
-    "Bluetooth headphones/keyboard coexistence cause and sustained reproduction",
-    "Original full-host/reconnect/three-slot/sleep/stability gates"
+    "Real current/battery-runtime savings",
+    "Remote display-off preference cold-power retention and physical toggle-off check",
+    "Complete phone/desktop/app/version matrix and exact right-arrow actions",
+    "Historical intermittent headphone/keyboard connection failure cause or sustained recovery",
+    "Original reconnect/three-slot/deep-sleep/one-hour stability gates",
+    "Community full-install path has not been device-tested"
   ],
   "read_only_target_preflight": {
     "status": "PASS",
@@ -181,7 +182,106 @@
     "snapshot_max_attempts": 2,
     "uses_64_bit_atomics": false,
     "host_tests": 2,
-    "device_observation": "NOT RUN"
+    "device_observation": "PASS: real secured link parameters observed; extended coexistence diagnosis pending"
   },
-  "flash_authorization": "PENDING for exact remote-dev2 app; no write performed"
+  "flash_authorization": "APPROVED for exact COM12 app-only image and config migration",
+  "device_install": {
+    "status": "PASS",
+    "app_sha256": "b4043d24fb20bf4ad68091587486ded70d889e0a42579edca0e44e9e211b8ffe",
+    "app_bytes": 2011616,
+    "write_range": "[0x10000,0x1fb1e0)",
+    "erase_end_exclusive": "0x1fc000",
+    "same_connection_identity_capacity_and_legacy_layout_verified": true,
+    "old_accepted_app_verified_before_write": true,
+    "app_verified_after_write": true,
+    "protected_regions_hashes_equal_before_reset": true,
+    "protected_regions": [
+      "partition-table",
+      "nvs",
+      "phy",
+      "asset-first-sector"
+    ],
+    "entire_asset_region_readback": false,
+    "whole_asset_region_outside_write_and_erase": true,
+    "device_reset": true,
+    "raw_receipts_identity_and_backup_private": true
+  },
+  "device_config_migration": {
+    "status": "PASS",
+    "removed_only_legacy_matching_douyin": true,
+    "remaining_group_names": [
+      "截图",
+      "Typeless",
+      "剪映",
+      "微信读书",
+      "编辑"
+    ],
+    "other_groups_preserved": true,
+    "cards_preserved": true,
+    "write_and_automatic_readback": "PASS",
+    "repeated_equal_reads": 3,
+    "crash_markers": 0,
+    "pairing_changed": false,
+    "personal_config_export_published": false
+  },
+  "initial_device_runtime": {
+    "status": "PASS",
+    "stage": "F3",
+    "ready": true,
+    "test": false,
+    "heap": 92644,
+    "largest": 77824,
+    "min_heap_after_startup_and_config": 69352,
+    "error": 0,
+    "ble_params_valid": true,
+    "ble_ci_us": 7500,
+    "ble_latency": 0,
+    "ble_sto_ms": 2000,
+    "ble_tx_errors": 0,
+    "ble_release_attempt_errors": 0,
+    "coexistence_issue_fixed": false
+  },
+  "version": "0.3.1-remote-dev2",
+  "physical_acceptance": {
+    "status": "PASS for requested new behavior",
+    "media_selection_and_physical_order": "PASS",
+    "auto_off_while_repeated_short_keys": "PASS",
+    "dark_hid_user": "PASS",
+    "long_ok_wake_without_action_user": "PASS",
+    "dark_hid_instrumented": "PASS",
+    "current_headphone_keyboard_coexistence": "PASS",
+    "user_dark_repeat_feedback": "都正常"
+  },
+  "device_runtime_observation": {
+    "samples": 505,
+    "connected_samples": 505,
+    "total_bounded_observation_seconds": 504.15999999999997,
+    "connected_heap_min": 92624,
+    "connected_largest_min": 77824,
+    "global_min_heap": 69352,
+    "hid_commands_completed": 31,
+    "hid_notification_tx_completed": 62,
+    "error_maxima": {
+      "failed": 0,
+      "error": 0,
+      "ble_tx_err": 0,
+      "ble_press_err": 0,
+      "ble_release_err": 0,
+      "ble_enqueue_error": 0,
+      "ble_tx_error": 0,
+      "audio_errors": 0
+    },
+    "crash_markers": 0,
+    "dark_hid_commands_completed": 16,
+    "dark_notification_tx_completed": 32,
+    "dark_animation_frame_frozen": true,
+    "screen_stayed_off_during_dark_hid": true,
+    "ble_ci_us": 7500,
+    "ble_latency": 0,
+    "ble_sto_ms": 2000,
+    "notification_tx_is_host_processing_ack": false,
+    "serial_monitor_closed": true
+  },
+  "publication_authorization": "User requested GitHub update/new firmware release and existing community entry update; existing uploaded images must remain unchanged",
+  "record_scope": "Acceptance checkpoint before release packaging; later publication state is recorded separately"
 }

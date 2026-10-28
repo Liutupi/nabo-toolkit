@@ -2,7 +2,7 @@
 
 # Validation checkpoint — 2026-10-28
 
-Media/display candidate0.3.1-remote-dev2: **Build PASS; Host tests PASS (127:37 Node+90 Python,2206 steps,3 mutations,zero skips); Device tests NOT RUN; Unverified: candidate hardware/power/config migration and the existing dev3 Windows coexistence cause.** Music/Douyin selection,physical UP/DOWN/OK rows,30-second display-off and dark long-OK-only wake passed host checks. No flash/publication;live page remains the old six groups. See [record](validation/remote-control-v0.3.1.json) and HANDOFF26.
+Media/display0.3.1-remote-dev2: **Build PASS; Host tests PASS (127:37 Node+90 Python,2206 steps,3 mutations,zero skips); Device tests requested behavior PASS:** exact app-only install/protected ranges/five-group migration,physical media/key order,display-off during use,dark HID,long-OK-only wake and current headphone/keyboard coexistence. Both observations totaled505/505 ready samples,heap minimum92,624/largest77,824;dark-only16 HID/32 TX completed,frozen animation and zero related errors. Power,cold preference retention,full host/app matrix,historical intermittent-connect cause,original reconnect/slot/sleep/stability gates and full installation remain unverified. This is not a full F0/F1 gate pass. See [record](validation/remote-control-v0.3.1.json) and HANDOFF26. New-release verification is in progress.
 
 Shortcut update: Build PASS (0.3.1-shortcuts-dev1 candidate,not flashed/published); Host tests PASS (102:29 Node+73 Python,1710 steps); Device config save/three reads on existing dev3 PASS,user accepted screenshot/Esc and reading/Douyin on the current end. Candidate device tests,separate phone/desktop acceptance and new-config cold retention remain unverified. See [record](validation/shortcuts-v0.3.1.json).
 
