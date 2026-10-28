@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-28",
+  "change": "Everyday shortcut defaults and saved-device configuration",
+  "candidate_version": "0.3.1-shortcuts-dev1",
+  "build": "PASS",
+  "sdk": "v6.0.2",
+  "target": "esp32c3",
+  "flash_bytes": 8388608,
+  "psram": false,
+  "candidate_archive": "build/firmware/7c5686451c3f0bcd81ba11ba0c75e09978267f6bbb2c838145bc3f7d1327ae18",
+  "candidate_artifacts": {
+    "nabo-toolkit.bin": {
+      "sha256": "f71d9a6b308eb6fd71e1bfad34a3302fa3ce35a681bb8d46a01a41324d1f5096",
+      "bytes": 1999728
+    },
+    "nabo-toolkit.elf": {
+      "sha256": "47084542ed684d931eac3b1654bcfbdeb1a71dc4f52139260ad1259ee37fa4de",
+      "bytes": 11163200
+    },
+    "nabo-toolkit.map": {
+      "sha256": "5d2b4ceae2fc56cdd5059d27a93774dbb4cd7b6af54167c09df635da83b5ed79",
+      "bytes": 6309025
+    }
+  },
+  "actual_legacy_factory_capacity": 2031616,
+  "remaining_bytes": 31888,
+  "candidate_flashed": false,
+  "candidate_published": false,
+  "host_tests": {
+    "status": "PASS",
+    "node": 29,
+    "python": 73,
+    "total": 102,
+    "skipped": 0,
+    "full_model_steps": 1710,
+    "mutations_caught": 3
+  },
+  "group_names": [
+    "截图",
+    "Typeless",
+    "剪映",
+    "微信读书",
+    "抖音",
+    "编辑"
+  ],
+  "removed_default_groups": [
+    "窗口",
+    "PS",
+    "浏览器"
+  ],
+  "keys": {
+    "screenshot_down": {
+      "mod": 0,
+      "usage": 41,
+      "meaning": "Esc cancel"
+    },
+    "reading_and_douyin": {
+      "up": 82,
+      "ok": 79,
+      "down": 81,
+      "modifiers": 0,
+      "hosts": [
+        "mac",
+        "win",
+        "ios",
+        "android"
+      ]
+    },
+    "editing": {
+      "up": "Cmd/Ctrl+Z",
+      "ok": "Cmd/Ctrl+C",
+      "down": "Cmd/Ctrl+A"
+    }
+  },
+  "device_config_update": {
+    "firmware_path": "Existing F3 dev3; configuration only",
+    "status": "PASS",
+    "cards_preserved": true,
+    "screenshot_and_paste_preserved": true,
+    "typeless_and_capcut_preserved": true,
+    "write_and_auto_readback": "PASS",
+    "repeated_reads": 3,
+    "crash_markers": 0,
+    "bluetooth_bindings_changed": false,
+    "partitions_changed": false,
+    "firmware_flashed": false
+  },
+  "user_feedback": {
+    "screenshot_launch_and_escape": "PASS: 能调出截图，也能取消",
+    "reading_and_douyin": "可以了",
+    "platform_not_specified": true,
+    "scope": "Current tested end only; not an all-host or candidate-image acceptance"
+  },
+  "browser_qa": {
+    "legacy_browser_groups_explicitly_replaced": "PASS",
+    "existing_card_fields_preserved": "PASS",
+    "no_implicit_device_write": "PASS",
+    "unconnected_write_disabled": true,
+    "physical_browser_serial_permission": "UNVERIFIED"
+  },
+  "unverified": [
+    "Candidate firmware has not been installed or device-tested",
+    "Separate phone and desktop/app/version acceptance including exact right-arrow effects",
+    "Power-off retention of this specific new configuration",
+    "Remaining F0/F1 reconnect timing,three-slot stress,sleep and stability gates remain"
+  ]
+}

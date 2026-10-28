@@ -2,6 +2,8 @@
 
 # 验证记录 — 2026-10-28
 
+快捷键改版：Build PASS（0.3.1-shortcuts-dev1候选，未刷/未发布）；Host tests PASS（102：29 Node+73 Python，1710步）；Device tests：旧dev3真实USB配置保存+3读回通过，截图/Esc及读书/抖音当前端由用户确认可用。候选实机、手机/电脑逐项矩阵和新配置拔电保留仍Unverified。见[新分组记录](validation/shortcuts-v0.3.1.json)。
+
 ## 社区投稿核验 — 2026-10-28
 
 已提交AI Passport项目1701/修订3928，当前**审核中，尚未确认公开上架**。五张图、六工具中英文玩法/按键/配对说明、[配置页](https://liutupi.github.io/nabo-toolkit/)和安装边界已保存。完整首装镜像经用户单独授权；作者当前工牌未刷写。

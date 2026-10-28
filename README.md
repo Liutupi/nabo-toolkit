@@ -2,6 +2,8 @@
 
 # NABO Toolkit
 
+**Shortcut configuration update (2026-10-28)**: new presets are Screenshot (Esc cancel),Typeless,CapCut,WeRead,Douyin,Editing. Existing F2/F3 firmware can use them: [config page](https://liutupi.github.io/nabo-toolkit/),Read from badge,Use new default shortcuts (preserve cards),then Write and verify. Personal saved configurations are not silently replaced. New-default candidate0.3.1 passes102 host tests/build but is not installed or released; see HANDOFF25.
+
 [Configuration page](https://liutupi.github.io/nabo-toolkit/) · [Firmware / offline configurator](https://github.com/Liutupi/nabo-toolkit/releases) · [Upgrade instructions](docs/RELEASE_v0.3.0-f3-dev3.md)
 
 Community submission: **project1701/revision3928 submitted and under review; public listing not yet confirmed**. Complete firmware, cover and bilingual six-tool instructions are saved; see [submission/verification records](docs/community/v0.3.0-f3-dev3/README.md).

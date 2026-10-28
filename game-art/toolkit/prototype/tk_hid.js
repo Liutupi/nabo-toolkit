@@ -7,7 +7,7 @@
   const MOD = { ctrl: 0x01, shift: 0x02, alt: 0x04, gui: 0x08, rctrl: 0x10, rshift: 0x20, ralt: 0x40, rgui: 0x80 };
   const KEY = {
     ENTER: 0x28, ESC: 0x29, TAB: 0x2b, SPACE: 0x2c, LBRACKET: 0x2f, RBRACKET: 0x30,
-    F5: 0x3e, PGUP: 0x4b, PGDN: 0x4e,
+    F5: 0x3e, PGUP: 0x4b, PGDN: 0x4e, RIGHT: 0x4f, DOWN: 0x51, UP: 0x52,
     F13: 0x68, F14: 0x69, F15: 0x6a, F16: 0x6b, F17: 0x6c, F18: 0x6d,
   };
   const MEDIA = { PLAY: 0xcd, NEXT: 0xb5, PREV: 0xb6, VOLUP: 0xe9, VOLDN: 0xea };
@@ -137,30 +137,32 @@
    * defaults are the author's bindings (Mac: 右Option+M / 右Option+右Shift /
    * 右Option+Space); other people re-record them on the config page. */
   const MACRO_GROUPS = [
-    { name: '常用',
+    { name: '截图',
       up: B('截屏', { mac: { mods: ['ctrl', 'gui', 'shift'], key: 0x21 }, win: { mods: ['gui', 'shift'], key: L('s') } }),
       ok: B('粘贴', { mods: ['main'], key: L('v') }),
-      down: B('复制', { mods: ['main'], key: L('c') }) },
+      down: B('取消 Esc', { mods: [], key: KEY.ESC }) },
     { name: 'Typeless',
       up: B('翻译', { mods: ['ralt', 'rshift'], key: 0 }),
       ok: B('语音输入', { mac: { mods: ['ralt'], key: L('m') }, win: { mods: ['ralt'], key: 0 } }),
       down: B('随便问', { mods: ['ralt'], key: KEY.SPACE }) },
-    { name: '窗口',
-      up: B('切换应用', { mac: { mods: ['gui'], key: KEY.TAB }, win: { mods: ['alt'], key: KEY.TAB } }),
-      ok: B('显示桌面', { mac: { mods: ['gui'], key: 0x3c }, win: { mods: ['gui'], key: L('d') } }),
-      down: B('锁定电脑', { mac: { mods: ['ctrl', 'gui'], key: L('q') }, win: { mods: ['gui'], key: L('l') } }) },
     { name: '剪映',
       up: B('分割', { mods: ['main'], key: L('b') }),
       ok: B('播放 / 暂停', { mods: [], key: KEY.SPACE }),
       down: B('撤销', { mods: ['main'], key: L('z') }) },
-    { name: 'PS',
-      up: B('笔刷放大', { mods: [], key: KEY.RBRACKET }),
-      ok: B('撤销', { mods: ['main'], key: L('z') }),
-      down: B('笔刷缩小', { mods: [], key: KEY.LBRACKET }) },
-    { name: '浏览器',
-      up: B('上一标签', { mods: ['ctrl', 'shift'], key: KEY.TAB }),
-      ok: B('刷新', { mods: ['main'], key: L('r') }),
-      down: B('下一标签', { mods: ['ctrl'], key: KEY.TAB }) },
+    // User-requested plain arrows for desktop and phone apps. The app decides
+    // how an arrow behaves; in Douyin, Right may seek rather than switch video.
+    { name: '微信读书',
+      up: B('上一页', { mods: [], key: KEY.UP }),
+      ok: B('下一章 →', { mods: [], key: KEY.RIGHT }),
+      down: B('下一页', { mods: [], key: KEY.DOWN }) },
+    { name: '抖音',
+      up: B('上个视频', { mods: [], key: KEY.UP }),
+      ok: B('向右/快进', { mods: [], key: KEY.RIGHT }),
+      down: B('下个视频', { mods: [], key: KEY.DOWN }) },
+    { name: '编辑',
+      up: B('撤销', { mods: ['main'], key: L('z') }),
+      ok: B('复制', { mods: ['main'], key: L('c') }),
+      down: B('全选', { mods: ['main'], key: L('a') }) },
   ];
 
   /* KeyboardEvent.code → HID usage, for recording on the config page. */

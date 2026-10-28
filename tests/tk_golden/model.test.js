@@ -76,6 +76,19 @@ test('author Typeless defaults preserve right-side modifiers',()=>{
     const p=H.resolve(group[key],os);assert.ok(!(p.usage>=0x68&&p.usage<=0x73));
   }
 });
+test('requested everyday groups include screenshot cancel and plain reading/video arrows on every host',()=>{
+  assert.deepEqual(plain(H.MACRO_GROUPS.map(g=>g.name)),['截图','Typeless','剪映','微信读书','抖音','编辑']);
+  for(const os of H.OS_LIST) {
+    assert.deepEqual(plain(H.reportBytes(H.resolve(H.MACRO_GROUPS[0].down,os))),[0,0,0x29,0,0,0,0,0]);
+    for(const group of H.MACRO_GROUPS.slice(3,5))
+      for(const [key,usage] of [['up',0x52],['ok',0x4f],['down',0x51]])
+        assert.deepEqual(plain(H.reportBytes(H.resolve(group[key],os))),[0,0,usage,0,0,0,0,0]);
+    for(const [key,usage] of [['up',0x1d],['ok',0x06],['down',0x04]]) {
+      const packet=H.resolve(H.MACRO_GROUPS[5][key],os);
+      assert.equal(packet.mod,H.isApple(os)?8:1);assert.equal(packet.usage,usage);
+    }
+  }
+});
 test('camera countdown cancellation and exact five-shot burst cadence',()=>{
   const st=menu();st.page='cam';T.press(st,'up',0);T.press(st,'ok',10);T.tick(st,1010);T.press(st,'ok',1011);T.tick(st,5010);assert.equal(st.cam.shots,0);
   T.press(st,'down',6000);assert.equal(hid(T.tick(st,6000)).length,1);assert.equal(hid(T.tick(st,6599)).length,0);

@@ -2,6 +2,8 @@
 
 # Validation checkpoint — 2026-10-28
 
+Shortcut update: Build PASS (0.3.1-shortcuts-dev1 candidate,not flashed/published); Host tests PASS (102:29 Node+73 Python,1710 steps); Device config save/three reads on existing dev3 PASS,user accepted screenshot/Esc and reading/Douyin on the current end. Candidate device tests,separate phone/desktop acceptance and new-config cold retention remain unverified. See [record](validation/shortcuts-v0.3.1.json).
+
 ## Community submission verification — 2026-10-28
 
 AI Passport project1701/revision3928 is **submitted and under review; public listing is not confirmed**. Five images, bilingual six-tool/controls/pairing instructions, the [configuration link](https://liutupi.github.io/nabo-toolkit/), and installation boundaries are saved. The user separately authorized the complete first-install image; the author's current badge was not flashed.

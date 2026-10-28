@@ -2,15 +2,15 @@
   "deterministic_re_recording": "PASS",
   "files": {
     "traces.jsonl": {
-      "sha256": "e4eaaf4117b77b4541ced72a341424bc63a2e89650a52b295ecd0822ffee8e14",
-      "bytes": 1973685
+      "sha256": "28790030d8f83c1329ad4ccc5239a88b78648a0b819d835c25288ded3ae6df2b",
+      "bytes": 1973441
     },
     "hid_tables.json": {
-      "sha256": "34d511e8598066f2de867535ed7445affea67a4bd314f95c2968ad77f40b23f5",
-      "bytes": 26582
+      "sha256": "32488208844ee4ac292f55e4a363b21b06045c6c80b57f2c7106ca7c4014d1bc",
+      "bytes": 26088
     },
     "coverage.json": {
-      "sha256": "a5b053432ccaf977cbcf1e711b6604774a22dc018c46d3a8bd96831324828e47",
+      "sha256": "529e141c7b7407aacd4c254c47ceb95b6f13cec05be5cd70ca85405ef22cc514",
       "bytes": 1377
     }
   }

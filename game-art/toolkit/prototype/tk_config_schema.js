@@ -84,10 +84,14 @@
     const slot = (s) => s.media || s.text != null ? { ...s } : { label: s.label, mac: pick(s, 'mac'), win: pick(s, 'win') };
     return validate({ v: 1, groups: H.MACRO_GROUPS.map((g) => ({ name: g.name, up: slot(g.up), ok: slot(g.ok), down: slot(g.down) })), cards: root.TK.create(0).cards });
   }
+  function withDefaultGroups(config) {
+    const current = validate(config);
+    return validate({ ...current, groups: defaults().groups });
+  }
   function resolve(s, os) {
     if (s && ('mac' in s || 'win' in s)) return root.TKHID.resolve(root.TKHID.isApple(os) ? s.mac : s.win, os);
     return root.TKHID.resolve(s, os);
   }
   function crc32(data) { let c = 0xffffffff; for (const b of data) { c ^= b; for (let k = 0; k < 8; k++) c = (c >>> 1) ^ (0xedb88320 & -(c & 1)); } return (c ^ 0xffffffff) >>> 0; }
-  root.TKConfig = { LIMIT, bytes, parse, validate, defaults, resolve, crc32, encode: (c) => JSON.stringify(validate(c)) };
+  root.TKConfig = { LIMIT, bytes, parse, validate, defaults, withDefaultGroups, resolve, crc32, encode: (c) => JSON.stringify(validate(c)) };
 })(typeof window !== 'undefined' ? window : globalThis);

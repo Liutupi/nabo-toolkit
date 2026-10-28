@@ -20,7 +20,7 @@ console.log(JSON.stringify({bindings:H.OS_LIST.flatMap((os,n)=>specs.map(([t,i,j
     @classmethod
     def tearDownClass(cls):
         unload(cls.lib);cls.lib=None;cls.temp.cleanup()
-    def test_c_export_matches_unchanged_author_table(self):
+    def test_c_export_matches_current_author_table(self):
         subprocess.run(['node','tools/export_hid_map.js','--check'],cwd=ROOT,check=True,capture_output=True)
     def test_all_168_default_bindings_chords_and_exact_reports_match_js(self):
         for row in self.reference['bindings']:

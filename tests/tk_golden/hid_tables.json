@@ -1,5 +1,5 @@
 {
-  "source_sha256": "d5d6fe076c885c38b8f9d37a874dd374ef62de4aef2b8f4dcdffdf13e1c1e887",
+  "source_sha256": "811ce05d34e5228e8beb9c0d2c18fb2e0d2ee25a3e8560fec47782bcfd88a0d1",
   "MOD": {
     "ctrl": 1,
     "shift": 2,
@@ -20,6 +20,9 @@
     "F5": 62,
     "PGUP": 75,
     "PGDN": 78,
+    "RIGHT": 79,
+    "DOWN": 81,
+    "UP": 82,
     "F13": 104,
     "F14": 105,
     "F15": 106,
@@ -247,7 +250,7 @@
   },
   "MACRO_GROUPS": [
     {
-      "name": "常用",
+      "name": "截图",
       "up": {
         "label": "截屏",
         "mac": {
@@ -274,11 +277,9 @@
         "key": 25
       },
       "down": {
-        "label": "复制",
-        "mods": [
-          "main"
-        ],
-        "key": 6
+        "label": "取消 Esc",
+        "mods": [],
+        "key": 41
       }
     },
     {
@@ -315,55 +316,6 @@
       }
     },
     {
-      "name": "窗口",
-      "up": {
-        "label": "切换应用",
-        "mac": {
-          "mods": [
-            "gui"
-          ],
-          "key": 43
-        },
-        "win": {
-          "mods": [
-            "alt"
-          ],
-          "key": 43
-        }
-      },
-      "ok": {
-        "label": "显示桌面",
-        "mac": {
-          "mods": [
-            "gui"
-          ],
-          "key": 60
-        },
-        "win": {
-          "mods": [
-            "gui"
-          ],
-          "key": 7
-        }
-      },
-      "down": {
-        "label": "锁定电脑",
-        "mac": {
-          "mods": [
-            "ctrl",
-            "gui"
-          ],
-          "key": 20
-        },
-        "win": {
-          "mods": [
-            "gui"
-          ],
-          "key": 15
-        }
-      }
-    },
-    {
       "name": "剪映",
       "up": {
         "label": "分割",
@@ -386,48 +338,63 @@
       }
     },
     {
-      "name": "PS",
+      "name": "微信读书",
       "up": {
-        "label": "笔刷放大",
+        "label": "上一页",
         "mods": [],
-        "key": 48
+        "key": 82
       },
       "ok": {
+        "label": "下一章 →",
+        "mods": [],
+        "key": 79
+      },
+      "down": {
+        "label": "下一页",
+        "mods": [],
+        "key": 81
+      }
+    },
+    {
+      "name": "抖音",
+      "up": {
+        "label": "上个视频",
+        "mods": [],
+        "key": 82
+      },
+      "ok": {
+        "label": "向右/快进",
+        "mods": [],
+        "key": 79
+      },
+      "down": {
+        "label": "下个视频",
+        "mods": [],
+        "key": 81
+      }
+    },
+    {
+      "name": "编辑",
+      "up": {
         "label": "撤销",
         "mods": [
           "main"
         ],
         "key": 29
       },
-      "down": {
-        "label": "笔刷缩小",
-        "mods": [],
-        "key": 47
-      }
-    },
-    {
-      "name": "浏览器",
-      "up": {
-        "label": "上一标签",
-        "mods": [
-          "ctrl",
-          "shift"
-        ],
-        "key": 43
-      },
       "ok": {
-        "label": "刷新",
+        "label": "复制",
         "mods": [
           "main"
         ],
-        "key": 21
+        "key": 6
       },
       "down": {
-        "label": "下一标签",
+        "label": "全选",
         "mods": [
-          "ctrl"
+          "main"
         ],
-        "key": 43
+        "key": 4
       }
     }
   ],
@@ -652,7 +619,7 @@
       ],
       "macros": [
         {
-          "name": "常用",
+          "name": "截图",
           "up": {
             "kind": "key",
             "mod": 11,
@@ -665,8 +632,8 @@
           },
           "down": {
             "kind": "key",
-            "mod": 8,
-            "usage": 6
+            "mod": 0,
+            "usage": 41
           }
         },
         {
@@ -688,24 +655,6 @@
           }
         },
         {
-          "name": "窗口",
-          "up": {
-            "kind": "key",
-            "mod": 8,
-            "usage": 43
-          },
-          "ok": {
-            "kind": "key",
-            "mod": 8,
-            "usage": 60
-          },
-          "down": {
-            "kind": "key",
-            "mod": 9,
-            "usage": 20
-          }
-        },
-        {
           "name": "剪映",
           "up": {
             "kind": "key",
@@ -724,39 +673,57 @@
           }
         },
         {
-          "name": "PS",
+          "name": "微信读书",
           "up": {
             "kind": "key",
             "mod": 0,
-            "usage": 48
+            "usage": 82
           },
           "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 79
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 81
+          }
+        },
+        {
+          "name": "抖音",
+          "up": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 82
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 79
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 81
+          }
+        },
+        {
+          "name": "编辑",
+          "up": {
             "kind": "key",
             "mod": 8,
             "usage": 29
           },
-          "down": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 47
-          }
-        },
-        {
-          "name": "浏览器",
-          "up": {
-            "kind": "key",
-            "mod": 3,
-            "usage": 43
-          },
           "ok": {
             "kind": "key",
             "mod": 8,
-            "usage": 21
+            "usage": 6
           },
           "down": {
             "kind": "key",
-            "mod": 1,
-            "usage": 43
+            "mod": 8,
+            "usage": 4
           }
         }
       ]
@@ -879,7 +846,7 @@
       ],
       "macros": [
         {
-          "name": "常用",
+          "name": "截图",
           "up": {
             "kind": "key",
             "mod": 10,
@@ -892,8 +859,8 @@
           },
           "down": {
             "kind": "key",
-            "mod": 1,
-            "usage": 6
+            "mod": 0,
+            "usage": 41
           }
         },
         {
@@ -915,24 +882,6 @@
           }
         },
         {
-          "name": "窗口",
-          "up": {
-            "kind": "key",
-            "mod": 4,
-            "usage": 43
-          },
-          "ok": {
-            "kind": "key",
-            "mod": 8,
-            "usage": 7
-          },
-          "down": {
-            "kind": "key",
-            "mod": 8,
-            "usage": 15
-          }
-        },
-        {
           "name": "剪映",
           "up": {
             "kind": "key",
@@ -951,39 +900,57 @@
           }
         },
         {
-          "name": "PS",
+          "name": "微信读书",
           "up": {
             "kind": "key",
             "mod": 0,
-            "usage": 48
+            "usage": 82
           },
           "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 79
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 81
+          }
+        },
+        {
+          "name": "抖音",
+          "up": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 82
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 79
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 81
+          }
+        },
+        {
+          "name": "编辑",
+          "up": {
             "kind": "key",
             "mod": 1,
             "usage": 29
           },
-          "down": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 47
-          }
-        },
-        {
-          "name": "浏览器",
-          "up": {
-            "kind": "key",
-            "mod": 3,
-            "usage": 43
-          },
           "ok": {
             "kind": "key",
             "mod": 1,
-            "usage": 21
+            "usage": 6
           },
           "down": {
             "kind": "key",
             "mod": 1,
-            "usage": 43
+            "usage": 4
           }
         }
       ]
@@ -1106,7 +1073,7 @@
       ],
       "macros": [
         {
-          "name": "常用",
+          "name": "截图",
           "up": {
             "kind": "key",
             "mod": 11,
@@ -1119,8 +1086,8 @@
           },
           "down": {
             "kind": "key",
-            "mod": 8,
-            "usage": 6
+            "mod": 0,
+            "usage": 41
           }
         },
         {
@@ -1142,24 +1109,6 @@
           }
         },
         {
-          "name": "窗口",
-          "up": {
-            "kind": "key",
-            "mod": 8,
-            "usage": 43
-          },
-          "ok": {
-            "kind": "key",
-            "mod": 8,
-            "usage": 60
-          },
-          "down": {
-            "kind": "key",
-            "mod": 9,
-            "usage": 20
-          }
-        },
-        {
           "name": "剪映",
           "up": {
             "kind": "key",
@@ -1178,39 +1127,57 @@
           }
         },
         {
-          "name": "PS",
+          "name": "微信读书",
           "up": {
             "kind": "key",
             "mod": 0,
-            "usage": 48
+            "usage": 82
           },
           "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 79
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 81
+          }
+        },
+        {
+          "name": "抖音",
+          "up": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 82
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 79
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 81
+          }
+        },
+        {
+          "name": "编辑",
+          "up": {
             "kind": "key",
             "mod": 8,
             "usage": 29
           },
-          "down": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 47
-          }
-        },
-        {
-          "name": "浏览器",
-          "up": {
-            "kind": "key",
-            "mod": 3,
-            "usage": 43
-          },
           "ok": {
             "kind": "key",
             "mod": 8,
-            "usage": 21
+            "usage": 6
           },
           "down": {
             "kind": "key",
-            "mod": 1,
-            "usage": 43
+            "mod": 8,
+            "usage": 4
           }
         }
       ]
@@ -1333,7 +1300,7 @@
       ],
       "macros": [
         {
-          "name": "常用",
+          "name": "截图",
           "up": {
             "kind": "key",
             "mod": 10,
@@ -1346,8 +1313,8 @@
           },
           "down": {
             "kind": "key",
-            "mod": 1,
-            "usage": 6
+            "mod": 0,
+            "usage": 41
           }
         },
         {
@@ -1369,24 +1336,6 @@
           }
         },
         {
-          "name": "窗口",
-          "up": {
-            "kind": "key",
-            "mod": 4,
-            "usage": 43
-          },
-          "ok": {
-            "kind": "key",
-            "mod": 8,
-            "usage": 7
-          },
-          "down": {
-            "kind": "key",
-            "mod": 8,
-            "usage": 15
-          }
-        },
-        {
           "name": "剪映",
           "up": {
             "kind": "key",
@@ -1405,39 +1354,57 @@
           }
         },
         {
-          "name": "PS",
+          "name": "微信读书",
           "up": {
             "kind": "key",
             "mod": 0,
-            "usage": 48
+            "usage": 82
           },
           "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 79
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 81
+          }
+        },
+        {
+          "name": "抖音",
+          "up": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 82
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 79
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 81
+          }
+        },
+        {
+          "name": "编辑",
+          "up": {
             "kind": "key",
             "mod": 1,
             "usage": 29
           },
-          "down": {
-            "kind": "key",
-            "mod": 0,
-            "usage": 47
-          }
-        },
-        {
-          "name": "浏览器",
-          "up": {
-            "kind": "key",
-            "mod": 3,
-            "usage": 43
-          },
           "ok": {
             "kind": "key",
             "mod": 1,
-            "usage": 21
+            "usage": 6
           },
           "down": {
             "kind": "key",
             "mod": 1,
-            "usage": 43
+            "usage": 4
           }
         }
       ]

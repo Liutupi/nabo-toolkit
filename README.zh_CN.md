@@ -2,6 +2,8 @@
 
 # NABO 工具箱
 
+**快捷键配置更新（2026-10-28）**：新推荐组为截图（含Esc取消）、Typeless、剪映、微信读书、抖音、编辑。已有F2/F3固件可直接使用：[配置页](https://liutupi.github.io/nabo-toolkit/)先“从工牌读回”，再点“使用新版默认快捷键（保留名片）”，最后“写入工牌并核对”。这不会自动覆盖浏览器或工牌的个人配置。新默认值候选0.3.1已通过102项宿主与构建，尚未刷入或发布，详见HANDOFF25。
+
 离线的蓝牙 HID 遥控工牌（FoloToy AI Passport，ESP32-C3）：PPT 翻页、会议快捷键、媒体、拍照快门、自定义快捷键/Typeless、名片二维码。
 
 [打开配置页](https://liutupi.github.io/nabo-toolkit/) · [下载固件与离线配置包](https://github.com/Liutupi/nabo-toolkit/releases) · [升级说明](docs/RELEASE_v0.3.0-f3-dev3.md)

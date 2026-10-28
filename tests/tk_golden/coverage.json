@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "source_sha256": {
-    "tk_hid.js": "d5d6fe076c885c38b8f9d37a874dd374ef62de4aef2b8f4dcdffdf13e1c1e887",
-    "tk_config_schema.js": "a6d30e854beada2081c284dc03a3f740de4dc9f9fcdd8f5ed2f05c288a68d8ce",
+    "tk_hid.js": "811ce05d34e5228e8beb9c0d2c18fb2e0d2ee25a3e8560fec47782bcfd88a0d1",
+    "tk_config_schema.js": "95db0b0c5276e58869825d43e0b6402387f3539ce37cb224887e7071c75bba5b",
     "tk_core.js": "3e7f2062477d7fa9e0c0a0707d42fe72c0f2a73b0f3ff29d803ba719488c42de",
     "tk_buttons.js": "e13cfed7b4c66d8b2fc96f1a7237004eda17e7ec681eb8417ec6b49569fe60cd"
   },

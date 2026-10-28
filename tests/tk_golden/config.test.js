@@ -9,8 +9,16 @@ function context() {
 const plain=(x)=>JSON.parse(JSON.stringify(x));
 test('schema defaults preserve author bindings and fit 4000 UTF-8 bytes',()=>{
   const c=context(),cfg=c.TKConfig.defaults();assert.ok(c.TKConfig.bytes(c.TKConfig.encode(cfg)).length<=4000);
-  assert.deepEqual(plain(cfg.groups[1].up.mac),{mod:96,key:0});assert.equal(cfg.groups[3].ok.label,'播放 / 暂停');
+  assert.deepEqual(plain(cfg.groups[1].up.mac),{mod:96,key:0});assert.equal(cfg.groups.find(g=>g.name==='剪映').ok.label,'播放 / 暂停');
   assert.deepEqual(plain(c.TKConfig.parse(c.TKConfig.encode(cfg))),plain(cfg));
+});
+test('updating recommended shortcut groups preserves all saved cards without mutating input',()=>{
+  const c=context(),before=plain(c.TKConfig.defaults());before.groups=before.groups.slice(0,1);
+  before.groups[0].name='Custom';before.cards=[{title:'Keep',name:'NAME',line:'Keep me',qr:'WIFI:T:WPA;S:DEMO;P:test-only;;'}];
+  const saved=JSON.stringify(before),updated=plain(c.TKConfig.withDefaultGroups(before));
+  assert.equal(JSON.stringify(before),saved);assert.deepEqual(updated.cards,before.cards);
+  assert.deepEqual(updated.groups.map(g=>g.name),['截图','Typeless','剪映','微信读书','抖音','编辑']);
+  const bad=structuredClone(before);bad.cards[0].qr='';assert.throws(()=>c.TKConfig.withDefaultGroups(bad));
 });
 test('shared schema rejects malformed, duplicate, overlong and non-ASCII text atomically',()=>{
   const c=context(),good=plain(c.TKConfig.defaults()),s=c.TK.create(0),before=JSON.stringify(s);
