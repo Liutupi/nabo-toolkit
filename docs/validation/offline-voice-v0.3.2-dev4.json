@@ -320,12 +320,14 @@
   "original_fonts_and_art_assets_changed": false,
   "publication_authorized": true,
   "publication_class": "Public experimental prerelease with explicit limitations",
-  "publication_status": "GITHUB/CONFIGURATION SITE PUBLISHED AND VERIFIED; COMMUNITY UPDATE NOT SUBMITTED",
+  "publication_status": "GITHUB/CONFIGURATION SITE PUBLISHED AND VERIFIED; COMMUNITY REVISION3977 SUBMITTED, IN REVIEW",
   "release_published": true,
   "community_update": {
     "target_project_id": 1701,
-    "status": "PREPARED ONLY - NOT SUBMITTED THIS ROUND",
-    "reason": "Browser access/policy prevented reliable community editing; no private-API workaround used",
+    "revision_id": 3977,
+    "status": "SUBMITTED, IN REVIEW; NEW VERSION NOT PUBLIC",
+    "previous_blocker": "Earlier browser safety stop; fresh logged-in Edge UI used in this round without private-API writes or authentication bypass",
+    "verification_record": "docs/community/v0.3.2-voice-dev4/submission-status.json",
     "original_five_images_changed_or_reordered": false
   },
   "this_round_changes_committed": true,
@@ -337,7 +339,7 @@
     "Intermittent PC-USB headphone root cause; investigation stopped at the user's request without a claimed fix",
     "Measured power/runtime and all historical platform/reconnect/slot/sleep gates",
     "Complete0x0 first-install image on hardware",
-    "Community dev4 firmware/text update, save, submission, approval and public availability; not performed after browser safety stop"
+    "Community dev4 approval, public availability and anonymous new firmware download; submitted revision3977 is IN REVIEW and anonymous firmware returns401"
   ],
   "publication_record": "docs/validation/publication-v0.3.2-voice-dev4.json",
   "release_url": "https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.2-voice-dev4",

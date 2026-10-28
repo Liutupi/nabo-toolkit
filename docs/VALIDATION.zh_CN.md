@@ -10,7 +10,9 @@
 
 **GitHub/Pages发布PASS**：[v0.3.2-voice-dev4公开实验测试版](https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.2-voice-dev4)，源码/tag均为 `339c70ba95ca2b6934878d6b4b99f48b2bc38f5c`，同一固定已验收app未重编译。8个Release资产均匿名HTTP200重下、字节/SHA通过，ZIP37成员与配置页11文件通过；GitHub元数据匿名限流403时改用已登录CLI，只影响元数据，不影响匿名资产/站点下载证据。[发布核验](validation/publication-v0.3.2-voice-dev4.json)。完整首装复用同一固定9f6镜像2,096,400B；其bootloader与上一公开版37字节不同，来自本次固定归档，不称旧bootloader同字节复用；完整0x0首装未真机验收。
 
-**社区本轮未更新/未提交**：自动化安全检查不能可靠识别Windows浏览器URL并停止页面操作；仅准备同一项目1701的固件/六字段，不用API绕过。原公开条目匿名复核仍为上一版2,077,152B/9bcc…，原五图逐张重新下载与此前接受值一致，未改图或顺序。合法最大配置schema、全七词/多用户噪声矩阵、长稳、冷断电/故障、极端容量GC、功耗与旧平台门槛仍未测。见[dev4详细记录](validation/offline-voice-v0.3.2-dev4.json)、[社区准备稿](community/v0.3.2-voice-dev4/README.md)及HANDOFF33–35；下方历史失败和审核中状态各有时间范围，不替代当前记录。
+**社区已更新并提交，当前审核中**：本轮从已登录Edge正常页面进入原项目1701，创建3977修订，保存新完整固件及六个中英文字段，再提交审核。保存后登录下载的固件2,096,400B/9f6…与固定GitHub完整镜像逐字节相等；六字段重新进入编辑读回长度/指纹与本地稿去末尾换行后一致。提交后的五图v=4逐张下载，全部字节/SHA和顺序与原图相等，没有改图/重传；[状态和校验记录](community/v0.3.2-voice-dev4/submission-status.json)。匿名修订固件HTTP401，公开条目仍为上一版3928/2,077,152B/9bcc…，新版本未公开。上一轮页面安全停止仅属此前状态，本轮未用私有API写入或绕过认证。
+
+**Build/Host沿用固定PASS（213项）/ Device tests本轮无新增刷机，保留已验收范围 / Unverified**：社区新版本审核/公开及匿名固件下载、完整首装、合法最大配置schema、全七词/多人噪声、长稳、冷断电/故障、极端容量GC、功耗与旧平台门槛仍未测。详见[dev4记录](validation/offline-voice-v0.3.2-dev4.json)、[社区更新](community/v0.3.2-voice-dev4/README.md)及HANDOFF36；下方历史失败和审核状态各保留时间范围。
 
 本人离线语音dev1（HANDOFF28–29）：**Build PASS；Host tests PASS：192项（44 Node+124 Python+24声学探针），2,666步、3变异、0跳过；Device tests FAIL：用户连续录入时重启/卡死，根因未定。** 固定app2,029,088B/SHA256 `acbfd4f7e0f1aa41b0acad5af3f044ddfec623046a82558c561c8631a89d3ffb`，旧factory余2,528B；130份输入匹配/独立归档verify、授权app-only刷入/verify/复位和复位前保护区检查PASS，未刷超界镜像。原7份字体C/动画保持。
 
