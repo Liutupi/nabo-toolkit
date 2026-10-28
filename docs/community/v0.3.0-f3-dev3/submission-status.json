@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-28",
+  "project_id": 1701,
+  "revision_id": 3928,
+  "title": "NABO 工具箱 · 随身蓝牙遥控器",
+  "category": "效率与工具",
+  "version": "v0.3.0-f3-dev3",
+  "submitted": true,
+  "status": "审核中",
+  "publicly_published": false,
+  "public_url": null,
+  "creator_url": "https://ai-passport.folotoy.cn/account/?project=1701",
+  "images_saved": 5,
+  "server_image_dimensions": [
+    900,
+    1200
+  ],
+  "server_image_hrefs": [
+    "https://ai-passport.folotoy.cn/api/me/revisions/3928/images/0?v=1",
+    "https://ai-passport.folotoy.cn/api/me/revisions/3928/images/1?v=1",
+    "https://ai-passport.folotoy.cn/api/me/revisions/3928/images/2?v=1",
+    "https://ai-passport.folotoy.cn/api/me/revisions/3928/images/3?v=1",
+    "https://ai-passport.folotoy.cn/api/me/revisions/3928/images/4?v=1"
+  ],
+  "cover_first": true,
+  "configuration_link_saved": "https://liutupi.github.io/nabo-toolkit/",
+  "github_release_saved": "https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.0-f3-dev3",
+  "chinese_description_chars": 1928,
+  "chinese_instructions_chars": 1592,
+  "english_description_chars": 2126,
+  "english_instructions_chars": 2323,
+  "full_image_first_install_reset_warning_saved": true,
+  "user_explicit_full_image_submission_authorization": true,
+  "firmware_authenticated_download": "PASS",
+  "full_install_device_test": "NOT RUN"
+}

@@ -55,10 +55,11 @@ def main():
             raise ValueError('Public asset mismatch: ' + name)
         (target / name).write_bytes(data)
         entries[name] = {'bytes': len(data), 'sha256': digest(data), 'url': asset['browser_download_url'], 'http': 200}
-    for line in (target / 'SHA256SUMS.txt').read_text(encoding='utf-8').splitlines():
-        sha, name = line.split('  ', 1)
-        if sha != digest((target / name).read_bytes()):
-            raise ValueError('Downloaded checksum mismatch: ' + name)
+    for checksums in sorted(target.glob('*SHA256SUMS.txt')):
+        for line in checksums.read_text(encoding='utf-8').splitlines():
+            sha, name = line.split('  ', 1)
+            if sha != digest((target / name).read_bytes()):
+                raise ValueError('Downloaded checksum mismatch: ' + name)
     manifest = json.loads((target / 'manifest.json').read_text(encoding='utf-8'))
     if manifest['source_commit'] != args.commit:
         raise ValueError('Manifest source commit differs')
@@ -96,6 +97,15 @@ def main():
               'public_downloads': entries, 'zip_members_verified': len(names),
               'accepted_app_sha256': manifest['app']['sha256'], 'merged_image_published': False,
               'device_readbacks_published': False, 'status': 'PASS'}
+    if (target / 'community-manifest.json').exists():
+        community = json.loads((target / 'community-manifest.json').read_text(encoding='utf-8'))
+        data = (target / community['image']['file']).read_bytes()
+        if digest(data) != community['image']['sha256'] or data[0x10000:] != (target / 'nabo-toolkit-app.bin').read_bytes():
+            raise ValueError('Community full image differs from fixed build/accepted app')
+        if data[0x9000:0x10000] != b'\xff' * 0x7000:
+            raise ValueError('Community image contains unexpected NVS/PHY content')
+        report['merged_image_published'] = True
+        report['community_first_install'] = community
     if args.site:
         base = 'https://liutupi.github.io/nabo-toolkit/'
         site_manifest_data = get(base + 'site-manifest.json')

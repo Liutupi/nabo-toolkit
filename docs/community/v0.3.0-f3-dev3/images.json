@@ -1,0 +1,47 @@
+{
+  "version": "v0.3.0-f3-dev3",
+  "aspect": "3:4",
+  "image_entries": {
+    "01-cover.png": {
+      "bytes": 1869807,
+      "sha256": "3e8dd46342d7f5dd361cbf29e4c8d60e967f1e09dfa9527cc87f799c029d880d",
+      "dimensions": [
+        1086,
+        1448
+      ]
+    },
+    "02-six-tools.png": {
+      "bytes": 285594,
+      "sha256": "2369f2e529aa686167c0cbfc7308bc55d78186694b90dadbdccc70964ff3fa36",
+      "dimensions": [
+        900,
+        1200
+      ]
+    },
+    "03-controls.png": {
+      "bytes": 113354,
+      "sha256": "22d4199b7c247adcecdadb7ffdc888c4f75f6175547951b608e6daf098b78ae9",
+      "dimensions": [
+        900,
+        1200
+      ]
+    },
+    "04-configuration.png": {
+      "bytes": 105166,
+      "sha256": "2d8e302be9532dacdffaf6c825e94d96bbd8d95ce5f4320b90b72f80540c0d8a",
+      "dimensions": [
+        900,
+        1200
+      ]
+    },
+    "05-pairing-and-scope.png": {
+      "bytes": 155300,
+      "sha256": "14f3155a32caf6002cfa607431ffe343066bc2012ae636fe2119b2609d466dff",
+      "dimensions": [
+        900,
+        1200
+      ]
+    }
+  },
+  "guide_screenshots": "C host renderer; synthetic peers; not physical LCD photos"
+}

@@ -1,0 +1,149 @@
+{
+  "date": "2026-10-28",
+  "repo": "https://github.com/Liutupi/nabo-toolkit",
+  "visibility": "PUBLIC",
+  "release": "https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.0-f3-dev3",
+  "version": "v0.3.0-f3-dev3",
+  "prerelease": true,
+  "source_commit": "a317ccc8cdfec30d854491dac4c014cf63357cb8",
+  "configuration_source_commit": "17bdd131f300fad0677fa95aefa5a6260f13d404",
+  "tag_commit": "a317ccc8cdfec30d854491dac4c014cf63357cb8",
+  "authorization_header_used": false,
+  "public_downloads": {
+    "community-manifest.json": {
+      "bytes": 1901,
+      "sha256": "dae40451ccf66ce928fccef76cc6bb1f1639b97f13b1297a90ee9f407703debf",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/community-manifest.json",
+      "http": 200
+    },
+    "COMMUNITY_SHA256SUMS.txt": {
+      "bytes": 188,
+      "sha256": "69b10cfca2b0ab2d69e5c153db1d8d883a43ad8a8fdc23b1fdb68a5e29fd01a0",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/COMMUNITY_SHA256SUMS.txt",
+      "http": 200
+    },
+    "manifest.json": {
+      "bytes": 7025,
+      "sha256": "082f4e041894dd330ccee3897b6464aed82f98af9d20c7aea2e5674421f38721",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/manifest.json",
+      "http": 200
+    },
+    "nabo-toolkit-app.bin": {
+      "bytes": 1999600,
+      "sha256": "d2032e7b95d6e45aa0cc7e8fb6a9acdfb1628e3ea09578b7eafb061f866b4711",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-app.bin",
+      "http": 200
+    },
+    "nabo-toolkit-community-full.bin": {
+      "bytes": 2065136,
+      "sha256": "9fa968de2a4837d130188bb9541ec55a67a3f1bd936b01eeeb4b81ea5047ad1c",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-community-full.bin",
+      "http": 200
+    },
+    "nabo-toolkit-config-offline.zip": {
+      "bytes": 90229,
+      "sha256": "ee66af384130728edf58f0046f9473f86cd31d418607f452ee6597179eeb4913",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-config-offline.zip",
+      "http": 200
+    },
+    "nabo-toolkit-v0.3.0-f3-dev3.zip": {
+      "bytes": 1532935,
+      "sha256": "1312e1b6be0912405306d437452c049a9fd43442b707f675304019813681ed62",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/nabo-toolkit-v0.3.0-f3-dev3.zip",
+      "http": 200
+    },
+    "SHA256SUMS.txt": {
+      "bytes": 363,
+      "sha256": "07f9cee132bf90194c2b1b8dcf9b5d776696fb1012e96eac2a65305778a4407f",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.0-f3-dev3/SHA256SUMS.txt",
+      "http": 200
+    }
+  },
+  "zip_members_verified": 37,
+  "accepted_app_sha256": "d2032e7b95d6e45aa0cc7e8fb6a9acdfb1628e3ea09578b7eafb061f866b4711",
+  "merged_image_published": true,
+  "device_readbacks_published": false,
+  "status": "PASS",
+  "community_first_install": {
+    "schema": 1,
+    "version": "v0.3.0-f3-dev3",
+    "date": "2026-10-28",
+    "purpose": "Community complete first-install image; explicitly authorized by user",
+    "image": {
+      "file": "nabo-toolkit-community-full.bin",
+      "bytes": 2065136,
+      "sha256": "9fa968de2a4837d130188bb9541ec55a67a3f1bd936b01eeeb4b81ea5047ad1c",
+      "offset": "0x0",
+      "erase_end_exclusive": "0x1f9000"
+    },
+    "embedded_accepted_app": {
+      "offset": "0x10000",
+      "bytes": 1999600,
+      "sha256": "d2032e7b95d6e45aa0cc7e8fb6a9acdfb1628e3ea09578b7eafb061f866b4711",
+      "byte_equal_to_accepted_app": true
+    },
+    "build": "ESP-IDF6.0.2 / ESP32-C3 / 8MiB / no PSRAM",
+    "build_artifact_reused_without_recompile": true,
+    "partitions": [
+      {
+        "label": "nvs",
+        "offset": "0x9000",
+        "size": "0x6000",
+        "type": 1,
+        "subtype": 2
+      },
+      {
+        "label": "phy_init",
+        "offset": "0xf000",
+        "size": "0x1000",
+        "type": 1,
+        "subtype": 1
+      },
+      {
+        "label": "factory",
+        "offset": "0x10000",
+        "size": "0x3f0000",
+        "type": 0,
+        "subtype": 0
+      },
+      {
+        "label": "assets",
+        "offset": "0x400000",
+        "size": "0x300000",
+        "type": 1,
+        "subtype": 130
+      },
+      {
+        "label": "files",
+        "offset": "0x700000",
+        "size": "0x100000",
+        "type": 1,
+        "subtype": 130
+      }
+    ],
+    "nvs_phy_gap": "Erased 0xff build padding; no device readback or credentials",
+    "data_warning": "Community installation writes the default partition table and resets NVS/PHY/settings/bonds; use app-only upgrade when preserving data/layout",
+    "full_install_device_test": "NOT RUN; accepted app physical audio/animation tests do not validate full-image installation",
+    "current_badge_flashed_for_publication": false,
+    "configuration_url": "https://liutupi.github.io/nabo-toolkit/",
+    "source_commit": "a317ccc8cdfec30d854491dac4c014cf63357cb8"
+  },
+  "site": {
+    "url": "https://liutupi.github.io/nabo-toolkit/",
+    "manifest_http": 200,
+    "files_http_200_sha256_match": [
+      "LICENSE",
+      "NOTICE.md",
+      "README.txt",
+      "config.html",
+      "config.js",
+      "index.html",
+      "nabo.png",
+      "tk_config_schema.js",
+      "tk_config_serial.js",
+      "tk_core.js",
+      "tk_hid.js"
+    ],
+    "browser_physical_serial_permission": "UNVERIFIED"
+  }
+}

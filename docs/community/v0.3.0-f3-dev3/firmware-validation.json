@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-28",
+  "project_id": 1701,
+  "revision_id": 3928,
+  "version": "v0.3.0-f3-dev3",
+  "saved_page_firmware_href": "https://ai-passport.folotoy.cn/api/me/revisions/3928/firmware",
+  "filename": "nabo-toolkit-community-full.bin",
+  "bytes": 2065136,
+  "sha256": "9fa968de2a4837d130188bb9541ec55a67a3f1bd936b01eeeb4b81ea5047ad1c",
+  "authenticated_browser_download": "PASS",
+  "authenticated_context": "Download clicked from saved current-revision href in creator workbench",
+  "local_build_byte_equal": true,
+  "github_release_byte_equal": true,
+  "anonymous_current_revision_download": {
+    "http": 401,
+    "bytes_verified": false
+  },
+  "embedded_app_sha256": "d2032e7b95d6e45aa0cc7e8fb6a9acdfb1628e3ea09578b7eafb061f866b4711",
+  "complete_install_device_test": "NOT RUN",
+  "author_current_badge_flashed": false
+}

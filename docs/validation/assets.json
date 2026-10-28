@@ -1,6 +1,10 @@
 {
   "version": 1,
   "files": {
+    "game-art/toolkit/art/community/v0.3.0-f3-dev3/01-cover-v1.png": {
+      "bytes": 1869807,
+      "sha256": "3e8dd46342d7f5dd361cbf29e4c8d60e967f1e09dfa9527cc87f799c029d880d"
+    },
     "game-art/toolkit/art/delivery/NABO_Toolkit_Grok_Batch1.sha256": {
       "bytes": 95,
       "sha256": "1d904187bbf80872c50acef36626ad367195f0d462cd6a3aac5c372f14e44c83"

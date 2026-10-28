@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-28",
+  "version": "v0.3.0-f3-dev3",
+  "tool": "ImageGen built-in image_gen.imagegen",
+  "purpose": "New community promotional cover; original firmware art is unchanged",
+  "reference_roles": [
+    {
+      "file": "game-art/toolkit/art/reference/nabo-idle.png",
+      "sha256": "c63575691d15220e8d6fafdab911a10767a5fc1c13925992dbd10e3a5e93d3fa",
+      "role": "Left figure is identity authority; other expression panels ignored"
+    },
+    {
+      "file": "game-art/toolkit/sprites/master/base/00.png",
+      "sha256": "c6a65614e8af7eb6318eaa55aae50688aac4aa69998ce4681226df608e719b0b",
+      "role": "Approved full-body NABO insert"
+    }
+  ],
+  "prompt_file": "docs/community/v0.3.0-f3-dev3/cover-prompt.txt",
+  "prompt_sha256": "6dd0c639786e0c12cb35f9377b72daba28606a8c13207cda17874fd214f9000a",
+  "generation_source_filename": "exec-bea709e7-5da8-4dd9-965b-0c1ade9051b9.png",
+  "project_original": "game-art/toolkit/art/community/v0.3.0-f3-dev3/01-cover-v1.png",
+  "listing_copy": "docs/community/v0.3.0-f3-dev3/01-cover.png",
+  "sha256": "3e8dd46342d7f5dd361cbf29e4c8d60e967f1e09dfa9527cc87f799c029d880d",
+  "bytes": 1869807,
+  "local_dimensions": [
+    1086,
+    1448
+  ],
+  "community_saved_dimensions": [
+    900,
+    1200
+  ],
+  "listing_copy_byte_equal": true,
+  "original_game_assets_overwritten": false,
+  "disclosure_in_image": [
+    "公开测试版",
+    "玩法示意图"
+  ],
+  "layout": "NABO hero, six tool tiles, Bluetooth laptop/phone scenario, public web-configuration callout",
+  "identity_constraints": [
+    "White cap and readable unmirrored NABO hat mark",
+    "Round face/eyes, thin round glasses, curly brown hair",
+    "Approved white coat and navy clothing/proportions"
+  ],
+  "review": "Coordinator visually checked generated cover and guide-card layout before upload; community carousel loaded all five images in the expected order"
+}

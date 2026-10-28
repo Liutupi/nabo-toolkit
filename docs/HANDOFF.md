@@ -1,6 +1,6 @@
 # 交接本
 
-更新：2026-10-28 · **最新第22–23节：F3 dev3动画/声音已验收，公开仓库/固件/配置页已发布并复核** · 提交见 `git log`
+更新：2026-10-28 · **最新第24节：社区完整固件1701/3928已提交审核；第22–23节保留F3与GitHub/配置页发布证据** · 提交见 `git log`
 
 ## 1. 现在是什么状态
 
@@ -357,3 +357,21 @@ Windows用户确认重新配对、粘贴和音量正常：**dev2 Windows配对/�
 公开结果：同一 `Liutupi/nabo-toolkit` 仓库已设PUBLIC，main已更新。公开测试Release https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.0-f3-dev3 ，firmware tag固定指向 `a317ccc8cdfec30d854491dac4c014cf63357cb8`，配置页/离线包单独记录 `17bdd131f300fad0677fa95aefa5a6260f13d404`。精确已验收app未重新构建或替换，仍为d2032e7b…866b4711。发布5个下载文件，全部无认证独立下载并核对字节/SHA256，固件ZIP37成员和内部校验逐项通过；没有合并镜像、设备读回、NVS、个人配置或日志。
 
 Pages工作流40547201879成功；网页manifest与11个可访问文件均HTTP200且内容/SHA匹配，包括原样NABO母版。真实浏览器检查了名片导航、Wi-Fi分号/冒号转义、浏览器保存/重载、未连接时读写禁用及NABO页头显示，演示配置已恢复默认。未打开串口，浏览器实际权限/USB传输仍UNVERIFIED。Build固定产物PASS、Host100项PASS、Device部分PASS/未测项维持第22节；公开发布不等于全部F0/F1设备门槛通过。此轮没有再刷设备。
+
+## 24. 社区完整固件投稿已提交，审核中（2026-10-28）
+
+用户要求发布到AI Passport玩法社区，附配置链接/完整玩法说明，并重点制作吸引人的封面。社区表单只接收完整`.bin`，安装器从0x0写入，区别于第23节最初的app-only发布。用户已单独明确授权：将现成完整镜像用于社区首装并提交审核，接受安装时改默认分区表、重置NVS/设置/蓝牙绑定；不刷当前作者工牌，原app保留数据升级入口继续提供。
+
+**已提交：项目1701 / 修订3928，标题「NABO 工具箱 · 随身蓝牙遥控器」，分类「效率与工具」，当前审核中。** 公开上架尚未确认，public_url仍为null；[创作者工作台](https://ai-passport.folotoy.cn/account/?project=1701)不是公开玩法页。不要把「审核中」说成已公开发布，也不要为追求状态而撤回或覆盖本修订。完整中英文介绍/操作说明、五张图与核验记录位于 [community/v0.3.0-f3-dev3](community/v0.3.0-f3-dev3/README.md)。
+
+封面用ImageGen基于已有NABO参考制作，原图 `game-art/toolkit/art/community/v0.3.0-f3-dev3/01-cover-v1.png` 为1086×1448，与投稿01-cover.png逐字节一致；标明「公开测试版 / 玩法示意图」。其它四张为六工具实际C宿主界面、三键操作、网页配置、配对/范围说明，不是真机照片。社区五张图均已保存为900×1200，封面在第一张。当前素材368文件/93,040,985字节；原364份保持不变，新增社区封面不替换原游戏素材。
+
+保存页已显示配置入口 https://liutupi.github.io/nabo-toolkit/ 、GitHub Release和公开仓库。文案讲清快捷键/Typeless、PPT、会议、媒体、延时/五连拍拍照、名片/Wi-Fi码、全部按键、三份绑定/单连接和USB配置读回。明确HID只发送、不读取真实应用状态；Typeless不是工牌录音；Wi-Fi码包含密码而工牌不联网；各平台/应用未全部实测。
+
+完整首装文件 `nabo-toolkit-community-full.bin`：2,065,136字节，SHA256 `9fa968de2a4837d130188bb9541ec55a67a3f1bd936b01eeeb4b81ea5047ad1c`，直接复用固定构建，未重编译。内嵌app与已验收dev3逐字节相等，SHA256仍 `d2032e7b95d6e45aa0cc7e8fb6a9acdfb1628e3ea09578b7eafb061f866b4711`。默认表factory0x10000/0x3f0000、assets0x400000/0x300000、files0x700000/0x100000；NVS/PHY为构建0xff填充，不包含设备读回/凭据。社区说明已醒目标注：首装重置旧数据，保留分区/数据请使用原app-only保护升级。
+
+**Build PASS**：固定归档/布局/产物哈希重新验证，嵌入app相等。**Host tests：复用既有100项（27 Node+73 Python）及1,710步PASS记录**，本轮投稿没有重新编译或把历史测试冒充新首装验收。**Device tests：同一app既有声音/完整欢迎/工具动画部分PASS；本轮未刷设备，完整首装NOT RUN。**
+
+**发布核验PASS**：从当前保存页固件href `https://ai-passport.folotoy.cn/api/me/revisions/3928/firmware` 在登录浏览器下载，2,065,136字节/SHA256与本地固定镜像及GitHub完全一致。对同一路径匿名请求HTTP401；只证明登录上下文下载，不称匿名社区/CDN可下载。GitHub追加完整镜像、community-manifest、COMMUNITY_SHA256SUMS后共8个资产全部匿名下载核对通过。详见 `community/v0.3.0-f3-dev3/firmware-validation.json`、`github-redownload-verification.json`、`submission-status.json`。
+
+**Unverified**：社区公开上架、匿名当前修订下载、完整首装的设备路径，以及第22节其余设备验收（全部宿主/真实PPT会议相机/三槽/睡眠长稳/回连等）。历史三秒FAIL不变。用户后续要求删浏览器/PS/窗口、加入微信读书/抖音，属于下一版本工作，不包含在本次修订3928中。

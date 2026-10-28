@@ -10,12 +10,20 @@
 - `nabo-toolkit-v0.3.0-f3-dev3.zip`：同一app、受保护的升级脚本、manifest、验收说明、离线配置页及许可证。
 - `nabo-toolkit-config-offline.zip`：独立离线配置页。
 - `manifest.json`、`SHA256SUMS.txt`：产物身份/成员校验。
+- `nabo-toolkit-community-full.bin`：经用户单独授权的社区完整首装镜像，2,065,136字节，从**0x0**写入；会改默认分区表、重置NVS/设置/绑定，完整首装路径尚未真机验收。
+- `community-manifest.json`、`COMMUNITY_SHA256SUMS.txt`：社区首装镜像的来源、分区、嵌入app及独立校验。
 
 app为1,999,600字节，SHA256 **d2032e7b95d6e45aa0cc7e8fb6a9acdfb1628e3ea09578b7eafb061f866b4711**，固件内版本0.3.0-f3-dev3。没有重新构建或改版本后替换已验收app。所有动画和PCM都在app内，不需要写assets。
 
 ## 升级已有兼容工牌
 
-仅适用ESP32-C3/8MiB、无安全启动/Flash加密、受保护脚本能识别的两种分区表。实机验收的是旧表：factory0x10000/0x1f0000、assets FAT0x200000/0x600000；另可识别项目默认表。**不要用默认idf.py flash、合并镜像或整片擦除。** 此版不提供首次整机安装镜像；未知分区应停止，不强刷。
+仅适用ESP32-C3/8MiB、无安全启动/Flash加密、受保护脚本能识别的两种分区表。实机验收的是旧表：factory0x10000/0x1f0000、assets FAT0x200000/0x600000；另可识别项目默认表。**保留数据升级不要用默认idf.py flash、社区完整镜像或整片擦除。** 未知分区应停止，不强刷。原固件ZIP仍是app-only升级包；完整首装文件单独命名，不可混用。
+
+### 社区完整首装（与保留数据升级不同）
+
+用户随后明确授权将已有固定构建的完整镜像提交AI Passport玩法社区。完整镜像SHA256 `9fa968de2a4837d130188bb9541ec55a67a3f1bd936b01eeeb4b81ea5047ad1c`，2,065,136字节，内含相同已验收app，未重新编译。从0x0安装会写默认表（factory0x10000/0x3f0000、assets0x400000/0x300000、files0x700000/0x100000），NVS/PHY区域为构建生成的0xff填充，因此原设置和蓝牙绑定会重置。镜像不含设备读回、凭据或个人配置。
+
+此路径仅供接受重新分区/清除旧配置的首次安装，需先备份重要数据；构建/布局/内容校验通过，**完整首装尚未真机验收**。需要保留旧分区和数据时，继续使用上面的app-only脚本。社区发布过程中没有重刷作者当前工牌。
 
 升级脚本需要Python3.11及esptool5.5.0；日常配置只需浏览器。先解压固件ZIP，在解压目录打开终端：
 
@@ -43,7 +51,9 @@ python tools/flash_candidate.py --mode upgrade --port YOUR_PORT --expected-mac Y
 
 For English readers: this is a public **test** release. Use the exact app only at
 0x10000 through the guarded installer after checking your own device/port/MAC.
-No merged or first-install image is provided. The app fits the legacy0x1f0000
+The separate community full image is for first installation at0x0 and resets
+the partition table/NVS/settings/bonds; its full-install path is not device-tested.
+Use the app-only ZIP for preserving data. The app fits the legacy0x1f0000
 factory partition; NVS/PHY/assets/partition table are preserved. Browser configuration
 needs desktop Chrome/Edge and USB; read, edit, write and verify. Remaining validation
 items are listed in validation/f3.json. Source is MIT; NABO creative assets are excluded.

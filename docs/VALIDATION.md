@@ -2,7 +2,18 @@
 
 # Validation checkpoint — 2026-10-28
 
-Publication PASS: public repository, test Release and NABO configuration page are live. Five assets anonymously re-downloaded,37 ZIP members and11 site files verified. Browser card/Wi-Fi editing/save/reload/portrait checks pass; no serial port opened. Physical browser permission/USB transfer remains unverified. See [publication verification](validation/publication-v0.3.0-f3-dev3.json).
+## Community submission verification — 2026-10-28
+
+AI Passport project1701/revision3928 is **submitted and under review; public listing is not confirmed**. Five images, bilingual six-tool/controls/pairing instructions, the [configuration link](https://liutupi.github.io/nabo-toolkit/), and installation boundaries are saved. The user separately authorized the complete first-install image; the author's current badge was not flashed.
+
+- Build: PASS. Reused and reverified the fixed2,065,136-byte complete image, SHA256 `9fa968de2a4837d130188bb9541ec55a67a3f1bd936b01eeeb4b81ea5047ad1c`; embedded app matches accepted dev3.
+- Host tests: existing100 tests/1710 steps PASS for that app; publication verification is not a repeat full-install device test.
+- Device tests: prior app audio/full welcome/animation PARTIAL PASS; no device flashed this round; complete first install NOT RUN.
+- Unverified: public community listing, anonymous revision firmware download (currently HTTP401), complete-install device path and remaining compatibility/reconnect checks. Installation at0x0 changes the partition table and resets NVS/bonds; use app-only upgrade to preserve data.
+
+Authenticated download from the saved current-revision firmware href matched local/GitHub bytes; all8 GitHub assets passed anonymous re-download checks. Asset inventory:368 files/93,040,985 bytes, original364 unchanged. See [community records](community/v0.3.0-f3-dev3/README.md). Subsequent WeRead/Douyin shortcut changes are not part of revision3928.
+
+Initial GitHub/Pages publication PASS (HANDOFF23 stage record): public repository, test Release and NABO configuration page are live. Five assets anonymously re-downloaded,37 ZIP members and11 site files verified. Browser card/Wi-Fi editing/save/reload/portrait checks pass; no serial port opened. Physical browser permission/USB transfer remains unverified. See [publication verification](validation/publication-v0.3.0-f3-dev3.json).
 
 - Build: PASS (F3 dev3, ESP-IDF6.0.2/C3/8MiB/no PSRAM; exact app installed).
 - Host tests: PASS (100: 27 Node+73 Python; 1,710 full JS-C steps; zero skips).

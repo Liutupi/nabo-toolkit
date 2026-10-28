@@ -2,7 +2,18 @@
 
 # 验证记录 — 2026-10-28
 
-公开发布PASS：仓库PUBLIC，测试版Release及NABO配置页已上线；5个下载文件匿名下载、37个ZIP成员和网页11文件校验通过。浏览器名片/Wi-Fi编辑、保存/重载及NABO形象显示通过；未开串口，真实权限/USB传输仍未验收。详情见[发布核验](validation/publication-v0.3.0-f3-dev3.json)。
+## 社区投稿核验 — 2026-10-28
+
+已提交AI Passport项目1701/修订3928，当前**审核中，尚未确认公开上架**。五张图、六工具中英文玩法/按键/配对说明、[配置页](https://liutupi.github.io/nabo-toolkit/)和安装边界已保存。完整首装镜像经用户单独授权；作者当前工牌未刷写。
+
+- Build：PASS，复用并校验固定完整镜像2,065,136字节，SHA256 `9fa968de2a4837d130188bb9541ec55a67a3f1bd936b01eeeb4b81ea5047ad1c`；内嵌app与已验收dev3相等。
+- Host tests：同一app既有100项/1,710步PASS；本次发布核验不代表重新执行完整首装验收。
+- Device tests：既有app声音/完整欢迎/动画部分PASS；本轮未刷设备，完整首装NOT RUN。
+- Unverified：社区公开上架、匿名修订固件下载（当前HTTP401）、完整首装实机路径及剩余设备兼容/回连项目。首装0x0会改分区表并重置NVS/绑定，保留数据使用app-only升级。
+
+从保存页实际固件href登录浏览器下载已与本地/GitHub逐字节核对通过；GitHub8个资产匿名重下通过。素材库存368文件/93,040,985字节，原364不变。详细证据见[社区投稿记录](community/v0.3.0-f3-dev3/README.md)。后续微信读书/抖音默认组改动不包含在修订3928。
+
+首次GitHub/Pages发布PASS（第23节阶段记录）：仓库PUBLIC，测试版Release及NABO配置页已上线；5个下载文件匿名下载、37个ZIP成员和网页11文件校验通过。浏览器名片/Wi-Fi编辑、保存/重载及NABO形象显示通过；未开串口，真实权限/USB传输仍未验收。详情见[发布核验](validation/publication-v0.3.0-f3-dev3.json)。
 
 - Build: PASS（F3 dev3，ESP-IDF6.0.2/C3/8MiB/无PSRAM；固定app已安装）
 - Host tests: PASS（100：27 Node+73 Python；1,710步完整JS–C对拍；跳过0）
