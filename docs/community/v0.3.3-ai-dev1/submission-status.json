@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-30",
+  "project_id": 1701,
+  "slug": "nabo-5",
+  "revision_id": 4140,
+  "status": "pending",
+  "publicly_published_new_revision": false,
+  "previous_published_revision_id": 3977,
+  "firmware_bytes": 2096544,
+  "firmware_sha256": "8f189aa0272dee08342bb37f6379821a730efe665e2e1e1174b81641903b66a3",
+  "firmware_identity_evidence": "Publisher project readback reports the same size and SHA256; no independent post-upload download was performed.",
+  "bilingual_fields_match_approved_preview": true,
+  "source_url_matches_approved_preview": true,
+  "cover_and_four_images_supplied": true,
+  "supplied_images_match_original_hashes": true,
+  "supplied_images_visually_inspected": true,
+  "post_upload_image_bytes_and_order_verified": false,
+  "windows_bridge_device_test": "NOT RUN",
+  "community_full_install_device_test": "NOT RUN",
+  "user_acceptance": "Exact app-only candidate with retained personal configuration; three assistant launches, one Typeless input and return on Mac."
+}

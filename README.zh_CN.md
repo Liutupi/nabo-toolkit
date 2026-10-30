@@ -2,7 +2,7 @@
 
 # NABO 工具箱
 
-**v0.3.3-ai-dev1 候选**：新增默认「AI助手」快捷键组，配合 [电脑端桥接](desktop-bridge/README.zh_CN.md) 呼出 Codex、Claude 和 Grok Bot，再切到 Typeless 组手动语音输入。已保存的个人配置不会自动替换；先从工牌读回，再用配置页显式加入新组。原有 NABO 素材不变。用户已在新固定固件和保留的个人配置上确认 Mac 联动；全新安装默认组和 Windows 尚未实机验证。
+**[v0.3.3-ai-dev1 实验测试版](https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.3-ai-dev1)**：新增默认「AI助手」快捷键组，配合 [电脑端桥接](desktop-bridge/README.zh_CN.md) 呼出 Codex、Claude 和 Grok Bot，再切到 Typeless 组手动语音输入。已保存的个人配置不会自动替换；先从工牌读回，再用配置页显式加入新组。原有 NABO 素材不变。用户已在新固定固件和保留的个人配置上确认 Mac 联动；全新安装默认组和 Windows 尚未实机验证。社区原作品修订 4140 已提交，**审核中**；公开页面在审核期间仍显示上一版，见[提交记录](docs/community/v0.3.3-ai-dev1/README.md)。
 
 **v0.3.2-voice-dev4 · 公开实验测试版**：新增本人录入的离线语音查找，覆盖读书、抖音、音乐、名片、拍照、截图、语音输入。主菜单长按底部OK，每词建议录三次，再短OK识别；语音输入仅进入Typeless，之后按原键操作。213项宿主与本轮真机语音/21份模板保留检查通过。显式无损整理恢复了存储余量，不改变个人样本、配置或绑定；原NABO形象、动画和声音保留。[发布及保护升级说明](docs/RELEASE_v0.3.2-voice-dev4.md) · [录入用法](docs/VOICE.zh_CN.md) · [配置页](https://liutupi.github.io/nabo-toolkit/)。
 
