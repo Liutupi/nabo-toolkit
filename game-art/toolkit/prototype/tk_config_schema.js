@@ -88,10 +88,22 @@
     const current = validate(config);
     return validate({ ...current, groups: defaults().groups });
   }
+  // Explicit opt-in only: retain every existing group and card, and put the
+  // bridge group immediately before Typeless so long-OK can advance to it.
+  function withAssistantGroup(config) {
+    const current = validate(config);
+    if (current.groups.some((g) => g.name === 'AI助手')) fail('duplicate');
+    if (current.groups.length >= LIMIT.groups) fail('groups');
+    const slot = (label, key) => ({ label, mac: { mod: 0, key }, win: { mod: 0, key } });
+    const group = { name: 'AI助手', up: slot('Codex', 0x68), down: slot('Claude', 0x69), ok: slot('Grok Bot', 0x6a) };
+    const pos = current.groups.findIndex((g) => g.name === 'Typeless' || g.name === '语音输入');
+    const groups = current.groups.slice(); groups.splice(pos < 0 ? groups.length : pos, 0, group);
+    return validate({ ...current, groups });
+  }
   function resolve(s, os) {
     if (s && ('mac' in s || 'win' in s)) return root.TKHID.resolve(root.TKHID.isApple(os) ? s.mac : s.win, os);
     return root.TKHID.resolve(s, os);
   }
   function crc32(data) { let c = 0xffffffff; for (const b of data) { c ^= b; for (let k = 0; k < 8; k++) c = (c >>> 1) ^ (0xedb88320 & -(c & 1)); } return (c ^ 0xffffffff) >>> 0; }
-  root.TKConfig = { LIMIT, bytes, parse, validate, defaults, withDefaultGroups, resolve, crc32, encode: (c) => JSON.stringify(validate(c)) };
+  root.TKConfig = { LIMIT, bytes, parse, validate, defaults, withDefaultGroups, withAssistantGroup, resolve, crc32, encode: (c) => JSON.stringify(validate(c)) };
 })(typeof window !== 'undefined' ? window : globalThis);

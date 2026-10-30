@@ -7,9 +7,26 @@ function context() {
   return c;
 }
 const plain=(x)=>JSON.parse(JSON.stringify(x));
+test('assistant preset adds three desktop bindings without changing personal configuration',()=>{
+  const c=context(),before=plain(c.TKConfig.defaults());before.groups=before.groups.filter(g=>g.name!=='AI助手');
+  before.cards[0].name='Personal'; const snapshot=JSON.stringify(before);
+  const next=plain(c.TKConfig.withAssistantGroup(before));
+  assert.equal(JSON.stringify(before),snapshot);
+  assert.deepEqual(next.cards,before.cards);
+  assert.deepEqual(next.groups.filter(g=>g.name!=='AI助手'),before.groups);
+  const index=next.groups.findIndex(g=>g.name==='AI助手'), group=next.groups[index];
+  assert.equal(next.groups[index+1].name,'Typeless');
+  for(const [slot,code] of [['up',0x68],['down',0x69],['ok',0x6a]]) {
+    assert.deepEqual(group[slot].mac,{mod:0,key:code});assert.deepEqual(group[slot].win,{mod:0,key:code});
+  }
+  assert.throws(()=>c.TKConfig.withAssistantGroup(next));
+  const duplicate=structuredClone(before);duplicate.groups[0].name='AI助手';
+  assert.throws(()=>c.TKConfig.withAssistantGroup(duplicate));
+  assert.deepEqual(plain(c.TKConfig.parse(c.TKConfig.encode(next))),next);
+});
 test('schema defaults preserve author bindings and fit 4000 UTF-8 bytes',()=>{
   const c=context(),cfg=c.TKConfig.defaults();assert.ok(c.TKConfig.bytes(c.TKConfig.encode(cfg)).length<=4000);
-  assert.deepEqual(plain(cfg.groups[1].up.mac),{mod:96,key:0});assert.equal(cfg.groups.find(g=>g.name==='剪映').ok.label,'播放 / 暂停');
+  assert.deepEqual(plain(cfg.groups.find(g=>g.name==='Typeless').up.mac),{mod:96,key:0});assert.equal(cfg.groups.find(g=>g.name==='剪映').ok.label,'播放 / 暂停');
   assert.deepEqual(plain(c.TKConfig.parse(c.TKConfig.encode(cfg))),plain(cfg));
 });
 test('updating recommended shortcut groups preserves all saved cards without mutating input',()=>{
@@ -17,12 +34,12 @@ test('updating recommended shortcut groups preserves all saved cards without mut
   before.groups[0].name='Custom';before.cards=[{title:'Keep',name:'NAME',line:'Keep me',qr:'WIFI:T:WPA;S:DEMO;P:test-only;;'}];
   const saved=JSON.stringify(before),updated=plain(c.TKConfig.withDefaultGroups(before));
   assert.equal(JSON.stringify(before),saved);assert.deepEqual(updated.cards,before.cards);
-  assert.deepEqual(updated.groups.map(g=>g.name),['截图','Typeless','剪映','微信读书','编辑']);
+  assert.deepEqual(updated.groups.map(g=>g.name),['截图','AI助手','Typeless','剪映','微信读书','编辑']);
   const bad=structuredClone(before);bad.cards[0].qr='';assert.throws(()=>c.TKConfig.withDefaultGroups(bad));
 });
 
 test('five new defaults still accept an unchanged six-group legacy personal configuration',()=>{
-  const c=context(),legacy=plain(c.TKConfig.defaults());
+  const c=context(),legacy=plain(c.TKConfig.defaults());legacy.groups=legacy.groups.filter(g=>g.name!=='AI助手');
   assert.equal(legacy.groups.length,5);
   legacy.groups.push({...structuredClone(legacy.groups[3]),name:'抖音'});
   const before=JSON.stringify(legacy),validated=plain(c.TKConfig.parse(c.TKConfig.encode(legacy)));
@@ -77,7 +94,7 @@ test('real JavaScript client writes, persists and reads back through production 
   child.stdout.on('data',(data)=>{text+=data;let i;while((i=text.indexOf('\n'))>=0){const row=JSON.parse(text.slice(0,i));text=text.slice(i+1);for(const line of row.lines)client.receive(line);}});
   child.on('error',(e)=>client.disconnect(e));child.on('exit',(code)=>{if(code)client.disconnect(new Error('C endpoint: '+errors));});
   t.after(()=>{child.stdin.end();client.disconnect();});
-  const cfg=await client.read();assert.equal(cfg.groups.length,5);cfg.groups=cfg.groups.slice(0,1);cfg.cards=cfg.cards.slice(0,1);
+  const cfg=await client.read();assert.equal(cfg.groups.length,6);cfg.groups=cfg.groups.slice(0,1);cfg.cards=cfg.cards.slice(0,1);
   cfg.groups[0].name='自定义';cfg.groups[0].ok={label:'Text',text:'Hello!\n'};cfg.groups[0].up={label:'Right',mac:{mod:96,key:0},win:null};cfg.cards[0].qr='https://example.org/test';
   assert.deepEqual(plain(await client.write(cfg)),plain(c.TKConfig.validate(cfg)));assert.deepEqual(plain(await client.read()),plain(c.TKConfig.validate(cfg)));
 });

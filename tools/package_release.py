@@ -88,6 +88,9 @@ def main():
              'NOTICE.md': (ROOT / 'NOTICE.md').read_bytes()}
     for name in ('flash_candidate.py', 'verify_firmware.py'):
         files['tools/' + name] = (ROOT / 'firmware/tools' / name).read_bytes()
+    # Public desktop bridge source only; never package build output or private settings.
+    for name in ('README.md', 'README.zh_CN.md', 'macos/NaboBridge.swift', 'windows/NaboBridge.ps1'):
+        files['desktop-bridge/' + name] = (ROOT / 'desktop-bridge' / name).read_bytes()
     for path in sorted((ROOT / 'licenses').glob('*')):
         if path.is_file():
             files['licenses/' + path.name] = path.read_bytes()

@@ -68,23 +68,23 @@ test('disconnected actions produce no HID or fake camera success',()=>{
   assert.equal(st.cam.shots,0);assert.equal(st.toast.kind,'err');
 });
 test('author Typeless defaults preserve right-side modifiers',()=>{
-  const g=H.MACRO_GROUPS[1];
+  const g=H.MACRO_GROUPS.find(g=>g.name==='Typeless');
   assert.deepEqual(plain(H.reportBytes(H.resolve(g.up,'mac'))),[0x60,0,0,0,0,0,0,0]);
   assert.deepEqual(plain(H.reportBytes(H.resolve(g.ok,'mac'))),[0x40,0,0x10,0,0,0,0,0]);
   assert.deepEqual(plain(H.reportBytes(H.resolve(g.ok,'win'))),[0x40,0,0,0,0,0,0,0]);
   for (const os of H.OS_LIST) for (const group of H.MACRO_GROUPS) for (const key of ['up','ok','down']) {
-    const p=H.resolve(group[key],os);assert.ok(!(p.usage>=0x68&&p.usage<=0x73));
+    const p=H.resolve(group[key],os);if(group.name!=='AI助手')assert.ok(!(p.usage>=0x68&&p.usage<=0x73));
   }
 });
 test('shortcut defaults retain reading and screenshot cancel while video moves to media on every host',()=>{
-  assert.deepEqual(plain(H.MACRO_GROUPS.map(g=>g.name)),['截图','Typeless','剪映','微信读书','编辑']);
+  assert.deepEqual(plain(H.MACRO_GROUPS.map(g=>g.name)),['截图','AI助手','Typeless','剪映','微信读书','编辑']);
   for(const os of H.OS_LIST) {
     assert.deepEqual(plain(H.reportBytes(H.resolve(H.MACRO_GROUPS[0].down,os))),[0,0,0x29,0,0,0,0,0]);
-    for(const group of [H.MACRO_GROUPS[3],H.DOUYIN_KEYS])
+    for(const group of [H.MACRO_GROUPS.find(g=>g.name==='微信读书'),H.DOUYIN_KEYS])
       for(const [key,usage] of [['up',0x52],['ok',0x4f],['down',0x51]])
         assert.deepEqual(plain(H.reportBytes(H.resolve(group[key],os))),[0,0,usage,0,0,0,0,0]);
     for(const [key,usage] of [['up',0x1d],['ok',0x06],['down',0x04]]) {
-      const packet=H.resolve(H.MACRO_GROUPS[4][key],os);
+      const packet=H.resolve(H.MACRO_GROUPS.find(g=>g.name==='编辑')[key],os);
       assert.equal(packet.mod,H.isApple(os)?8:1);assert.equal(packet.usage,usage);
     }
   }
@@ -116,7 +116,7 @@ function remote(page='macro',mode=0) {
 }
 
 test('continuous reading keys still turn the display off at 30 seconds without dropping HID',()=>{
-  const st=remote();st.macro.group=3;
+  const st=remote();st.macro.group=H.MACRO_GROUPS.findIndex(g=>g.name==='微信读书');
   for(let i=1;i<=31;i++) {
     const packets=hid(T.press(st,'down',10+i*1000));
     assert.equal(packets.length,1);assert.equal(packets[0].usage,0x51);
@@ -236,7 +236,7 @@ test('voice enrollment counts validate atomically and long OK requests one async
 });
 
 test('recognition can open all seven enrolled targets without sending HID or starting the camera',()=>{
-  for(const [target,page,detail] of [[0,'macro',3],[1,'media',1],[2,'media',0],[3,'card',0],[4,'cam',0],[5,'macro',0],[6,'macro',1]]) {
+  for(const [target,page,detail] of [[0,'macro',4],[1,'media',1],[2,'media',0],[3,'card',0],[4,'cam',0],[5,'macro',0],[6,'macro',2]]) {
     const st=voicePage();assert.deepEqual(plain(T.press(st,'ok',20)),[]);
     assert.equal(st.voice.status,8);assert.equal(T.voiceProgress(st,st.voice.token,1,30),true);
     assert.equal(T.voiceResult(st,st.voice.token,1,target,0,40),true);assert.equal(st.page,page);
@@ -306,7 +306,7 @@ test('short/long boundary, delayed release and single ADC owner',()=>{
 
 function contract(api) {
   const st=api.T.create(0);api.T.tick(st,5499);assert.equal(st.page,'boot');
-  assert.equal(api.H.resolve(api.H.MACRO_GROUPS[1].up,'mac').mod,0x60);
+  assert.equal(api.H.resolve(api.H.MACRO_GROUPS.find(g=>g.name==='Typeless').up,'mac').mod,0x60);
   st.page='cam';api.T.press(st,'down',0);api.T.tick(st,0);api.T.tick(st,600);assert.equal(st.cam.shots,2);
 }
 test('contract catches timing, right-modifier and burst-cadence mutations',()=>{

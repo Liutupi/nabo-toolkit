@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-30",
+  "candidate_version": "0.3.3-ai-dev1",
+  "release_scope": "Experimental AI assistant shortcuts and desktop bridge; the exact app and a retained personal configuration were tested on one Mac and one badge.",
+  "build": "PASS",
+  "sdk": "v6.0.2",
+  "target": "esp32c3",
+  "board": "ai-passport-nabo",
+  "flash_bytes": 8388608,
+  "psram": false,
+  "archive": "build/firmware/8f189aa0272dee08342bb37f6379821a730efe665e2e1e1174b81641903b66a3",
+  "artifacts": {
+    "nabo-toolkit.bin": {"bytes": 2031008, "sha256": "b86665d923123d7d88470cc099637cf2afd61a76f3e0776d92560a4f4d956906"},
+    "nabo-toolkit.elf": {"bytes": 11330136, "sha256": "3bc4c6ea438404ef606100b8e72eb970a1e7c8d924024a781c8c8ae69bac54cd"},
+    "nabo-toolkit-merged.bin": {"bytes": 2096544, "sha256": "8f189aa0272dee08342bb37f6379821a730efe665e2e1e1174b81641903b66a3"}
+  },
+  "actual_legacy_factory_capacity": 2031616,
+  "actual_legacy_remaining_bytes": 608,
+  "host_tests": {"status": "PASS", "node": 45, "python": 145, "acoustic_probe": 25, "total": 215, "skipped": 0, "full_model_steps": 2738, "mutations_caught": 3},
+  "candidate_flashed": true,
+  "device_install": {"status": "PASS", "mode": "app-only", "app_offset": 65536, "app_bytes": 2031008, "app_sha256": "b86665d923123d7d88470cc099637cf2afd61a76f3e0776d92560a4f4d956906", "write_verified": true, "reset": true, "partition_table_rewritten": false, "record_and_assets_in_write_range": false, "full_install_tested": false},
+  "device_tests": {"status": "PARTIAL PASS", "scope": "Exact app installed and verified; production USB configuration readback equals the accepted existing configuration, and the user accepted three Mac assistant launches, one Typeless dictation into a chat input, and returning to the assistant group."},
+  "physical_acceptance": {"status": "PASS for the requested Mac workflow", "evidence": "User confirmed all three assistant launches and input focus, one Typeless result in a chat input, and returning to the assistant group on the exact app. The Typeless target app was not specified.", "configuration": "Retained personal six-group configuration; full-reset defaults not separately tested."},
+  "unverified": ["Windows bridge compilation and device workflow", "Fresh-install default group on physical hardware", "Community merged-image full installation", "Cold-power retention, long-term stability, power, other hosts and application versions", "Typeless transcription into every individual assistant"]
+}

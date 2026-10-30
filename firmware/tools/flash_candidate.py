@@ -21,6 +21,10 @@ EXPECTED = {'nvs': (1, 2, 0x9000, 0x6000), 'phy_init': (1, 1, 0xf000, 0x1000),
 # Measured on the user's ESP-IDF 6.0.2 Adventure device; F0 never reads assets.
 LEGACY_ADVENTURE = {'nvs': (1, 2, 0x9000, 0x6000), 'phy_init': (1, 1, 0xf000, 0x1000),
                     'factory': (0, 0, APP_OFFSET, 0x1f0000), 'assets': (1, 0x41, 0x200000, 0x600000)}
+# Measured NABO Words layout: record and assets begin after the legacy app.
+WORDS = {'nvs': (1, 2, 0x9000, 0x6000), 'phy_init': (1, 1, 0xf000, 0x1000),
+         'factory': (0, 0, APP_OFFSET, 0x1f0000), 'record': (1, 0x40, 0x200000, 0x10000),
+         'assets': (1, 0x41, 0x210000, 0x5f0000)}
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
@@ -43,7 +47,7 @@ def validate_layout(raw):
     if not md5:
         raise ValueError('Unrecognized partition table')
     actual = {p.label: (p.kind, p.subtype, p.offset, p.size) for p in parts}
-    if actual not in (EXPECTED, LEGACY_ADVENTURE):
+    if actual not in (EXPECTED, LEGACY_ADVENTURE, WORDS):
         raise ValueError('Device layout differs; app-only upgrade refused')
     for cursor in range(0, len(parts) * 32, 32):
         if struct.unpack_from('<I', raw, cursor + 28)[0]:

@@ -182,6 +182,10 @@
   };
   $('#add-card').onclick = () => { cfg.cards.push({ title: '名片', name: '', line: '', qr: 'https://example.org' }); render(); };
   $('#reset').onclick = () => { cfg = defaults(); render(); status('已恢复默认（还没保存）'); };
+  $('#add-assistants').onclick = () => {
+    try { cfg = C.withAssistantGroup(cfg); render(); status('已加入 AI助手 组，原分组和名片保留；尚未写入工牌。'); }
+    catch (e) { status(e.message === 'duplicate' ? '已有 AI助手 组，未改动配置。' : '未加入：请检查配置及 6 组上限。', true); }
+  };
   $('#default-groups').onclick = () => {
     try { cfg = C.withDefaultGroups(cfg); render(); status('已换成新版默认快捷键，名片保留；尚未写入工牌。'); }
     catch (_) { status('当前配置有误，请先读回或修正，未替换快捷键。', true); }

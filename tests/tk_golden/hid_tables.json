@@ -1,5 +1,5 @@
 {
-  "source_sha256": "6b29b08cf350ab6b5484ddf13f5ba589e1ec3cc65066a72b3996141f0b3ab53b",
+  "source_sha256": "be3b6f813fd88ab3482242b2b858bfcd49a3bb94a861c6fc9f5df60a1806376c",
   "MOD": {
     "ctrl": 1,
     "shift": 2,
@@ -297,6 +297,24 @@
         "label": "取消 Esc",
         "mods": [],
         "key": 41
+      }
+    },
+    {
+      "name": "AI助手",
+      "up": {
+        "label": "Codex",
+        "mods": [],
+        "key": 104
+      },
+      "down": {
+        "label": "Claude",
+        "mods": [],
+        "key": 105
+      },
+      "ok": {
+        "label": "Grok Bot",
+        "mods": [],
+        "key": 106
       }
     },
     {
@@ -653,6 +671,24 @@
           }
         },
         {
+          "name": "AI助手",
+          "up": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 104
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 106
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 105
+          }
+        },
+        {
           "name": "Typeless",
           "up": {
             "kind": "key",
@@ -876,6 +912,24 @@
             "kind": "key",
             "mod": 0,
             "usage": 41
+          }
+        },
+        {
+          "name": "AI助手",
+          "up": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 104
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 106
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 105
           }
         },
         {
@@ -1105,6 +1159,24 @@
           }
         },
         {
+          "name": "AI助手",
+          "up": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 104
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 106
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 105
+          }
+        },
+        {
           "name": "Typeless",
           "up": {
             "kind": "key",
@@ -1328,6 +1400,24 @@
             "kind": "key",
             "mod": 0,
             "usage": 41
+          }
+        },
+        {
+          "name": "AI助手",
+          "up": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 104
+          },
+          "ok": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 106
+          },
+          "down": {
+            "kind": "key",
+            "mod": 0,
+            "usage": 105
           }
         },
         {

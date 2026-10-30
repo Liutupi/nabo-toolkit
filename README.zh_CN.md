@@ -2,11 +2,13 @@
 
 # NABO 工具箱
 
+**v0.3.3-ai-dev1 候选**：新增默认「AI助手」快捷键组，配合 [电脑端桥接](desktop-bridge/README.zh_CN.md) 呼出 Codex、Claude 和 Grok Bot，再切到 Typeless 组手动语音输入。已保存的个人配置不会自动替换；先从工牌读回，再用配置页显式加入新组。原有 NABO 素材不变。用户已在新固定固件和保留的个人配置上确认 Mac 联动；全新安装默认组和 Windows 尚未实机验证。
+
 **v0.3.2-voice-dev4 · 公开实验测试版**：新增本人录入的离线语音查找，覆盖读书、抖音、音乐、名片、拍照、截图、语音输入。主菜单长按底部OK，每词建议录三次，再短OK识别；语音输入仅进入Typeless，之后按原键操作。213项宿主与本轮真机语音/21份模板保留检查通过。显式无损整理恢复了存储余量，不改变个人样本、配置或绑定；原NABO形象、动画和声音保留。[发布及保护升级说明](docs/RELEASE_v0.3.2-voice-dev4.md) · [录入用法](docs/VOICE.zh_CN.md) · [配置页](https://liutupi.github.io/nabo-toolkit/)。
 
-它不是通用听写或普适识别。个人名片链接真实改写、重启保留和手机扫码已通过；长稳、多用户/噪声和完整首装仍有未测项，PCUSB耳机间歇问题未定因。社区原项目1701的新修订3977已保存固件和中英说明并提交，当前**审核中**；五张原图/封面/顺序逐张哈希核对保留。[社区更新记录](docs/community/v0.3.2-voice-dev4/README.md) · [作者全部已发布作品](https://ai-passport.folotoy.cn/creators/?id=14101)。
+它不是通用听写或普适识别。个人名片链接真实改写、重启保留和手机扫码已通过；长稳、多用户/噪声和完整首装仍有未测项，PCUSB耳机间歇问题未定因。社区原项目1701的修订3977已审核通过并公开；原五张图的历史记录见[社区更新记录](docs/community/v0.3.2-voice-dev4/README.md) · [作者全部已发布作品](https://ai-passport.folotoy.cn/creators/?id=14101)。
 
-[v0.3.2-voice-dev4 固件已发布](https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.2-voice-dev4)：8个资产匿名重新下载通过，ZIP内37个文件及公开配置页11个文件字节/SHA一致；[发布核验记录](docs/validation/publication-v0.3.2-voice-dev4.json)。社区dev4已提交审核，公开条目审核通过前仍保留上一版v0.3.1。以下v0.3.1段落为历史发布/设备证据，不代表当前社区状态或v0.3.2重新完成全项验收。
+[v0.3.2-voice-dev4 固件已发布](https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.2-voice-dev4)：8个资产匿名重新下载通过，ZIP内37个文件及公开配置页11个文件字节/SHA一致；[发布核验记录](docs/validation/publication-v0.3.2-voice-dev4.json)。以下v0.3.1段落为历史发布/设备证据，不代表当前社区状态或v0.3.2重新完成全项验收。
 
 **v0.3.1-remote-dev2已在GitHub发布，社区审核中（2026-10-28）**：源码默认五组为截图（含Esc取消）、Typeless、剪映、微信读书、编辑，抖音移入媒体的“音乐/抖音”选择。音乐原音量/播放/切歌键保留；屏幕与本地网页按实体从上到下“上、下、OK”显示。可选30秒息屏遥控，普通短键不续亮屏计时且继续发送，暗屏长OK只亮屏，亮屏长OK保留原工具动作，长上仍返回。候选 `0.3.1-remote-dev2` 完整门禁PASS：127项（37 Node+90 Python）、跳过0、2,206步、3项故意变异及ESP-IDF6.0.2/F3构建；固定app已获授权app-only安装、校验和复位通过。另经真实USB仅移除匹配的旧抖音组，其余组/名片逐项保留，自动读回及连续3次读回一致。实体媒体选择/键位顺序、息屏、暗屏翻页及长OK只亮屏已由用户确认通过；冷启动保留、真实功耗和全部App/平台矩阵仍待测，GitHub固件与公开配置页已核验，原社区条目已更新并重新提交审核，尚未公开上架。
 

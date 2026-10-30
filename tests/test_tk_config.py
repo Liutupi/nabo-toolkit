@@ -53,8 +53,9 @@ class ConfigTests(unittest.TestCase):
         for i in range(0,len(data),48):self.assertEqual(self.line('>tk.cfg.data '+base64.b64encode(data[i:i+48]).decode()),[f'tk.cfg.more {min(i+48,len(data))}'])
         return self.line(f'>tk.cfg.end {zlib.crc32(data) if crc is None else crc:08x}')
     def test_defaults_match_author_and_full_write_read_reboot_model_effects(self):
-        self.assertEqual(self.lib.tk_cfg_host_error(self.h),0);self.assertEqual(len(self.current()['groups']),5)
-        self.assertEqual(self.current()['groups'][1]['up']['mac'],{'mod':96,'key':0})
+        self.assertEqual(self.lib.tk_cfg_host_error(self.h),0);self.assertEqual(len(self.current()['groups']),6)
+        self.assertEqual(next(g for g in self.current()['groups'] if g['name']=='Typeless')['up']['mac'],{'mod':96,'key':0})
+        self.assertEqual(next(g for g in self.current()['groups'] if g['name']=='AI助手')['up']['mac'],{'mod':0,'key':0x68})
         c=example();self.assertTrue(self.upload(c)[0].startswith('tk.cfg.ok '));self.assertEqual(self.current(),c)
         self.assertEqual(self.line('>tk.cfg.read'),[f"tk.cfg.begin {len(self.lib.tk_cfg_host_json(self.h))}"])
         for _ in range(100):self.now+=16;self.lib.tk_cfg_host_tick(self.h,self.now,True)
@@ -90,7 +91,7 @@ class ConfigTests(unittest.TestCase):
     def test_corrupted_persisted_record_is_preserved_and_not_applied(self):
         self.upload(example());data=bytearray(self.stored());data[-1]^=1;b=(C.c_ubyte*len(data)).from_buffer_copy(data);self.lib.tk_mock_blob(b'cfg_v1',b,len(data))
         self.lib.tk_cfg_host_free(self.h);self.h=self.lib.tk_cfg_host_new();self.assertNotEqual(self.lib.tk_cfg_host_error(self.h),0)
-        self.assertEqual(len(self.current()['groups']),5);self.assertEqual(self.stored(),data)
+        self.assertEqual(len(self.current()['groups']),6);self.assertEqual(self.stored(),data)
     def test_six_group_legacy_config_survives_save_reload_without_implicit_migration(self):
         legacy=example();source=legacy['groups'][0]
         legacy['groups']=[dict(copy.deepcopy(source),name='抖音' if i==5 else f'Legacy{i}') for i in range(6)]

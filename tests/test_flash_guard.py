@@ -39,6 +39,15 @@ class FlashGuardTests(unittest.TestCase):
     def test_measured_legacy_adventure_layout_is_accepted_without_repartitioning(self):
         self.assertEqual(F.validate_layout(table(layout=F.LEGACY_ADVENTURE)),0x1f0000)
         data=app(); F.validate_app(data,F.digest(data),0x1f0000)
+    def test_words_layout_keeps_record_and_assets_beyond_erase_boundary(self):
+        self.assertEqual(F.validate_layout(table(layout=F.WORDS)),0x1f0000)
+        self.assertEqual(F.WORDS['record'][2],0x200000)
+        data=app()+b'\0'*(0x1f0000-256)
+        F.validate_app(data,F.digest(data),F.validate_layout(table(layout=F.WORDS)))
+        too_large=data+b'\0'
+        with self.assertRaises(ValueError): F.validate_app(too_large,F.digest(too_large),0x1f0000)
+        changed=dict(F.WORDS);changed['record']=(1,0x40,0x1ff000,0x10000)
+        with self.assertRaises(ValueError): F.validate_layout(table(layout=changed))
     def test_candidate_must_fit_the_actual_smaller_legacy_partition(self):
         data=app()+b'\0'*0x200000
         F.validate_app(data,F.digest(data))
