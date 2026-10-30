@@ -1,0 +1,138 @@
+{
+  "date": "2026-10-30",
+  "repo": "https://github.com/Liutupi/nabo-toolkit",
+  "visibility": "PUBLIC",
+  "release": "https://github.com/Liutupi/nabo-toolkit/releases/tag/v0.3.3-ai-dev1",
+  "version": "v0.3.3-ai-dev1",
+  "prerelease": true,
+  "source_commit": "b43857edbaa9f2aec443ec8d1b7fae0851fd6751",
+  "configuration_source_commit": "b43857edbaa9f2aec443ec8d1b7fae0851fd6751",
+  "tag_commit": "b43857edbaa9f2aec443ec8d1b7fae0851fd6751",
+  "authorization_header_used": true,
+  "download_authorization_header_used": false,
+  "anonymous_release_asset_downloads": true,
+  "github_metadata": {
+    "authenticated_cli_fallback_used": true,
+    "fallbacks": [
+      {
+        "url": "https://api.github.com/repos/Liutupi/nabo-toolkit",
+        "anonymous_http": 403
+      },
+      {
+        "url": "https://api.github.com/repos/Liutupi/nabo-toolkit/releases/tags/v0.3.3-ai-dev1",
+        "anonymous_http": 403
+      },
+      {
+        "url": "https://api.github.com/repos/Liutupi/nabo-toolkit/git/ref/tags/v0.3.3-ai-dev1",
+        "anonymous_http": 403
+      }
+    ]
+  },
+  "public_downloads": {
+    "community-manifest.json": {
+      "bytes": 883,
+      "sha256": "13411fdfd7af0c6031c332f28a82b329d460f85965fd6c457f195d21df84f72e",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.3-ai-dev1/community-manifest.json",
+      "http": 200
+    },
+    "COMMUNITY_SHA256SUMS.txt": {
+      "bytes": 188,
+      "sha256": "e05a1e16d0c993a66a89538bc80a7819c9aeda26480afda56e8d7b085fc6caa3",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.3-ai-dev1/COMMUNITY_SHA256SUMS.txt",
+      "http": 200
+    },
+    "manifest.json": {
+      "bytes": 7609,
+      "sha256": "66068811d584f6530bdf2b547ef37359275f0a7120eb909ae7bf308c54abef71",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.3-ai-dev1/manifest.json",
+      "http": 200
+    },
+    "nabo-toolkit-app.bin": {
+      "bytes": 2031008,
+      "sha256": "b86665d923123d7d88470cc099637cf2afd61a76f3e0776d92560a4f4d956906",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.3-ai-dev1/nabo-toolkit-app.bin",
+      "http": 200
+    },
+    "nabo-toolkit-community-full.bin": {
+      "bytes": 2096544,
+      "sha256": "8f189aa0272dee08342bb37f6379821a730efe665e2e1e1174b81641903b66a3",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.3-ai-dev1/nabo-toolkit-community-full.bin",
+      "http": 200
+    },
+    "nabo-toolkit-config-offline.zip": {
+      "bytes": 93385,
+      "sha256": "6f64c9b6c8eb173475746b1c2f9de3854207d7d10fa57f6520f6058b9b0caee5",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.3-ai-dev1/nabo-toolkit-config-offline.zip",
+      "http": 200
+    },
+    "nabo-toolkit-v0.3.3-ai-dev1.zip": {
+      "bytes": 1565432,
+      "sha256": "e7fe01897e48b089eca422caa58276638db8cfbd9c3f6fc76c4e76addf387032",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.3-ai-dev1/nabo-toolkit-v0.3.3-ai-dev1.zip",
+      "http": 200
+    },
+    "SHA256SUMS.txt": {
+      "bytes": 363,
+      "sha256": "2eda3796dfa5e6b4860ef195f643b525b2965d9263cbd6e6f8867b93bff86fb4",
+      "url": "https://github.com/Liutupi/nabo-toolkit/releases/download/v0.3.3-ai-dev1/SHA256SUMS.txt",
+      "http": 200
+    }
+  },
+  "zip_members_verified": 41,
+  "validation_firmware_version": "0.3.3-ai-dev1",
+  "validation_sha256": "975c44625fdd049e920cd91403d806c9a3b9e4450d1429d6c2541f3e73e57f56",
+  "unverified": [
+    "Windows bridge compilation and device workflow",
+    "Fresh-install default group on physical hardware",
+    "Community merged-image full installation",
+    "Cold-power retention, long-term stability, power, other hosts and application versions",
+    "Typeless transcription into every individual assistant"
+  ],
+  "accepted_app_sha256": "b86665d923123d7d88470cc099637cf2afd61a76f3e0776d92560a4f4d956906",
+  "merged_image_published": true,
+  "device_readbacks_published": false,
+  "status": "PASS",
+  "community_first_install": {
+    "schema": 1,
+    "version": "v0.3.3-ai-dev1",
+    "kind": "community-full-install",
+    "offset": "0x0",
+    "firmware": {
+      "filename": "nabo-toolkit-community-full.bin",
+      "bytes": 2096544,
+      "sha256": "8f189aa0272dee08342bb37f6379821a730efe665e2e1e1174b81641903b66a3"
+    },
+    "app": {
+      "offset": "0x10000",
+      "bytes": 2031008,
+      "sha256": "b86665d923123d7d88470cc099637cf2afd61a76f3e0776d92560a4f4d956906"
+    },
+    "first_install_on_device": "NOT RUN",
+    "data_effect": "Replaces partition table and may reset NVS settings, pairings and personal voice templates.",
+    "validation": "Exact app-only installation with retained personal configuration on one Mac passed; full install and Windows unverified.",
+    "image": {
+      "file": "nabo-toolkit-community-full.bin",
+      "bytes": 2096544,
+      "sha256": "8f189aa0272dee08342bb37f6379821a730efe665e2e1e1174b81641903b66a3"
+    }
+  },
+  "site": {
+    "url": "https://liutupi.github.io/nabo-toolkit/",
+    "manifest_http": 200,
+    "files_http_200_sha256_match": [
+      "LICENSE",
+      "NOTICE.md",
+      "README.txt",
+      "config.html",
+      "config.js",
+      "index.html",
+      "nabo.png",
+      "tk_config_schema.js",
+      "tk_config_serial.js",
+      "tk_core.js",
+      "tk_hid.js"
+    ],
+    "browser_physical_serial_permission": "UNVERIFIED"
+  },
+  "date_note": "Corrected the verifier fixed historical date to the actual verification date."
+}
